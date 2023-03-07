@@ -1,15 +1,15 @@
-import logo from "./e-logo.svg";
-import picture from "./IMG_0829.png";
 import "./App.css";
+import { Layout } from "./app/layout";
+import { Col, Row, Container } from "react-bootstrap";
+import { Header } from "./components/HomePage/Header";
+import { Events } from "./components/HomePage/Events";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Eventbrite is under construction.</p>
-      </header>
-    </div>
+    <Layout>
+      <Header />
+      <Events />
+    </Layout>
   );
 }
 
