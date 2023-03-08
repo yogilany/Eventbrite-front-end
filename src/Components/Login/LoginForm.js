@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
  * @param {name: Name of this element after creation} props 
  * @returns Login form containing email, password forms & log in submit button
  */
-function Login_form(props) {
+export const LoginForm = (props) => {
     const ButtonStyle = {
         backgroundColor: "#d1410c",
         color: "white",
@@ -30,7 +30,7 @@ function Login_form(props) {
         }
     }
 
-    return (<div className={props.name}  style={{margin:"10% 0"}}>
+    return (<div className={props.name} style={{ margin: "10% 0" }}>
         <form>
 
             <Form.Group className="mb-3" controlId="formLoginEmail">
@@ -45,4 +45,4 @@ function Login_form(props) {
     </div>);
 }
 
-export default (Login_form);
+export default (LoginForm);

@@ -1,20 +1,23 @@
 import Button from 'react-bootstrap/Button'
-import Login_form from './Login_form';
+import LoginForm from './LoginForm';
 import './Login.css'
 import { ButtonGroup, Image } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import * as icons from 'react-icons/fc';
-import Login_methods from './Login_methods';
+import LoginMethods from './LoginMethods';
 import test_image from './side_image.jpg'
-
+import { Header } from "../HomePage/Header"
+import { LoginTitle as LoginTitle } from './LoginTitle';
+import * as CgIcons from 'react-icons/cg';
+import LoginImage from './LoginImage';
 /**
  * 
  * @param {name: Name of this element after creation} props 
  * @returns Login page
  */
-function Login(props) {
+export const Login = (props) => {
 
     const LoginColumnStyle = {
         margin: "4rem 0 0 12rem"
@@ -24,26 +27,46 @@ function Login(props) {
         , display: "inline-block"
     }
     const ImageStyle = {
-        backgroundImage: `url(${test_image})`, backgroundSize: "cover",
-        width: "100%", height: "100%", backgroundRepeat: "no-repeat", backgroundPosition: "0",
+        backgroundImage: `url(${test_image})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "0",
+        width: "100%",
+        height: "100%",
+
     }
 
     return (
         <div className={props.name}>
+            <LoginTitle ></LoginTitle>
             <Container fluid>
-                <Row >
+
+
+                <Row>
                     <Col>
                         <div id="login-left-div" style={LoginColumnStyle}>
                             <h1 id="login-login-h1" >Log in</h1>
-                            {Login_form({ name: "login-form-div" })}
+                            
+                            <LoginForm name="login-form-div" />
+
+                            {/* divider in progress */}
                             <div style={{ margin: "2rem ", maxWidth: "50%" }}>
                                 <hr></hr>
                             </div>
-                            {Login_methods({ name: "login-methods-div" })}
+
+                            <LoginMethods name="login-methods-div" />
+
                         </div>
+
                     </Col>
                     <Col >
-                        <div style={ImageStyle}></div>
+                        <LoginImage
+                            img_url={test_image}
+                            img_caption="ragel gamed"
+                            img_credit="Msh ana"
+                            img_location="New York, NY"
+                        />
+
                     </Col>
                 </Row>
             </Container>

@@ -2,9 +2,7 @@ import Button from 'react-bootstrap/Button'
 import './Login.css'
 import { ButtonGroup, Col, Row } from 'react-bootstrap';
 import * as FcIcons from 'react-icons/fc';
-import * as FaIcons from 'react-icons/fa';
 import * as TiIcons from 'react-icons/ti';
-import Radium from 'radium';
 import Container from 'react-bootstrap/Container';
 
 /**
@@ -12,7 +10,7 @@ import Container from 'react-bootstrap/Container';
  * @param {name: Name of this element after creation} props 
  * @returns Login button methods for signing in with email, Google, Apple, Facebook
  */
-function Login_methods(props) {
+export const LoginMethods = (props) => {
 
     const ButtonStyle = {
         backgroundColor: "white",
@@ -46,10 +44,10 @@ function Login_methods(props) {
                     </Col>
                 </Row>
             </Container>
-            <Button type="button" variant="outline-danger" size="sm" > Sign up</Button>
+            <Button type="button" variant="outline-dark" size="sm" > Sign up</Button>
         </div >
 
     );
 }
 
-export default (Login_methods);
+export default (LoginMethods);
