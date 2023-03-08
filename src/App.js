@@ -1,11 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
-import './Components/Login/Login.js'
-import Login from './Components/Login/Login.js';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import "./App.css";
+import { Layout } from "./app/layout";
+import { Col, Row, Container } from "react-bootstrap";
+import { Header } from "./components/HomePage/Header";
+import { Events } from "./components/HomePage/Events";
+
 function App() {
   return (
-    Login({name:"alo"})
+    <Layout>
+      <Header />
+      <Events />
+    </Layout>
   );
 }
 
