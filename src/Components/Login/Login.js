@@ -9,7 +9,7 @@ import * as icons from 'react-icons/fc';
 import LoginMethods from './LoginMethods';
 import test_image from './side_image.jpg'
 import { Header } from "../HomePage/Header"
-import { LoginTitle as LoginTitle } from './LoginTitle';
+import { LoginTitle as LoginTitle } from './Title';
 import * as CgIcons from 'react-icons/cg';
 import LoginImage from './LoginImage';
 /**
