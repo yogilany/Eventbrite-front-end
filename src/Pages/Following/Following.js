@@ -6,6 +6,7 @@ import FollowImage from '../../assets/follow1.jpeg'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import Header from '../../components/header/Header'
 import { useState } from 'react'
+import Button from 'react-bootstrap/Button';
 const Following = () => {
   const [counter, setCounter] = useState(1);
   return (
