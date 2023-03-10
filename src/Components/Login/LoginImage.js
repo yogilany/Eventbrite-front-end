@@ -8,32 +8,43 @@ export const LoginImage = (props) => {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "0",
         width: "100%",
-        height: "100vh",
+        height: "100%",
 
     }
 
     const ContainerCaptionStyle = {
-        position: "relative",
         textAlign: "right",
         color: "white",
-        top: "35rem",
-        left: "40rem",
-        fontSize: "0.8rem"
+        fontSize: "0.75rem",
+
     }
     return (
-        <div style={ImageStyle}>
-            <Container fluid style={ContainerCaptionStyle}>
-                <Row style={{ fontWeight: "bolder" }}>
-                    {props.img_caption}
-                </Row>
-                <Row>
-                    {props.img_credit}
-                </Row>
-                <Row >
-                    {props.img_location}
-                </Row>
-            </Container>
-        </div >)
+        <Container style={ImageStyle} >
+            <Row style={{ height: "100vh" }}>
+                <Col md={4} >
+                </Col>
+                <Col md={4}>
+                </Col>
+                <Col md={4} className="d-flex 
+                justify-content-end 
+                flex-column ml-3" style={{ marginBottom: "150px" }}>
+                    <div className='p-3' style={ContainerCaptionStyle}>
+                        <div style={{ fontWeight: "700" }}>
+                            {props.img_caption}
+                        </div>
+                        <div>
+                            {props.img_credit}
+
+                        </div>
+                        <div>
+                            {props.img_location}
+                        </div>
+
+                    </div>
+                </Col>
+
+            </Row>
+        </Container >)
 }
 
 export default LoginImage;
