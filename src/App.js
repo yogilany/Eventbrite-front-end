@@ -8,10 +8,11 @@ import { BrowseEventsPage } from "./components/BrowseEventsPage/BrowseEventsPage
 import { Login } from "./components/Login/Login.js";
 import { Signup } from "./components/Signup/Signup.js";
 import Event from "./components/Events/Event";
+import Details from './Pages/Details/Details'
 function App() {
   return (
-    <Event></Event>
-
+    // <Event></Event>
+    <Details />
     // <Signup></Signup>
     // <>
     // {/* <Login></Login> */}
