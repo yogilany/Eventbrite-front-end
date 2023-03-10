@@ -1,0 +1,13 @@
+.text__logo
+{
+    margin-left: -60px;
+    margin-bottom: -40px;
+    font-size: 35px;
+    color: #a7a5ab;
+}
+.summary__container
+{
+    width:700px;
+    height: 200px;
+    margin-bottom: 20px;
+}
