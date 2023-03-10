@@ -5,7 +5,7 @@
 .rocket__logo
 {
     margin-left: -60px;
-    margin-bottom: -40px;
+    margin-bottom: -60px !important;
     font-size: 35px;
     color: #a7a5ab;
 }

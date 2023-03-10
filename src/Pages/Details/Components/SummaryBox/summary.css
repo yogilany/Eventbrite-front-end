@@ -1,7 +1,7 @@
 .text__logo
 {
     margin-left: -60px;
-    margin-bottom: -40px;
+    margin-bottom: -70px !important;
     font-size: 35px;
     color: #a7a5ab;
 }
