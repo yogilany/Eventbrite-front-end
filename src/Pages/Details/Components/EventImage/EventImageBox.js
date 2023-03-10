@@ -12,7 +12,7 @@ const EventImageBox = () => {
         <div className='EventImage__fileType'>
             <div className='EventImage__fileType-body'>
                 <CgImage className='photo' />
-                <h2 style = {{marginBottom:'20px'}}>Drag and drop an Image or</h2>
+                <h3 style = {{marginBottom:'20px'}}>Drag and drop an Image or</h3>
                 <button className='upload-btn'>Upload Image</button>
                 <button className='canvas-btn'>Design With Canvas</button>
             </div>
