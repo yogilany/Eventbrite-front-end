@@ -1,0 +1,19 @@
+.addEvents__container
+{
+    margin-bottom: 100px;
+}
+.rocket__logo
+{
+    margin-left: -60px;
+    margin-bottom: -40px;
+    font-size: 35px;
+    color: #a7a5ab;
+}
+.add__section
+{
+    margin-top: 20px;
+    border: 2px dashed rgb(219, 218, 227);
+    border-radius: 8px;
+    padding: 32px;
+    width: 700px;
+}
