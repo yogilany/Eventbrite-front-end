@@ -1,6 +1,6 @@
 import React from 'react'
 import './sidebar.css'
-import Dropdown from '../../pages/Details/Components/Dropdown/Dropdown';
+import Dropdown from '../../Pages/Details/Components/Dropdown/Dropdown'
 import { AiOutlineHome } from "react-icons/ai";
 import { BsCalendar2Date } from 'react-icons/bs'
 import { HiOutlineClipboardList } from 'react-icons/hi'
