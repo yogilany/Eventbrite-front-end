@@ -32,9 +32,9 @@ const Sidebar = () => {
         <div className='sidebar__Event-options'>
             <a className = "events__link" href = "#" style = {{marginLeft:'35px'}}><AiOutlineArrowLeft className='arrowLeft' /> Events</a>
             <div className='line'><hr /></div>
-            <a style={{textDecoration:'none' , marginTop:'25px'}} href = "#" className="event__name"><h2 style = {{marginLeft:'35px', color: "#1E0A3C"}}>MK</h2></a>
-            <p style = {{marginLeft:'35px',fontSize:'14px',color: "#4b4d63",marginTop:"10px",fontWeight:'600'}}>Sun, Apr 16, 2023 7:00 PM</p>
-            <a href = "#" style = {{marginLeft:'35px'}} className = "preview__link">Preview your Event <RiShareCircleFill className='share__logo'/></a>
+            <a style={{textDecoration:'none' , marginTop:'10px'}} href = "#" className="event__name"><h2 style = {{marginLeft:'35px', color: "#1E0A3C"}}>MK</h2></a>
+            <p style = {{marginLeft:'35px',fontSize:'14px',color: "#4b4d63",marginTop:"2px",fontWeight:'600'}}>Sun, Apr 16, 2023 7:00 PM</p>
+            <a href = "#" style = {{marginLeft:'35px' , marginTop:'-8px'}} className = "preview__link">Preview your Event <RiShareCircleFill className='share__logo'/></a>
             <div className='line'><hr /></div>
             <div className='routing__options'>
                 <a href = "#" className='EventOption'><TbNumber1 className='number'/>Basic Info</a>

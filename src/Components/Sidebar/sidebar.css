@@ -80,7 +80,7 @@
 }
 .line hr
 {
-    border-top: 1px solid rgb(242, 240, 240);
+    border-top: 1px solid rgb(196, 195, 195) !important;
 }
 .event__name:hover
 {
