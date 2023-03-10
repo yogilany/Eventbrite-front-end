@@ -15,7 +15,6 @@ export const LoginMethods = (props) => {
     const ButtonStyle = {
         backgroundColor: "white",
         color: "#39364f",
-        width: "180%",
         justifyContent: "center",
         transition: "backgroundColor 100ms ease-in",
         borderRadius: "0.2vmin",
@@ -28,10 +27,10 @@ export const LoginMethods = (props) => {
     }
 
     return (
-        <div className={props.name} >
-            <ButtonGroup vertical>
-                <Button variant="secondary" size="lg" style={ButtonStyle}> Email me a login link</Button>
-                <Button variant="secondary" size="lg" style={ButtonStyle}> <FcIcons.FcGoogle size="1.5em" />{" Sign in with Google"}</Button>
+        <Container className='m-0 p-0' style={{ minWidth: "200px" }} >
+            <ButtonGroup vertical style={{ width: "100%" }}>
+                <Button variant="secondary" style={ButtonStyle}> Email me a login link</Button>
+                <Button variant="secondary" style={ButtonStyle} > <FcIcons.FcGoogle size="1.5em" />{" Sign in with Google"}</Button>
             </ButtonGroup>
             <div style={{ margin: "1.5rem 0" }}>Other login methods</div>
             <Container style={{ margin: "1rem 0" }}>
@@ -45,7 +44,7 @@ export const LoginMethods = (props) => {
                 </Row>
             </Container>
             <Button type="button" variant="outline-dark" size="sm" > Sign up</Button>
-        </div >
+        </Container >
 
     );
 }

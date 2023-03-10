@@ -19,9 +19,7 @@ import LoginImage from './LoginImage';
  */
 export const Login = (props) => {
 
-    const LoginColumnStyle = {
-        margin: "4rem 0 0 12rem"
-    }
+
     const dividerStyle = {
         outerHeight: "30rem"
         , display: "inline-block"
@@ -33,36 +31,24 @@ export const Login = (props) => {
         backgroundPosition: "0",
         width: "100%",
         height: "100%",
-
     }
 
     return (
-        <div className={props.name}>
-            <LoginTitle ></LoginTitle>
-            <Container fluid>
-
-
-                <Row>
-                    <Col>
-                        <div id="login-left-div" style={LoginColumnStyle}>
-                            <h1 id="login-login-h1" >Log in</h1>
-                            
-                            <LoginForm name="login-form-div" />
-
-                            {/* divider in progress */}
-                            <div style={{ margin: "2rem ", maxWidth: "50%" }}>
-                                <hr></hr>
-                            </div>
-
-                            <LoginMethods name="login-methods-div" />
-
+            <Container fluid style={{height:"50px"}}>
+                <Row >
+                    <Col md={6} style={{ padding: "100px 200px 200px 200px" }} >
+                        <h1 id="login-login-h1" className='mb-4' style={{ minWidth: "200px" }}>Log in</h1>
+                        <LoginForm name="login-form-div" />
+                        {/* divider in progress */}
+                        <div style={{ margin: "2rem " }}>
+                            <hr></hr>
                         </div>
-
+                        <LoginMethods name="login-methods-div" />
                     </Col>
-                    <Col >
+                    <Col md={6} >
                         <LoginImage
                             img_url={test_image}
-                            img_caption="ragel gamed"
+                            img_caption="Ragel gamed"
                             img_credit="Msh ana"
                             img_location="New York, NY"
                         />
@@ -70,7 +56,7 @@ export const Login = (props) => {
                     </Col>
                 </Row>
             </Container>
-        </div >);
+       );
 }
 
 export default (Login);

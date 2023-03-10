@@ -1,5 +1,6 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { Container } from 'react-bootstrap';
 
 
 /**
@@ -12,7 +13,7 @@ export const LoginForm = (props) => {
         backgroundColor: "#d1410c",
         color: "white",
         padding: "0.6rem 0rem",
-        width: "65%",
+        width: "100%",
         justifyContent: "center",
         transition: "backgroundColor 100ms ease-in",
         borderRadius: "0.5vmin",
@@ -29,20 +30,19 @@ export const LoginForm = (props) => {
             color: "red"
         }
     }
-
-    return (<div className={props.name} style={{ margin: "10% 0" }}>
+    //react hook form
+    return (<Container fluid className='m-0 p-0' style={{ minWidth: "200px" }}>
         <form>
-
             <Form.Group className="mb-3" controlId="formLoginEmail">
-                <Form.Control style={FormControlStyle} type="email" placeholder="Email address" />
+                <Form.Control type="email" placeholder="Email address" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formLoginPassword">
-                <Form.Control style={FormControlStyle} type="password" placeholder="Password" />
+                <Form.Control type="password" placeholder="Password" />
             </Form.Group>
 
             <Button style={ButtonStyle} as="input" type="submit" value="Log in" variant="flat btn-flat" />{' '}
         </form>
-    </div>);
+    </Container>);
 }
 
 export default (LoginForm);
