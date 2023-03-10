@@ -9,10 +9,14 @@ import { Login } from "./components/Login/Login.js";
 import { Signup } from "./components/Signup/Signup.js";
 import Event from "./components/Events/Event";
 import Details from './Pages/Details/Details'
+import Likes from './Pages/Likes/Likes'
+import Following from './Pages/Following/Following'
 function App() {
   return (
     // <Event></Event>
     <Details />
+    // <Likes />
+    // <Following />
     // <Signup></Signup>
     // <>
     // {/* <Login></Login> */}
