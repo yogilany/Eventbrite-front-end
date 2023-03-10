@@ -1,0 +1,59 @@
+.description__container
+{
+    margin-bottom: 50px;
+}
+.text__logo
+{
+    margin-left: -60px;
+    margin-bottom: -40px;
+    font-size: 35px;
+    color: #a7a5ab;
+}
+.cond__btn
+{
+    padding: 12px 20px;
+    margin-right: 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    border: 2px solid rgb(169, 168, 179);
+    cursor: pointer;
+    color: #39364f;
+    fill: #39364f;
+    background: #fff;
+    border-color: #a9a8b3;
+}
+.description__container-buttons
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+.add__text , .add__image , .add__video
+{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+.add__text textarea , .add__image textarea , .add__video textarea
+{
+    width:600px;
+    padding: 10px 20px;
+    height: 200px;
+}
+.add__text button , .add__image button ,.add__video button
+{
+    padding: 8px 11px;
+    outline: none;
+    border:none;
+    font-size: 20px;
+    border-radius: 50%;
+    transition: all 0.5s ease-in-out;
+    background-color: white;
+}
+.add__text button:hover , .add__image button:hover , .add__video button:hover
+{
+    background-color: rgb(205, 203, 203);
+}
