@@ -5,13 +5,15 @@ import { Header } from "./components/HomePage/Header";
 import { Events } from "./components/HomePage/Events";
 import Likes from './Pages/Likes/Likes'
 import Following from './Pages/Following/Following'
+import Organizer from "./Pages/Organizer/Organizer";
 function App() {
   return (
     <Layout>
       {/* <Header />
       <Events /> */}
       {/* <Likes /> */}
-      <Following />
+      {/*<Following /> */}
+      {<Organizer />}
     </Layout>
   );
 }
