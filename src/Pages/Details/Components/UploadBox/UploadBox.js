@@ -9,8 +9,8 @@ const UploadBox = () => {
     }
   return (
     <div className="uploadBox__container" onClick = {handleBox}>
-      <h3>Drag & drop or click to add image.</h3>
-      <p>JPEG, PNG , GIF , no larger than 10MB</p>
+      <h5>Drag & drop or click to add image.</h5>
+      <p style = {{fontSize:'14px'}}>JPEG, PNG , GIF , no larger than 10MB</p>
       <input type = "file" style = {{display:"none"}} ref = {handleHiddenFile} />
     </div>
   );
