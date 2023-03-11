@@ -10,7 +10,7 @@ const Description = () => {
   return (
     <div className="description__container">
       <MdTextFields className = "text__logo" />
-      <h1 style={{ marginBottom: "7px" }}>Description</h1>
+      <h1 style={{ marginBottom: "7px" , fontSize:'30px' ,fontWeight:'700' }}>Description</h1>
       <p style={{ fontSize: '14px' }}>Add more details to your event like your schedule, sponsors, or featured guests.<a href="#" className='see__examples'> Learn more</a></p>
       {addText && <div className='add__text'><textarea id = "AddText" /><button onClick = {() => setText(!addText)}><MdDelete /></button></div>}
       {addImage && <div className='add__image'><UploadBox></UploadBox> <button onClick = {() => setImage(!addImage)}><MdDelete /></button></div>}
