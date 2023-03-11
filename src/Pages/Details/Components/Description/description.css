@@ -52,8 +52,12 @@
     border-radius: 50%;
     transition: all 0.5s ease-in-out;
     background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
 }
 .add__text button:hover , .add__image button:hover , .add__video button:hover
 {
-    background-color: rgb(205, 203, 203);
+    background-color: rgb(240, 238, 238);
 }
