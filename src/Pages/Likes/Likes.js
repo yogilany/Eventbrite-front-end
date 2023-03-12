@@ -5,9 +5,11 @@ import Like1 from "../../assets/like1.jpeg";
 import Like2 from "../../assets/like2.jpeg";
 import Like3 from "../../assets/like3.jpeg";
 import Footer from "../../components/footer/Footer"
+import Header from '../../components/header/Header'
 const Likes = () => {
   return (
     <div className="likes__container">
+      <Header />
       <div className="likes__container-heading">
         <h1>Likes</h1>
         <Like
