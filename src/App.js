@@ -14,7 +14,8 @@ import Following from './Pages/Following/Following'
 function App() {
   return (
     // <Event></Event>
-    <Details />
+    // <Details />
+    <Likes />
     // <Likes />
     // <Following />
     // <Signup></Signup>
