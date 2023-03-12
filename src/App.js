@@ -6,14 +6,16 @@ import { Events } from "./components/HomePage/Events";
 import Likes from './Pages/Likes/Likes'
 import Following from './Pages/Following/Following'
 import Organizer from "./Pages/Organizer/Organizer";
+import Basicinfo from "./Pages/Basicinfo/Basicinfo";
 function App() {
   return (
     <Layout>
       {/* <Header />
       <Events /> */}
       {/* <Likes /> */}
-      {/*<Following /> */}
-      {<Organizer />}
+      {/* <Following /> */}
+      {/* <Organizer /> */}
+      {<Basicinfo />}
     </Layout>
   );
 }
