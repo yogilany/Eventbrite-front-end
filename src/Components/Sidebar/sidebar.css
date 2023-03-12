@@ -5,7 +5,6 @@
     left: 0;
     top: 70px;
     z-index: 1;
-    
 }
 .sidebar__links
 {
@@ -125,4 +124,11 @@
 .arrow__Logo
 {
     margin-left: 50px;
+}
+@media screen and (max-width: 959px) and (min-width: 792px)
+{
+    .sidebar__Event-options
+    {
+        display: none;
+    }
 }
