@@ -7,6 +7,7 @@
     font-size: 30px;
     color: #1E0A3C;
     margin-bottom: 32px;
+    font-weight: 700;
 }
 .back-btn
 {
@@ -40,4 +41,18 @@
     background-color: #f8f7fa;
     border-radius: 50%;
     color: #D1410C;
+}
+@media screen and (max-width: 1200px) and (min-width: 1151px)
+{
+    .following__container-heading
+    {
+        margin: 100px 100px 0px !important;
+    }
+}
+@media screen and (max-width: 1200px) and (min-width: 500px)
+{
+    .following__container-heading
+    {
+        margin: 100px 20px 0px;
+    }
 }
