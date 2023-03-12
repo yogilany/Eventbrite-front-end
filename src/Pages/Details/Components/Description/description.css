@@ -110,7 +110,7 @@
         width: 700px;
     }
 }
-@media screen and (max-width: 959px) and (min-width: 792px)
+@media screen and (max-width: 959px) and (min-width: 400px)
 {
     .text__logo
     {
@@ -123,5 +123,78 @@
     {
         margin-bottom: 50px;
         width: 600px;
+    }
+}
+@media screen and (max-width: 792px) and (min-width: 660px)
+{
+    .description__container
+    {
+        margin-bottom: 50px;
+        width: 540px;
+    }
+}
+@media screen and (max-width: 792px) and (min-width: 720px)
+{
+    .description__container
+    {
+        margin-bottom: 50px;
+        width: 590px;
+    }
+}
+@media screen and (max-width: 500px) and (min-width: 400px)
+{
+    .description__container
+    {
+        margin-bottom: 50px;
+        width: 370px;
+    }
+    .description__container-buttons
+    {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 30px;
+    }
+    .description__container-buttons button
+    {
+        margin-bottom: 20px;
+    }
+}
+@media screen and (max-width: 600px) and (min-width: 500px)
+{
+    .description__container
+    {
+        margin-bottom: 50px;
+        width: 470px;
+    }
+    .description__container-buttons
+    {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 30px;
+    }
+    .description__container-buttons button
+    {
+        margin-bottom: 20px;
+    }
+}
+@media screen and (max-width: 660px) and (min-width: 600px)
+{
+    .description__container
+    {
+        margin-bottom: 50px;
+        width: 570px;
+    }
+    .description__container-buttons
+    {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 30px;
+    }
+    .description__container-buttons button
+    {
+        margin-bottom: 20px;
     }
 }

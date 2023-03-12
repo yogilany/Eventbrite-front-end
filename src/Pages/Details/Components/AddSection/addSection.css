@@ -43,3 +43,10 @@
 {
     border-top: 1px solid rgb(219, 218, 227);
 }
+@media screen and (max-width: 500px) and (min-width: 400px)
+{
+    .add__section-agenda-right a
+    {
+        display: none;
+    }
+}

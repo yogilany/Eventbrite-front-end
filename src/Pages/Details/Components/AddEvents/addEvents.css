@@ -74,10 +74,10 @@
     }
     .add__section p 
     {
-         width: 440px;
+        width: 440px;
     }
 }
-@media screen and (max-width: 959px) and (min-width: 792px)
+@media screen and (max-width: 959px) and (min-width: 400px)
 {
     .rocket__logo
     {
@@ -97,5 +97,80 @@
     .add__section p 
     {
         max-width:  100%;
+    }
+}
+@media screen and (max-width: 792px) and (min-width: 660px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 540px;
+    }
+    .add__section p 
+    {
+        max-width: 400px;
+    }
+}
+@media screen and (max-width: 792px) and (min-width: 720px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 590px;
+    }
+    .add__section p 
+    {
+        max-width: 400px;
+    }
+}
+@media screen and (max-width: 500px) and (min-width: 400px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 370px;
+    }
+    .add__section p 
+    {
+        max-width: 100px;
+    }
+}
+@media screen and (max-width: 600px) and (min-width: 500px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 470px;
+    }
+    .add__section p 
+    {
+        max-width: 100px;
+    }
+}
+@media screen and (max-width: 660px) and (min-width: 600px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 570px;
+    }
+    .add__section p 
+    {
+        max-width: 100px;
     }
 }

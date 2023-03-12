@@ -79,8 +79,72 @@
 {
     .upload__btn
     {
-        padding: 10px 12px;
         margin-right: 9px;
+        padding: 10px 12px;
+        border-radius: 4px;
+        color:rgb(30, 10, 60);
+        font-size: 14px;
+        font-weight: 600;
+        background-color: white;
+        outline: none;
+        border: 2px solid rgb(169, 168, 179);
+        cursor: pointer;
+    }
+}
+@media screen and (max-width: 792px) and (min-width: 660px)
+{
+    .upload__btn
+    {
+        margin-right: 9px;
+        padding: 8px 10px;
+        border-radius: 4px;
+        color:rgb(30, 10, 60);
+        font-size: 12px;
+        font-weight: 600;
+        background-color: white;
+        outline: none;
+        border: 2px solid rgb(169, 168, 179);
+        cursor: pointer;
+    }
+}
+@media screen and (max-width: 792px) and (min-width: 720px)
+{
+    .upload__btn
+    {
+        margin-right: 9px;
+        padding: 10px 12px;
+        border-radius: 4px;
+        color:rgb(30, 10, 60);
+        font-size: 14px;
+        font-weight: 600;
+        background-color: white;
+        outline: none;
+        border: 2px solid rgb(169, 168, 179);
+        cursor: pointer;
+    }
+}
+@media screen and (max-width: 500px) and (min-width: 400px)
+{
+    .upload__btn
+    {
+        margin-left: 19px;
+        padding: 10px 20px;
+        border-radius: 4px;
+        color:rgb(30, 10, 60);
+        font-size: 14px;
+        font-weight: 600;
+        background-color: white;
+        outline: none;
+        border: 2px solid rgb(169, 168, 179);
+        cursor: pointer;
+    }
+}
+@media screen and (max-width: 660px) and (min-width: 600px)
+{
+    .upload__btn
+    {
+        margin-left: 19px;
+        padding: 10px 20px;
         border-radius: 4px;
         color:rgb(30, 10, 60);
         font-size: 14px;
