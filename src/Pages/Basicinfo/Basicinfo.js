@@ -86,24 +86,52 @@ function Basicinfo() {
                         <div className='dateandtime'>
                             <div className='datepicker'>
                                 <label for='eventdate'>Event Starts</label>
-                                <input className='eventdate' name='eventdate' type="date" required placeholder="MM/DD/YYYY" onfocus="(this.type='date')" maxlength="75"></input>
+                                <input className='eventdate' name='eventdate' type="date" required onfocus="(this.type='date')"></input>
                             </div>
                             <div className='datepicker'>
                                 <label for='eventtime'>Start Time</label>
-                                <input className='eventtime' name='eventtime' type="time" required placeholder="hh/mm" onfocus="(this.type='time')" maxlength="75"></input>
+                                <input className='eventtime' name='eventtime' type="time" required onfocus="(this.type='time')"></input>
                             </div>
                             <div className='datepicker'>
                                 <label for='eventdate'>Event Ends</label>
-                                <input className='eventdate' name='eventdate' type="date" required placeholder="MM/DD/YYYY" onfocus="(this.type='date')" maxlength="75"></input>
+                                <input className='eventdate' name='eventdate' type="date" required onfocus="(this.type='date')"></input>
                             </div>
                             <div className='datepicker'>
                                 <label for='eventtime'>End Time</label>
-                                <input className='eventtime' name='eventtime' type="time" required placeholder="hh/mm" onfocus="(this.type='time')" maxlength="75"></input>
+                                <input className='eventtime' name='eventtime' type="time" required onfocus="(this.type='time')"></input>
                             </div>
                         </div>
                         <div className='checkbtns'>
-                            
+                            <label className="container"><strong>Display start time.</strong><br />The start time of your event will be displayed to attendees.
+                                <input type="checkbox" />
+                                <span className="checkmark"></span>
+                            </label>
+                            <label className="container"><strong>Display end time.</strong><br />The end time of your event will be displayed to attendees.
+                                <input type="checkbox" />
+                                <span className="checkmark"></span>
+                            </label>
                         </div>
+                        <div className='timezoneselectors'>
+                            <br />
+                            <div className='selector'>
+                                <label for="Tzone">Time zone</label>
+                                <select id="Tzone" name="Tzone">
+                                    <option value="egypt">(GMT +0200) Egypt Time</option>
+                                    <option value="uk">(GMT +000) United Kingdom Time</option>
+                                </select>
+                            </div>
+                            <br />
+                            <br />
+                            <div className='selector'>
+                                <label for="lang">Event page language</label>
+                                <select id="lang" name="lang">
+                                    <option value="EN">English US</option>
+                                    <option value="AR">Arabic</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
                     </div>
                 </div>
             </div>
