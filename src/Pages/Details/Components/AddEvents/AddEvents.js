@@ -12,9 +12,9 @@ const AddEvents = () => {
       <p style={{ fontSize: "14px" }}> Make your event stand out even more. Adding these sections will helpattendees purchase tickets.</p>
       <div className="add__section">
         <AddSection Title = "Agenda" Logo = {<AiOutlineRead />} />
-        <div className="line" style={{ margin: "30px 0px" }}>
+        {/* <div className="line" style={{ margin: "30px 0px", bordetTop:'red' }}> */}
           <hr />
-        </div>
+        {/* </div> */}
         <AddSection Title = "FAQ" Logo = {<GiHelp />} />
       </div>
     </div>
