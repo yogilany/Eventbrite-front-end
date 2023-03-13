@@ -10,7 +10,10 @@ import { Signup } from "./components/Signup/Signup.js";
 import Event from "./components/Events/Event";
 import Details from './Pages/Details/Details'
 import Likes from './Pages/Likes/Likes'
+import Following from './Pages/Following/Following'import Likes from './Pages/Likes/Likes'
 import Following from './Pages/Following/Following'
+import Organizer from "./Pages/Organizer/Organizer";
+import Basicinfo from "./Pages/Basicinfo/Basicinfo";
 function App() {
   return (
     // <Event></Event>
