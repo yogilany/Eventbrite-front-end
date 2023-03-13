@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 import { BsDot } from "react-icons/bs";
-import './footerLink.css'
-const FooterLink = ({Name}) => {
+import "./footerLink.css";
+const FooterLink = ({ Name, to }) => {
   return (
     <div className="footer__container-link">
-      <a href="#">{Name} </a>
+      <a href={to}>{Name} </a>
       <BsDot className="dot" />
     </div>
   );
-}
+};
 
-export default FooterLink
+export default FooterLink;

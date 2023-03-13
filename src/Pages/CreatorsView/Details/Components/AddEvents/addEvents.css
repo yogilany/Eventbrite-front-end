@@ -1,0 +1,176 @@
+.addEvents__container
+{
+    margin-bottom: 100px;
+}
+.rocket__logo
+{
+    margin-left: -60px;
+    margin-bottom: -60px !important;
+    font-size: 35px;
+    color: #a7a5ab;
+}
+.add__section
+{
+    margin-top: 20px;
+    border: 2px dashed rgb(219, 218, 227);
+    border-radius: 8px;
+    padding: 32px;
+}
+@media screen and (max-width: 1260px) and (min-width: 1200px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 590px;
+    }
+    .add__section p 
+    {
+        max-width:  100%;
+    }
+
+}
+@media screen and (max-width: 1200px) and (min-width: 1100px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 510px;
+    }
+    .add__section p 
+    {
+        width: 510px;
+    }
+}
+@media screen and (max-width: 1100px) and (min-width: 1000px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 480px;
+    }
+    .add__section p 
+    {
+        width: 480px;
+    }
+}
+@media screen and (max-width: 1000px) and (min-width: 960px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 440px;
+    }
+    .add__section p 
+    {
+        width: 440px;
+    }
+}
+@media screen and (max-width: 959px) and (min-width: 400px)
+{
+    .rocket__logo
+    {
+        display: none;
+    }
+}
+@media screen and (max-width: 885px) and (min-width: 792px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 590px;
+    }
+    .add__section p 
+    {
+        max-width:  100%;
+    }
+}
+@media screen and (max-width: 792px) and (min-width: 660px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 540px;
+    }
+    .add__section p 
+    {
+        max-width: 400px;
+    }
+}
+@media screen and (max-width: 792px) and (min-width: 720px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 590px;
+    }
+    .add__section p 
+    {
+        max-width: 400px;
+    }
+}
+@media screen and (max-width: 500px) and (min-width: 400px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 370px;
+    }
+    .add__section p 
+    {
+        max-width: 100px;
+    }
+}
+@media screen and (max-width: 600px) and (min-width: 500px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 470px;
+    }
+    .add__section p 
+    {
+        max-width: 100px;
+    }
+}
+@media screen and (max-width: 660px) and (min-width: 600px)
+{
+    .add__section
+    {
+        margin-top: 20px;
+        border: 2px dashed rgb(219, 218, 227);
+        border-radius: 8px;
+        padding: 32px;
+        width: 570px;
+    }
+    .add__section p 
+    {
+        max-width: 100px;
+    }
+}

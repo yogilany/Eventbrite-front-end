@@ -1,0 +1,100 @@
+.following__container-heading
+{
+    margin: 100px 120px 0px;
+}
+.following__container-heading h1
+{
+    font-size: 30px;
+    color: #1E0A3C;
+    margin-bottom: 32px;
+    font-weight: 700;
+}
+.back-btn
+{
+    font-size: 25px;
+    text-decoration: none;
+    color:black;
+    margin-bottom: 20px;
+}
+.pagination__container
+{
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+}
+.pagination__container button
+{
+    width: 100px;
+    padding: 10px 8px;
+    background-color: white;
+    color: black;
+    outline: none;
+    border: 2px solid #a9a8b3;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.pagination__container p 
+{
+    margin: 0 20px;
+    padding: 6px 12px;
+    background-color: #f8f7fa;
+    border-radius: 50%;
+    color: #D1410C;
+}
+@media screen and (max-width: 1200px) and (min-width: 1151px)
+{
+    .following__container-heading
+    {
+        margin: 100px 100px 0px !important;
+    }
+}
+@media screen and (max-width: 1200px) and (min-width: 500px)
+{
+    .following__container-heading
+    {
+        margin: 100px 20px 0px;
+    }
+}.following__container-heading
+{
+    margin: 30px 120px 0px;
+}
+.following__container-heading h1
+{
+    font-size: 30px;
+    color: #1E0A3C;
+    margin-bottom: 32px;
+}
+.back-btn
+{
+    font-size: 25px;
+    text-decoration: none;
+    color:black;
+    margin-bottom: 20px;
+}
+.pagination__container
+{
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+}
+.pagination__container button
+{
+    width: 100px;
+    padding: 10px 8px;
+    background-color: white;
+    color: black;
+    outline: none;
+    border: 2px solid #a9a8b3;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.pagination__container p 
+{
+    margin: 0 20px;
+    padding: 6px 12px;
+    background-color: #f8f7fa;
+    border-radius: 50%;
+    color: #D1410C;
+}

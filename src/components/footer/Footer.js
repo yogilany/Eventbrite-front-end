@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 import { RiCopyrightLine } from "react-icons/ri";
-import { BsDot } from 'react-icons/bs'
-import FooterLink from '../footerLink/FooterLink';
-import './footer.css'
+import { BsDot } from "react-icons/bs";
+import FooterLink from "../footerLink/FooterLink";
+import "./footer.css";
 const Footer = () => {
   return (
     <div className="footer__container">
@@ -10,7 +10,7 @@ const Footer = () => {
         <RiCopyrightLine className="copyright" />
         <p>2023 Eventbrite</p>
       </div>
-      <div className="footer__container-links">
+      {/* <div className="footer__container-links">
         <FooterLink Name="About" />
         <FooterLink Name="Blog" />
         <FooterLink Name="Help" />
@@ -25,14 +25,31 @@ const Footer = () => {
         <FooterLink Name="Accessibility" />
         <FooterLink Name="Cookies" />
         <FooterLink Name="Cookie Consent" />
+      </div> */}
+      {/* temprorary links */}
+      <div className="footer__container-links">
+        <FooterLink Name="Likes" to="/likes" />
+        <FooterLink Name="Profile" to="/profile" />
+        <FooterLink Name="Organizer" to="organizer" />
+        <FooterLink Name="Login" to="/login" />
+        <FooterLink Name="Signup" to="/signup" />
+        <FooterLink Name="Investors" />
+        <FooterLink Name="Security" />
+        <FooterLink Name="Developers" />
+        <FooterLink Name="Terms" />
+        <FooterLink Name="Privacy" />
+        <FooterLink Name="CA Privacy Notice" />
+        <FooterLink Name="Accessibility" />
+        <FooterLink Name="Cookies" />
+        <FooterLink Name="Cookie Consent" />
       </div>
-      <div className='footer__container-select'>
-        <select className='options'>
+      <div className="footer__container-select">
+        <select className="options">
           <option>United states</option>
         </select>
       </div>
     </div>
   );
-}
+};
 
-export default Footer
+export default Footer;

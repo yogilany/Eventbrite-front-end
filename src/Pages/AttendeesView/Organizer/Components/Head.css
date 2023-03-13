@@ -1,0 +1,108 @@
+
+.profilecard {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: auto;
+    width: 55%;
+    height: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 50px;
+    transition: all 0.3s ease;
+}
+.avatar {
+    margin-top: 50px;
+}
+
+.Orgname {
+    margin-top: 20px;
+    line-height: 4rem;
+    max-width: 400px;
+    letter-spacing: 1px;
+    text-align: center;
+    font-family: Neue Plak,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Tahoma,Arial,sans-serif;
+    font-size: 3.25rem;
+    font-weight: 800;
+    color: #000;
+}
+
+
+.Btns {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+
+.contact {
+    margin-left: 30px;
+}
+.nums {
+    margin-top: 20px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000;
+}
+
+.followers {
+    float: left;
+    color: #000;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.totalevents {
+    float: right;
+    color: #000;
+    text-align: center;
+    margin-left: 20px;
+}
+
+.orginfo {
+    margin-top: 20px;
+    font-size: 12;
+    font-weight: 400;
+    color: #000;
+    width: 70%;
+}
+
+.socialmedia {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 60px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 100%;
+  }
+  
+  .fa:hover {
+    opacity: 0.7;
+  }
+
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+    margin-right: 15px;
+  }
+  
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+    margin-left: 15px;
+  }

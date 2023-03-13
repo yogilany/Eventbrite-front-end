@@ -1,1 +1,31 @@
 $myColor: red;
+
+.heading1 {
+  font-size: 3.4666666667rem;
+  line-height: 4rem;
+  letter-spacing: 1px;
+  margin-right: -1px;
+  //   font-weight: 800;
+  color: #1e0a3c;
+  font-family: "Neue Plak Bold";
+}
+
+.paragraph {
+  color: #6f7287;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  letter-spacing: 0.25px;
+  margin-right: -0.25px;
+  font-family: "Neue Plak";
+}
+
+.large-icon {
+  width: 100px;
+}
+
+.link {
+  color: #3659e3;
+  text-decoration: none;
+  cursor: pointer;
+}

@@ -1,0 +1,40 @@
+
+.drop__btn
+{
+    display: block;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 288px;
+    padding: 20px 30px;
+    color: #4b4d63;
+    font-weight: 500;
+}
+.drop__btn:hover{
+    background-color: #EEEDF2;
+}
+.linkss
+{
+    display:flex;
+    flex-direction: column;
+}
+.linkss a
+{
+    display: block;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 288px;
+    padding: 20px 50px;
+    color: #4b4d63;
+    font-weight: 500;
+}
+.linkss a:hover
+{
+    background-color: #EEEDF2;
+}
+.arrow__Logo
+{
+    margin-left: 80px;
+}
