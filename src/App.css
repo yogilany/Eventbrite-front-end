@@ -1,13 +1,14 @@
 @font-face {
-  font-family: 'Neue Plak';
+  font-family: "Neue Plak";
   font-weight: 400;
-  src: local('Neue Plak'), url(./fonts/Neue\ Plak\ Regular.ttf) format("truetype")
+  src: local("Neue Plak"),
+    url(./fonts/Neue\ Plak\ Regular.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: 'Neue Plak';
+  font-family: "Neue Plak";
   font-weight: bold;
-  src: local('Neue Plak'), url(./fonts/Neue\ Plak\ Bold.ttf) format("truetype")
+  src: local("Neue Plak"), url(./fonts/Neue\ Plak\ Bold.ttf) format("truetype");
 }
 
 .App {
