@@ -21,7 +21,8 @@ export default function ValidationTextFields() {
           id="outlined-error"
           label="Summary"
           placeholder="Write a short event summary to get attended excited."
-          style={{ width: "700px", marginTop: "20px" }}
+          style={{ width: "100%", marginTop: "20px" }}
+          className = "text"
         />
       </div>
     </Box>

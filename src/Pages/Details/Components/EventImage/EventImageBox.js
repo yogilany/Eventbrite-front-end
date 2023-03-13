@@ -7,7 +7,7 @@ const EventImageBox = () => {
   return (
     <div className='EventImage__container'>
         <CgImage className='photo__header' />
-        <h1 style = {{marginBottom:'7px' , fontSize:'30px' ,fontWeight:'700'}}>Main Event Image</h1>
+        <h1 className='title__upload' >Main Event Image</h1>
         <p style = {{fontSize:'14px'}}>Add photos to show what your event will be about. You can upload up to 10 images.<a href = "#" className='see__examples'> See Examples</a></p>
         <div className='EventImage__fileType'>
             <div className='EventImage__fileType-body'>
