@@ -26,7 +26,6 @@ export const EventAboutOrganizer = (props) => {
                     </Row>
 
                     <Row className="d-flex justify-content-center">
-
                         Organized by
                         <Button variant="link" style={{ fontWeight: "700", fontSize: "18px", textDecoration: "none", color: "#1e0a3c" }}>
                             {props.organizer_name}

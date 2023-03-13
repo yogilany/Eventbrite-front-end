@@ -11,6 +11,7 @@ import { EventShare } from './EventShare'
 import { EventAboutOrganizer } from './EventAboutOrganizer'
 import { EventTicketCard } from './EventTicketCard'
 import * as HIIcons from 'react-icons/hi'
+import './Event.css'
 
 const Event = (props) => {
     const EventNameHeaderStyle = {
@@ -20,69 +21,87 @@ const Event = (props) => {
     }
 
     return (
-        <Container>
-            <Layout>
-            </Layout>
-            <Container fluid className="pt-3" >
-                <Row className="pb-5 ">
-                    <Col md={12}>
-                        <EventImage img_url={event_image} />
-                    </Col>
+        <div style={{ display: 'flow' }}>
+
+            <Container >
+
+                <Row>
+                    <Layout />
                 </Row>
-                <Row className="mb-5">
-                    <Stack gap={3}>
-                        <div>
-                            <Container>
-                                <Row>
-                                    <Col >
-                                        <h3>
-                                            {props.event_date} Mar 10
-                                        </h3>
-                                    </Col>
-                                    <Col md={{ offset: 9, span: 1 }}>
-                                        <HIIcons.HiOutlineHeart size="2em" />
-                                    </Col>
-                                    <Col md={{ span: 1 }}>
-                                        <HIIcons.HiOutlineUpload size="2em" />
+                <Row className="align-items-center ">
+                    <Col>
+                        <Container fluid className="pt-3" >
+                            <Col >
+                                <Row className="pb-5 ">
+                                    <Col md={12}>
+                                        <EventImage img_url={event_image} />
                                     </Col>
                                 </Row>
-                            </Container>
+                                <Row className='ml-5 mr-5' style={{ padding: "0 0 0 2%" }}>
+                                    <Row className="mb-5">
+                                        <Stack gap={3}>
+                                            <div>
+                                                <Container>
+                                                    <Row>
+                                                        <Col >
+                                                            <h3>
+                                                                {props.event_date} Mar 10
+                                                            </h3>
+                                                        </Col>
+                                                        <Col md={{ offset: 9, span: 1 }}>
+                                                            <HIIcons.HiOutlineHeart size="2em" />
+                                                        </Col>
+                                                        <Col md={{ span: 1 }}>
+                                                            <HIIcons.HiOutlineUpload size="2em" />
+                                                        </Col>
+                                                    </Row>
+                                                </Container>
 
-                            <h1 style={EventNameHeaderStyle}>
-                                E7kky to Empower: Beyond the Story!
-                            </h1>
-                        </div>
-                        <p>E7kky to Empower Event to celebrate Egyptian Women Journey and go beyond the story!</p>
-                    </Stack>
-                    <Col md={6} >
-                        <EventOrganizerCard
-                            avatar={organizer_avatar}
-                            name="E7kky magazine"
-                            follower_count="1.5k" />
+                                                <h1 style={EventNameHeaderStyle}>
+                                                    E7kky to Empower: Beyond the Story!
+                                                </h1>
+                                            </div>
+                                            <p>E7kky to Empower Event to celebrate Egyptian Women Journey and go beyond the story!</p>
+                                        </Stack>
+                                        <Col md={6}>
+                                            <EventOrganizerCard
+                                                avatar={organizer_avatar}
+                                                name="E7kky magazine"
+                                                follower_count="1.5k" />
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-5">
+                                        <EventLocation />
+                                    </Row>
+                                    <Row>
+                                        <EventAbout />
+                                    </Row>
+                                    <Row className="mb-5 mt-5">
+                                        <EventShare />
+                                    </Row>
+                                    <Row >
+                                        <EventAboutOrganizer
+                                            avatar={organizer_avatar}
+
+                                            organizer_name="E7kky magazine"
+                                            follower_count="1.4k" />
+                                    </Row>
+                                    <Row>
+
+                                    </Row>
+                                </Row>
+                            </Col>
+
+                        </Container>
+                    </Col>
+                    <Col style={{ top: "105%", left: "25%", position: "absolute" }}>
+                        <EventTicketCard />
                     </Col>
                 </Row>
-                <Row className="mb-5">
-                    <EventLocation />
-                </Row>
-                <Row>
-                    <EventAbout />
-                </Row>
-                <Row className="mb-5 mt-5">
-                    <EventShare />
-                </Row>
-                <Row >
-                    <EventAboutOrganizer
-                        avatar={organizer_avatar}
-
-                        organizer_name="E7kky magazine"
-                        follower_count="1.4k" />
-                </Row>
-                <Row>
-
-                </Row>
-
             </Container>
-        </Container>
+
+        </div>
+
 
     )
 }

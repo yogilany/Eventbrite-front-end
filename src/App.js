@@ -13,13 +13,13 @@ import Likes from './Pages/Likes/Likes'
 import Following from './Pages/Following/Following'
 function App() {
   return (
-    // <Event></Event>
-    <Details />
+    // <Signup/>
+    <Event></Event>
+    // <Details />
     // <Likes />
     // <Following />
-    // <Signup></Signup>
     // <>
-    // {/* <Login></Login> */}
+    // <Login></Login>
     // </>
     // <Layout>
     //   <BrowseEventsPage />
