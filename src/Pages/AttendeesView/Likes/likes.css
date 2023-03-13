@@ -15,11 +15,11 @@
         margin: 100px 100px 0px !important;
     }
 }
-@media screen and (max-width: 1200px) and (min-width: 500px)
+@media screen and (max-width: 1150px) and (min-width: 500px)
 {
     .likes__container-heading
     {
-        margin: 100px 20px 0px;
+        margin: 100px 20px 0px !important;
     }
 }
 .likes__container-heading
