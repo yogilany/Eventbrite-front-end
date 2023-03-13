@@ -30,7 +30,6 @@ export const LoginForm = (props) => {
             color: "red"
         }
     }
-    //react hook form
     return (<Container fluid className='m-0 p-0' style={{ minWidth: "200px" }}>
         <form>
             <Form.Group className="mb-3" controlId="formLoginEmail">
