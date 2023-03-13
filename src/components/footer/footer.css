@@ -12,11 +12,13 @@
 }
 .footer__container-left
 {
-    margin-top: 11px;
+    display: flex;
+    align-items: center;
 }
 .footer__container-left p
 {
     font-size: 12px;
+    margin-top: 15px;
 }
 .footer__container-left .copyright
 {
