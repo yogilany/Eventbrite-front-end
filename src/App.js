@@ -7,9 +7,9 @@ function App() {
   return (
     <>
       {user ? (
-        <Layout>
+        //<Layout>
           <AuthenticatedApp />
-        </Layout>
+        //</Layout>
       ) : (
         <UnauthenticatedApp />
       )}

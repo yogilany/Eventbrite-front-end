@@ -6,6 +6,7 @@ import Likes from "../Pages/AttendeesView/Likes/Likes";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import { AllEvents } from "../Pages/AttendeesView/BrowseEvents/AllEvents";
 import Organizer from "../Pages/AttendeesView/Organizer/Organizer";
+import Publish from "../Pages/Publishpage/Publish";
 function AuthenticatedApp() {
   const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ function AuthenticatedApp() {
     {
       path: "/organizer",
       element: <Organizer />,
+    },
+    {
+      path: "/Publish",
+      element: <Publish />,
     },
   ]);
   return (
