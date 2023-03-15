@@ -1,0 +1,66 @@
+.pubhead
+{
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+    letter-spacing: .75px;
+    margin-left: 10px;
+    font-weight: 700;
+    color: #1e0a3c;
+}
+.rdh{
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    letter-spacing: .25px;
+    margin-right: -0.25px;
+    font-weight: 600;
+
+}
+.r1{
+    color: #39364f;
+}
+.r2{
+    color: #4b4d63;
+}
+.bulb-btn{
+    font-size: 20px;
+    padding: 1px;
+    border-radius: 50%;
+    background-color: #fff58c;
+}
+.tpyp
+{
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    letter-spacing: .25px;
+    margin-left: 10px;
+    font-weight: 600;
+    margin-top: 10px;
+
+}
+.grpart
+{
+    margin-top:12;
+    background-color:'#f8f7fa';
+    width:500 ;
+    height:125;
+    padding: 8 8 8 0;
+}
+.Full__Container{
+    display: flex;
+    margin-top: 40px;
+    border : 1px solid #eeedf2;;
+    height: 209px;
+    width: 950px;
+    box-shadow: 1px 1px 1px 1px #f4f4f5;
+
+}
+.Full__Container_img{
+    width: 95%;
+    height: 209px;
+}
+.hline{
+    border-bottom: 2px solid #ededee;
+    width : 480px;
+    margin-left: 10px;
+    margin-top: 20px;
+}
