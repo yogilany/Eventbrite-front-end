@@ -1,7 +1,7 @@
 import React from 'react'
 import './summary.css'
 import { RxText } from 'react-icons/rx'
-import Text from '../../../../components/Text/Text'
+import Text from '../../../../../components/Text/Text'
 const Summary = () => {
   return (
     <div className="summary__container">

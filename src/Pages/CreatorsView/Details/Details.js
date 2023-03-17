@@ -4,8 +4,8 @@ import EventImage from './Components/EventImage/EventImageBox'
 import Summary from './Components/SummaryBox/Summary'
 import Description from './Components/Description/Description'
 import AddEvents from './Components/AddEvents/AddEvents'
-import Sidebar from '../../components/Sidebar/Sidebar'
-import Header from '../../components/header/Header'
+import Sidebar from '../Sidebar/Sidebar'
+import Header from '../../../components/header/Header'
 const Details = () => {
   const handleForm = (e) =>
   {
