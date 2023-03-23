@@ -10,7 +10,6 @@ import Details from '../Pages/CreatorsView/Details/Details';
 import Following from '../Pages/AttendeesView/FollowingOrganizersEvents/Following'
 import Publish from "../Pages/Publishpage/Publish";
 import BasicInfo from "../Pages/CreatorsView/Basicinfo/BasicInfo";
-import Details from "../Pages/CreatorsView/Details/Details";
 function AuthenticatedApp() {
   const router = createBrowserRouter([
     {
@@ -45,10 +44,6 @@ function AuthenticatedApp() {
     {
       path: "/basic-info",
       element: <BasicInfo />,
-    },
-    {
-      path: "/details",
-      element: <Details />,
     },
   ]);
   return (
