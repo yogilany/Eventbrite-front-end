@@ -78,6 +78,10 @@
     margin-bottom: 0px;
     color: rgb(188, 185, 185);
 }
+.div__line
+{
+    border-top: 1px solid rgb(230, 229, 229) !important;
+}
 .event__name:hover
 {
     text-decoration: underline;
@@ -122,6 +126,10 @@
 .arrow__Logo
 {
     margin-left: 50px;
+}
+.routing__options
+{
+    margin-top: 0px;
 }
 @media screen and (max-width: 959px) and (min-width: 792px)
 {
