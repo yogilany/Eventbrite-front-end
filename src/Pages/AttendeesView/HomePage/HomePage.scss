@@ -24,8 +24,9 @@
   line-height: 1.25rem;
   font-weight: 600;
   width: auto;
-  font-family: "Neue Plak";
+  font-family: "Neue Plak SemiBold";
 }
+
 // .myButton:hover {
 //   background-color: #f05537;
 // }
@@ -37,6 +38,32 @@
 
 .navbarPrimary {
   background-color: #ffffff;
+}
+
+.darkOutlineBtn {
+  color: #39364f;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.3, 1);
+  border-radius: 4px;
+  background: #fff;
+
+  height: 44px;
+  font-size: 14px;
+  border: 2px solid #a9a8b3;
+
+  width: 100%;
+  padding: 0 30px 1px;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  font-family: "Neue Plak SemiBold";
+}
+
+.darkOutlineBtn:hover {
+  background-color: #f8f7fa;
+  border-color: #6f7287;
 }
 
 h3 {
@@ -106,15 +133,27 @@ h3 {
   border-radius: 2px;
   margin: 0;
   padding: 0;
+  // margin-bottom: 25px;
   cursor: pointer;
   color: #39364f;
 }
 
-.tile-group {
-  display: grid;
-  grid-template-columns: repeat(4, 1.2fr);
-  grid-column-gap: 12px;
-  grid-row-gap: 12px;
+@media screen and (max-width: 1260px) and (min-width: 768px) {
+  .tile-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1.2fr);
+    grid-column-gap: 12px;
+    grid-row-gap: 12px;
+  }
+}
+
+@media screen and (max-width: 768px) and (min-width: 576px) {
+  .tile-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1.2fr);
+    grid-column-gap: 12px;
+    grid-row-gap: 12px;
+  }
 }
 
 .location-popular {
