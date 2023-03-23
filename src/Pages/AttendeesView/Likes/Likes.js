@@ -9,7 +9,7 @@ import Header from '../../../components/header/Header'
 const Likes = () => {
   return (
     <div className="likes__container">
-      <Header />
+      <Header MenuShow={false} />
       <div className="likes__container-heading">
         <h1>Likes</h1>
         <Like
