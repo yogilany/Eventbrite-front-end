@@ -1,4 +1,19 @@
 $myColor: red;
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
 
 .heading1 {
   font-size: 3.4666666667rem;
@@ -8,6 +23,16 @@ $myColor: red;
   //   font-weight: 800;
   color: #1e0a3c;
   font-family: "Neue Plak Bold";
+}
+
+.heading3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  letter-spacing: 0.25px;
+  margin-right: -0.25px;
+  font-weight: 700;
+  font-family: "Neue Plak Bold";
+  padding-bottom: 1rem;
 }
 
 .paragraph {
@@ -28,4 +53,90 @@ $myColor: red;
   color: #3659e3;
   text-decoration: none;
   cursor: pointer;
+}
+
+.card-container {
+  border-radius: 0;
+  box-shadow: 0 16px 64px -16px rgba(46, 55, 77, 0.1);
+  margin-bottom: 25px;
+}
+.card-container:hover {
+  box-shadow: 0 16px 64px -16px rgba(46, 55, 77, 0.24);
+}
+
+.card-title {
+  -webkit-line-clamp: 3;
+  font-weight: 700;
+  color: #39364f;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  text-rendering: optimizeLegibility;
+  word-break: break-word;
+  margin: 0;
+  padding: 0;
+  text-decoration: none !important;
+  font-family: "Neue Plak Bold";
+}
+
+.card-date {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-rendering: optimizeLegibility;
+  padding-top: 8px;
+  padding-bottom: 4px;
+  word-break: break-word;
+  margin: 0 auto;
+
+  font-weight: 600;
+
+  color: #d1410c;
+  font-family: "Neue Plak SemiBold";
+}
+
+.card-text {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  word-break: break-word;
+  margin: 0 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #6f7287;
+  font-family: "Neue Plak Bold";
+}
+
+.card-caption {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-rendering: optimizeLegibility;
+  word-break: break-word;
+  margin: 0 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0;
+  padding-top: 4px;
+
+  color: #39364f;
+  font-family: "Neue Plak Bold";
+}
+
+.HR-div {
+  display: block;
+  unicode-bidi: isolate;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  overflow: hidden;
+  // border-style: inset;
+  // border-width: 1px;
+  height: 8px;
+  background: #dcdcdc;
+  // margin: 0 -16px;
+  margin: 0 -50vw;
+
+  border: none;
+  width: 150vw;
 }

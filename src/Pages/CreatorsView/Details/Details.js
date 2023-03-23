@@ -10,33 +10,31 @@ import CreatorHeader from './Components/creatorHeader/CreatorHeader'
 import { createContext } from 'react'
 export const AppContext = createContext({});
 const Details = () => {
-  const handleForm = (e) =>
-  {
+  const handleForm = (e) => {
     e.preventDefault();
   }
-  const [toggleSidebar, setToggleSidebar] = useState(false);
-  return (
-    <AppContext.Provider value={{ toggleSidebar, setToggleSidebar }}>
-      <div className="Details__page">
-        <CreatorHeader MenuShow={true} />
-        <Sidebar />
-        <form onSubmit={handleForm}>
-          <div className={`Details__container ${toggleSidebar ? "details__opacity" : ''}`}>
-            <EventImage />
-            <Summary />
-            <Description />
-            <AddEvents />
-          </div>
-          <div className="submit__section">
-            <button className="discard__btn">Discard</button>
-            <button type="submit" className="submit__btn">
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </AppContext.Provider>
-  );
-}
-
-export default Details
+    const [toggleSidebar, setToggleSidebar] = useState(false);
+    return (
+      <AppContext.Provider value={{ toggleSidebar, setToggleSidebar }}>
+        <div className="Details__page">
+          <CreatorHeader MenuShow={true} />
+          <Sidebar />
+          <form onSubmit={handleForm}>
+            <div className={`Details__container ${toggleSidebar ? "details__opacity" : ''}`}>
+              <EventImage />
+              <Summary />
+              <Description />
+              <AddEvents />
+            </div>
+            <div className="submit__section">
+              <button className="discard__btn">Discard</button>
+              <button type="submit" className="submit__btn">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </AppContext.Provider>
+    );
+  }
+export default Details;
