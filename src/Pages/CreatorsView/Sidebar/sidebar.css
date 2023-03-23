@@ -14,16 +14,16 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-top: 30px;
+    padding-top: 20px;
     position: relative;
     border-right: 1.5px solid #eeedf2;
 }
 .sidebar__links a 
 {
     text-decoration: none;
-    font-size: 38px;
+    font-size: 40px;
     color: rgb(109, 109, 109);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .footer
 {
@@ -74,11 +74,9 @@
 .line
 {
     width: 100%;
-    margin-top: 7px;
-}
-.line hr
-{
-    /* border-top: 1px solid rgb(196, 195, 195) !important; */
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: rgb(188, 185, 185);
 }
 .event__name:hover
 {
@@ -143,3 +141,4 @@
         display: none;
     }
 }
+
