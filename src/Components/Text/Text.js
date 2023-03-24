@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 
 export default function ValidationTextFields() {
     const MyText = styled(TextField)({
-        width:'500px'
+        width:'400px '
     });
   return (
     <Box
@@ -21,7 +21,7 @@ export default function ValidationTextFields() {
           id="outlined-error"
           label="Summary"
           placeholder="Write a short event summary to get attended excited."
-          style={{ width: "100%", marginTop: "20px" }}
+          style={{ width: "92%", marginTop: "5px" }}
           className = "text"
         />
       </div>

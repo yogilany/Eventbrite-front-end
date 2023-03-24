@@ -8,9 +8,9 @@ function App() {
     <>
       {user ? (
         //<Layout>
-        <Layout>
+         <Layout>
           <AuthenticatedApp />
-        </Layout>
+         </Layout>
       ) : (
         //</Layout>
         <UnauthenticatedApp />

@@ -1,5 +1,6 @@
 import React from "react";
 import { useRef } from "react";
+import { CgImage } from "react-icons/cg";
 import './uploadButton.css'
 const UploadButton = () => {
   const hiddenFileInput = useRef(null);
@@ -8,7 +9,7 @@ const UploadButton = () => {
   };
   return (
     <>
-      <button onClick={handleClick} className = "upload__btn">Upload Image</button>
+      <button onClick={handleClick} className = "upload__btn"><CgImage className="img__logo" /> Upload Image</button>
       <input
         type="file"
         ref={hiddenFileInput}

@@ -64,7 +64,8 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    color:#3659e3
+    color:#3659e3;
+    font-weight: 500;
 }
 .arrowLeft
 {
@@ -94,6 +95,23 @@
     align-items: center;
     color: var(--eds-control,#3659e3);
     margin-top: 10px;
+    font-weight: 500;
+}
+.preview__link:hover
+{
+    text-decoration: underline;
+}
+.more
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    padding: 5px;
+}
+.more:hover
+{
+    background-color: rgb(236, 232, 232);
 }
 .share__logo
 {

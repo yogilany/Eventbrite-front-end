@@ -21,7 +21,7 @@ const CreatorHeader = ({ MenuShow }) => {
         <div className="header__container-link">
           <a href="#" style={{ marginLeft: "30px" }}> Publish</a>
         </div>
-        <div className="header__container-link">
+        <div className="header__container-link more">
           <a href="#"> More <MdOutlineKeyboardArrowDown className="arrow" /> </a>
         </div>
         <div className="header__container-right">
