@@ -3,6 +3,12 @@ import './description.css'
 import { MdTextFields } from 'react-icons/md'
 import { MdDelete } from 'react-icons/md'
 import UploadBox from '../UploadBox/UploadBox'
+/**
+ * @author Mahmoud Khaled
+ * @param {}
+ * @description This is Description section in Detials Page that used to add Image , video and text
+ * @returns {JSX.Element}
+ */
 const Description = () => {
     const [addText , setText] = useState(false);
     const [addImage , setImage] = useState(false);
