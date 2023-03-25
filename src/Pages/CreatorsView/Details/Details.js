@@ -26,13 +26,13 @@ const Details = () => {
           <CreatorHeader MenuShow={true} />
           <Sidebar />
           <form onSubmit={handleForm}>
-            <div className={`Details__container ${toggleSidebar ? "details__opacity" : ''}`}>
+            <div className={`Details__container ${toggleSidebar ? "details__opacity" : ''}`} data-testid = "Details__contianer">
               <EventImage />
               <Summary />
               <Description />
               <AddEvents />
             </div>
-            <div className="submit__section">
+            <div className="submit__section" data-testid = "submit__section">
               <button className="discard__btn">Discard</button>
               <button type="submit" className="submit__btn">
                 Save
