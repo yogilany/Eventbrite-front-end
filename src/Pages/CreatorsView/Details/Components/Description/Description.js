@@ -14,17 +14,17 @@ const Description = () => {
     const [addImage , setImage] = useState(false);
     const [addVideo , setVideo] = useState(false);
   return (
-    <div className="description__container">
+    <div className="description__container" data-testid = "descriptionContainer">
       <MdTextFields className = "text__logo" />
       <h1 style={{ marginBottom: "7px" , fontSize:'30px' ,fontWeight:'700' }}>Description</h1>
       <p style={{ fontSize: '14px' }}>Add more details to your event like your schedule, sponsors, or featured guests.<a href="#" className='see__examples'> Learn more</a></p>
-      {addText && <div className='add__text'><textarea id = "AddText" /><button onClick = {() => setText(!addText)}><MdDelete /></button></div>}
-      {addImage && <div className='add__image'><UploadBox></UploadBox> <button onClick = {() => setImage(!addImage)}><MdDelete /></button></div>}
-      {addVideo && <div className='add__video'><textarea id = "AddVideo" /><button onClick = {() => setVideo(!addVideo)}><MdDelete /></button></div>}
-      <div className='description__container-buttons'>
-        <button className='cond__btn' onClick = {() => setText(true)}>Add Text</button>
-        <button className='cond__btn' onClick = {() => setImage(true)}>Add Image</button>
-        <button className='cond__btn' onClick = {() => setVideo(true)}>Add Video</button>
+      {addText && <div className='add__text'><textarea data-testid = "textArea" id = "AddText" /><button onClick = {() => setText(!addText)}><MdDelete /></button></div>}
+      {addImage && <div className='add__image'><UploadBox data_testid = "addImageBox"></UploadBox> <button onClick = {() => setImage(!addImage)}><MdDelete /></button></div>}
+      {addVideo && <div className='add__video'><textarea data-testid = "textArea" id = "AddVideo" /><button onClick = {() => setVideo(!addVideo)}><MdDelete /></button></div>}
+      <div className='description__container-buttons' data-testid = "addButtons">
+        <button data-testid = "addText" className='cond__btn' onClick = {() => setText(true)}>Add Text</button>
+        <button data-testid = "addImage" className='cond__btn' onClick = {() => setImage(true)}>Add Image</button>
+        <button data-testid = "addVideo" className='cond__btn' onClick = {() => setVideo(true)}>Add Video</button>
       </div>
     </div>
   );

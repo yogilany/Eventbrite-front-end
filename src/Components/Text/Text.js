@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import styled from "@emotion/styled";
 
-export default function ValidationTextFields() {
+export default function ValidationTextFields({data_testid}) {
     const MyText = styled(TextField)({
         width:'400px '
     });
@@ -22,7 +22,8 @@ export default function ValidationTextFields() {
           label="Summary"
           placeholder="Write a short event summary to get attended excited."
           style={{ width: "92%", marginTop: "5px" }}
-          className = "text"
+          className="text"
+          data-testid = {data_testid}
         />
       </div>
     </Box>

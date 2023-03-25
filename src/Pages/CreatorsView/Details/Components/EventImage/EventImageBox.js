@@ -12,7 +12,7 @@ import { SiCanva } from 'react-icons/si'
  */
 const EventImageBox = () => {
   return (
-    <div className='EventImage__container'>
+    <div className='EventImage__container' data-testid = "eventImage">
         <CgImage className='photo__header' />
         <h1 className='title__upload' >Main Event Image</h1>
         <p style = {{fontSize:'14px'}}>Add photos to show what your event will be about. You can upload up to 10 images.<a href = "#" className='see__examples'> See Examples</a></p>
@@ -20,7 +20,7 @@ const EventImageBox = () => {
             {/* <div className='EventImage__fileType-body'> */}
                 <CgImage className='photo' />
                 <h5 style = {{marginBottom:'15px'}}>Drag and drop an Image or</h5>
-                <div className='buttons__container'>
+                <div className='buttons__container' data-testid = "btsContainer">
                   <UploadButton />
                   <button className='canvas-btn'>< SiCanva className='canvas__logo' /> Design With Canvas</button>
                 </div>
@@ -29,7 +29,7 @@ const EventImageBox = () => {
                 <button className='canvas-btn'>Design With Canvas</button> */}
             {/* </div> */}
         </div>
-        <div className='photo__requirement'>
+        <div className='photo__requirement' data-testid = "photo__requirements">
           <p><BsDot className='dot' />Recommended image size: 2160 x 1080px</p>
           <p><BsDot className='dot'/>Maximum file size: 10MB</p>
           <p><BsDot className='dot'/>Supported image files: JPEG or PNG</p>

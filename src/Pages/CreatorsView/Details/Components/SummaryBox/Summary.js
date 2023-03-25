@@ -10,7 +10,7 @@ import Text from "../../../../../components/Text/Text";
  */
 const Summary = () => {
   return (
-    <div className="summary__container">
+    <div className="summary__container" data-testid = "summaryContainer">
       <RxText className="text__logo" />
       <h1 style={{ marginBottom: "7px", fontSize: "30px", fontWeight: "700" }}>
         Summary
@@ -24,7 +24,7 @@ const Summary = () => {
           See Examples
         </a>
       </p>
-      <Text className="text" />
+      <Text className="text" data-testid = "textBox" />
     </div>
   );
 };
