@@ -4,6 +4,12 @@ import { CgImage } from 'react-icons/cg'
 import { BsDot } from 'react-icons/bs'
 import UploadButton from '../UploadButton/UploadButton'
 import { SiCanva } from 'react-icons/si'
+/**
+ * @author Mahmoud Khaled
+ * @param {}
+ * @description This is Main Event Image section in detials Page that used to upload an image or Design canvas
+ * @returns {JSX.Element}
+ */
 const EventImageBox = () => {
   return (
     <div className='EventImage__container'>
