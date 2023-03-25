@@ -16,6 +16,12 @@ import { TbNumber1, TbNumber2, TbNumber3, TbNumber4 } from "react-icons/tb";
 import { useContext , useEffect , useState , useRef } from 'react';
 import { AppContext } from '../Details/Details';
 console.log(window.innerWidth);
+/**
+ * @author Mahmoud Khaled
+ * @param {}
+ * @description This is sidebar which displayed in Creator Pages (Publish , Details , Basic Info)
+ * @returns {JSX.Element}
+ */
 const Sidebar = () => {
   const sidebarOptions = useRef();
   const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
