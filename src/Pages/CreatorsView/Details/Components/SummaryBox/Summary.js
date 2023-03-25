@@ -2,6 +2,12 @@ import React from "react";
 import "./summary.css";
 import { RxText } from "react-icons/rx";
 import Text from "../../../../../components/Text/Text";
+/**
+ * @author Mahmoud Khaled
+ * @param {}
+ * @description This is Summary Section that contains textBox used to write summary about Event
+ * @returns {JSX.Element}
+ */
 const Summary = () => {
   return (
     <div className="summary__container">
