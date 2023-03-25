@@ -9,6 +9,12 @@ import Header from '../../../components/header/Header'
 import CreatorHeader from './Components/creatorHeader/CreatorHeader'
 import { createContext } from 'react'
 export const AppContext = createContext({});
+/**
+ * @author Mahmoud Khaled
+ * @param {}
+ * @description This is Container of Detials Page that Contains Main Event Image , Summary , Description and Add Event Sections
+ * @returns {JSX.Element}
+ */
 const Details = () => {
   const handleForm = (e) => {
     e.preventDefault();
