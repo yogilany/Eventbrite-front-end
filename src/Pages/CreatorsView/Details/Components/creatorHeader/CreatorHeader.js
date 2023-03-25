@@ -5,6 +5,12 @@ import { AiOutlineMenu} from "react-icons/ai";
 import {MdOutlineKeyboardArrowDown} from 'react-icons/md'
 import { Link } from "react-router-dom";
 import { AppContext } from "../../Details";
+/**
+ * @author Mahmoud Khaled
+ * @description This is Creator Header which will be displayed on Details Page
+ * @param {Boolean} MenuShow This Prop used to check whether we need menubar that will be displayed in responsive mood (< 600px) or not 
+ * @returns {JSX.Element}
+ */
 const CreatorHeader = ({ MenuShow }) => {
   const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
   return (
