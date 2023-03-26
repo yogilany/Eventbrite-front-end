@@ -6,7 +6,7 @@
 .EventImage__fileType
 {
     background-color:rgb(248, 247, 250);
-    width: 700px;
+    width: 650px;
     height: 350px;
     position: relative;
     margin-top: 15px;
@@ -15,6 +15,10 @@
     transition: -webkit-box-shadow .32s linear;
     transition: box-shadow .32s linear;
     transition: box-shadow .32s linear,-webkit-box-shadow .32s linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 .EventImage__fileType:hover {
     border-color: #fff;
@@ -44,7 +48,7 @@
 }
 .canvas-btn
 {
-    padding: 12px 20px;
+    padding: 12px 32px;
     border-radius: 4px;
     color:rgb(30, 10, 60);
     font-size: 14px;
@@ -54,10 +58,17 @@
     border: 2px solid rgb(169, 168, 179);
     cursor: pointer;
 }
+.canvas__logo
+{
+    color: rgb(12, 123, 242);
+    font-size: 15px;
+    margin-top: -2px;
+    margin-right: 2px;
+}
 .photo
 {
     font-size: 35px;
-    margin-left: 39%;
+    /* margin-left: 39%; */
     color: #a7a5ab;
     margin-bottom: 10px;
 }
@@ -133,7 +144,7 @@
     .photo
     {
         font-size: 35px;
-        margin-left: 37%;
+        /* margin-left: 37%; */
         color: #a7a5ab;
         margin-bottom: 10px;
     }
@@ -191,7 +202,7 @@
     .photo
     {
         font-size: 35px;
-        margin-left: 37%;
+        /* margin-left: 37%; */
         color: #a7a5ab;
         margin-bottom: 10px;
     }
@@ -249,7 +260,7 @@
     .photo
     {
         font-size: 35px;
-        margin-left: 37%;
+        /* margin-left: 37%; */
         color: #a7a5ab;
         margin-bottom: 10px;
     }
@@ -307,7 +318,7 @@
     .photo
     {
         font-size: 35px;
-        margin-left: 37%;
+        /* margin-left: 37%; */
         color: #a7a5ab;
         margin-bottom: 10px;
     }
@@ -372,7 +383,7 @@
     .photo
     {
         font-size: 35px;
-        margin-left: 37%;
+        /* margin-left: 37%; */
         color: #a7a5ab;
         margin-bottom: 10px;
     }
@@ -430,7 +441,7 @@
     .photo
     {
         font-size: 35px;
-        margin-left: 37%;
+        /* margin-left: 37%; */
         color: #a7a5ab;
         margin-bottom: 10px;
     }
@@ -488,7 +499,7 @@
     .photo
     {
         font-size: 35px;
-        margin-left: 37%;
+        /* margin-left: 37%; */
         color: #a7a5ab;
         margin-bottom: 10px;
     }
@@ -549,7 +560,7 @@
     .photo
     {
         font-size: 35px;
-        margin-left: 37%;
+        /* margin-left: 37%; */
         color: #a7a5ab;
         margin-bottom: 10px;
     } 
@@ -599,7 +610,7 @@
     .photo
     {
         font-size: 35px;
-        margin-left: 37%;
+        /* margin-left: 37%; */
         color: #a7a5ab;
         margin-bottom: 10px;
     } 
@@ -649,7 +660,7 @@
     .photo
     {
         font-size: 35px;
-        margin-left: 37%;
+        /* margin-left: 37%; */
         color: #a7a5ab;
         margin-bottom: 10px;
     } 

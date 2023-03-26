@@ -6,11 +6,11 @@ import { GiHelp } from "react-icons/gi";
 import { AiOutlineRead } from 'react-icons/ai'
 const AddEvents = () => {
   return (
-    <div className="addEvents__container">
+    <div className="addEvents__container" data-testid = "addEvents">
       <BsRocket className="rocket__logo" />
       <h2 style={{ marginBottom: "7px" , fontSize:'30px' ,fontWeight:'700' }}>Add more sections to your event page</h2>
       <p style={{ fontSize: "14px" }}> Make your event stand out even more. Adding these sections will helpattendees purchase tickets.</p>
-      <div className="add__section">
+      <div className="add__section" data-testid = "addSection">
         <AddSection Title = "Agenda" Logo = {<AiOutlineRead />} />
         {/* <div className="line" style={{ margin: "30px 0px", bordetTop:'red' }}> */}
           <hr />

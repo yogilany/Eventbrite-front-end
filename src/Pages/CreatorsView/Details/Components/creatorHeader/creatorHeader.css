@@ -16,28 +16,21 @@
 .header__container-left img {
   width: 130px;
 }
-.header__container-left input {
-  width: 460px;
-  height: 50px;
-  background-color: #f8f7fa;
-  border: none;
-  margin-left: 15px;
-  padding: 10px 25px;
-}
 .header__container-left {
   display: flex;
   align-items: center;
-  width: 55%;
+  width: 58%;
 }
 .header__container-links a {
   text-decoration: none;
-  color: #6f7287;
+  color: #39364f;
   font-size: 14px;
+  font-weight: bold;
 }
 .header__container-links {
   display: flex;
   align-items: center;
-  width: 45%;
+  width: 42%;
 }
 .header__container-link {
   margin-right: 30px;
@@ -74,6 +67,52 @@
 .menu-logo
 {
   margin-right: 5px;
+}
+.header__container-right
+{
+    display: flex;
+    align-items: center;
+    background-color: #f8f7fa;
+    width: 186px;
+    height: 40px;
+    border-radius: 30px;
+    margin: 10px 8px 10px 24px;
+    padding-right: 8px;
+    padding-left: 4px;
+}
+.header__container-right .circular__name
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #3659e3;
+    text-align: center;
+    color: white;
+    font-size: 10px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.header__container-right .user__name
+{
+    padding: 0 0 0 8px;
+    color: #1e0a3c;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+.arrow
+{
+    font-size: 20px;
+    margin-left: 5px;
+}
+.header__container-right:hover
+{
+    background-color: #e7e7e9;
 }
 @media screen and (max-width: 792px) and (min-width: 400px)
 {

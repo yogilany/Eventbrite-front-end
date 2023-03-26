@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: CreatorsView/Details/Components/SummaryBox/Summary.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,50 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: CreatorsView/Details/Components/SummaryBox/Summary.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./summary.css";
+import { RxText } from "react-icons/rx";
+import Text from "../../../../../components/Text/Text";
+/**
+ * @author Mahmoud Khaled
+ * @param {}
+ * @description This is Summary Section that contains textBox used to write summary about Event
+ * @returns {JSX.Element}
+ */
+const Summary = () => {
+  return (
+    &lt;div className="summary__container">
+      &lt;RxText className="text__logo" />
+      &lt;h1 style={{ marginBottom: "7px", fontSize: "30px", fontWeight: "700" }}>
+        Summary
+      &lt;/h1>
+      &lt;p style={{ fontSize: "14px" }}>
+        Grab people's attention with a short description about your event.
+        Attendees will see this at the top of your event page. (140 characters
+        max).
+        &lt;a href="#" className="see__examples">
+          {" "}
+          See Examples
+        &lt;/a>
+      &lt;/p>
+      &lt;Text className="text" />
+    &lt;/div>
+  );
+};
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default Summary;
+</code></pre>
+        </article>
+    </section>
 
 
 

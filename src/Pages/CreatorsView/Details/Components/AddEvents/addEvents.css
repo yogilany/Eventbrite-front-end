@@ -15,6 +15,7 @@
     border: 2px dashed rgb(219, 218, 227);
     border-radius: 8px;
     padding: 32px;
+    width: 650px;
 }
 @media screen and (max-width: 1260px) and (min-width: 1200px)
 {

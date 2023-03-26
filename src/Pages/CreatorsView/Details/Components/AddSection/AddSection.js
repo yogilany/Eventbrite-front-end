@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 import './addSection.css'
-
+/**
+ * @author Mahmoud Khaled
+ * @description This is Add Event Section in Details Page
+ * @param {String} Title Title like FAQ or Agenda
+ * @param {Component} Logo Take Logo of passed Title
+ * @returns {JSX.Element}
+ */
 const AddSection = ({Title , Logo}) => {
   return (
     <div className = "add__section-agenda">

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,42 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
 
+/**
+ *
+ * @param {None} props
+ * @returns Returns Eventbrite logo
+ */
+export const LoginTitle = (props) => {
+  const TitleStyle = {
+    height: "8%",
+    width: "8%",
+    position: "absolute",
+    left: "13%",
+    top: "1%",
+  };
 
-    <h3> </h3>
+  return (
+    &lt;div style={TitleStyle}>
+      &lt;Logo />
+    &lt;/div>
+  );
+};
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default LoginTitle;
+</code></pre>
+        </article>
+    </section>
 
 
 

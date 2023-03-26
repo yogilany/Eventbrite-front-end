@@ -14,16 +14,16 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-top: 30px;
+    padding-top: 20px;
     position: relative;
     border-right: 1.5px solid #eeedf2;
 }
 .sidebar__links a 
 {
     text-decoration: none;
-    font-size: 38px;
+    font-size: 40px;
     color: rgb(109, 109, 109);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .footer
 {
@@ -64,7 +64,8 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    color:#3659e3
+    color:#3659e3;
+    font-weight: 500;
 }
 .arrowLeft
 {
@@ -74,11 +75,13 @@
 .line
 {
     width: 100%;
-    margin-top: 7px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: rgb(188, 185, 185);
 }
-.line hr
+.div__line
 {
-    /* border-top: 1px solid rgb(196, 195, 195) !important; */
+    border-top: 1px solid rgb(230, 229, 229) !important;
 }
 .event__name:hover
 {
@@ -92,6 +95,23 @@
     align-items: center;
     color: var(--eds-control,#3659e3);
     margin-top: 10px;
+    font-weight: 500;
+}
+.preview__link:hover
+{
+    text-decoration: underline;
+}
+.more
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    padding: 5px;
+}
+.more:hover
+{
+    background-color: rgb(236, 232, 232);
 }
 .share__logo
 {
@@ -125,6 +145,10 @@
 {
     margin-left: 50px;
 }
+.routing__options
+{
+    margin-top: 0px;
+}
 @media screen and (max-width: 959px) and (min-width: 792px)
 {
     .sidebar__Event-options
@@ -143,3 +167,4 @@
         display: none;
     }
 }
+

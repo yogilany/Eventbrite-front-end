@@ -45,10 +45,6 @@ function AuthenticatedApp() {
       path: "/basic-info",
       element: <BasicInfo />,
     },
-    {
-      path: "/details",
-      element: <Details />,
-    },
   ]);
   return (
     <>

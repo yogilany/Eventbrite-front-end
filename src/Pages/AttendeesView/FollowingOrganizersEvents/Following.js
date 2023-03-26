@@ -10,7 +10,7 @@ const FollowingOrgEvents = () => {
   const [counter, setCounter] = useState(1);
   return (
     <div className="following__container">
-      <Header />
+      <Header MenuShow={false} />
       <div className="following__container-heading">
         <a href="#" className="back-btn">
           <IoMdArrowRoundBack />

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: CreatorsView/Details/Components/AddSection/AddSection.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,44 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: CreatorsView/Details/Components/AddSection/AddSection.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from 'react'
+import './addSection.css'
+/**
+ * @author Mahmoud Khaled
+ * @description This is Add Event Section in Details Page
+ * @param {String} Title Title like FAQ or Agenda
+ * @param {Component} Logo Take Logo of passed Title
+ * @returns {JSX.Element}
+ */
+const AddSection = ({Title , Logo}) => {
+  return (
+    &lt;div className = "add__section-agenda">
+        &lt;div className='add__section-agenda-left'>
+            &lt;div className='agenda__icon'>{Logo}&lt;/div>
+            &lt;h4 style = {{fontSize:'18px'}}>{Title}&lt;/h4>
+        &lt;/div>
+        &lt;div className='add__section-agenda-right'>
+            &lt;a href = "#" style = {{marginRight:'30px' , textDecoration:'none' , color:"rgb(54, 89, 227)"}}>How it works&lt;/a>
+            &lt;button className='add__btn'>
+                Add
+            &lt;/button>
+        &lt;/div>
+    &lt;/div>
+  )
+}
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default AddSection</code></pre>
+        </article>
+    </section>
 
 
 

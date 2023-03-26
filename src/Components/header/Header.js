@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState , useContext } from "react";
 import "./header.scss";
 import Logo from "../../assets/logo.png";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
-const Header = () => {
+import { AppContext } from "../../Pages/CreatorsView/Details/Details";
+const Header = ({MenuShow}) => {
+  const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
   return (
     <div className="header__container">
       <div className="header__container-left">
@@ -34,6 +36,7 @@ const Header = () => {
           <RiArrowDownSLine />
         </div>
       </div>
+      {MenuShow && <div className="details-menu"><button className="menu" onClick={() => setToggleSidebar(!toggleSidebar)}><AiOutlineMenu className="menu-logo" /></button>Details</div>}
     </div>
   );
 };

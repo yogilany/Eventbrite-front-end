@@ -6,9 +6,9 @@ const Dropdown = ({Name}) => {
     const [toggleBtn, setToggleBtn] = useState(false);
   return (
     <div className = "Dropdown">
-      <a href="#" className='drop__btn' onClick={() => setToggleBtn(!toggleBtn)}>{Name} {toggleBtn ? <AiOutlineArrowUp className = "arrow__Logo"  /> : <AiOutlineArrowDown className = "arrow__Logo" />}</a>
+      <a data-testid = "dropdownLink" href="#" className='drop__btn' onClick={() => setToggleBtn(!toggleBtn)}>{Name} {toggleBtn ? <AiOutlineArrowUp className = "arrow__Logo"  /> : <AiOutlineArrowDown className = "arrow__Logo" />}</a>
       {toggleBtn &&
-        <div className='linkss'>
+        <div className='linkss' data-testid = "dropdownLinks">
           <a href="#">Google</a>
           <a href="#">Facebook</a>
           <a href="#">Instagaram</a>
