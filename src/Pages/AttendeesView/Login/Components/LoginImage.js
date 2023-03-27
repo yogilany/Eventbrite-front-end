@@ -19,7 +19,7 @@ export const LoginImage = (props) => {
 
     }
     return (
-        <Container style={ImageStyle} >
+        <Container style={ImageStyle} data-testid={props.data_testid}>
             <Row style={{ height: "100vh" }}>
                 <Col md={4} >
                 </Col>

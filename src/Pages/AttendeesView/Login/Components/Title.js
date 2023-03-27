@@ -7,15 +7,16 @@ import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
  */
 export const LoginTitle = (props) => {
   const TitleStyle = {
-    height: "8%",
-    width: "8%",
-    position: "absolute",
-    left: "13%",
-    top: "1%",
+    height: "auto",
+    width: "30%",
+    minWidth: "30%"
+    // position: "absolute",
+    // left: "13%",
+    // top: "1%",
   };
 
   return (
-    <div style={TitleStyle}>
+    <div style={TitleStyle} data-testid={props.data_testid}>
       <Logo />
     </div>
   );

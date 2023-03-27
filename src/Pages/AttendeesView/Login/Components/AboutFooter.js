@@ -11,7 +11,7 @@ export const AboutFooter = () => {
 
     return (
 
-        <Container style={ContainerStyle}>
+        <Container style={ContainerStyle} data-testid={props.data_testid}>
             <Row>
                 <Col>
                     <Container>
