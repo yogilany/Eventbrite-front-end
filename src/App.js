@@ -3,7 +3,7 @@ import { Layout } from "./app/layout";
 import AuthenticatedApp from "./app/AuthenticatedApp";
 import UnauthenticatedApp from "./app/UnauthenticatedApp";
 function App() {
-  const user = true;
+  const user = false;
   return (
     <>
       {user ? (

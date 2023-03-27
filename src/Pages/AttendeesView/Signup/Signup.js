@@ -10,68 +10,6 @@ import { Chip } from "@mui/material";
 import { HorizontalChip } from "../Login/Components/HorizontalChip";
 
 export const Signup = (props) => {
-  // const LoginColumnStyle = {
-  //     margin: "4rem 0 0 12rem"
-  // }
-  // const dividerStyle = {
-  //     outerHeight: "30rem"
-  //     , display: "inline-block"
-  // }
-  // const ImageStyle = {
-  //     backgroundImage: `url(${test_image})`,
-  //     backgroundSize: "cover",
-  //     backgroundRepeat: "no-repeat",
-  //     backgroundPosition: "0",
-  //     width: "100%",
-  //     height: "100%",
-
-  // }
-
-  // const HeaderStyle = {
-  //     color: "#1e0a3c",
-  //     fontSize: "3.5rem",
-  //     fontWeight: "700",
-  //     width: "50%"
-  // }
-
-  // return (
-  //     <div className={props.name}>
-  //         <LoginTitle ></LoginTitle>
-  //         <Container fluid>
-  //             <Row>
-  //                 <Col>
-  //                     <div id="login-left-div" style={LoginColumnStyle}>
-
-  //                         <h1 id="login-signup-h1" style={HeaderStyle}>Create an account</h1>
-
-  //                         <SignupForm name="login-form-div" />
-
-  //                         {/* divider in progress */}
-  //                         <div style={{ margin: "2rem ", maxWidth: "50%" }}>
-  //                             <hr></hr>
-  //                         </div>
-
-  //                         <SignupMethods name="login-methods-div" />
-
-  //                     </div>
-
-  //                 </Col>
-  //                 <Col >
-  //                     <LoginImage
-  //                         img_url={test_image}
-  //                         img_caption="ragel gamed"
-  //                         img_credit="Msh ana"
-  //                         img_location="New York, NY"
-  //                     />
-
-  //                 </Col>
-  //             </Row>
-  //             <Row>
-  //                 <FooterLink></FooterLink>
-  //                 <Footer></Footer>
-  //             </Row>
-  //         </Container>
-  //     </div >);
 
   const dividerStyle = {
     outerHeight: "30rem",
