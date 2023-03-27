@@ -13,10 +13,10 @@ import { SiEsphome } from 'react-icons/si'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { RiShareCircleFill } from 'react-icons/ri'
 import { TbNumber1, TbNumber2, TbNumber3, TbNumber4 } from "react-icons/tb";
-import {MdOutlineKeyboardArrowDown} from 'react-icons/md'
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 import { useContext , useEffect , useState , useRef } from 'react';
 import { AppContext } from '../Details/Details';
-console.log(window.innerWidth);
+// console.log(window.innerWidth);
 /**
  * @author Mahmoud Khaled
  * @param {}
