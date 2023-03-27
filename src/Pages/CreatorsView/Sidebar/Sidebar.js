@@ -13,6 +13,7 @@ import { SiEsphome } from 'react-icons/si'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { RiShareCircleFill } from 'react-icons/ri'
 import { TbNumber1, TbNumber2, TbNumber3, TbNumber4 } from "react-icons/tb";
+import {MdOutlineKeyboardArrowDown} from 'react-icons/md'
 import { useContext , useEffect , useState , useRef } from 'react';
 import { AppContext } from '../Details/Details';
 console.log(window.innerWidth);
@@ -62,12 +63,13 @@ const Sidebar = () => {
           </div>
       {windowWidth > 792 && !toggleSidebar ?
         <div className='sidebar__Event-options'>
-          <a className="events__link" href="#" style={{ marginLeft: '35px' , marginBottom:'15px' }}><AiOutlineArrowLeft className='arrowLeft' /> Events</a>
+          <a className="events__link" href="#" style={{ marginLeft: '30px' , marginBottom:'15px' }}><AiOutlineArrowLeft className='arrowLeft' /> Events</a>
           <div className='div__line' style ={{borderTop:'2px solid grey', width:'100%'}}></div>
           {/* <hr className='line' /> */}
-          <a style={{ textDecoration: 'none' , marginTop:'15px'}} href="#" className="event__name"><h2 style={{ marginLeft: '35px', color: "#1E0A3C" }}>MK</h2></a>
-          <p style={{ marginLeft: '35px', fontSize: '14px', color: "#4b4d63", marginTop: "2px", fontWeight: '600' }}>Sun, Apr 16, 2023 7:00 PM</p>
-          <a href="#" style={{ marginLeft: '35px', marginTop: '-8px' , marginBottom:'15px' }} className="preview__link">Preview your Event <RiShareCircleFill className='share__logo' /></a>
+          <a className='draft__btn'>Draft <MdOutlineKeyboardArrowDown className='arrow__down' /></a>
+          <a style={{ textDecoration: 'none' , marginTop:'15px'}} href="#" className="event__name"><h2 style={{ marginLeft: '30px', color: "#1E0A3C" , fontSize:'24px' , fontWeight:'700' }}>mm</h2></a>
+          <p style={{ marginLeft: '30px', fontSize: '14px', color: "#4b4d63", marginTop: "2px", fontWeight: '600' }}>Sun, Apr 16, 2023 7:00 PM</p>
+          <a href="#" style={{ marginLeft: '30px', marginTop: '-8px' , marginBottom:'15px' }} className="preview__link">Preview your Event <RiShareCircleFill className='share__logo' /></a>
           <div className='div__line' style ={{borderTop:'2px solid grey', width:'100%'}}></div>
           {/* <hr className='line' /> */}
           <div className='routing__options'>
@@ -79,7 +81,7 @@ const Sidebar = () => {
           <div className='div__line' style ={{borderTop:'2px solid grey', width:'100%'}}></div>
           {/* <hr className='line' /> */}
           <div>
-            <a href="#" className='EventOption' style={{ fontWeight: '500' }}>Dashboard</a>
+            <a href="#" className='EventOption' style={{ fontWeight: '500' , fontSize:'14px' , fontWeight:'600' }}>Dashboard</a>
             <Dropdown Name="Order Options" />
             <Dropdown Name="Marketing" />
             <Dropdown Name="Manage Attendes" />
