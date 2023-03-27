@@ -1,0 +1,40 @@
+#login-left-div {
+    /* margin: 15% 10%;
+    width: 50% */
+}
+
+#login-login-h1 {
+    color: #1e0a3c;
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.login-form-div {
+    /* margin: 10% 0; */
+}
+
+.form-control {
+    border-radius: 0.2vmin;
+}
+
+.form-control::-webkit-input-placeholder {
+    padding-top: 10px;
+}
+
+
+.form-control {
+    padding-bottom: 1.2rem
+}
+
+.form-control::placeholder {
+    font-size: 0.8rem;
+    line-height: 1rem;
+}
+
+.form-control:focus::placeholder {
+    // background-color: red;
+    // background-color: red;
+    color: #3659e3;
+
+
+}

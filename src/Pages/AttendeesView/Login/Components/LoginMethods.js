@@ -1,5 +1,5 @@
 import Button from "react-bootstrap/Button";
-import "../Login.css";
+import "../Login.scss";
 import { ButtonGroup, Col, Row } from "react-bootstrap";
 import * as FcIcons from "react-icons/fc";
 import * as TiIcons from "react-icons/ti";

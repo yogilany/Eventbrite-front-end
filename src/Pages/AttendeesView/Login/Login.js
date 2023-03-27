@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import LoginForm from "./Components/LoginForm";
-import "./Login.css";
+import "./Login.scss";
 import { ButtonGroup, Image } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
