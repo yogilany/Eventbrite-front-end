@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
-    "jsdoc": "^4.0.2"
+    "axios": "^1.3.4",
+    "miragejs": "^0.1.47"
   }
 }
