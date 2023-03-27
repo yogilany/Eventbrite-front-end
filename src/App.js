@@ -5,8 +5,7 @@ import UnauthenticatedApp from "./app/UnauthenticatedApp";
 import { useEffect } from "react";
 import server from "./backend/server";
 function App() {
-
-  const user = false;
+  const user = true;
 
   useEffect(() => {
     server();

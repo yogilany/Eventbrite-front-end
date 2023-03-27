@@ -1,6 +1,6 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import slogan from "../../../../assets/slogan.svg";
-export const Header = () => {
+export const Hero = () => {
   return (
     <Container className="mb-5 p-0" fluid>
       <div className="header-img">
