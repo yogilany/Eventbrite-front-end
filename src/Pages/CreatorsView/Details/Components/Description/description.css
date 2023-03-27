@@ -12,7 +12,7 @@
 }
 .cond__btn
 {
-    padding: 12px 20px;
+    padding: 12px 30px;
     margin-right: 15px;
     border-radius: 4px;
     font-size: 14px;
@@ -62,6 +62,16 @@
 {
     background-color: rgb(240, 238, 238);
 }
+.video__link
+{
+    width: 100%;
+    height: 48px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    position: relative;
+}
+
+
 @media screen and (max-width: 1300px) and (min-width: 1261px)
 {
     .description__container

@@ -3,6 +3,7 @@ import './description.css'
 import { MdTextFields } from 'react-icons/md'
 import { MdDelete } from 'react-icons/md'
 import UploadBox from '../UploadBox/UploadBox'
+import {IoMdInformationCircleOutline} from 'react-icons/io'
 /**
  * @author Mahmoud Khaled
  * @param {}
@@ -20,7 +21,7 @@ const Description = () => {
       <p style={{ fontSize: '14px' }}>Add more details to your event like your schedule, sponsors, or featured guests.<a href="#" className='see__examples'> Learn more</a></p>
       {addText && <div className='add__text'><textarea data-testid = "textArea" id = "AddText" /><button onClick = {() => setText(!addText)}><MdDelete /></button></div>}
       {addImage && <div className='add__image'><UploadBox data_testid = "addImageBox"></UploadBox> <button onClick = {() => setImage(!addImage)}><MdDelete /></button></div>}
-      {addVideo && <div className='add__video'><textarea data-testid = "textArea" id = "AddVideo" /><button onClick = {() => setVideo(!addVideo)}><MdDelete /></button></div>}
+      {addVideo && <div className='add__video'><input className='video__link' type = "text" placeholder='Video Link' data-testid = "textArea" id = "AddVideo" /><IoMdInformationCircleOutline className='info__icon' /><button onClick = {() => setVideo(!addVideo)}><MdDelete /></button></div>}
       <div className='description__container-buttons' data-testid = "addButtons">
         <button data-testid = "addText" className='cond__btn' onClick = {() => setText(true)}>Add Text</button>
         <button data-testid = "addImage" className='cond__btn' onClick = {() => setImage(true)}>Add Image</button>
