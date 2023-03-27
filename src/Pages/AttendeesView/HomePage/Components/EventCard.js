@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { MdPersonOutline } from "react-icons/md";
+import card_bg from "../../../../assets/adel-10.png";
 
 const EventCard = ({ index }) => {
   return (
@@ -14,7 +15,7 @@ const EventCard = ({ index }) => {
             height="150px"
             alt="desc"
             style={{ objectFit: "cover" }}
-            src="https://images.pexels.com/photos/11856438/pexels-photo-11856438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            src={card_bg}
           />
         </a>
         <div className="p-3">
