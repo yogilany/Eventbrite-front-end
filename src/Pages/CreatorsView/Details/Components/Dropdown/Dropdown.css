@@ -9,7 +9,8 @@
     width: 288px;
     padding: 20px 30px;
     color: #4b4d63;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 14px;
 }
 .drop__btn:hover{
     background-color: #EEEDF2;
