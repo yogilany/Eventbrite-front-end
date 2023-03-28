@@ -10,12 +10,13 @@ import { LoginTitle as LoginTitle } from "./Components/Title";
 import LoginImage from "./Components/LoginImage";
 import Footer from "../../../components/footer/Footer";
 import { HorizontalChip } from "./Components/HorizontalChip";
-import AboutFooter from '../../../components/AboutFooter/AboutFooter'
+import AboutFooter from "../../../components/AboutFooter/AboutFooter";
 
-import { useRef, useState, useEffect } from 'react'
-import { getUsers } from "../../../services/users";
+import { useRef, useState, useEffect } from "react";
+// import { getUsers } from "../../../services/users";
+import { getUsers } from "../../../services/services";
 import { userAuthorize, testReducer } from "../../../features";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router";
 
 /**
@@ -32,48 +33,80 @@ const validateEmail = (e) => {
 export const Login = (props) => {
   const userRef = useRef();
   const errRef = useRef();
-  const [user, setUser] = useState('');
-  const [pwd, setPwd] = useState('');
-  const [errMsg, setErrMsg] = useState('');
+  const [user, setUser] = useState("");
+  const [users, setUsers] = useState([]);
+
+  const [pwd, setPwd] = useState("");
+  const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [emailInput, setEmailInput] = useState("");
+  const [emailExist, setEmailExist] = useState(true);
+  const [passwordIncorrect, setPasswordIncorrect] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
+
   useEffect(() => {
-    setErrMsg('');
+    setErrMsg("");
   }, [user, pwd]);
 
-
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.warn('User: ', user, ' Pwd: ', pwd);
+    try {
+      e.preventDefault();
+      console.warn("User: ", user, " Pwd: ", pwd);
 
+      const res = await getUsers();
 
-    getUsers({ password: pwd, email: user })
-      .then(function (response) {
-        console.log(response)
-        if (response) {
+      console.log("res: ", res);
+
+      const userExists = res.filter((u) => u.email === user);
+      if (userExists.length !== 0) {
+        if (userExists[0].password === pwd) {
           dispatch(userAuthorize(true));
           setSuccess(true);
-          navigate('/');
+          navigate("/");
         } else {
+          setPasswordIncorrect(true);
+
           setSuccess(false);
           dispatch(userAuthorize(false));
-          // Display error message or something
         }
-      })
-      .catch((error) => console.error(error));
-  }
+      } else {
+        setEmailExist(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const userExists = users.filter((u) => u.email === user);
+    if (userExists.length === 0) {
+      setEmailExist(false);
+    } else {
+      setEmailExist(true);
+      setPasswordIncorrect(false);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    async function fetchUsers() {
+      const res = await getUsers();
+      setUsers(res);
+    }
+
+    fetchUsers();
+  }, []);
 
   return (
     <Container className={props.name} fluid style={{ height: "50px" }}>
       <Row>
         <Col md={6} className="g-0" style={{ padding: "100px 200px 0 225px" }}>
           <div style={{ maxWidth: "85%" }}>
-
             <Stack dir="vertical" gap={4}>
               <LoginTitle />
               <h1
@@ -85,6 +118,21 @@ export const Login = (props) => {
                 Log in
               </h1>
             </Stack>
+            {!emailExist && user.length > 5 ? (
+              <div className="formMsg">
+                <div></div>
+                <p>
+                  There is no account associated with the email.{" "}
+                  <a>Create account.</a>{" "}
+                </p>
+              </div>
+            ) : null}
+            {passwordIncorrect ? (
+              <div className="formMsg">
+                <div></div>
+                <p>Password is incorrect. </p>
+              </div>
+            ) : null}
             <LoginForm
               user_ref={userRef}
               User={user}
@@ -93,13 +141,19 @@ export const Login = (props) => {
               Pwd={pwd}
               submitAction={handleSubmit}
               Success={success}
-              data_testid="login-form" name="login-form-div" />
+              data_testid="login-form"
+              name="login-form-div"
+            />
             <HorizontalChip data_testid="horizontal-chip" />
-            <LoginMethods data_testid="login-methods" name="login-methods-div" />
+            <LoginMethods
+              data_testid="login-methods"
+              name="login-methods-div"
+            />
           </div>
         </Col>
         <Col md={6} className="g-0">
-          <LoginImage data_testid="login-image"
+          <LoginImage
+            data_testid="login-image"
             img_url={test_image}
             img_caption="Winston Baker"
             img_credit="Confluence Summit"
@@ -113,7 +167,7 @@ export const Login = (props) => {
       <Row>
         <Footer data_testid="login-footer" />
       </Row>
-    </Container >
+    </Container>
   );
 };
 
