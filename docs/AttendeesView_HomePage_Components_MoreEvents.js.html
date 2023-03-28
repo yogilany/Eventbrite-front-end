@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: CreatorsView/Details/Components/AddSection/AddSection.js</title>
+    <title>JSDoc: Source: AttendeesView/HomePage/Components/MoreEvents.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: CreatorsView/Details/Components/AddSection/AddSection.js</h1>
+    <h1 class="page-title">Source: AttendeesView/HomePage/Components/MoreEvents.js</h1>
 
     
 
@@ -26,40 +26,46 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { Component } from "react";
-import "./addSection.css";
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { MdPersonOutline } from "react-icons/md";
+import EventCard from "./EventCard";
+
 /**
- * @author Mahmoud Khaled
- * @description This is Add Event Section in Details Page
- * @param {String} Title Title like FAQ or Agenda
- * @param {Component} Logo Take Logo of passed Title
+ * @author Yousef Gilany
+ * @description This is the EXTRA events section of the HomePage
  * @returns {JSX.Element}
  */
-const AddSection = ({ Title, Logo }) => {
+const MoreEvents = () => {
+  var cards = [];
+
+  for (var i = 1; i &lt;= 16; i++) {
+    cards.push(i);
+  }
+
   return (
-    &lt;div className="add__section-agenda">
-      &lt;div className="add__section-agenda-left">
-        &lt;div className="agenda__icon">{Logo}&lt;/div>
-        &lt;h4 style={{ fontSize: "18px" }}>{Title}&lt;/h4>
-      &lt;/div>
-      &lt;div className="add__section-agenda-right">
-        &lt;a
-          href="#"
-          style={{
-            marginRight: "30px",
-            textDecoration: "none",
-            color: "rgb(54, 89, 227)",
-          }}
-        >
-          How it works
-        &lt;/a>
-        &lt;button className="add__btn">Add&lt;/button>
-      &lt;/div>
-    &lt;/div>
+    &lt;Container className=" pl-5 pr-5 mb-5 mt-5">
+      &lt;Row>
+        &lt;Col>
+          &lt;h3 className="heading3">More Events&lt;/h3>
+        &lt;/Col>
+      &lt;/Row>
+
+      &lt;Row className="justify-content-md-right">
+        {cards.map((card, index) => (
+          &lt;EventCard index={index} key={index} />
+        ))}
+      &lt;/Row>
+      &lt;Row className="justify-content-md-center">
+        &lt;Col md={4}>
+          &lt;button className="darkOutlineBtn">See More&lt;/button>
+        &lt;/Col>
+      &lt;/Row>
+    &lt;/Container>
   );
 };
 
-export default AddSection;
+export default MoreEvents;
 </code></pre>
         </article>
     </section>
