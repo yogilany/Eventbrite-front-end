@@ -24,7 +24,7 @@ const Summary = () => {
           See Examples
         </a>
       </p>
-      <Text className="text" data-testid = "textBox" />
+      <Text className="text" data-testid = "textBox" Label = "Summary" PlaceHolder = "Write a short event summary to get attended excited."/>
     </div>
   );
 };
