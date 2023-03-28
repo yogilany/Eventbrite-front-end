@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import "./header.scss";
 import Logo from "../../assets/logo.png";
 import { AiOutlineSearch, AiOutlineMenu } from "react-icons/ai";
@@ -10,10 +10,15 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { MdOutlineSearch } from "react-icons/md";
 import { Container, Row, Col } from "react-bootstrap";
 import SearchPage from "../../Pages/AttendeesView/HomePage/Components/SearchPage";
+import { useSelector } from "react-redux";
+import { selectUserState } from "../../features";
 
 const Header = ({ MenuShow }) => {
   const [toggleSearch, setToggleSearch] = useState(false);
   const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
+
+  const userRef = useRef();
+  const USER = useSelector(selectUserState);
 
   useEffect(() => {
     {
@@ -68,13 +73,17 @@ const Header = ({ MenuShow }) => {
               <a href="#">Visit the help center3</a>
             </div>
           </div>
+          {!USER ? (
+            <div className="button">
+              <Link to="/login">
+                <button className="header-button">Log In</button>
+              </Link>
+            </div>
+          ) : null}
           <div className="button">
-            <Link to="/login">
-              <button className="header-button">Log In</button>
+            <Link to="/signup">
+              <button className="header-button">Sign Up</button>
             </Link>
-          </div>
-          <div className="button">
-            <button className="header-button">Sign Up</button>
           </div>
         </div>
       </div>
