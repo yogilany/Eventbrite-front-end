@@ -69,7 +69,9 @@ const Header = ({ MenuShow }) => {
             </div>
           </div>
           <div className="button">
-            <button className="header-button">Log In</button>
+            <Link to="/login">
+              <button className="header-button">Log In</button>
+            </Link>
           </div>
           <div className="button">
             <button className="header-button">Sign Up</button>
