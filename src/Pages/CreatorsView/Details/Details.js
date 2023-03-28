@@ -19,9 +19,10 @@ const Details = () => {
   const handleForm = (e) => {
     e.preventDefault();
   }
-    const [toggleSidebar, setToggleSidebar] = useState(false);
+  const [toggleSidebar, setToggleSidebar] = useState(false);
+  const [showSubmit, setShowSubmit] = useState(false);
     return (
-      <AppContext.Provider value={{ toggleSidebar, setToggleSidebar }}>
+      <AppContext.Provider value={{ toggleSidebar, setToggleSidebar , showSubmit ,setShowSubmit }}>
         <div className="Details__page">
           <CreatorHeader MenuShow={true} />
           <Sidebar />
@@ -32,12 +33,13 @@ const Details = () => {
               <Description />
               <AddEvents />
             </div>
-            <div className="submit__section" data-testid = "submit__section">
-              <button className="discard__btn">Discard</button>
-              <button type="submit" className="submit__btn">
-                Save
-              </button>
-            </div>
+            {showSubmit &&
+              <div className="submit__section" data-testid="submit__section">
+                <button className="discard__btn">Discard</button>
+                <button type="submit" className="submit__btn">
+                  Save
+                </button>
+              </div> }
           </form>
         </div>
       </AppContext.Provider>
