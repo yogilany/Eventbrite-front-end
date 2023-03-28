@@ -4,7 +4,6 @@ import { Categories } from "./Components/Categories";
 import Events from "./Components/Events";
 import Hero from "./Components/Hero";
 import Header from "../../../components/header/Header";
-import MoreEvents from "./Components/MoreEvents";
 import "./HomePage.scss";
 import { motion } from "framer-motion";
 import Footer from "../../../components/footer/Footer";

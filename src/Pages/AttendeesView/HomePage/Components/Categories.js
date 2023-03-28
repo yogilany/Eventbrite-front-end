@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { styled } from "@mui/material/styles";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-export const Categories = ({ categorySelector, location }) => {
+export const CategoriesTaps = ({ categorySelector, location }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
