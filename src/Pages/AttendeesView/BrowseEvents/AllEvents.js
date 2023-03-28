@@ -1,55 +1,49 @@
-import { useEffect, useRef, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import SimpleMap from "./Map";
-function getWindowSize() {
-  const { innerWidth, innerHeight } = window;
-  return { innerWidth, innerHeight };
-}
-export const AllEvents = () => {
-  const [windowSize, setWindowSize] = useState(getWindowSize());
+import React from "react";
+import { Container, Col, Row } from "react-bootstrap";
+import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
-  useEffect(() => {
-    function handleWindowResize() {
-      setWindowSize(getWindowSize());
-    }
+/**
+ *
+ * @param {*} param0
+ * @returns
+ */
+const AllEvents = ({ toggle }) => {
+  const navigate = useNavigate();
 
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, []);
   return (
-    <>
-      <Container fluid>
-        <Row>
-          {windowSize.innerWidth < 800 ? null : (
-            <Col
-              md={3}
-              style={{
-                backgroundColor: "red",
-                height: "300px",
-                width: "310px",
-              }}
-            ></Col>
-          )}
-          <Col
-            // md={6}
-            style={{ backgroundColor: "blue", height: "300px" }}
-          ></Col>
-          {windowSize.innerWidth < 1200 ? null : (
-            <Col
-              style={{
-                backgroundColor: "green",
-                height: "300px",
-                maxWidth: "550px",
-              }}
-            >
-              <SimpleMap />
-            </Col>
-          )}
-        </Row>
-      </Container>
-    </>
+    <Container fluid className="search-page p-5">
+      <Row className="p-5">
+        <Col className="p-5">
+          <h1
+            style={{
+              fontSize: "90px",
+              fontWeight: "800",
+              color: "#39364f",
+              fontFamily: "Neue Plak Black",
+            }}
+          >
+            Browse Events Page
+          </h1>
+          <h1
+            style={{
+              fontSize: "60px",
+              fontWeight: "500",
+              color: "#39364f",
+              fontFamily: "Neue Plak",
+            }}
+          >
+            Under Construction
+          </h1>
+          {/* <Link to="/"> */}
+          <button className="primaryBtn" onClick={() => navigate(-1)}>
+            Back
+          </button>
+          {/* </Link> */}
+        </Col>
+      </Row>
+    </Container>
   );
 };
+
+export default AllEvents;
