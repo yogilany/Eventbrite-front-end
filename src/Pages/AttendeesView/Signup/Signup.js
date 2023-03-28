@@ -11,18 +11,6 @@ import { HorizontalChip } from "../Login/Components/HorizontalChip";
 
 export const Signup = (props) => {
 
-  const dividerStyle = {
-    outerHeight: "30rem",
-    display: "inline-block",
-  };
-  const ImageStyle = {
-    backgroundImage: `url(${test_image})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "0",
-    width: "100%",
-    height: "100%",
-  };
   const HeaderStyle = {
     color: "#1e0a3c",
     fontSize: "3.5rem",

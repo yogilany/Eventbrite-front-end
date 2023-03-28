@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: CreatorsView/Details/Components/AddSection/AddSection.js</title>
+    <title>JSDoc: Source: AttendeesView/HomePage/Components/Events.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: CreatorsView/Details/Components/AddSection/AddSection.js</h1>
+    <h1 class="page-title">Source: AttendeesView/HomePage/Components/Events.js</h1>
 
     
 
@@ -26,40 +26,52 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { Component } from "react";
-import "./addSection.css";
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { getUsers } from "../../../../services/users";
+
+import EventCard from "./EventCard";
+
 /**
- * @author Mahmoud Khaled
- * @description This is Add Event Section in Details Page
- * @param {String} Title Title like FAQ or Agenda
- * @param {Component} Logo Take Logo of passed Title
- * @returns {JSX.Element}
+ * @author Yousef Gilany
+ * @description This is the Events section of the HomePage.
+ * It shows the events on a specific city depending on the user's location.
+ * It can be changed to show events on another city. It shows 8 events at a time.
+ * @returns {React.FC}
+ * @todo Make the background picture responsive. *
  */
-const AddSection = ({ Title, Logo }) => {
+const Events = () => {
+  const [todos, setTodos] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  var cards = [];
+
+  for (var i = 1; i &lt;= 8; i++) {
+    cards.push(i);
+  }
+
+  useEffect(() => {
+    const PASSWORD = "123456";
+
+    getUsers({ password: PASSWORD, email: "Sincere@aprilhhh.biz" })
+      .then((response) => console.log("response: ", response.data))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
-    &lt;div className="add__section-agenda">
-      &lt;div className="add__section-agenda-left">
-        &lt;div className="agenda__icon">{Logo}&lt;/div>
-        &lt;h4 style={{ fontSize: "18px" }}>{Title}&lt;/h4>
-      &lt;/div>
-      &lt;div className="add__section-agenda-right">
-        &lt;a
-          href="#"
-          style={{
-            marginRight: "30px",
-            textDecoration: "none",
-            color: "rgb(54, 89, 227)",
-          }}
-        >
-          How it works
-        &lt;/a>
-        &lt;button className="add__btn">Add&lt;/button>
-      &lt;/div>
-    &lt;/div>
+    &lt;Container className=" pl-5 pr-5 mb-5">
+      &lt;h3 className="heading3">Events in Cairo&lt;/h3>
+
+      &lt;Row className="justify-content-md-right">
+        {cards.map((card, index) => (
+          &lt;EventCard index={index} key={index} />
+        ))}
+      &lt;/Row>
+    &lt;/Container>
   );
 };
 
-export default AddSection;
+export default Events;
 </code></pre>
         </article>
     </section>

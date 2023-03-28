@@ -28,8 +28,8 @@
         <article>
             <pre class="prettyprint source linenums"><code>import Button from "react-bootstrap/Button";
 import LoginForm from "./Components/LoginForm";
-import "./Login.css";
-import { ButtonGroup, Image } from "react-bootstrap";
+import "./Login.scss";
+import { ButtonGroup, Image, Stack } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -42,6 +42,8 @@ import * as CgIcons from "react-icons/cg";
 import LoginImage from "./Components/LoginImage";
 import Footer from "../../../components/footer/Footer";
 import { HorizontalChip } from "./Components/HorizontalChip";
+import Head from "../Organizer/Components/Head";
+import FooterLink from "../../../components/footerLink/FooterLink";
 
 /**
  *
@@ -49,47 +51,45 @@ import { HorizontalChip } from "./Components/HorizontalChip";
  * @returns Login page
  */
 export const Login = (props) => {
-  const dividerStyle = {
-    outerHeight: "30rem",
-    display: "inline-block",
-  };
-  const ImageStyle = {
-    backgroundImage: `url(${test_image})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "0",
-    width: "100%",
-    height: "100%",
-  };
+
 
   return (
-    &lt;Container fluid style={{ height: "50px" }}>
+    &lt;Container className="vh-100 d-flex flex-column" fluid style={{ height: "50px" }}>
+
       &lt;Row>
         &lt;Col md={6} style={{ padding: "100px 200px 200px 200px" }}>
-          &lt;h1
-            id="login-login-h1"
-            className="mb-4"
-            style={{ minWidth: "200px" }}
-          >
-            Log in
-          &lt;/h1>
-          &lt;LoginForm name="login-form-div" />
-          &lt;HorizontalChip />
-          &lt;LoginMethods name="login-methods-div" />
+          &lt;div style={{ maxWidth: "85%" }}>
+
+            &lt;Stack dir="vertical" gap={4}>
+              &lt;LoginTitle />
+              &lt;h1
+                data-testid="login-header"
+                id="login-login-h1"
+                className="mb-5"
+                style={{ minWidth: "200px" }}
+              >
+                Log in
+              &lt;/h1>
+            &lt;/Stack>
+            &lt;LoginForm data_testid="login-form" name="login-form-div" />
+            &lt;HorizontalChip data_testid="horizontal-chip" />
+            &lt;LoginMethods data_testid="login-methods" name="login-methods-div" />
+          &lt;/div>
         &lt;/Col>
         &lt;Col md={6}>
-          &lt;LoginImage
+          &lt;LoginImage data_testid="login-image" 
             img_url={test_image}
-            img_caption="Ragel gamed"
-            img_credit="Msh ana"
-            img_location="New York, NY"
+            img_caption="Winston Baker"
+            img_credit="Confluence Summit"
+            img_location="San Francisco, CA"
           />
         &lt;/Col>
       &lt;/Row>
+
       &lt;Row>
-        &lt;Footer />
+        &lt;Footer data_testid="login-footer" />
       &lt;/Row>
-    &lt;/Container>
+    &lt;/Container >
   );
 };
 
@@ -104,13 +104,13 @@ export default Login;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#Summary">Summary</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#MoreEvents">MoreEvents</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#Summary">Summary</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 25 2023 14:05:26 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Mar 28 2023 02:22:44 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

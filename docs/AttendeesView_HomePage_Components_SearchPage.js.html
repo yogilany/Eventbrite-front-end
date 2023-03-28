@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: CreatorsView/Details/Components/AddSection/AddSection.js</title>
+    <title>JSDoc: Source: AttendeesView/HomePage/Components/SearchPage.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: CreatorsView/Details/Components/AddSection/AddSection.js</h1>
+    <h1 class="page-title">Source: AttendeesView/HomePage/Components/SearchPage.js</h1>
 
     
 
@@ -26,40 +26,45 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { Component } from "react";
-import "./addSection.css";
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { Container, Col, Row } from "react-bootstrap";
+import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
 /**
- * @author Mahmoud Khaled
- * @description This is Add Event Section in Details Page
- * @param {String} Title Title like FAQ or Agenda
- * @param {Component} Logo Take Logo of passed Title
- * @returns {JSX.Element}
+ *
+ * @param {*} param0
+ * @returns
  */
-const AddSection = ({ Title, Logo }) => {
+const SearchPage = ({ toggle }) => {
+  const navigate = useNavigate();
   return (
-    &lt;div className="add__section-agenda">
-      &lt;div className="add__section-agenda-left">
-        &lt;div className="agenda__icon">{Logo}&lt;/div>
-        &lt;h4 style={{ fontSize: "18px" }}>{Title}&lt;/h4>
-      &lt;/div>
-      &lt;div className="add__section-agenda-right">
-        &lt;a
-          href="#"
-          style={{
-            marginRight: "30px",
-            textDecoration: "none",
-            color: "rgb(54, 89, 227)",
-          }}
-        >
-          How it works
-        &lt;/a>
-        &lt;button className="add__btn">Add&lt;/button>
-      &lt;/div>
-    &lt;/div>
+    &lt;motion.div
+      initial={{ y: "1000px" }}
+      animate={{ y: "0px" }}
+      exit={{ y: "1000px" }}
+      transition={{ duration: 0.5 }}
+    >
+      &lt;Container fluid className="search-page">
+        &lt;Row>
+          s
+          &lt;Col className="p-5">
+            &lt;h1>Search Page&lt;/h1>
+            &lt;input
+              type="text"
+              placeholder="Search for events, organizers, etc."
+            />
+            &lt;Link to="/">
+              &lt;button onClick={() => toggle(false)}>Back&lt;/button>
+            &lt;/Link>
+          &lt;/Col>
+        &lt;/Row>
+      &lt;/Container>
+    &lt;/motion.div>
   );
 };
 
-export default AddSection;
+export default SearchPage;
 </code></pre>
         </article>
     </section>

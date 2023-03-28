@@ -22,7 +22,7 @@ function Organizer() {
             info="This is Anas Organization for mastering sorcery around the world, our goal here is to develop newborn sorcerers with magical abilities, join us in our journey and we promise, you wont regret it :)"
           />
           <div className="lowersection">
-            <div class="scrollmenu">
+            <div className="scrollmenu">
               <a href="#">Events</a>
             </div>
             <p className="select">Events</p>

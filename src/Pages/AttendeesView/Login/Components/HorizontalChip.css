@@ -1,0 +1,13 @@
+@media all {
+
+    .MuiChip-root {
+        color: #6f7287;
+        border: #a9a8b3 1px solid;
+        font-weight: bold;
+    }
+
+   
+    .hr{
+        min-width: 50%;
+    }
+}

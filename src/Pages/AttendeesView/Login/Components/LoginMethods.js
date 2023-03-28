@@ -40,8 +40,8 @@ export const LoginMethods = (props) => {
             <TiIcons.TiVendorApple size="3em"></TiIcons.TiVendorApple>
           </Col>
         </Row>
-        <Row className="pt-5" >
-          <Link href="/signup" underline="always">
+        <Row className="pt-5 pb-0" >
+          <Link href="/signup" underline="always" style={{width:"auto"}}>
             {'Sign up'}
           </Link>
         </Row>

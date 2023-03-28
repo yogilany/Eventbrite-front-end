@@ -35,6 +35,17 @@ a:active {
   padding-bottom: 1rem;
 }
 
+.heading6 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.25px;
+  margin-right: -0.25px;
+  font-weight: 700;
+  font-family: "Neue Plak";
+  padding-bottom: 1rem;
+  color: #6f7287;
+}
+
 .paragraph {
   color: #6f7287;
   font-weight: 400;
@@ -59,6 +70,7 @@ a:active {
   border-radius: 0;
   box-shadow: 0 16px 64px -16px rgba(46, 55, 77, 0.1);
   margin-bottom: 25px;
+  min-height: 410px;
 }
 .card-container:hover {
   box-shadow: 0 16px 64px -16px rgba(46, 55, 77, 0.24);

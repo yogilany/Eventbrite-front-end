@@ -10,15 +10,12 @@ export const LoginTitle = (props) => {
     height: "auto",
     width: "30%",
     minWidth: "30%"
-    // position: "absolute",
-    // left: "13%",
-    // top: "1%",
   };
 
   return (
-    <div style={TitleStyle} data-testid={props.data_testid}>
+    <a href="./" style={TitleStyle} data-testid={props.data_testid}>
       <Logo />
-    </div>
+    </a>
   );
 };
 

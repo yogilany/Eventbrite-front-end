@@ -24,6 +24,7 @@
   line-height: 1.25rem;
   font-weight: 600;
   width: auto;
+  min-width: 160px;
   font-family: "Neue Plak SemiBold";
 }
 
@@ -114,12 +115,13 @@ h3 {
   background: #f8f7fa;
   -webkit-box-flex: 1;
   flex-grow: 1;
-  font-weight: 600;
+  font-weight: 300;
   align-items: center;
   display: flex;
   -webkit-box-align: center;
   color: #39364f;
   font-size: 14px;
+  font-family: Neue Plak SemiBold;
 }
 
 .tile {
@@ -158,11 +160,13 @@ h3 {
 
 .location-popular {
   font-size: 30px;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.5px;
   line-height: 40px;
   color: #39364f;
   margin-right: 1rem;
+  font-family: "Neue Plak Black";
+  transform: translateY(0.5rem);
 }
 
 .location-container {
@@ -184,4 +188,17 @@ h3 {
   line-height: 40px;
   color: #3659e3;
   margin-right: 1rem;
+}
+
+.search-page {
+  width: vw;
+  height: vh;
+  background-color: #f7f7f7;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
 }

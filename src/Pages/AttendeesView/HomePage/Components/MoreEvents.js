@@ -2,6 +2,17 @@ import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { MdPersonOutline } from "react-icons/md";
 import EventCard from "./EventCard";
+
+/**
+ * @author Yousef Gilany
+ * @description This is the second Events section of the HomePage.
+ * It shows the events on a specific city depending on the user's location.
+ * It can be changed to show events on another city. It shows 16 events at a time and button to navigate to the events page to see more.
+ * @returns {React.FC}
+ *
+ * @todo Get data from API and show it.
+ */
+
 const MoreEvents = () => {
   var cards = [];
 

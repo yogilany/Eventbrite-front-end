@@ -3,10 +3,13 @@ import { Layout } from "./app/layout";
 import AuthenticatedApp from "./app/AuthenticatedApp";
 import UnauthenticatedApp from "./app/UnauthenticatedApp";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectUserState } from "./features";
 import server from "./backend/server";
-function App() {
-  const user = true;
 
+function App() {
+  const user = useSelector(selectUserState);
+  console.log('USER = ',user);
   useEffect(() => {
     server();
   }, []);
