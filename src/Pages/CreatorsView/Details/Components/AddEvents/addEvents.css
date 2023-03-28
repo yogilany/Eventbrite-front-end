@@ -17,6 +17,120 @@
     padding: 32px;
     width: 650px;
 }
+.add__FAQ
+{
+    margin: 32px 0px 0px;
+    padding: 25px 32px 32px;
+    border: 2px solid rgb(238, 237, 242);
+    border-radius: 8px;
+    max-width: 650px;
+    position: relative;
+}
+.add__Agenda
+{
+    margin: 32px 0px 0px;
+    padding: 25px 32px 32px;
+    border: 2px solid rgb(238, 237, 242);
+    border-radius: 8px;
+    max-width: 650px;
+    position: relative;
+}
+.add__FAQ-btn
+{
+    outline: none;
+    background-color: rgb(238, 237, 242);
+    border: none;
+    border-radius: 8px;
+    color: rgb(54, 89, 227);
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 20px;
+    width: 100%;
+}
+.delete__section-btn
+{
+    border: none;
+    outline: none;
+    background-color: white;
+    color: rgb(189, 58, 32);
+    font-weight: 600;
+    cursor: pointer;
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    font-size: 14px;
+}
+.vertical__line
+{
+    transform: rotate(90deg);
+    width: 200px;
+    position: absolute;
+    top: 210px;
+    left: 420px;
+    color: rgb(164, 164, 164);
+}
+.delete__FAQ
+{
+    margin-left: 40px;
+    margin-top: -20px;
+    font-size: 20px;
+}
+.add__Agenda-btn
+{
+    outline: none;
+    background-color: rgb(238, 237, 242);
+    border: none;
+    border-radius: 8px;
+    color: rgb(54, 89, 227);
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 20px;
+    width: 100%;
+}
+.addHostDescription
+{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+.addHostBtn
+{
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+    margin-right: 40px;
+    color: rgb(75, 77, 99);
+    margin-left: 10px;
+    font-size: 14.4px;
+    font-weight: 600;
+}
+.addDescriptionBtn
+{
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+    margin-right: 40px;
+    color: rgb(75, 77, 99);
+    margin-left: 10px;
+    font-size: 14.4px;
+    font-weight: 600;
+}
+.vertical__line-agenda
+{
+    transform: rotate(90deg);
+    width: 200px;
+    position: absolute;
+    top: 250px;
+    left: 440px;
+    color: rgb(164, 164, 164);
+}
 @media screen and (max-width: 1260px) and (min-width: 1200px)
 {
     .add__section
