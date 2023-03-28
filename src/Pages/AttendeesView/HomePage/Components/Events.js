@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { getUsers, getTodos, getEvents } from "../../../../services/services";
-import { Categories } from "./Categories";
+import { CategoriesTaps } from "./Categories";
 import CategoriesCards from "./CategoriesCards";
 import EventCard from "./EventCard";
 import Hr from "../../../../components/Elements/Hr";
@@ -77,7 +77,7 @@ const Events = () => {
 
   return (
     <>
-      <Categories categorySelector={setCategory} location={location} />
+      <CategoriesTaps categorySelector={setCategory} location={location} />
       {isCategoriesShown ? <CategoriesCards /> : null}
 
       {events.length != 0 ? (
