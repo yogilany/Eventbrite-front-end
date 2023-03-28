@@ -48,14 +48,14 @@ test("Password input should be empty", () => {
 });
 
 
-test("Render login methods (email & sign in with google)", () => {
+test("Render login methods (email)", () => {
     render(<Login />);
 
     const loginMethods = screen.getByTestId("login-methods");
     expect(loginMethods).toHaveTextContent('Email me a login link');
 });
 
-test("Render login methods (email & sign in with google)", () => {
+test("Render login methods (sign in with google)", () => {
     render(<Login />);
 
     const loginMethods = screen.getByTestId("login-methods");

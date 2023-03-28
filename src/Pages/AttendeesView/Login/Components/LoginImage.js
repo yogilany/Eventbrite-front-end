@@ -16,6 +16,7 @@ export const LoginImage = (props) => {
         textAlign: "right",
         color: "white",
         fontSize: "0.75rem",
+        fontWeight:"400"
 
     }
     return (
@@ -30,11 +31,12 @@ export const LoginImage = (props) => {
                 flex-column ml-3" style={{ marginBottom: "150px" }}>
                     <div className='p-3' style={ContainerCaptionStyle}>
                         <div style={{ fontWeight: "700" }}>
-                            {props.img_caption}
+                            <strong>
+                                {props.img_caption}
+                            </strong>
                         </div>
                         <div>
                             {props.img_credit}
-
                         </div>
                         <div>
                             {props.img_location}
