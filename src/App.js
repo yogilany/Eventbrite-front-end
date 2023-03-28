@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      {user ? (
+      {true ? (
         //<Layout>
         <Layout>
           <AuthenticatedApp />
