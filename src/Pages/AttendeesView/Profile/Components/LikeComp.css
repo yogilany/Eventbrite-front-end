@@ -1,0 +1,71 @@
+.box {
+    
+    margin-left: 20px;
+    width: 330px;
+    height: 360px;
+    margin-top: 25px;
+}
+
+.box:hover {
+    box-shadow: 1px 1px 1px 1px rgba(134, 134, 134, 0.5);
+}
+
+.img {
+    width: 330px;
+    border: 1px solid rgb(185, 184, 184);
+}
+
+.ht {
+    color: #d10000;
+    font-size: 16px;
+    margin-top: 5px;
+    margin-left: 11px;
+}
+
+.circle {
+    position: absolute;
+    top: 86%;
+    left: 85%;
+    width: 40px;
+    height: 40px;
+    line-height: 30px;
+    border: 1px solid rgb(185, 184, 184);
+    border-radius: 50%;
+    background-color: white;
+    cursor: pointer;
+}
+
+.cont {
+    position: relative;
+    width: 100%;
+}
+
+.desc {
+    color: rgb(68, 67, 67);
+    font-size: 19px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 600px;
+}
+.dat
+{
+    color: rgb(255, 115, 0);
+    font-size: 16px;
+}
+.det
+{
+    color: rgb(135, 134, 134);
+    font-size: 16px;
+}
+.dfrt
+{
+    color: rgb(135, 134, 134);
+    font-size: 16px;
+    margin-left: 10px;
+}
+.shr
+{
+    margin-left: 250px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
