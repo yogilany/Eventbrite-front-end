@@ -12,6 +12,9 @@ import Publish from "../Pages/Publishpage/Publish";
 import BasicInfo from "../Pages/CreatorsView/Basicinfo/BasicInfo";
 import SearchPage from "../Pages/AttendeesView/HomePage/Components/SearchPage";
 import SingleEvent from "../Pages/AttendeesView/SingleEvent/SingleEvent";
+import Login from "../Pages/AttendeesView/Login/Login";
+import Signup from "../Pages/AttendeesView/Signup/Signup";
+
 function AuthenticatedApp() {
   const router = createBrowserRouter([
     {
@@ -54,6 +57,14 @@ function AuthenticatedApp() {
     {
       path: "/event",
       element: <SingleEvent />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/signup",
+      element: <Signup />,
     },
   ]);
   return (
