@@ -1,22 +1,16 @@
 import { Tabs, Tab, Box, TextField } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { styled } from "@mui/material/styles";
-import { AccessAlarm } from "@mui/icons-material";
-import AudiotrackOutlinedIcon from "@mui/icons-material/AudiotrackOutlined";
-import VideogameAssetOutlinedIcon from "@mui/icons-material/VideogameAssetOutlined";
-import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
-import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
-import PhotoOutlinedIcon from "@mui/icons-material/PhotoOutlined";
-import WineBarOutlinedIcon from "@mui/icons-material/WineBarOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlined";
-import { Tile } from "./Tile";
-export const Categories = () => {
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+export const Categories = ({ categorySelector, location }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    // console.log(newValue);
+    // console.log(event.target.innerHTML);
+    categorySelector(event.target.innerHTML);
   };
 
   const AntTabs = styled(Tabs)({
@@ -72,11 +66,13 @@ export const Categories = () => {
   }));
 
   return (
-    <Container className="mb-5">
+    <Container className="mb-2">
       <Row className="justify-content-md-center">
         <Col md={12}>
           <div className="location-container">
-            <div className="location-popular mb-2">Popular in</div>
+            <div className="location-popular ">
+              Popular in <MdOutlineKeyboardArrowDown color="#3659e3" />
+            </div>
             <LocationTextField
               //   label="Location"
               inputProps={{
@@ -89,7 +85,7 @@ export const Categories = () => {
                   marginRight: "1rem",
                 },
               }} // font size of input text
-              defaultValue="Al Qahira"
+              defaultValue={location ? location : "Loading..."}
               id="location-input"
               variant="standard"
               style={{ borderBottom: "1px solid #e2e2e1" }}
@@ -113,66 +109,18 @@ export const Categories = () => {
                 <AntTab label="International Women's Day" />
                 <AntTab label="Free" />
                 <AntTab label="Music" />
+                <AntTab label="Business" />
+                <AntTab label="Sports" />
+                <AntTab label="Design" />
                 <AntTab label="Food & Drink" />
                 <AntTab label="Food & Drink" />
                 <AntTab label="Food & Drink" />
                 <AntTab label="Food & Drink" />
-                <AntTab label="Food & Drink" />
-                <AntTab label="Food & Drink" />
-                <AntTab label="Food & Drink" />
-
                 <AntTab label="Food & Drink" />
               </AntTabs>
               <Box sx={{ p: 2 }} />
             </Box>
           </Box>
-          <h3 className="heading3">Check out trending categories</h3>
-          <Row>
-            <Col>
-              <div className="tile-group">
-                <Tile
-                  icon={<AudiotrackOutlinedIcon sx={{ color: "#d1410c" }} />}
-                  name="Music"
-                />
-                <Tile
-                  icon={
-                    <VideogameAssetOutlinedIcon sx={{ color: "#d1410c" }} />
-                  }
-                  name="Hobbies"
-                />
-                <Tile
-                  icon={<ColorLensOutlinedIcon sx={{ color: "#d1410c" }} />}
-                  name="Performing & Arts"
-                />{" "}
-                <Tile
-                  icon={
-                    <BusinessCenterOutlinedIcon sx={{ color: "#d1410c" }} />
-                  }
-                  name="Business"
-                />{" "}
-                <Tile
-                  icon={<PhotoOutlinedIcon sx={{ color: "#d1410c" }} />}
-                  name="Holiday"
-                />
-                <Tile
-                  icon={<WineBarOutlinedIcon sx={{ color: "#d1410c" }} />}
-                  name="Food & Drink"
-                />
-                <Tile
-                  icon={
-                    <FavoriteBorderOutlinedIcon sx={{ color: "#d1410c" }} />
-                  }
-                  name="Health"
-                />
-                <Tile
-                  icon={
-                    <SportsFootballOutlinedIcon sx={{ color: "#d1410c" }} />
-                  }
-                  name="Sports"
-                />
-              </div>
-            </Col>
-          </Row>
         </Col>
       </Row>
     </Container>
