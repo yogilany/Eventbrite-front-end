@@ -1,6 +1,10 @@
 import React, { Component, useContext } from 'react'
 import './addSection.css'
 import { AddEventContext } from '../AddEvents/AddEvents'
+<<<<<<< HEAD
+=======
+import "./addSection.css";
+>>>>>>> 72c8a86d43148d9fc461776e20c840f6e36dc8cc
 /**
  * @author Mahmoud Khaled
  * @description This is Add Event Section in Details Page
@@ -25,5 +29,4 @@ const AddSection = ({ Title, Logo }) => {
     </div>
   );
 };
-
 export default AddSection;
