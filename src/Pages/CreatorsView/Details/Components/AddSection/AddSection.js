@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import './addSection.css'
+import { AddEventContext } from '../AddEvents/AddEvents'
 /**
  * @author Mahmoud Khaled
  * @description This is Add Event Section in Details Page
@@ -7,7 +8,8 @@ import './addSection.css'
  * @param {Component} Logo Take Logo of passed Title
  * @returns {JSX.Element}
  */
-const AddSection = ({Title , Logo}) => {
+const AddSection = ({ Title, Logo }) => {
+  const { addAgendaBtn, setAddAgendaBtn } = useContext(AddEventContext);
   return (
     <div className = "add__section-agenda">
         <div className='add__section-agenda-left'>
@@ -16,7 +18,7 @@ const AddSection = ({Title , Logo}) => {
         </div>
         <div className='add__section-agenda-right'>
             <a href = "#" style = {{marginRight:'30px' , textDecoration:'none' , color:"rgb(54, 89, 227)"}}>How it works</a>
-            <button className='add__btn'>
+            <button className='add__btn' onClick = {() => {setAddAgendaBtn(!addAgendaBtn);}}>
                 Add
             </button>
         </div>
