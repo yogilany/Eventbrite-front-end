@@ -1,3 +1,10 @@
+/**
+ * @author Yousef Gilany
+ * @description This is the tile component used for searching .
+ * @returns {React.FC}
+ *
+ *
+ */
 export const Tile = (props) => {
   return (
     <a href="facebook.com" style={{ textDecoration: "none" }}>
