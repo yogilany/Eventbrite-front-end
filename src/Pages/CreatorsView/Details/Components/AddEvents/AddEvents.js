@@ -8,6 +8,7 @@ import { AiOutlineRead, AiOutlineMenuFold } from "react-icons/ai";
 import { MdDelete } from 'react-icons/md'
 import {MdOutlineAccountCircle} from 'react-icons/md'
 import { createContext, useState } from 'react';
+import {GoPlusSmall} from 'react-icons/go'
 import TimePickerValue from '../../../../../components/TimeBox/TimeBox';
 export const AddEventContext = createContext({});
 const AddEvents = () => {
@@ -27,7 +28,7 @@ const AddEvents = () => {
             <input type="text" placeholder="Question" style={{width: "80%",height: "52px",padding: "10px 20px",marginBottom: "22px",}}/>
             <MdDelete className="delete__FAQ" />
             <input type="text" placeholder="Answer" style={{width: "80%",height: "112px",padding: "0px 20px",marginBottom: "35px",}}/>
-            <button className="add__FAQ-btn">Add question</button>
+            <button className="add__FAQ-btn"><GoPlusSmall style = {{fontSize:'20px'}} /> Add question</button>
           </div>
         )}
         {addAgendaBtn && (
@@ -47,7 +48,7 @@ const AddEvents = () => {
               <AiOutlineMenuFold />{" "}
               <butotn className="addDescriptionBtn">Add Description</butotn>
             </div>
-            <button className="add__Agenda-btn">Add Slot</button>
+            <button className="add__Agenda-btn"> <GoPlusSmall style = {{fontSize:'20px'}} /> Add Slot</button>
           </div>
         )}
 
