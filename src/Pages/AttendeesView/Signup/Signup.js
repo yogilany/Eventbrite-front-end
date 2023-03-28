@@ -3,45 +3,40 @@ import test_image from "../../../assets/side_image.jpg";
 import LoginImage from "../Login/Components/LoginImage";
 import SignupForm from "./Components/SignupForm";
 import LoginTitle from "../Login/Components/Title";
-import SignupMethods from "./Components/SignupMethods";
 import Footer from "../../../components/footer/Footer";
-import FooterLink from "../../../components/footerLink/FooterLink";
-import { Chip } from "@mui/material";
-import { HorizontalChip } from "../Login/Components/HorizontalChip";
+import AboutFooter from "../../../components/AboutFooter/AboutFooter";
+import './Signup.scss'
+
 
 export const Signup = (props) => {
-
-  const HeaderStyle = {
-    color: "#1e0a3c",
-    fontSize: "3.5rem",
-    fontWeight: "700",
-    width: "50%",
-    minWidth: "300px",
-  };
   return (
     <Container fluid style={{ height: "50px" }}>
       <Row>
-        <LoginTitle></LoginTitle>
         <Col md={6} style={{ padding: "100px 200px 200px 200px" }}>
-          <h1 id="signup-signup-h1" className="mb-4" style={HeaderStyle}>
-            Create an account
-          </h1>
-          <SignupForm name="signup-form-div" />
-          <HorizontalChip />
-          <SignupMethods name="signup-methods-div" />
+          <div style={{ maxWidth: "85%" }}>
+            <Stack dir="vertical" gap={4}>
+              <LoginTitle />
+              <h1 data-testid="signup-header" id="signup-signup-h1" className="mb-4" >
+                Create an account
+              </h1>
+            </Stack>
+            <SignupForm data_testid="signup-form" name="signup-form-div" />
+          </div>
         </Col>
-        <Col md={6}>
-          <LoginImage
+        <Col md={6} className="g-0">
+          <LoginImage data_testid="signup-image"
             img_url={test_image}
-            img_caption="Ragel gamed"
-            img_credit="Msh ana"
-            img_location="New York, NY"
+            img_caption="Winston Baker"
+            img_credit="Confluence Summit"
+            img_location="San Francisco, CA"
           />
         </Col>
       </Row>
       <Row>
-        <FooterLink></FooterLink>
-        <Footer />
+        <AboutFooter />
+      </Row>
+      <Row>
+        <Footer data_testid="login-footer" />
       </Row>
     </Container>
   );

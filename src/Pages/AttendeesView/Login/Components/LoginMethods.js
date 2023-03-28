@@ -31,17 +31,19 @@ export const LoginMethods = (props) => {
       <Container style={{ margin: "1rem 0" }}>
         <Row xs={1} md={4} lg={4}>
           <Col>
-            <TiIcons.TiSocialFacebook
-              color="#1877f2"
-              size="3em"
-            ></TiIcons.TiSocialFacebook>
+            <div id="circular-icon">
+              <TiIcons.TiSocialFacebook color="white" size="30px" />
+            </div>
           </Col>
           <Col>
-            <TiIcons.TiVendorApple size="3em"></TiIcons.TiVendorApple>
+            <div id="circular-icon" style={{ backgroundColor: "#4b4d63" }}>
+              <TiIcons.TiVendorApple color="white" size="30px" />
+            </div>
           </Col>
+
         </Row>
         <Row className="pt-5 pb-0" >
-          <Link href="/signup" underline="always" style={{width:"auto"}}>
+          <Link href="/signup" underline="always" style={{ width: "auto" }}>
             {'Sign up'}
           </Link>
         </Row>

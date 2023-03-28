@@ -11,9 +11,8 @@ import LoginImage from "./Components/LoginImage";
 import Footer from "../../../components/footer/Footer";
 import { HorizontalChip } from "./Components/HorizontalChip";
 import AboutFooter from '../../../components/AboutFooter/AboutFooter'
-
 import { useRef, useState, useEffect } from 'react'
-import { getUsers } from "../../../services/users";
+import { getUsers } from "../../../services/services";
 import { userAuthorize, testReducer } from "../../../features";
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate, useNavigate } from "react-router";
@@ -36,8 +35,8 @@ export const Login = (props) => {
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     userRef.current.focus();
@@ -56,12 +55,12 @@ export const Login = (props) => {
       .then(function (response) {
         console.log(response)
         if (response) {
-          dispatch(userAuthorize(true));
+          // dispatch(userAuthorize(true));
           setSuccess(true);
-          navigate('/');
+          // navigate('/');
         } else {
           setSuccess(false);
-          dispatch(userAuthorize(false));
+          // dispatch(userAuthorize(false));
           // Display error message or something
         }
       })
@@ -73,7 +72,6 @@ export const Login = (props) => {
       <Row>
         <Col md={6} className="g-0" style={{ padding: "100px 200px 0 225px" }}>
           <div style={{ maxWidth: "85%" }}>
-
             <Stack dir="vertical" gap={4}>
               <LoginTitle />
               <h1

@@ -1,6 +1,9 @@
 
 import Login from "../Login";
-import { render, screen } from "@testing-library/react";
+import { render, renderHook, screen } from "@testing-library/react";
+import store from '../../../../store'
+import { Provider } from 'react-redux'
+
 
 test("Render header", () => {
     render(<Login />);
@@ -10,7 +13,9 @@ test("Render header", () => {
 });
 
 test("Render login form", () => {
-    render(<Login />);
+    render(
+        <Login />
+    );
 
     const loginForm = screen.getAllByRole("button");
     expect(loginForm).toHaveLength(3);
