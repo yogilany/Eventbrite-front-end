@@ -1,4 +1,3 @@
-
 .drop__btn
 {
     display: block;
@@ -30,6 +29,8 @@
     padding: 20px 50px;
     color: #4b4d63;
     font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
 }
 .linkss a:hover
 {

@@ -2,18 +2,20 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import styled from "@emotion/styled";
-import { useRef , useState } from "react";
-export default function ValidationTextFields({data_testid}) {
+import { useRef, useState , useContext } from "react";
+import { AppContext } from "../../Pages/CreatorsView/Details/Details";
+export default function ValidationTextFields({data_testid , Label , PlaceHolder , width}) {
     const MyText = styled(TextField)({
         width:'400px '
     });
   const textRef = useRef();
   const [textValue, setTextValue] = useState("");
+  const { showSubmit, setShowSubmit } = useContext(AppContext);
   return (
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
+        "& .MuiTextField-root": { m: 1 },
       }}
       noValidate
       autoComplete="off"
@@ -22,13 +24,13 @@ export default function ValidationTextFields({data_testid}) {
         <TextField
           error={textValue === "" ? true : false}
           id="outlined-error"
-          label="Summary"
-          placeholder="Write a short event summary to get attended excited."
-          style={{ width: "92%", marginTop: "5px" }}
+          label={Label}
+          placeholder={PlaceHolder}
+          style={{ width: "92%", marginTop: "5px" , padding:'80px !important'}}
           className="text"
           data-testid={data_testid}
           ref={textRef}
-          onChange = {(e) => {setTextValue(e.target.value)}}
+          onChange={(e) => { setTextValue(e.target.value); e.target.value === "" ? setShowSubmit(false) : setShowSubmit(true)}}
         />
       </div>
     </Box>

@@ -27,19 +27,19 @@ const CreatorHeader = ({ MenuShow }) => {
       </div>
       <div className="header__container-links">
         <div className="header__container-link">
-          <a href="/likes">Preview your Event</a>
+          <Link to="/likes">Preview your Event</Link>
         </div>
         <div className="header__container-link">
-          <a href="#" style={{ marginLeft: "30px" }}>
+          <Link to="/publish" style={{ marginLeft: "30px" }}>
             {" "}
             Publish
-          </a>
+          </Link>
         </div>
         <div className="header__container-link more" onClick = {() => {setShowMore(!showMore)}}>
-          <a href="#" >
+          <Link to="" >
             {" "}
             More <MdOutlineKeyboardArrowDown className="arrow" />{" "}
-          </a>
+          </Link>
           {showMore &&
             <div className="account__dropdown" style={{ height: '56px' }}>
               <div className="account__dropdown-item">

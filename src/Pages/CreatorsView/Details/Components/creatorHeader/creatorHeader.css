@@ -20,7 +20,7 @@
 .header__container-left {
   display: flex;
   align-items: center;
-  /* width: 58%; */
+  width: 60%;
 }
 .header__container-links a {
   text-decoration: none;
@@ -31,7 +31,7 @@
 .header__container-links {
   display: flex;
   align-items: center;
-  /* width: 42%; */
+  width: 40%;
 }
 .header__container-link {
   margin-right: 30px;

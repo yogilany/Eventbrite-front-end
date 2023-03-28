@@ -24,6 +24,9 @@ import { AppContext } from '../Details/Details';
  * @returns {JSX.Element}
  */
 const Sidebar = () => {
+  const orderOptions = ["Order Form", "Order Confirmation", "Waitlist"];
+  const Marketing = ["Add to Facebook", "Email Invitations", "Embedded Checkout", "Tracking Links", "Tracking Pixels"];
+  const ManageAttendees = ["Orders", "Add Attendees", "Emails to Attendees", "Attendee List", "Check-in"];
   const sidebarOptions = useRef();
   const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -82,9 +85,9 @@ const Sidebar = () => {
           {/* <hr className='line' /> */}
           <div>
             <a href="#" className='EventOption' style={{ fontWeight: '500' , fontSize:'14px' , fontWeight:'600' }}>Dashboard</a>
-            <Dropdown Name="Order Options" />
-            <Dropdown Name="Marketing" />
-            <Dropdown Name="Manage Attendes" />
+            <Dropdown Name="Order Options" Links= {orderOptions} />
+            <Dropdown Name="Marketing" Links = {Marketing}  />
+            <Dropdown Name="Manage Attendes" Links = {ManageAttendees} />
           </div>
           <div className='div__line' style ={{borderTop:'2px solid grey', width:'100%'}}></div>
           {/* <hr className='line' /> */}
@@ -108,9 +111,9 @@ const Sidebar = () => {
           <div className='div__line' style ={{borderTop:'2px solid grey', width:'100%'}}></div>
           <div>
             <a href="#" className='EventOption' style={{ fontWeight: '500' }}>Dashboard</a>
-            <Dropdown Name="Order Options" />
-            <Dropdown Name="Marketing" />
-            <Dropdown Name="Manage Attendes" />
+            <Dropdown Name="Order Options" Links={orderOptions} />
+            <Dropdown Name="Marketing" Links = {Marketing} />
+            <Dropdown Name="Manage Attendes" Links={ManageAttendees} />
           </div>
           {/* <hr className='line' /> */}
           <div className='div__line' style ={{borderTop:'2px solid grey', width:'100%'}}></div>
