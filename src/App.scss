@@ -115,33 +115,3 @@ h3 {
   grid-column-gap: 12px;
   grid-row-gap: 12px;
 }
-
-.location-popular {
-  font-size: 30px;
-  font-weight: 900;
-  letter-spacing: 0.5px;
-  line-height: 40px;
-  color: #39364f;
-  margin-right: 1rem;
-}
-
-.location-container {
-  display: inline-flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  flex-direction: row;
-  // height: 54px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  color: #39364f;
-}
-
-.location-input {
-  font-size: 30px;
-  font-weight: 900;
-  letter-spacing: 0.5px;
-  line-height: 40px;
-  color: #3659e3;
-  margin-right: 1rem;
-}
