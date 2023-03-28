@@ -17,7 +17,7 @@ export const Layout = ({ children }) => {
       <main id="centerView" className="">
         <Suspense fallback={<Loading />}>{children}</Suspense>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

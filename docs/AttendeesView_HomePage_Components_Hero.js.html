@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: CreatorsView/Details/Components/AddSection/AddSection.js</title>
+    <title>JSDoc: Source: AttendeesView/HomePage/Components/Hero.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: CreatorsView/Details/Components/AddSection/AddSection.js</h1>
+    <h1 class="page-title">Source: AttendeesView/HomePage/Components/Hero.js</h1>
 
     
 
@@ -26,40 +26,44 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { Component } from "react";
-import "./addSection.css";
+            <pre class="prettyprint source linenums"><code>import { Button, Col, Container, Row } from "react-bootstrap";
+import slogan from "../../../../assets/slogan.svg";
+
 /**
- * @author Mahmoud Khaled
- * @description This is Add Event Section in Details Page
- * @param {String} Title Title like FAQ or Agenda
- * @param {Component} Logo Take Logo of passed Title
- * @returns {JSX.Element}
+ * @author Yousef Gilany
+ * @description This is the Hero component of the HomePage. It shows a background picture and a slogan with a button to find events.
+ * @returns {React.FC}
+ * @todo Make the background picture responsive. *
  */
-const AddSection = ({ Title, Logo }) => {
+const Hero = () => {
   return (
-    &lt;div className="add__section-agenda">
-      &lt;div className="add__section-agenda-left">
-        &lt;div className="agenda__icon">{Logo}&lt;/div>
-        &lt;h4 style={{ fontSize: "18px" }}>{Title}&lt;/h4>
+    &lt;Container className="mb-5 p-0" fluid>
+      &lt;div className="header-img">
+        &lt;Container className="p-6">
+          &lt;Col md={2}>
+            &lt;Row>
+              &lt;Col>
+                &lt;img
+                  src={slogan}
+                  width="500px"
+                  alt="slogan"
+                  style={{ marginTop: "50%" }}
+                />
+              &lt;/Col>
+            &lt;/Row>
+            &lt;Row>
+              &lt;Col>
+                &lt;button className="primaryBtn">Find your next event&lt;/button>
+              &lt;/Col>
+            &lt;/Row>
+          &lt;/Col>
+        &lt;/Container>
       &lt;/div>
-      &lt;div className="add__section-agenda-right">
-        &lt;a
-          href="#"
-          style={{
-            marginRight: "30px",
-            textDecoration: "none",
-            color: "rgb(54, 89, 227)",
-          }}
-        >
-          How it works
-        &lt;/a>
-        &lt;button className="add__btn">Add&lt;/button>
-      &lt;/div>
-    &lt;/div>
+    &lt;/Container>
   );
 };
 
-export default AddSection;
+export default Hero;
 </code></pre>
         </article>
     </section>

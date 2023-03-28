@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
  * @param {*} param0
  * @returns
  */
-const AllEvents = ({ toggle }) => {
+const SearchPage = ({ toggle }) => {
   const navigate = useNavigate();
 
   return (
@@ -23,7 +23,7 @@ const AllEvents = ({ toggle }) => {
               fontFamily: "Neue Plak Black",
             }}
           >
-            Browse Events Page
+            Search Page
           </h1>
           <h1
             style={{
@@ -36,7 +36,7 @@ const AllEvents = ({ toggle }) => {
             Under Construction
           </h1>
           {/* <Link to="/"> */}
-          <button className="primaryBtn" onClick={() => navigate(-1)}>
+          <button className="primaryBtn" onClick={() => toggle(false)}>
             Back
           </button>
           {/* </Link> */}
@@ -46,4 +46,4 @@ const AllEvents = ({ toggle }) => {
   );
 };
 
-export default AllEvents;
+export default SearchPage;

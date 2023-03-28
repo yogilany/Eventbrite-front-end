@@ -58,6 +58,7 @@
     flex-direction: column;
     padding-top: 20px;
     overflow-y:scroll;
+    overflow-x: hidden;
 }
 .events__link
 {

@@ -1,6 +1,13 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import slogan from "../../../../assets/slogan.svg";
-export const Hero = () => {
+
+/**
+ * @author Yousef Gilany
+ * @description This is the Hero component of the HomePage. It shows a background picture and a slogan with a button to find events.
+ * @returns {React.FC}
+ * @todo Make the background picture responsive. *
+ */
+const Hero = () => {
   return (
     <Container className="mb-5 p-0" fluid>
       <div className="header-img">
@@ -27,3 +34,5 @@ export const Hero = () => {
     </Container>
   );
 };
+
+export default Hero;
