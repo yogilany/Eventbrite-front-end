@@ -7,9 +7,9 @@ import server from "./backend/server";
 function App() {
   const user = true;
 
-  useEffect(() => {
-    server();
-  }, []);
+  // useEffect(() => {
+  //   server();
+  // }, []);
 
   return (
     <>
