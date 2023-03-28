@@ -2,9 +2,12 @@ import React, { useState, useContext } from "react";
 import "./creatorHeader.css";
 import Logo from '../../../../../assets/logo.png'
 import { AiOutlineMenu} from "react-icons/ai";
-import {MdOutlineKeyboardArrowDown} from 'react-icons/md'
+import { MdOutlineKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../Details";
+import { HiOutlineSwitchHorizontal } from 'react-icons/hi'
+import { VscAccount } from 'react-icons/vsc'
+import { BiLogOut } from 'react-icons/bi'
 /**
  * @author Mahmoud Khaled
  * @description This is Creator Header which will be displayed on Details Page
@@ -13,6 +16,8 @@ import { AppContext } from "../../Details";
  */
 const CreatorHeader = ({ MenuShow }) => {
   const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
+  const [showAccountSetting, setShowAccountSetting] = useState(false);
+  const [showMore , setShowMore] = useState(false)
   return (
     <div className="header__container">
       <div className="header__container-left">
@@ -25,14 +30,41 @@ const CreatorHeader = ({ MenuShow }) => {
           <a href="/likes">Preview your Event</a>
         </div>
         <div className="header__container-link">
-          <a href="#" style={{ marginLeft: "30px" }}> Publish</a>
+          <a href="#" style={{ marginLeft: "30px" }}>
+            {" "}
+            Publish
+          </a>
         </div>
-        <div className="header__container-link more">
-          <a href="#"> More <MdOutlineKeyboardArrowDown className="arrow" /> </a>
+        <div className="header__container-link more" onClick = {() => {setShowMore(!showMore)}}>
+          <a href="#" >
+            {" "}
+            More <MdOutlineKeyboardArrowDown className="arrow" />{" "}
+          </a>
+          {showMore &&
+            <div className="account__dropdown" style={{ height: '56px' }}>
+              <div className="account__dropdown-item">
+                Copy Event
+              </div>
+            </div>}
         </div>
-        <div className="header__container-right">
-            <div className="circular__name">MK</div>
-            <div className="user__name">Mahmoud Khaled <MdOutlineKeyboardArrowDown className="arrow" /></div>
+        <div className="header__container-right" style = {{marginLeft:'-15px'}} onClick = {() => setShowAccountSetting(!showAccountSetting)}>
+          <div className="circular__name">MK</div>
+          <div className="user__name" style = {{cursor:'pointer'}}>
+            Mahmoud Khaled {showAccountSetting ? <MdKeyboardArrowUp className="arrow" /> : <MdOutlineKeyboardArrowDown className="arrow" />}
+          </div>
+          {showAccountSetting &&
+          <div className="account__dropdown">
+            <div className="account__dropdown-item">
+              <HiOutlineSwitchHorizontal className="account__logo" /> <a href = "#"  style = {{fontWeight : '500'}}>Switching to attending</a>
+            </div>
+            <div className="account__dropdown-item">
+              <VscAccount className="account__logo" /> <a href = "#" style = {{fontWeight : '500'}}>Account Settings</a>
+            </div>
+            <hr style = {{marginBottom : "3px" , marginTop:'5px'}}></hr>
+            <div className="account__dropdown-item">
+              <BiLogOut className="account__logo" /> <a href = "#"  style = {{fontWeight : '500'}}>Log out</a>
+            </div>
+        </div> }
         </div>
       </div>
       {MenuShow && (

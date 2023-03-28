@@ -1,12 +1,13 @@
 .header__container {
   max-width: 100%;
-  height: 70px;
+  height: 65px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #eeedf2;
   padding: 0 10px;
   justify-content: space-between;
-  /* position: fixsed;  */
+  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 99;
@@ -19,7 +20,7 @@
 .header__container-left {
   display: flex;
   align-items: center;
-  width: 58%;
+  /* width: 58%; */
 }
 .header__container-links a {
   text-decoration: none;
@@ -30,7 +31,7 @@
 .header__container-links {
   display: flex;
   align-items: center;
-  width: 42%;
+  /* width: 42%; */
 }
 .header__container-link {
   margin-right: 30px;
@@ -76,6 +77,12 @@
   margin: 10px 8px 10px 24px;
   padding-right: 8px;
   padding-left: 4px;
+  position: relative;
+}
+.more
+{
+  padding: 10px;
+  position: relative;
 }
 .header__container-right .circular__name {
   display: flex;
@@ -106,6 +113,47 @@
 }
 .header__container-right:hover {
   background-color: #e7e7e9;
+}
+.account__dropdown
+{
+  position: absolute;
+  top:60px;
+  right: 0px;
+  width: 240px;
+  height: 184px;
+  background-color: var(--eds-background,#fff);
+  -webkit-box-shadow: 0 1px 17px 0 rgba(40,44,53,.1), 0 2px 4px 0 rgba(40,44,53,.1);
+  box-shadow: 0 1px 17px 0 rgba(40,44,53,.1), 0 2px 4px 0 rgba(40,44,53,.1);
+  padding-top: 4px;
+}
+.account__dropdown-item
+{
+  width: 240px;
+  height: 56px;
+  padding: 16px 20px 16px 24px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.account__dropdown-item:hover
+{
+  background-color: #ebebef;
+}
+.account__logo
+{
+  font-size: 22px;
+  margin-right: 15px;
+}
+.more__dropdown
+{
+  width: 220px;
+  height:52px;
+  position: absolute;
+  top:60px;
+  right: 50px;
+  background-color: #efecec;
+  padding: 16px 20px
 }
 @media screen and (max-width: 792px) and (min-width: 400px) {
   .details-menu {

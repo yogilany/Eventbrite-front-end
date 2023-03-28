@@ -3,7 +3,7 @@
     display: flex;
     position: fixed;
     left: 0;
-    top: 70px;
+    top: 65px;
     z-index: 1;
 }
 .sidebar__links
@@ -14,14 +14,14 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-top: 20px;
+    padding-top: 7px;
     position: relative;
     border-right: 1.5px solid #eeedf2;
 }
 .sidebar__links a 
 {
     text-decoration: none;
-    font-size: 40px;
+    font-size: 36px;
     color: rgb(109, 109, 109);
     margin-bottom: 10px;
 }
@@ -56,8 +56,9 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    padding-top: 15px;
+    padding-top: 20px;
     overflow-y:scroll;
+    overflow-x: hidden;
 }
 .events__link
 {
@@ -65,12 +66,14 @@
     align-items: center;
     text-decoration: none;
     color:#3659e3;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 14px;
 }
 .arrowLeft
 {
     margin-right: 20px;
-    color:#3659e3
+    color:#3659e3;
+    font-weight: 600;
 }
 .line
 {
@@ -95,7 +98,8 @@
     align-items: center;
     color: var(--eds-control,#3659e3);
     margin-top: 10px;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 14px;
 }
 .preview__link:hover
 {
@@ -127,6 +131,7 @@
     padding: 15px 30px;
     color: #4b4d63;
     font-weight: 600;
+    font-size: 14px;
 }
 .EventOption:hover
 {
@@ -148,6 +153,32 @@
 .routing__options
 {
     margin-top: 0px;
+}
+.draft__btn
+{
+    margin-left: 30px;
+    text-decoration: none;
+    color: #39364f;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #a9a8b3;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(40,44,53,.06), 0 2px 2px 0 rgba(40,44,53,.06);
+    box-shadow: 0 4px 8px 0 rgba(40,44,53,.06), 0 2px 2px 0 rgba(40,44,53,.06);
+    padding: 5px 17px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.draft__btn:hover{
+    color: #39364f;
+}
+.arrow__down
+{
+    font-size: 20px;
+    margin-left: 3px;
 }
 @media screen and (max-width: 959px) and (min-width: 792px)
 {
