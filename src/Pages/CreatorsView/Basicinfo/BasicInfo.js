@@ -10,6 +10,13 @@ import Singleevent from "./components/Singleevent.js";
 import Sidebar from "../Sidebar/Sidebar";
 import Headerpub from "../../Publishpage/Headerpub";
 
+/**
+ * @author Anas Sherif
+ * @param {}
+ * @description This is basic info compoennt. It's the fisrt step of creating an event.
+ * @returns {JSX.Element}
+ */
+
 function Basicinfo() {
   const [tags, setTags] = useState([]);
   const [tagscount, setTagsCount] = useState(0);

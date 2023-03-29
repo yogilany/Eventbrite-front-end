@@ -8,6 +8,13 @@ import "./HomePage.scss";
 import { motion } from "framer-motion";
 import Footer from "../../../components/footer/Footer";
 
+/**
+ * @author Yousef Gilany
+ * @description This is the Main page of the application that contains the Hero , Categories , Events and More Events Sections.
+ * It is the first page that the user sees when he enters the application.
+ * @returns {JSX.Element}
+ * @todo make the page more responsive .
+ */
 export const HomePage = () => {
   return (
     <>

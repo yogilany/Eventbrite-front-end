@@ -3,6 +3,12 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { styled } from "@mui/material/styles";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+
+/**
+ * @author Yousef Gilany
+ * @description This is the taps that a  user can use to filter events by category. It is used in the HomePage and the SearchPage.
+ * @returns {JSX.Element}
+ */
 export const CategoriesTaps = ({ categorySelector, location }) => {
   const [value, setValue] = useState(0);
 
