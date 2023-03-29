@@ -1,13 +1,22 @@
-import { Container, Row, Col, Stack } from "react-bootstrap/";
+import { Col, Container, Row, Stack } from "react-bootstrap/";
 import test_image from "../../../assets/side_image.jpg";
-import LoginImage from "../Login/Components/LoginImage";
-import SignupForm from "./Components/SignupForm";
-import LoginTitle from "../Login/Components/Title";
-import Footer from "../../../components/footer/Footer";
 import AboutFooter from "../../../components/AboutFooter/AboutFooter";
-import './Signup.scss'
+import Footer from "../../../components/footer/Footer";
+import LoginImage from "../Login/Components/LoginImage";
+import LoginTitle from "../Login/Components/Title";
+import SignupForm from "./Components/SignupForm";
+import './Signup.scss';
 
-
+/**
+ * This is the sign up page where an attendee user can create a new account.
+ * After successful sign up, the user shall be re-directed to the login page to
+ * login with their new credentials.
+ * @date 3/29/2023 - 2:46:54 AM
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {JSX.Element}
+ */
 export const Signup = (props) => {
   return (
     <Container fluid style={{ height: "50px" }}>
