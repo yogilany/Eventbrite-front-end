@@ -1,10 +1,8 @@
-import Button from "react-bootstrap/Button";
-import "../Login.scss";
-import { ButtonGroup, Col, Row } from "react-bootstrap";
+import { Link } from "@mui/material";
+import { ButtonGroup, Col, Row, Button, Container } from "react-bootstrap";
 import * as FcIcons from "react-icons/fc";
 import * as TiIcons from "react-icons/ti";
-import Container from "react-bootstrap/Container";
-import { Link } from "@mui/material";
+import "../Login.scss";
 /**
  *
  * @param {name: Name of this element after creation} props
@@ -13,7 +11,9 @@ import { Link } from "@mui/material";
 export const LoginMethods = (props) => {
 
   return (
-    <Container className="m-0 p-0" style={{ minWidth: "200px" }} data-testid={props.data_testid}>
+    <Container className="m-0 p-0" style={{ minWidth: "200px" }}
+      data-testid={props.data_testid}
+      name={props.name}>
 
       <ButtonGroup vertical style={{ width: "100%" }}>
         <Button variant="secondary" >
@@ -27,7 +27,6 @@ export const LoginMethods = (props) => {
         </Button>
       </ButtonGroup>
       <div style={{ margin: "1.5rem 0" }}>Other login methods</div>
-
       <Container style={{ margin: "1rem 0" }}>
         <Row xs={1} md={4} lg={4}>
           <Col>
@@ -40,7 +39,6 @@ export const LoginMethods = (props) => {
               <TiIcons.TiVendorApple color="white" size="30px" />
             </div>
           </Col>
-
         </Row>
         <Row className="pt-5 pb-0" >
           <Link href="/signup" underline="always" style={{ width: "auto" }}>
@@ -48,7 +46,6 @@ export const LoginMethods = (props) => {
           </Link>
         </Row>
       </Container>
-
     </Container>
   );
 };

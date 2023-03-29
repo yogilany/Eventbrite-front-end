@@ -14,11 +14,11 @@ export const LoginForm = (props) => {
       className="m-0 p-0"
       style={{ minWidth: "200px" }}
       data-testid={props.data_testid}
+      name={props.name}
     >
       <Form onSubmit={props.submitAction}>
         <Form.Group className="mb-3" controlId="formLoginEmail">
           <Form.Control
-            // id="formLoginEmail"
             ref={props.user_ref}
             autoComplete="off"
             onChange={(e) => props.set_User(e.target.value)}

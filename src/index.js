@@ -1,22 +1,26 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./scss/theme.scss";
-import "bootstrap/dist/css/bootstrap.min.css";
-
+import { Provider } from "react-redux";
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import App from "./App";
 import "./App.scss";
 import "./index.css";
-import App from "./App";
-import { AnimatePresence } from "framer-motion";
 import store from "./store";
-import { Provider } from "react-redux";
+
+let persistor = persistStore(store);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <AnimatePresence> */}
-      <App />
-      {/* </AnimatePresence> */}
+      <PersistGate loading={null} persistor={persistor}>
+        {/* <AnimatePresence> */}
+        <App />
+        {/* </AnimatePresence> */}
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );
