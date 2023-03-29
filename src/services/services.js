@@ -7,7 +7,7 @@ export const getUsers = async () => {
     .get("http://localhost:8000/users")
     // .then((response) => response.json())
     .then((response) => {
-      console.log("response: ", response);
+      // console.log("response: ", response);
       usersData = response.data;
     })
     .catch((error) => {
@@ -18,7 +18,7 @@ export const getUsers = async () => {
 };
 
 export const addUser = async ({ name, username, email, password }) => {
-  console.log("IN SERVICE ", email, password, username, name);
+  // console.log("IN SERVICE ", email, password, username, name);
   await axios
     .post("http://localhost:8000/users", {
       name: name,
@@ -27,7 +27,7 @@ export const addUser = async ({ name, username, email, password }) => {
       password: password,
     })
     .then((response) => {
-      console.log("response: ", response);
+      // console.log("response: ", response);
     })
     .catch((error) => {
       console.log(error);

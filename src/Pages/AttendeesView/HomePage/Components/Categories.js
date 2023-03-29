@@ -14,8 +14,7 @@ export const CategoriesTaps = ({ categorySelector, location }) => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    // console.log(newValue);
-    // console.log(event.target.innerHTML);
+
     categorySelector(event.target.innerHTML);
   };
 
