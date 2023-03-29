@@ -46,6 +46,7 @@ export const Login = (props) => {
 
     async function fetchUsers() {
       const res = await getUsers();
+      console.log("res: ", res);
       setUsers(res);
     }
 

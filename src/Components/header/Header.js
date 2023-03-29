@@ -12,20 +12,15 @@ import { Container, Row, Col } from "react-bootstrap";
 import SearchPage from "../../Pages/AttendeesView/HomePage/Components/SearchPage";
 import { useSelector } from "react-redux";
 import { selectUserState } from "../../features";
-
+import { MdKeyboardArrowUp } from "react-icons/md";
+import { HiOutlineSwitchHorizontal } from "react-icons/hi";
+import { VscAccount } from "react-icons/vsc";
+import { BiLogOut } from "react-icons/bi";
 const Header = ({ MenuShow }) => {
   const [toggleSearch, setToggleSearch] = useState(false);
-  // const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
+  const [isOrganizer, setIsOrganizer] = useState(false);
 
   const USER = useSelector(selectUserState);
-
-  // useEffect(() => {
-  //   {
-  //     toggleSearch
-  //       ? (document.body.style.overflow = "hidden")
-  //       : (document.body.style.overflow = "unset");
-  //   }
-  // }, [toggleSearch]);
 
   return (
     <>
@@ -72,6 +67,7 @@ const Header = ({ MenuShow }) => {
               <a href="#">Visit the help center3</a>
             </div>
           </div>
+
           {!USER ? (
             <div className="button">
               <Link to="/login">
@@ -79,11 +75,51 @@ const Header = ({ MenuShow }) => {
               </Link>
             </div>
           ) : null}
-          <div className="button">
-            <Link to="/signup">
-              <button className="header-button">Sign Up</button>
-            </Link>
+          {!USER ? (
+            <div className="button">
+              <Link to="/signup">
+                <button className="header-button">Sign Up</button>
+              </Link>
+            </div>
+          ) : null}
+
+          {isOrganizer ? (
+            <div className="dropdown">
+              <button className="dropbtn">
+                Mahmoud Khaled <MdKeyboardArrowUp className="arrow" />
+              </button>
+              <div className="dropdown-content">
+                <a href="#" style={{ fontWeight: "500" }}>
+                  <HiOutlineSwitchHorizontal fontSize="25px" color="black" />{" "}
+                  <span style={{ marginLeft: "10px" }}>
+                    Switching to attending
+                  </span>
+                </a>
+                <a href="#" style={{ fontWeight: "500" }}>
+                  <VscAccount fontSize="25px" color="black" />{" "}
+                  <span style={{ marginLeft: "10px" }}>Account Settings</span>
+                </a>
+
+                <a href="#" style={{ fontWeight: "500" }}>
+                  <BiLogOut fontSize="25px" color="black" />{" "}
+                  <span style={{ marginLeft: "10px" }}>Log out</span>
+                </a>
+              </div>
+            </div>
+          ) : null}
+
+          <div className="dropdown">
+            <button className="dropbtn">
+              yogilany@gmail.com <MdOutlineKeyboardArrowDown />
+            </button>
+            <div className="dropdown-content">
+              <a href="#">Browse events</a>
+              <a href="#">Manage my events</a>
+              <a href="#">Account settings</a>
+              <a href="#">Log out</a>
+            </div>
           </div>
+
           {USER ? "Welcome " : "NO USER"}
         </div>
       </div>
