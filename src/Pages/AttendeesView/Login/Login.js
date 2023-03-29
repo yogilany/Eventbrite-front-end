@@ -10,8 +10,8 @@ import { LoginTitle as LoginTitle } from "./Components/Title";
 import LoginImage from "./Components/LoginImage";
 import Footer from "../../../components/footer/Footer";
 import { HorizontalChip } from "./Components/HorizontalChip";
-import AboutFooter from '../../../components/AboutFooter/AboutFooter'
-import { useRef, useState, useEffect } from 'react'
+import AboutFooter from "../../../components/AboutFooter/AboutFooter";
+import { useRef, useState, useEffect } from "react";
 import { getUsers } from "../../../services/services";
 import { userAuthorize, testReducer } from "../../../features";
 import { useSelector, useDispatch } from "react-redux";
@@ -49,6 +49,7 @@ export const Login = (props) => {
 
     async function fetchUsers() {
       const res = await getUsers();
+      console.log("res: ", res);
       setUsers(res);
     }
 
