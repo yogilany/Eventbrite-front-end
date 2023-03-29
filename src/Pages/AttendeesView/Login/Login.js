@@ -25,7 +25,6 @@ const validateEmail = (e) => {
   return true;
 };
 
-
 /**
  * This is the login page for attendees where they can log in using
  * their email & passwords.
@@ -57,12 +56,12 @@ export const Login = (props) => {
 
     async function fetchUsers() {
       const res = await getUsers();
-      console.log("res: ", res);
+      // console.log("res: ", res);
       setUsers(res);
     }
 
     fetchUsers();
-    console.log("users: ", users);
+    // console.log("users: ", users);
   }, []);
 
   useEffect(() => {
@@ -79,6 +78,7 @@ export const Login = (props) => {
         if (userExists[0].password === pwd) {
           dispatch(userAuthorize(true));
           setSuccess(true);
+          window.User = userExists;
           navigate("/");
         } else {
           setPasswordIncorrect(true);
