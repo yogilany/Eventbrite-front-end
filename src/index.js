@@ -13,10 +13,10 @@ import { Provider } from 'react-redux'
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <AnimatePresence>
+    <AnimatePresence>
+      <Provider store={store}>
         <App />
-      </AnimatePresence>
-    </Provider>
+      </Provider>
+    </AnimatePresence>
   </React.StrictMode>
 );
