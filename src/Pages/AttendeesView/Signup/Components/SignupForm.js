@@ -247,7 +247,7 @@ export const SignupForm = (props) => {
                                 , top: "0.3rem",
                                 backgroundColor: "transparent"
                             }}
-                                // onClick={
+                                onClick={()=>{props.handleReset();props.setFieldValue("showSignupInfo2",false);}}
                                 type="reset"
                             >
                                 <TiIcons.TiPencil />
