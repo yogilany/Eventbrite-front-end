@@ -4,7 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 // As a basic setup, import your same slice reducers
 import { appSlice } from "./features";
-import { BrowserRouter, Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 export function renderWithProviders(
   ui,
   {
@@ -18,9 +18,10 @@ export function renderWithProviders(
   } = {}
 ) {
   function Wrapper({ children }) {
-    return <Provider store={store}><BrowserRouter >
-      {children}
-    </BrowserRouter>
+    return <Provider store={store}>
+      <BrowserRouter >
+        {children}
+      </BrowserRouter>
     </Provider>;
   }
 

@@ -1,0 +1,342 @@
+.BasicinfoPage_Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Section_Container {
+  margin-bottom: 32px;
+  margin-top: 20px;
+  font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+  font-weight: 400;
+  color: #39364f;
+  max-width: 960px;
+  align-self: center;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Section_image {
+  margin-left: 8.3333333333%;
+  width: 8.3333333333%;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  height: 100%;
+  display: inline-block;
+}
+
+.titlesvgicon {
+  width: 48px;
+  height: 48px;
+  fill: #dbdae3 !important;
+}
+
+.content_container {
+  width: 66.6666666667%;
+  height: 100%;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+}
+
+.title {
+  color: #1e0a3c;
+  font-size: 1.875rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.5px;
+  margin-right: -0.5px;
+  font-weight: 700;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  color: #39364f;
+  width: 75%;
+  margin-bottom: 15px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  display: inline-block;
+}
+.rec-subtitle {
+  color: #39364f;
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  display: inline-block;
+}
+
+.suplol {
+  color: red;
+}
+
+.full-input {
+  width: 100%;
+  position: relative;
+
+  label {
+    color: #6f7287;
+    position: absolute;
+    padding: 2px 12px 0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 22px;
+    transition: all 0.3s;
+  }
+
+  .inputregular {
+    width: 100%;
+    padding: 18px 12px 6px;
+    font-size: 14px;
+    line-height: 22px;
+    min-height: 22px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    transition: all 0.2s;
+    outline: none;
+
+    // make the placeholder blue
+    &::placeholder {
+      color: #a2a2a2;
+    }
+
+    &:hover {
+      border-color: #a0a0a0;
+    }
+
+    &:focus {
+      border: 2px solid #3659e3;
+    }
+  }
+
+  .inputwarning {
+    width: 100%;
+    padding: 18px 12px 6px;
+    font-size: 14px;
+    line-height: 22px;
+    min-height: 22px;
+    border: 1px solid #c5162e;
+    border-radius: 2px;
+    transition: all 0.2s;
+
+    &::placeholder {
+      color: #a2a2a2;
+    }
+
+    &:focus {
+      outline: none !important;
+      border: 2px solid #c5162e;
+    }
+  }
+}
+
+.counter {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  padding-top: 4px;
+  margin-bottom: 12px;
+}
+
+.charcounter {
+  flex: 1 1 auto;
+  text-align: right;
+}
+
+.warning {
+  color: #c5162e;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  flex: 1 1 auto;
+  animation-duration: 0.24s;
+}
+
+.organizer-helper-text {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.select-container {
+  margin-top: 16px;
+}
+
+.eds-field-styled__select {
+  width: 33.3333333333%;
+  line-height: 22px;
+  padding: 12px 14px;
+  font-size: 14px;
+  background-color: transparent;
+  border: 1px solid #ddd;
+  font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+  transition: all 0.3s;
+  color: #39364f;
+  margin-right: 16px;
+
+  &:hover {
+    border-color: #6f7287;
+  }
+
+  &:focus {
+    border: 2px solid #3659e3;
+  }
+
+  @media (min-width: 660px) {
+    font-size: 14px;
+    line-height: 22px;
+    min-height: 22px;
+  }
+}
+
+.eds-text-bm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  margin-bottom: 16px;
+  font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+  color: #39364f;
+}
+
+.eds-text-bl {
+  margin-bottom: 8px;
+  margin-top: 16px;
+  letter-spacing: 0.25px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  color: #39364f;
+  text-rendering: optimizeLegibility;
+  font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+}
+
+.big-tag-container {
+  display: flex;
+}
+
+.textarea-container {
+  width: 83.3333333333%;
+  margin-bottom: 16px;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tagscount-container {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-top: 4px;
+}
+
+.tagcountwarning {
+  color: #c5162e;
+  animation-duration: 0.24s;
+}
+
+.eds-add-btn {
+  background: #fff;
+  color: #39364f;
+  border-color: #a9a8b3;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transform: translateZ(0);
+  position: relative;
+  height: 44px;
+  padding: 0 30px 1px;
+  border: 2px solid #a9a8b3;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.3, 1);
+
+  &:hover {
+    background: #f3f3f3;
+    border-color: #888891;
+  }
+
+  &:active {
+    background: #dbdbdb;
+    border-color: #888891;
+  }
+}
+
+.eds-divider__hr.eds-divider--horizontal {
+  width: 66.6666%;
+  max-width: 960px;
+  height: 1px;
+  align-self: center;
+}
+
+.wrapper {
+  display: inline-flex;
+  background: #fff;
+  height: 100px;
+  width: 100%;
+  align-items: center;
+  border-radius: 5px;
+  padding: 16px 8px;
+}
+
+.wrapper .dateoption {
+  background: #fff;
+  height: 80%;
+  width: auto;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0 10px;
+  border: 1px solid lightgrey;
+  transition: all 0.3s ease;
+
+  // make the span width 200px
+  span {
+    display: flex;
+    width: auto;
+    margin: 10px 10px;
+    justify-content: center;
+  }
+}
+
+input[name="selectdatetype"] {
+  display: none;
+}
+
+#dateoption-1:checked:checked ~ .dateoption-1,
+#dateoption-2:checked:checked ~ .dateoption-2 {
+  border: 2px solid #3659e3;
+  background-color: rgba(54, 89, 227, 0.1);
+}
+
+.wrapper .dateoption span {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+}
+
+#dateoption-1:checked:checked ~ .dateoption-1 span,
+#dateoption-2:checked:checked ~ .dateoption-2 span {
+  color: #3659e3;
+}

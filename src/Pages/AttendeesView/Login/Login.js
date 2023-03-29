@@ -1,21 +1,18 @@
-import "./Login.scss";
-import LoginForm from "./Components/LoginForm";
-import { Stack } from "react-bootstrap";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import LoginMethods from "./Components/LoginMethods";
+import { useEffect, useRef, useState } from "react";
+import { Container, Col, Row, Stack } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import test_image from "../../../assets/side_image.jpg";
-import { LoginTitle as LoginTitle } from "./Components/Title";
-import LoginImage from "./Components/LoginImage";
+import AboutFooter from "../../../components/AboutFooter/AboutFooter";
 import Footer from "../../../components/footer/Footer";
-import { HorizontalChip } from "./Components/HorizontalChip";
-import AboutFooter from '../../../components/AboutFooter/AboutFooter'
-import { useRef, useState, useEffect } from 'react'
+import { userAuthorize } from "../../../features";
 import { getUsers } from "../../../services/services";
-import { userAuthorize, testReducer } from "../../../features";
-import { useSelector, useDispatch } from "react-redux";
-import { Navigate, useNavigate } from "react-router";
+import { HorizontalChip } from "./Components/HorizontalChip";
+import LoginForm from "./Components/LoginForm";
+import LoginImage from "./Components/LoginImage";
+import LoginMethods from "./Components/LoginMethods";
+import { LoginTitle } from "./Components/Title";
+import "./Login.scss";
 
 /**
  *
@@ -28,6 +25,16 @@ const validateEmail = (e) => {
   return true;
 };
 
+/**
+ * This is the login page for attendees where they can log in using
+ * their email & passwords.
+ * This page is redirected to by signup after a successful sign up
+ * @date 3/29/2023 - 2:46:54 AM
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {JSX.Element}
+ */
 export const Login = (props) => {
   const userRef = useRef();
   const errRef = useRef();
@@ -49,11 +56,12 @@ export const Login = (props) => {
 
     async function fetchUsers() {
       const res = await getUsers();
+      // console.log("res: ", res);
       setUsers(res);
     }
 
     fetchUsers();
-    console.log("users: ", users);
+    // console.log("users: ", users);
   }, []);
 
   useEffect(() => {
@@ -70,6 +78,7 @@ export const Login = (props) => {
         if (userExists[0].password === pwd) {
           dispatch(userAuthorize(true));
           setSuccess(true);
+          window.User = userExists;
           navigate("/");
         } else {
           setPasswordIncorrect(true);
@@ -111,12 +120,12 @@ export const Login = (props) => {
                 Log in
               </h1>
             </Stack>
-            {!emailExist && user.length > 5 ? (
+            {!emailExist && user.length > 10 ? (
               <div className="formMsg">
                 <div></div>
                 <p>
                   There is no account associated with the email.{" "}
-                  <a>Create account.</a>{" "}
+                  <a href="/signup">Create account.</a>{" "}
                 </p>
               </div>
             ) : null}

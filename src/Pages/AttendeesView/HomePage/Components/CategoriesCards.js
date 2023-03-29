@@ -10,6 +10,11 @@ import PhotoOutlinedIcon from "@mui/icons-material/PhotoOutlined";
 import WineBarOutlinedIcon from "@mui/icons-material/WineBarOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlined";
+/**
+ * @author Yousef Gilany
+ * @description This is the Categories component that contains the categories tiles. It takes the user to a new page that shows event in that category.
+ * @returns {JSX.Element}
+ */
 const CategoriesCards = () => {
   return (
     <Container className="mb-5">
