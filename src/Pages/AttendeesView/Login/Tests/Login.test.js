@@ -1,19 +1,19 @@
 
 import Login from "../Login";
-import { render, renderHook, screen } from "@testing-library/react";
-import store from '../../../../store'
-import { Provider } from 'react-redux'
+import { screen } from "@testing-library/react";
+import { renderWithProviders } from "../../../../test_utils";
 
 
 test("Render header", () => {
-    render(<Login />);
+    renderWithProviders(<Login />);
 
     const loginHeader = screen.getByTestId("login-header");
     expect(loginHeader).toBeInTheDocument();
 });
 
 test("Render login form", () => {
-    render(
+    renderWithProviders(<Login />);
+    (
         <Login />
     );
 
@@ -23,14 +23,16 @@ test("Render login form", () => {
 
 
 test("Render email placeholder text", () => {
-    render(<Login />);
+    renderWithProviders(<Login />);
+    (<Login />);
 
     const loginFormEmail = screen.getByPlaceholderText("Email address");
     expect(loginFormEmail).toBeInTheDocument();
 });
 
 test("Render password placeholder text", () => {
-    render(<Login />);
+    renderWithProviders(<Login />);
+    (<Login />);
 
     const loginFormPassword = screen.getByPlaceholderText("Password");
     expect(loginFormPassword).toBeInTheDocument();
@@ -38,7 +40,8 @@ test("Render password placeholder text", () => {
 
 
 test("Email input should be empty", () => {
-    render(<Login />);
+    renderWithProviders(<Login />);
+    (<Login />);
 
     const loginFormEmail = screen.getByPlaceholderText("Email address");
     expect(loginFormEmail.value).toBe("");
@@ -46,7 +49,8 @@ test("Email input should be empty", () => {
 
 
 test("Password input should be empty", () => {
-    render(<Login />);
+    renderWithProviders(<Login />);
+    (<Login />);
 
     const loginFormPassword = screen.getByPlaceholderText("Password");
     expect(loginFormPassword.value).toBe("");
@@ -54,14 +58,16 @@ test("Password input should be empty", () => {
 
 
 test("Render login methods (email)", () => {
-    render(<Login />);
+    renderWithProviders(<Login />);
+    (<Login />);
 
     const loginMethods = screen.getByTestId("login-methods");
     expect(loginMethods).toHaveTextContent('Email me a login link');
 });
 
 test("Render login methods (sign in with google)", () => {
-    render(<Login />);
+    renderWithProviders(<Login />);
+    (<Login />);
 
     const loginMethods = screen.getByTestId("login-methods");
     expect(loginMethods).toHaveTextContent('Sign in with Google');

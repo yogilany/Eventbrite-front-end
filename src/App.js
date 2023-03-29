@@ -12,10 +12,10 @@ function App() {
   // useEffect(() => {
   //   server();
   // }, []);
-
+  
   return (
     <>
-      {true ? (
+      {user ? (
         //<Layout>
         <Layout>
           <AuthenticatedApp />
