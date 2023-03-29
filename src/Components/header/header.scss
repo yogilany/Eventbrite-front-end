@@ -13,6 +13,14 @@
   background-color: white;
   flex-wrap: wrap;
 }
+
+.header-container-links {
+  display: flex;
+  align-items: center;
+  width: 45%;
+  justify-content: end;
+  height: 100%;
+}
 .header-container-left img {
   width: 130px;
 }
@@ -49,19 +57,20 @@
 
 .header-button {
   background-color: #ffffff;
-  color: #6f7287;
-  padding: 16px;
+  color: #39364f;
   font-size: 13px;
   white-space: nowrap;
   font-weight: 400;
-
+  text-decoration: none;
+  height: 70px;
   font-family: "Neue Plak SemiBold";
-
   border: none;
+  padding: 16px;
 }
 
 .header-button:hover {
   color: #39364f;
+  background-color: #f6f6f6;
 }
 
 .dropdown {

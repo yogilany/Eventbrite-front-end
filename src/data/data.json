@@ -1203,16 +1203,25 @@
   ],
   "users": [
     {
+      "id": 1,
       "name": "Leanne Graham",
       "username": "Bret",
       "email": "Sincere@april.biz",
       "password": "12345678"
     },
     {
+      "id": 2,
       "name": "Yousef Gilany",
       "username": "yogilany",
       "email": "yogilany@gmail.com",
       "password": "12345678"
+    },
+    {
+      "name": "name",
+      "username": "username",
+      "email": "email",
+      "password": "password",
+      "id": 3
     }
   ],
   "events": [

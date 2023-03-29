@@ -8,6 +8,14 @@ import Footer from "../../../components/footer/Footer";
 import Header from "../../../components/header/Header";
 import { useSelector } from "react-redux";
 import { selectUserState } from "../../../features";
+
+/**
+ * @author Mahmoud Khalid
+ * @param {}
+ * @description This is likes page. It shows which events a user liked and the user can see the details of the event.
+ * @returns {JSX.Element}
+ */
+
 const Likes = () => {
   const user = useSelector(selectUserState);
   console.log("USER = ", user);

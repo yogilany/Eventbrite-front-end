@@ -1,7 +1,5 @@
 @import "../../../scss/theme.scss";
 
-@import "bootstrap";
-
 .header-img {
   width: 100%;
   background-image: url("../../../assets/adel-bg5.png");
@@ -115,13 +113,13 @@ h3 {
   background: #f8f7fa;
   -webkit-box-flex: 1;
   flex-grow: 1;
-  font-weight: 300;
   align-items: center;
   display: flex;
   -webkit-box-align: center;
   color: #39364f;
   font-size: 14px;
-  font-family: Neue Plak SemiBold;
+  font-family: "Neue Plak SemiBold";
+  font-weight: 300;
 }
 
 .tile {

@@ -1,10 +1,10 @@
 import { Box, IconButton, LinearProgress } from "@mui/material";
-import { Formik, useFormikContext } from 'formik';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { Button, Form, InputGroup, Stack } from 'react-bootstrap';
-import * as TiIcons from 'react-icons/ti';
-import zxcvbn from 'zxcvbn';
+import { Formik, useFormikContext } from "formik";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { Button, Form, InputGroup, Stack } from "react-bootstrap";
+import * as TiIcons from "react-icons/ti";
+import zxcvbn from "zxcvbn";
 import SignupMethods from "./SignupMethods";
 import { addUser } from "../../../../services/services";
 import '../Signup.scss';
@@ -35,22 +35,21 @@ import * as Yup from 'yup';
 // };
 
 const SignupSchema = Yup.object().shape({
+  firstName: Yup.string()
 
-    firstName: Yup.string()
+    .min(2, "Too Short!")
 
-        .min(2, 'Too Short!')
+    .max(50, "Too Long!")
 
-        .max(50, 'Too Long!')
+    .required("Required"),
 
-        .required('Required'),
+  lastName: Yup.string()
 
-    lastName: Yup.string()
+    .min(2, "Too Short!")
 
-        .min(2, 'Too Short!')
+    .max(50, "Too Long!")
 
-        .max(50, 'Too Long!')
-
-        .required('Required'),
+    .required("Required"),
 
     email: Yup.string().notRequired(),
     emailConfirm: Yup.string().oneOf([Yup.ref('email'), null], "Email address doesn't match. Please try again")
@@ -65,7 +64,6 @@ const SignupSchema = Yup.object().shape({
  */
 const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
-
 /**
  * Runs a check on the password and returns its score,
  *  a hex color indicating the score,
@@ -77,22 +75,22 @@ const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
  * @returns {{}}
  */
 function getPasswordState(password) {
-    const result = zxcvbn(password).score
-    switch (result) {
-        case 0:
-            return [0, "#e02e46", "Your password must be at least 8 characters"];
-        case 1:
-            return [1, "#e02e46", "Your password is weak"];
-        case 2:
-            return [2, "#f05537", "Your password is moderate"];
-        case 3:
-            return [3, "#16a85a", "Your password is strong"];
-        case 4:
-            return [4, "#16a85a", "Your password is very strong"]
-        default: return "";
-    }
+  const result = zxcvbn(password).score;
+  switch (result) {
+    case 0:
+      return [0, "#e02e46", "Your password must be at least 8 characters"];
+    case 1:
+      return [1, "#e02e46", "Your password is weak"];
+    case 2:
+      return [2, "#f05537", "Your password is moderate"];
+    case 3:
+      return [3, "#16a85a", "Your password is strong"];
+    case 4:
+      return [4, "#16a85a", "Your password is very strong"];
+    default:
+      return "";
+  }
 }
-
 
 /**
  * Create a linear progress bar with a label under it.
@@ -104,46 +102,46 @@ function getPasswordState(password) {
  * @returns {JSX.Element}
  */
 function LinearProgressWithLabel(props) {
-    const [progressBar, setProgressBar] = useState({
-        value: 0,
-        colorHex: "#1a90ff",
-        labelString: 'Your password must be at least 8 characters',
-    });
-    useEffect(() => {
-        const result = getPasswordState(props.password);
-        setProgressBar(state => ({
-            ...state, ...progressBar,
-            value: result[0],
-            colorHex: result[1],
-            labelString: result[2]
-        }));
-    }, [props.password]);
-    return (
-        <Box sx={{ alignItems: 'center' }}>
-            <Box sx={{ width: '100%', mr: 1 }}>
-                <LinearProgress variant="determinate"
-                    value={progressBar.value * 25}
-                    sx={{
-                        '& .MuiLinearProgress-bar1Determinate': {
-                            backgroundColor: progressBar.colorHex,
-                        }
-                    }}
-                />
-            </Box>
-            <Box sx={{ minWidth: 35, fontSize: "0.8rem", pt: 2 }}>
-                {
-                    progressBar.labelString
-                }
-            </Box>
-        </Box>
-    );
+  const [progressBar, setProgressBar] = useState({
+    value: 0,
+    colorHex: "#1a90ff",
+    labelString: "Your password must be at least 8 characters",
+  });
+  useEffect(() => {
+    const result = getPasswordState(props.password);
+    setProgressBar((state) => ({
+      ...state,
+      ...progressBar,
+      value: result[0],
+      colorHex: result[1],
+      labelString: result[2],
+    }));
+  }, [props.password]);
+  return (
+    <Box sx={{ alignItems: "center" }}>
+      <Box sx={{ width: "100%", mr: 1 }}>
+        <LinearProgress
+          variant="determinate"
+          value={progressBar.value * 25}
+          sx={{
+            "& .MuiLinearProgress-bar1Determinate": {
+              backgroundColor: progressBar.colorHex,
+            },
+          }}
+        />
+      </Box>
+      <Box sx={{ minWidth: 35, fontSize: "0.8rem", pt: 2 }}>
+        {progressBar.labelString}
+      </Box>
+    </Box>
+  );
 }
 LinearProgressWithLabel.propTypes = {
-    /**
-     * The value of the progress indicator for the determinate and buffer variants.
-     * Value between 0 and 100.
-     */
-    value: PropTypes.number.isRequired,
+  /**
+   * The value of the progress indicator for the determinate and buffer variants.
+   * Value between 0 and 100.
+   */
+  value: PropTypes.number.isRequired,
 };
 /**
  * The signup form which contains the information needed to create a new account.
@@ -155,8 +153,9 @@ LinearProgressWithLabel.propTypes = {
  * @returns {*}
  */
 export const SignupForm = (props) => {
-    const [showSignUpInfo, setShowSignUpInfo] = useState(false);
-    const [password, setPassword] = useState('');
+  const [showSignUpInfo, setShowSignUpInfo] = useState(false);
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
 
 
@@ -292,4 +291,4 @@ export const SignupForm = (props) => {
         </Formik>
     );
 };
-export default (SignupForm);
+export default SignupForm;
