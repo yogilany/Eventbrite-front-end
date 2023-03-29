@@ -1,13 +1,59 @@
 import { Box, IconButton, LinearProgress } from "@mui/material";
-import { useFormik } from 'formik';
+import { Formik, useFormikContext } from 'formik';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup, Stack } from 'react-bootstrap';
 import * as TiIcons from 'react-icons/ti';
 import zxcvbn from 'zxcvbn';
+import SignupMethods from "./SignupMethods";
+import { addUser } from "../../../../services/services";
 import '../Signup.scss';
 import './SignupMethods';
+import * as Yup from 'yup';
+const ShowInfo = () => {
 
+    // Grab values and submitForm from context
+
+    const { values, submitForm } = useFormikContext();
+
+    useEffect(() => {
+
+        // Submit the form imperatively as an effect as soon as form values.token are 6 digits long
+
+        if (values.email.length > 0) {
+            values.showSignupInfo2 = true
+        } else {
+            values.showSignupInfo2 = false
+
+        }
+
+    }, [values, submitForm]);
+
+    return null;
+
+};
+const SignupSchema = Yup.object().shape({
+
+    firstName: Yup.string()
+
+        .min(2, 'Too Short!')
+
+        .max(50, 'Too Long!')
+
+        .required('Required'),
+
+    lastName: Yup.string()
+
+        .min(2, 'Too Short!')
+
+        .max(50, 'Too Long!')
+
+        .required('Required'),
+
+    email: Yup.string().email(),
+    emailConfirm: Yup.string().oneOf([Yup.ref('email'), null], "Email address doesn't match. Please try again")
+        .required('Required')
+});
 /**
  * Regex for verifying emails.
  * @date 3/29/2023 - 2:48:25 AM
@@ -110,9 +156,6 @@ export const SignupForm = (props) => {
     const [showSignUpInfo, setShowSignUpInfo] = useState(false);
     const [password, setPassword] = useState('');
 
-    const formStyle = {
-        display: showSignUpInfo ? "block" : "none"
-    }
 
     const validate = values => {
         const errors = {};
@@ -149,115 +192,125 @@ export const SignupForm = (props) => {
         return errors;
     };
 
-    const formik = useFormik({
-        initialValues: {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            emailConfirm: ''
-        }, validate,
-
-        onSubmit: values => {
-            
-            if (values.email && values.email.length && values.email.match(isValidEmail)) {
-                setShowSignUpInfo(state => state = true)
-                console.log("good email")
-            } else {
-                setShowSignUpInfo(state => state = false)
-                console.log("bad email")
-            }
-            console.log("pressed on submit")
-
-            alert(JSON.stringify(values, null, 2));
-        }, validateOnChange: false
-
-    });
     return (
-        <Form data-testid={props.data_testid} onSubmit={formik.handleSubmit}>
+        <Formik
+            initialValues={{
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                emailConfirm: '',
+                showSignupInfo2: false
+            }}
+            onSubmit={(values, actions) => {
 
-            <InputGroup>
-                <Form.Group className="mb-3" controlId="formLoginEmail" style={{ width: "100%" }}>
-                    <Form.Control
-                        disabled={showSignUpInfo}
-                        type="email"
-                        placeholder="Email address"
-                        value={formik.values.email}
-                        {...formik.getFieldProps('email')}
-                    />
-                    <Form.Control.Feedback type="invalid">Email address invalid.</Form.Control.Feedback>
-                </Form.Group>
-                <IconButton style={{
-                    display: showSignUpInfo ? "inherit" : "none",
-                    position: "absolute",
-                    right: "1rem"
-                    , top: "0.3rem",
-                    backgroundColor: "transparent"
+                if (values.email && values.email.length && values.email.match(isValidEmail)) {
+                    setShowSignUpInfo(state => state = true)
+                    console.log("good email")
+                } else {
+                    setShowSignUpInfo(state => state = false)
+                    console.log("bad email")
+                }
+                console.log("pressed on submit")
+                addUser(
+                    {
+                        name: values.firstName,
+                        email: values.email,
+                        password: values.password,
+                        username: values.lastName
+                    }
+                )
+            }}
+            validationSchema={SignupSchema}
+            validateOnChange={false}
+        >
+            {(props, setFieldValue) => (
+                <>
+                    <ShowInfo />
 
-                }}
-                    onClick={a => setShowSignUpInfo(false)}
-                    type="reset"
-                >
-                    <TiIcons.TiPencil />
-                </IconButton>
-            </InputGroup>
+                    <Form data-testid={props.data_testid} onSubmit={props.handleSubmit}>
+                        <InputGroup>
+                            <Form.Group className="mb-3" controlId="formLoginEmail" style={{ width: "100%" }}>
+                                <Form.Control
+                                    disabled={props.values.showSignupInfo2}
+                                    type="email"
+                                    placeholder="Email address"
+                                    value={props.values.email}
+                                    {...props.getFieldProps('email')}
+                                />
+                                <Form.Control.Feedback type="invalid">Email address invalid.</Form.Control.Feedback>
+                            </Form.Group>
+                            <IconButton style={{
+                                display: props.values.showSignupInfo2 ? "inherit" : "none",
+                                position: "absolute",
+                                right: "1rem"
+                                , top: "0.3rem",
+                                backgroundColor: "transparent"
+                            }}
+                                // onClick={
+                                type="reset"
+                            >
+                                <TiIcons.TiPencil />
+                            </IconButton>
+                        </InputGroup>
 
-            <div style={{ display: showSignUpInfo ? "block" : "none" }}>
-                <Form.Group >
-                    <Form.Control
-                        type="email"
-                        placeholder="Confirm Email"
-                        id="emailConfirm"
-                        {...formik.getFieldProps('emailConfirm')}
-                        isInvalid={formik.touched.emailConfirm && formik.errors.emailConfirm}
-                        isValid={!formik.touched.emailConfirm && !formik.errors.emailConfirm}
-                        onBlur={formik.handleBlur}
-                    />
-                    <Form.Control.Feedback type="invalid" >Email address doesn't match. Please try again</Form.Control.Feedback>
-                </Form.Group>
-                <Stack direction="horizontal" gap={3} className=" mt-3 ">
-                    <Form.Group className='pb-4'>
-                        <Form.Control
-                            type="text"
-                            placeholder="First Name"
-                            id="firstName"
-                            {...formik.getFieldProps('firstName')}
-                            isValid={!formik.touched.firstName && !formik.errors.firstName}
-                            isInvalid={formik.touched.firstName && formik.errors.firstName}
-                            onBlur={formik.handleBlur}
-                        />
-                        <Form.Control.Feedback type="invalid">{formik.errors.firstName}</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className='pb-4'>
-                        <Form.Control
-                            type="text"
-                            placeholder="Last Name"
-                            id="lastName"
-                            name="lastName"
-                            {...formik.getFieldProps('lastName')}
-                            isValid={!formik.touched.lastName && !formik.errors.lastName}
-                            isInvalid={formik.touched.lastName && formik.errors.lastName}
-                            onBlur={formik.handleBlur}
-                        />
-                        <Form.Control.Feedback type="invalid">{formik.errors.lastName}</Form.Control.Feedback>
-                    </Form.Group>
-                </Stack>
-                <Form.Group className='mb-3'>
-                    <Form.Control onChange={(e) => setPassword(e.target.value)} value={password}
-                        type="password"
-                        placeholder="Password"
-                        id="password"
-                        name="password"
-
-                    />
-                </Form.Group>
-                <LinearProgressWithLabel password={password} />
-            </div>
-            {/* {showSignUpInfo ? SignUpInfoForms : <></>} */}
-
-            <Button as="input" className='mt-5 mb-2' type="submit" value={showSignUpInfo ? "Create account" : "Continue"} variant="flat btn-flat" />{' '}
-
-        </Form>
+                        <div style={{ display: props.values.showSignupInfo2 ? "block" : "none" }}>
+                            <Form.Group >
+                                <Form.Control
+                                    type="email"
+                                    placeholder="Confirm Email"
+                                    id="emailConfirm"
+                                    {...props.getFieldProps('emailConfirm')}
+                                    isInvalid={props.touched.emailConfirm && props.errors.emailConfirm}
+                                    isValid={!props.touched.emailConfirm && !props.errors.emailConfirm}
+                                    onBlur={props.handleBlur}
+                                />
+                                <Form.Control.Feedback type="invalid" >Email address doesn't match. Please try again</Form.Control.Feedback>
+                            </Form.Group>
+                            <Stack direction="horizontal" gap={3} className=" mt-3 ">
+                                <Form.Group className='pb-4'>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="First Name"
+                                        id="firstName"
+                                        {...props.getFieldProps('firstName')}
+                                        isValid={!props.touched.firstName && !props.errors.firstName}
+                                        isInvalid={props.touched.firstName && props.errors.firstName}
+                                        onBlur={props.handleBlur}
+                                    />
+                                    <Form.Control.Feedback type="invalid">{props.errors.firstName}</Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group className='pb-4'>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Last Name"
+                                        id="lastName"
+                                        name="lastName"
+                                        {...props.getFieldProps('lastName')}
+                                        isValid={!props.touched.lastName && !props.errors.lastName}
+                                        isInvalid={props.touched.lastName && props.errors.lastName}
+                                        onBlur={props.handleBlur}
+                                    />
+                                    <Form.Control.Feedback type="invalid">{props.errors.lastName}</Form.Control.Feedback>
+                                </Form.Group>
+                            </Stack>
+                            <Form.Group className='mb-3'>
+                                <Form.Control
+                                    {...props.getFieldProps('password')}
+                                    type="password"
+                                    placeholder="Password"
+                                    id="password"
+                                    name="password"
+                                />
+                            </Form.Group>
+                            <LinearProgressWithLabel value={0} password={props.values.password} />
+                        </div>
+                        <Button as="input" className='mt-5 mb-2' type="submit" value={showSignUpInfo ? "Create account" : "Continue"} variant="flat btn-flat" />{' '}
+                    </Form>
+                    {props.values.showSignupInfo2 ? null : <SignupMethods />}
+                </>
+            )}
+        </Formik>
     );
 };
 export default (SignupForm);
