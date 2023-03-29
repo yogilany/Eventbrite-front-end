@@ -18,17 +18,16 @@ export const getUsers = async () => {
 };
 
 export const addUser = async ({ name, username, email, password }) => {
-  console.log('IN SERVICE ',email,password)
+  console.log("IN SERVICE ", email, password, username, name);
   await axios
     .post("http://localhost:8000/users", {
-      name: { name },
-      username: { username },
-      email: { email },
-      password: { password },
+      name: name,
+      username: username,
+      email: email,
+      password: password,
     })
-    // .then((response) => response.json())
     .then((response) => {
-      console.log("response: ", response.data);
+      console.log("response: ", response);
     })
     .catch((error) => {
       console.log(error);
