@@ -1,0 +1,52 @@
+.searchlocation-input {
+    width: 100%;
+    position: relative;
+    display: flex;
+
+    svg {
+        color: #6f7287;
+        position: absolute;
+        align-self: center;
+        margin-left: 8px;
+    }
+
+    .inputregular {
+        width: 100%;
+        padding: 6px 12px 6px 30px;
+        font-size: 14px;
+        line-height: 22px;
+        min-height: 48px;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        transition: all 0.2s;
+        outline: none;
+
+        &::placeholder {
+            color: #6f7287;
+        }
+
+        &:hover {
+            border-color: #6f7287;
+        }
+
+        &:focus {
+            border: 2px solid #3659e3;
+        }
+    }
+
+    .inputwarning {
+        width: 100%;
+        padding: 6px 12px 6px 30px;
+        font-size: 14px;
+        line-height: 22px;
+        min-height: 48px;
+        border: 1px solid #c5162e;
+        border-radius: 2px;
+        transition: all 0.2s;
+        outline: none;
+
+        &:focus {
+            border: 2px solid #c5162e;
+        }
+    }
+}
