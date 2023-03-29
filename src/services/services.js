@@ -18,6 +18,7 @@ export const getUsers = async () => {
 };
 
 export const addUser = async ({ name, username, email, password }) => {
+  console.log('IN SERVICE ',email,password)
   await axios
     .post("http://localhost:8000/users", {
       name: { name },
