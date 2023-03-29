@@ -25,6 +25,17 @@ const validateEmail = (e) => {
   return true;
 };
 
+
+/**
+ * This is the login page for attendees where they can log in using
+ * their email & passwords.
+ * This page is redirected to by signup after a successful sign up
+ * @date 3/29/2023 - 2:46:54 AM
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {JSX.Element}
+ */
 export const Login = (props) => {
   const userRef = useRef();
   const errRef = useRef();

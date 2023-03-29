@@ -10,28 +10,30 @@ import { addUser } from "../../../../services/services";
 import '../Signup.scss';
 import './SignupMethods';
 import * as Yup from 'yup';
-const ShowInfo = () => {
 
-    // Grab values and submitForm from context
+// const ShowInfo = () => {
 
-    const { values, submitForm } = useFormikContext();
+//     // Grab values and submitForm from context
 
-    useEffect(() => {
+//     const { values, submitForm } = useFormikContext();
 
-        // Submit the form imperatively as an effect as soon as form values.token are 6 digits long
+//     useEffect(() => {
 
-        if (values.email.length > 0) {
-            values.showSignupInfo2 = true
-        } else {
-            values.showSignupInfo2 = false
+//         // Submit the form imperatively as an effect as soon as form values.token are 6 digits long
 
-        }
+//         if (values.email.length > 0) {
+//             values.showSignupInfo2 = true
+//         } else {
+//             values.showSignupInfo2 = false
 
-    }, [values, submitForm]);
+//         }
 
-    return null;
+//     }, [values, submitForm]);
 
-};
+//     return null;
+
+// };
+
 const SignupSchema = Yup.object().shape({
 
     firstName: Yup.string()
@@ -50,7 +52,7 @@ const SignupSchema = Yup.object().shape({
 
         .required('Required'),
 
-    email: Yup.string().email(),
+    email: Yup.string().notRequired(),
     emailConfirm: Yup.string().oneOf([Yup.ref('email'), null], "Email address doesn't match. Please try again")
         .required('Required')
 });
@@ -157,40 +159,6 @@ export const SignupForm = (props) => {
     const [password, setPassword] = useState('');
 
 
-    const validate = values => {
-        const errors = {};
-        if (!showSignUpInfo)
-            return errors
-        if (!values.email) {
-            errors.email = 'Required';
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-            errors.email = 'Invalid email address';
-        }
-
-        if (!values.firstName) {
-            errors.firstName = 'Required';
-        } else if (values.firstName.length > 15) {
-            errors.firstName = 'Must be 15 characters or less';
-        }
-
-        if (!values.lastName) {
-            errors.lastName = 'Required';
-        } else if (values.lastName.length > 20) {
-            errors.lastName = 'Must be 20 characters or less';
-        }
-
-
-        if (!values.password) {
-            errors.password = 'Required';
-        } else if (zxcvbn(values.password) < 2) {
-            errors.password = 'Password must be at least 8 characters long and have symbols or numbers';
-        }
-
-        if (!(values.email === values.emailConfirm)) {
-            errors.emailConfirm = 'Emails must match'
-        }
-        return errors;
-    };
 
     return (
         <Formik
@@ -226,7 +194,7 @@ export const SignupForm = (props) => {
         >
             {(props, setFieldValue) => (
                 <>
-                    <ShowInfo />
+                    {/* <ShowInfo /> */}
 
                     <Form data-testid={props.data_testid} onSubmit={props.handleSubmit}>
                         <InputGroup>
@@ -247,7 +215,7 @@ export const SignupForm = (props) => {
                                 , top: "0.3rem",
                                 backgroundColor: "transparent"
                             }}
-                                onClick={()=>{props.handleReset();props.setFieldValue("showSignupInfo2",false);}}
+                                onClick={() => { props.setFieldValue('showSignupInfo2', false) }}
                                 type="reset"
                             >
                                 <TiIcons.TiPencil />
@@ -305,7 +273,18 @@ export const SignupForm = (props) => {
                             </Form.Group>
                             <LinearProgressWithLabel value={0} password={props.values.password} />
                         </div>
-                        <Button as="input" className='mt-5 mb-2' type="submit" value={showSignUpInfo ? "Create account" : "Continue"} variant="flat btn-flat" />{' '}
+
+                        {props.values.showSignupInfo2 ?
+                            <Button as="input" className='mt-5 mb-2' type="submit" value={showSignUpInfo ? "Create account" : "Continue"} variant="flat btn-flat" /> :
+                            <Button as="input" className='mt-5 mb-2'
+                                onClick={() => {
+                                    if (props.values.email.match(isValidEmail))
+                                        props.setFieldValue('showSignupInfo2', true)
+                                }}
+                                type="button" value="Continue" variant="flat btn-flat" />
+
+                        }
+
                     </Form>
                     {props.values.showSignupInfo2 ? null : <SignupMethods />}
                 </>
