@@ -16,12 +16,16 @@ import { MdKeyboardArrowUp } from "react-icons/md";
 import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 import { VscAccount } from "react-icons/vsc";
 import { BiLogOut } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userAuthorize } from "../../features";
 const Header = ({ MenuShow }) => {
   const [toggleSearch, setToggleSearch] = useState(false);
   const [isOrganizer, setIsOrganizer] = useState(false);
 
   const USER = useSelector(selectUserState);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <>
       <div className="header-container">
@@ -108,19 +112,26 @@ const Header = ({ MenuShow }) => {
             </div>
           ) : null}
 
-          <div className="dropdown">
-            <button className="dropbtn">
-              yogilany@gmail.com <MdOutlineKeyboardArrowDown />
-            </button>
-            <div className="dropdown-content">
-              <a href="#">Browse events</a>
-              <a href="#">Manage my events</a>
-              <a href="#">Account settings</a>
-              <a href="#">Log out</a>
+          {USER ? (
+            <div className="dropdown">
+              <button className="dropbtn">
+                yogilany@gmail.com <MdOutlineKeyboardArrowDown />
+              </button>
+              <div className="dropdown-content">
+                <a href="#">Browse events</a>
+                <a href="/basic-info">Manage my events</a>
+                <a href="#">Account settings</a>
+                <a
+                  href="/login"
+                  onClick={() => {
+                    dispatch(userAuthorize(false));
+                  }}
+                >
+                  Log out
+                </a>
+              </div>
             </div>
-          </div>
-
-          {USER ? "Welcome " : "NO USER"}
+          ) : null}
         </div>
       </div>
       {toggleSearch && <SearchPage toggle={setToggleSearch} />}
