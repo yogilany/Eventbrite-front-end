@@ -48,6 +48,14 @@ export const Login = (props) => {
 
   useEffect(() => {
     userRef.current.focus();
+
+    async function fetchUsers() {
+      const res = await getUsers();
+      setUsers(res);
+    }
+
+    fetchUsers();
+    console.log("users: ", users);
   }, []);
 
   useEffect(() => {
@@ -59,11 +67,7 @@ export const Login = (props) => {
       e.preventDefault();
       console.warn("User: ", user, " Pwd: ", pwd);
 
-      const res = await getUsers();
-
-      console.log("res: ", res);
-
-      const userExists = res.filter((u) => u.email === user);
+      const userExists = users.filter((u) => u.email === user);
       if (userExists.length !== 0) {
         if (userExists[0].password === pwd) {
           dispatch(userAuthorize(true));
@@ -71,7 +75,6 @@ export const Login = (props) => {
           navigate("/");
         } else {
           setPasswordIncorrect(true);
-
           setSuccess(false);
           dispatch(userAuthorize(false));
         }
@@ -85,6 +88,7 @@ export const Login = (props) => {
 
   useEffect(() => {
     const userExists = users.filter((u) => u.email === user);
+
     if (userExists.length === 0) {
       setEmailExist(false);
     } else {
@@ -92,15 +96,6 @@ export const Login = (props) => {
       setPasswordIncorrect(false);
     }
   }, [user]);
-
-  useEffect(() => {
-    async function fetchUsers() {
-      const res = await getUsers();
-      setUsers(res);
-    }
-
-    fetchUsers();
-  }, []);
 
   return (
     <Container className={props.name} fluid style={{ height: "50px" }}>

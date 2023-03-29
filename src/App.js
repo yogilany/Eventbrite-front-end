@@ -9,13 +9,10 @@ import { selectUserState } from "./features";
 function App() {
   const user = useSelector(selectUserState);
   console.log("USER = ", user);
-  // useEffect(() => {
-  //   server();
-  // }, []);
 
   return (
     <>
-      {user ? (
+      {true ? (
         //<Layout>
         <Layout>
           <AuthenticatedApp />

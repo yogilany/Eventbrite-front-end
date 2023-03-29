@@ -15,18 +15,17 @@ import { selectUserState } from "../../features";
 
 const Header = ({ MenuShow }) => {
   const [toggleSearch, setToggleSearch] = useState(false);
-  const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
+  // const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
 
-  const userRef = useRef();
   const USER = useSelector(selectUserState);
 
-  useEffect(() => {
-    {
-      toggleSearch
-        ? (document.body.style.overflow = "hidden")
-        : (document.body.style.overflow = "unset");
-    }
-  }, [toggleSearch]);
+  // useEffect(() => {
+  //   {
+  //     toggleSearch
+  //       ? (document.body.style.overflow = "hidden")
+  //       : (document.body.style.overflow = "unset");
+  //   }
+  // }, [toggleSearch]);
 
   return (
     <>
@@ -85,6 +84,7 @@ const Header = ({ MenuShow }) => {
               <button className="header-button">Sign Up</button>
             </Link>
           </div>
+          {USER ? "Welcome " : "NO USER"}
         </div>
       </div>
       {toggleSearch && <SearchPage toggle={setToggleSearch} />}

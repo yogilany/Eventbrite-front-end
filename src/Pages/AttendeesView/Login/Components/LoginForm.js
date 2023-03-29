@@ -18,7 +18,7 @@ export const LoginForm = (props) => {
       <Form onSubmit={props.submitAction}>
         <Form.Group className="mb-3" controlId="formLoginEmail">
           <Form.Control
-            id="formLoginEmail"
+            // id="formLoginEmail"
             ref={props.user_ref}
             autoComplete="off"
             onChange={(e) => props.set_User(e.target.value)}
