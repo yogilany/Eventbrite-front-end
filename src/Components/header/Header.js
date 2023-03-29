@@ -19,6 +19,8 @@ import { BiLogOut } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userAuthorize } from "../../features";
+import { IoMdHeartEmpty } from "react-icons/io";
+import { HiOutlinePlus } from "react-icons/hi";
 const Header = ({ MenuShow }) => {
   const [toggleSearch, setToggleSearch] = useState(false);
   const [isOrganizer, setIsOrganizer] = useState(false);
@@ -50,42 +52,84 @@ const Header = ({ MenuShow }) => {
           </button>
         </div>
         <div className="header-container-links">
-          <div className="dropdown">
-            <button className="dropbtn">
-              Organize <MdOutlineKeyboardArrowDown />
-            </button>
-            <div className="dropdown-content">
-              <a href="#">Create events</a>
-              <a href="#">Pricing</a>
-              <a href="#">Resources</a>
-              <a href="#">Contact Sales</a>
-            </div>
-          </div>
-          <div className="dropdown">
-            <button className="dropbtn">
-              Help <MdOutlineKeyboardArrowDown />
-            </button>
-            <div className="dropdown-content">
-              <a href="#">Find your tickets</a>
-              <a href="#">Contact your event organizer</a>
-              <a href="#">Visit the help center3</a>
-            </div>
-          </div>
-
           {!USER ? (
-            <div className="button">
-              <Link to="/login">
-                <button className="header-button">Log In</button>
+            <>
+              <div className="dropdown">
+                <button className="dropbtn">
+                  Organize <MdOutlineKeyboardArrowDown />
+                </button>
+                <div className="dropdown-content">
+                  <a href="#">Create events</a>
+                  <a href="#">Pricing</a>
+                  <a href="#">Resources</a>
+                  <a href="#">Contact Sales</a>
+                </div>
+              </div>
+              <div className="dropdown">
+                <button className="dropbtn">
+                  Help <MdOutlineKeyboardArrowDown />
+                </button>
+                <div className="dropdown-content">
+                  <a href="#">Find your tickets</a>
+                  <a href="#">Contact your event organizer</a>
+                  <a href="#">Visit the help center3</a>
+                </div>
+              </div>
+              <div className="button">
+                <Link to="/login">
+                  <button className="header-button">Log In</button>
+                </Link>
+              </div>
+              <div className="button">
+                <Link to="/signup">
+                  <button className="header-button">Sign Up</button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <Link to="/basic-info">
+                <div
+                  className="header-button"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    textAlign: "center",
+                  }}
+                >
+                  {" "}
+                  <div
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <HiOutlinePlus fontSize="18px" />
+                  </div>{" "}
+                  Create an event
+                </div>
               </Link>
-            </div>
-          ) : null}
-          {!USER ? (
-            <div className="button">
-              <Link to="/signup">
-                <button className="header-button">Sign Up</button>
+              <Link to="/likes">
+                <div
+                  className="header-button"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    textAlign: "center",
+                  }}
+                >
+                  {" "}
+                  <div
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    <IoMdHeartEmpty fontSize="18px" />
+                  </div>{" "}
+                  Likes
+                </div>
               </Link>
-            </div>
-          ) : null}
+            </>
+          )}
 
           {isOrganizer ? (
             <div className="dropdown">
