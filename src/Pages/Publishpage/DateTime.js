@@ -1,15 +1,21 @@
 import "./Publish.css"
 import { CiCalendar, CiClock2 } from "react-icons/ci"
-const DateTime = () => {
+/**
+ * @author Ziad Ezzat
+ * @param {string} props.data_testid
+ * @description This container shows the radio button container component used in publish page showing some data related to date and time of your event.
+ * @returns {JSX.Element of Date and Tome component found in publish page} 
+ */
+const DateTime = (props) => {
     return (
-        <div>
+        <div data-testid={props.data_testid}>
             <h2 className='rdh'>When should we publish your event?</h2>
             <div style={{ display: 'flex' }}>
-                <input type="radio"></input>
+                <input type="radio" name ='nowlater' checked ></input>
                 <p style={{ marginLeft: 20, marginTop: 15, color: '#39364f' }}>Publish Now</p>
             </div>
             <div style={{ display: 'flex', lineHeight: 0, marginBottom: 10 }}>
-                <input type="radio"></input>
+                <input type="radio" name ='nowlater'></input>
                 <p style={{ marginLeft: 20, marginTop: 10, color: '#39364f' }}>Schedule for later</p>
             </div>
             <div style={{ display: 'flex' }}>

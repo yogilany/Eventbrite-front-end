@@ -9,7 +9,7 @@ const Dropdown = ({Name , Links}) => {
       <a data-testid = "dropdownLink" href="#" className='drop__btn' onClick={() => setToggleBtn(!toggleBtn)}>{Name} {toggleBtn ? <AiOutlineArrowUp className = "arrow__Logo"  /> : <AiOutlineArrowDown className = "arrow__Logo" />}</a>
       {toggleBtn &&
         <div className='linkss' data-testid="dropdownLinks">
-          {Links.map((Link, i) => { return <a key={i}>{Link}</a>})}
+          {Links.map((Link, i) => { return <a key={i} >{Link}</a>})}
         </div>}
     </div>
   )

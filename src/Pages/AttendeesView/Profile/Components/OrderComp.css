@@ -1,0 +1,47 @@
+.MainComp {
+    width: 665px;
+    height: 280px;
+    margin-top: 30px;
+    display: flex;
+    padding-left: 20px;
+    padding-top: 15px;
+    padding-right: 10px;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.MainComp:hover {
+    box-shadow: 1px 1px 1px 1px rgba(134, 134, 134, 0.5);
+}
+
+.Datee {
+    margin-top: 10px;
+    line-height: 1px;
+    display: block;
+}
+
+.Full_Container_img {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    width: 460px;
+    height: 190px;
+}
+
+.eventdata {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.detaileddate {
+    color: grey;
+    font-size: small;
+}
+
+.detaileddated {
+    margin-top: 5px;
+    color: rgb(114, 112, 112);
+    font-size: small;
+    transition: all 0.3s ease-in-out;
+
+}
