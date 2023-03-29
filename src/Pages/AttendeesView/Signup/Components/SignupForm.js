@@ -291,7 +291,7 @@ LinearProgressWithLabel.propTypes = {
      */
     value: PropTypes.number.isRequired,
 };
-export const SignupForm = () => {
+export const SignupForm = (props) => {
     const [showSignUpInfo, setShowSignUpInfo] = useState(false);
     const [password, setPassword] = useState('');
 
@@ -361,7 +361,7 @@ export const SignupForm = () => {
 
     });
     return (
-        <Form onSubmit={formik.handleSubmit}>
+        <Form data-testid={props.data_testid} onSubmit={formik.handleSubmit}>
 
             <InputGroup>
                 <Form.Group className="mb-3" controlId="formLoginEmail" style={{ width: "100%" }}>

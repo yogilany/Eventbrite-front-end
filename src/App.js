@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      {true ? (
+      {user ? (
         //<Layout>
         <Layout>
           <AuthenticatedApp />

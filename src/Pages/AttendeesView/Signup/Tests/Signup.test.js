@@ -1,25 +1,26 @@
 
 import Signup from "../../Signup/Signup";
-import { render, screen } from "@testing-library/react";
+import {  screen } from "@testing-library/react";
+import { renderWithProviders } from "../../../../test_utils";
 
 test("Render header", () => {
-    render(<Signup />);
+    renderWithProviders(<Signup />);
 
     const signupHeader = screen.getByTestId("signup-header");
     expect(signupHeader).toBeInTheDocument();
     expect(signupHeader).toHaveTextContent('Create an account')
 });
 
-test("Render signup form", () => {
-    render(<Signup />);
+test("Render signup form (without clicking continue)", () => {
+    renderWithProviders(<Signup />);
 
     const loginForm = screen.getAllByRole("button");
-    expect(loginForm).toHaveLength(3);
+    expect(loginForm).toHaveLength(1);
 });
 
 
 test("Render email placeholder text", () => {
-    render(<Signup />);
+    renderWithProviders(<Signup />);
 
     const signupFormEmail = screen.getByPlaceholderText("Email address");
     expect(signupFormEmail).toBeInTheDocument();
@@ -27,7 +28,7 @@ test("Render email placeholder text", () => {
 
 
 test("Email input should be empty", () => {
-    render(<Signup />);
+    renderWithProviders(<Signup />);
 
     const signupFormEmail = screen.getByPlaceholderText("Email address");
     expect(signupFormEmail.value).toBe("");
@@ -36,7 +37,7 @@ test("Email input should be empty", () => {
 
 
 test("Render login methods (sign in with google)", () => {
-    render(<Signup />);
+    renderWithProviders(<Signup />);
 
     const signupMethods = screen.getByTestId("signup-form");
     expect(signupMethods).toHaveTextContent('Sign in with Google');
