@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 import { Container, Col, Row, Stack } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import test_image from "../../../assets/side_image.jpg";
-import AboutFooter from '../../../components/AboutFooter/AboutFooter';
+import AboutFooter from "../../../components/AboutFooter/AboutFooter";
 import Footer from "../../../components/footer/Footer";
 import { userAuthorize } from "../../../features";
 import { getUsers } from "../../../services/services";
@@ -109,12 +109,12 @@ export const Login = (props) => {
                 Log in
               </h1>
             </Stack>
-            {!emailExist && user.length > 5 ? (
+            {!emailExist && user.length > 10 ? (
               <div className="formMsg">
                 <div></div>
                 <p>
                   There is no account associated with the email.{" "}
-                  <a>Create account.</a>{" "}
+                  <a href="/signup">Create account.</a>{" "}
                 </p>
               </div>
             ) : null}
