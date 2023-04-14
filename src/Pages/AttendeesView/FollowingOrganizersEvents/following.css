@@ -1,11 +1,3 @@
-.following__container
-{
-    margin-top: 100px;
-}
-.following__container-heading
-{
-    margin: 100px 120px 0px;
-}
 .following__container-heading h1
 {
     font-size: 30px;
@@ -53,13 +45,14 @@
         margin: 100px 100px 0px !important;
     }
 }
-@media screen and (max-width: 1150px) and (min-width: 500px)
+@media screen and (max-width: 1150px) and (min-width: 400px)
 {
     .following__container-heading
     {
         margin: 100px 20px 0px !important;
     }
-}.following__container-heading
+}
+.following__container-heading
 {
     margin: 30px 120px 0px;
 }
@@ -81,6 +74,7 @@
     display: flex;
     align-items: center;
     margin-top: 50px;
+    margin-left: 10px;
 }
 .pagination__container button
 {

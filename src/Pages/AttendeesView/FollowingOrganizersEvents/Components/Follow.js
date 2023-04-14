@@ -8,10 +8,10 @@ const Follow = ({ Title, Date, Location, Price, Photo }) => {
   return (
     <div className='follow__container'>
       <div className="follow__container-left">
-        <p className="title">{Title}</p>
-        <p className="date">{Date}</p>
-        <p className="location">{Location}</p>
-        <p className="price">{Price}</p>
+        <p className="title" style={{marginLeft:'0px'}}>{Title}</p>
+        <p className="date" style={{marginLeft:'0px'}}>{Date}</p>
+        <p className="location" style={{marginLeft:'0px'}}>{Location}</p>
+        <p className="price" style={{marginLeft:'0px'}}>{Price}</p>
       </div>
       <div className="follow__container-right">
         <div className="follow__container-right-img">

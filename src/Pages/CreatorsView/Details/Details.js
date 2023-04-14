@@ -27,8 +27,9 @@ const Details = () => {
     <AppContext.Provider
       value={{ toggleSidebar, setToggleSidebar, showSubmit, setShowSubmit }}
     >
-      {/* <CreatorHeader MenuShow={true} /> */}
-      <Headerpub data_testid="HDID" />
+      <CreatorHeader MenuShow={true} />
+      {/* <Headerpub data_testid="HDID" /> */}
+
       <Sidebar />
 
       <div className="Details__page">
