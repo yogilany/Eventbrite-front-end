@@ -23,7 +23,7 @@ const Likes = () => {
     <div className="likes__container">
       <Header MenuShow={false} />
       <div className="likes__container-heading">
-        <h1>Likes</h1>
+        <h1 className="likes__header">Likes</h1>
         <Like
           Title="E7kky to Empower: Beyond the Story!"
           Date="Fri, Mar 10, 9:00 AM"

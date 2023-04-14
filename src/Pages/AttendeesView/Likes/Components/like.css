@@ -17,10 +17,10 @@
 }
 .like__container-left .title
 {
-    font-size: 20px;
+    font-size: 18px;
     color: #39364F;
     font-weight: 600;
-    margin-bottom:10px;
+    letter-spacing: .25px;
 }
 .like__container-left .date
 {
@@ -219,6 +219,32 @@
         justify-content: space-between;
         width: 450px;
         min-height: 186px;
+        padding: 12px;
+        transition: all 0.3s ease-in-out;
+        margin-bottom: 12px;
+    }
+    .like__container-right-img img
+    {
+        width: 100px;
+        height: 100px;
+    }
+    .like__container-left .title
+    {
+        font-size: 18px;
+        color: #39364F;
+        font-weight: 600;
+        margin-bottom:10px;
+        max-width: 98%;
+    }
+}
+@media screen and (max-width: 479px) and (min-width: 400px)
+{
+    .like__container
+    {
+        display: flex;
+        justify-content: space-between;
+        width: 400px;
+        min-height: 240px;
         padding: 12px;
         transition: all 0.3s ease-in-out;
         margin-bottom: 12px;
