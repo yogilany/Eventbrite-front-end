@@ -28,6 +28,9 @@ const Header = ({ MenuShow }) => {
   const USER = useSelector(selectUserState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(window.User);
+  const [user, setUser] = useState(window.User);
+
   return (
     <>
       <div className="header-container">
@@ -159,7 +162,7 @@ const Header = ({ MenuShow }) => {
           {USER ? (
             <div className="dropdown">
               <button className="dropbtn">
-                yogilany@gmail.com <MdOutlineKeyboardArrowDown />
+                {user[0].email} <MdOutlineKeyboardArrowDown />
               </button>
               <div className="dropdown-content">
                 <a href="#">Browse events</a>

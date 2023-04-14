@@ -18,7 +18,7 @@ import { selectUserState } from "../../../features";
 
 const Likes = () => {
   const user = useSelector(selectUserState);
-  console.log("USER = ", user);
+  // console.log("USER = ", user);
   return (
     <div className="likes__container">
       <Header MenuShow={false} />

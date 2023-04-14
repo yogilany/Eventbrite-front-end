@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 import { Container, Col, Row, Stack } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import test_image from "../../../assets/side_image.jpg";
-import AboutFooter from '../../../components/AboutFooter/AboutFooter';
+import AboutFooter from "../../../components/AboutFooter/AboutFooter";
 import Footer from "../../../components/footer/Footer";
 import { userAuthorize } from "../../../features";
 import { getUsers } from "../../../services/services";
@@ -24,7 +24,6 @@ const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 const validateEmail = (e) => {
   return true;
 };
-
 
 /**
  * This is the login page for attendees where they can log in using
@@ -57,12 +56,12 @@ export const Login = (props) => {
 
     async function fetchUsers() {
       const res = await getUsers();
-      console.log("res: ", res);
+      // console.log("res: ", res);
       setUsers(res);
     }
 
     fetchUsers();
-    console.log("users: ", users);
+    // console.log("users: ", users);
   }, []);
 
   useEffect(() => {
@@ -79,6 +78,7 @@ export const Login = (props) => {
         if (userExists[0].password === pwd) {
           dispatch(userAuthorize(true));
           setSuccess(true);
+          window.User = userExists;
           navigate("/");
         } else {
           setPasswordIncorrect(true);
@@ -120,12 +120,12 @@ export const Login = (props) => {
                 Log in
               </h1>
             </Stack>
-            {!emailExist && user.length > 5 ? (
+            {!emailExist && user.length > 10 ? (
               <div className="formMsg">
                 <div></div>
                 <p>
                   There is no account associated with the email.{" "}
-                  <a>Create account.</a>{" "}
+                  <a href="/signup">Create account.</a>{" "}
                 </p>
               </div>
             ) : null}

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Description from '../Description'
+import Description from '../Description';
 test("When user click on Add Text button, Text box will be displayed", async () => {
     render(<Description />);
     await userEvent.click(screen.getByTestId("addText"));

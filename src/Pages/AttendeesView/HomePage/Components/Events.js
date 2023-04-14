@@ -32,7 +32,7 @@ const Events = () => {
       let url = "https://ipinfo.io/json?token=89085807858d6e";
       let response = await fetch(url);
       let data = await response.json();
-      console.log(data);
+      // console.log(data);
       setLocation(data.city);
     }
     fetchLocation();
@@ -55,7 +55,7 @@ const Events = () => {
         return response;
       }
     });
-    console.log("filteredEvents: ", filteredEvents);
+    // console.log("filteredEvents: ", filteredEvents);
     setEvents(filteredEvents.slice(0, 8));
     setMoreEvents(filteredEvents.slice(8, 24));
   }
@@ -67,11 +67,11 @@ const Events = () => {
   }, []);
 
   useEffect(() => {
-    console.log("events: ", events);
+    // console.log("events: ", events);
   }, [events]);
 
   useEffect(() => {
-    console.log("category: ", category);
+    // console.log("category: ", category);
     fetchEvents();
   }, [category]);
 

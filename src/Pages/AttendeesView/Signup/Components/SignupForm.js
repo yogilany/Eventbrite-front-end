@@ -52,9 +52,13 @@ const SignupSchema = Yup.object().shape({
 
         .required("Required"),
 
-    email: Yup.string().notRequired(),
-    emailConfirm: Yup.string().oneOf([Yup.ref('email'), null], "Email address doesn't match. Please try again")
-        .required('Required')
+  email: Yup.string().notRequired(),
+  emailConfirm: Yup.string()
+    .oneOf(
+      [Yup.ref("email"), null],
+      "Email address doesn't match. Please try again"
+    )
+    .required("Required"),
 });
 /**
  * Regex for verifying emails.
@@ -195,83 +199,113 @@ export const SignupForm = (props) => {
                 <>
                     {/* <ShowInfo /> */}
 
-                    <Form data-testid={props.data_testid} onSubmit={props.handleSubmit}>
-                        <InputGroup>
-                            <Form.Group className="mb-3" controlId="formLoginEmail" style={{ width: "100%" }}>
-                                <Form.Control
-                                    disabled={props.values.showSignupInfo2}
-                                    type="email"
-                                    placeholder="Email address"
-                                    value={props.values.email}
-                                    {...props.getFieldProps('email')}
-                                />
-                                <Form.Control.Feedback type="invalid">Email address invalid.</Form.Control.Feedback>
-                            </Form.Group>
-                            <IconButton style={{
-                                display: props.values.showSignupInfo2 ? "inherit" : "none",
-                                position: "absolute",
-                                right: "1rem"
-                                , top: "0.3rem",
-                                backgroundColor: "transparent"
-                            }}
-                                onClick={() => { props.setFieldValue('showSignupInfo2', false) }}
-                                type="reset"
-                            >
-                                <TiIcons.TiPencil />
-                            </IconButton>
-                        </InputGroup>
+          <Form data-testid={props.data_testid} onSubmit={props.handleSubmit}>
+            <InputGroup>
+              <Form.Group
+                className="mb-3"
+                controlId="formLoginEmail"
+                style={{ width: "100%" }}
+              >
+                <Form.Control
+                  disabled={props.values.showSignupInfo2}
+                  type="email"
+                  placeholder="Email address"
+                  value={props.values.email}
+                  {...props.getFieldProps("email")}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Email address invalid.
+                </Form.Control.Feedback>
+              </Form.Group>
+              <IconButton
+                style={{
+                  display: props.values.showSignupInfo2 ? "inherit" : "none",
+                  position: "absolute",
+                  right: "1rem",
+                  top: "0.3rem",
+                  backgroundColor: "transparent",
+                }}
+                onClick={() => {
+                  props.setFieldValue("showSignupInfo2", false);
+                }}
+                type="reset"
+              >
+                <TiIcons.TiPencil />
+              </IconButton>
+            </InputGroup>
 
-                        <div style={{ display: props.values.showSignupInfo2 ? "block" : "none" }}>
-                            <Form.Group >
-                                <Form.Control
-                                    type="email"
-                                    placeholder="Confirm Email"
-                                    id="emailConfirm"
-                                    {...props.getFieldProps('emailConfirm')}
-                                    isInvalid={props.touched.emailConfirm && props.errors.emailConfirm}
-                                    isValid={!props.touched.emailConfirm && !props.errors.emailConfirm}
-                                    onBlur={props.handleBlur}
-                                />
-                                <Form.Control.Feedback type="invalid" >Email address doesn't match. Please try again</Form.Control.Feedback>
-                            </Form.Group>
-                            <Stack direction="horizontal" gap={3} className=" mt-3 ">
-                                <Form.Group className='pb-4'>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="First Name"
-                                        id="firstName"
-                                        {...props.getFieldProps('firstName')}
-                                        isValid={!props.touched.firstName && !props.errors.firstName}
-                                        isInvalid={props.touched.firstName && props.errors.firstName}
-                                        onBlur={props.handleBlur}
-                                    />
-                                    <Form.Control.Feedback type="invalid">{props.errors.firstName}</Form.Control.Feedback>
-                                </Form.Group>
-                                <Form.Group className='pb-4'>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Last Name"
-                                        id="lastName"
-                                        name="lastName"
-                                        {...props.getFieldProps('lastName')}
-                                        isValid={!props.touched.lastName && !props.errors.lastName}
-                                        isInvalid={props.touched.lastName && props.errors.lastName}
-                                        onBlur={props.handleBlur}
-                                    />
-                                    <Form.Control.Feedback type="invalid">{props.errors.lastName}</Form.Control.Feedback>
-                                </Form.Group>
-                            </Stack>
-                            <Form.Group className='mb-3'>
-                                <Form.Control
-                                    {...props.getFieldProps('password')}
-                                    type="password"
-                                    placeholder="Password"
-                                    id="password"
-                                    name="password"
-                                />
-                            </Form.Group>
-                            <LinearProgressWithLabel value={0} password={props.values.password} />
-                        </div>
+            <div
+              style={{
+                display: props.values.showSignupInfo2 ? "block" : "none",
+              }}
+            >
+              <Form.Group>
+                <Form.Control
+                  type="email"
+                  placeholder="Confirm Email"
+                  id="emailConfirm"
+                  {...props.getFieldProps("emailConfirm")}
+                  isInvalid={
+                    props.touched.emailConfirm && props.errors.emailConfirm
+                  }
+                  isValid={
+                    !props.touched.emailConfirm && !props.errors.emailConfirm
+                  }
+                  onBlur={props.handleBlur}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Email address doesn't match. Please try again
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Stack direction="horizontal" gap={3} className=" mt-3 ">
+                <Form.Group className="pb-4">
+                  <Form.Control
+                    type="text"
+                    placeholder="First Name"
+                    id="firstName"
+                    {...props.getFieldProps("firstName")}
+                    isValid={
+                      !props.touched.firstName && !props.errors.firstName
+                    }
+                    isInvalid={
+                      props.touched.firstName && props.errors.firstName
+                    }
+                    onBlur={props.handleBlur}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {props.errors.firstName}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="pb-4">
+                  <Form.Control
+                    type="text"
+                    placeholder="Last Name"
+                    id="lastName"
+                    name="lastName"
+                    {...props.getFieldProps("lastName")}
+                    isValid={!props.touched.lastName && !props.errors.lastName}
+                    isInvalid={props.touched.lastName && props.errors.lastName}
+                    onBlur={props.handleBlur}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {props.errors.lastName}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Stack>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  {...props.getFieldProps("password")}
+                  type="password"
+                  placeholder="Password"
+                  id="password"
+                  name="password"
+                />
+              </Form.Group>
+              <LinearProgressWithLabel
+                value={0}
+                password={props.values.password}
+              />
+            </div>
 
                         {props.values.showSignupInfo2 ?
                             <Button as="input" className='mt-5 mb-2' type="submit" value={showSignUpInfo ? "Create account" : "Continue"} variant="flat btn-flat" /> :

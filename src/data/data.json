@@ -1222,6 +1222,20 @@
       "email": "email",
       "password": "password",
       "id": 3
+    },
+    {
+      "name": "Hazem",
+      "username": "Gilany",
+      "email": "yogilany2@yahoo.com",
+      "password": "hazem123@",
+      "id": 4
+    },
+    {
+      "name": "Remonda",
+      "username": "Talaat",
+      "email": "remonda@gmail.com",
+      "password": "remonda@123",
+      "id": 5
     }
   ],
   "events": [
