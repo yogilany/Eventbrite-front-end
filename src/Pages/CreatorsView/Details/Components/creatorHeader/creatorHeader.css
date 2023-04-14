@@ -1,5 +1,5 @@
 .header__container {
-  max-width: 100%;
+  width: 100%;
   height: 65px;
   display: flex;
   align-items: center;
@@ -15,12 +15,12 @@
   flex-wrap: wrap;
 }
 .header__container-left img {
-  width: 130px;
+  width: 122px;
 }
 .header__container-left {
   display: flex;
   align-items: center;
-  width: 60%;
+  /* width: 60%; */
 }
 .header__container-links a {
   text-decoration: none;
@@ -31,7 +31,7 @@
 .header__container-links {
   display: flex;
   align-items: center;
-  width: 40%;
+  /* width: 40%; */
 }
 .header__container-link {
   margin-right: 30px;
@@ -57,7 +57,7 @@
     0 2px 4px 0 rgb(40 44 53 / 10%);
   box-shadow: 0 1px 20px 0 rgb(40 44 53 / 10%), 0 2px 4px 0 rgb(40 44 53 / 10%);
   display: none;
-  padding-left: 0px;
+  margin-left: 0px !important;
 }
 .menu {
   background-color: white;
@@ -155,6 +155,43 @@
   background-color: #efecec;
   padding: 16px 20px
 }
+.header__responsive-links
+{
+  display: none;
+}
+.sidebar__details
+{
+  background-color: white;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 25px;
+  color: #6f7287;
+}
+.event__details
+{
+  background-color: white;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 25px;
+  color: #6f7287;
+}
+.header__more-btn
+{
+  background-color: white;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.more-logo
+{
+  font-size: 25px;
+  margin-bottom: 4px;
+  color: #6f7287;
+  margin-right: 10px;
+}
 @media screen and (max-width: 792px) and (min-width: 400px) {
   .details-menu {
     background-color: #fefeff;
@@ -168,5 +205,44 @@
     box-shadow: 0 1px 20px 0 rgb(40 44 53 / 10%),
       0 2px 4px 0 rgb(40 44 53 / 10%);
     display: block;
+  }
+}
+@media screen and (max-width: 851px) and (min-width: 400px)
+{
+  .login__name-header
+  {
+    display:none;
+  }
+  .header__container-right 
+  {
+    display: flex;
+    align-items: center;
+    background-color: #f8f7fa;
+    width: 80px;
+    height: 40px;
+    border-radius: 30px;
+    margin: 10px 8px 10px 24px;
+    padding-left: 4px;
+    position: relative;
+  }
+  .header__container-link
+  {
+    display: none;
+  }
+  .header__responsive-links
+  {
+    display: block;
+  }
+  
+}
+@media screen and (max-width: 449px) and (min-width: 400px)
+{
+  .header__more-btn span 
+  {
+    display: none;
+  }
+  .header__more-btn
+  {
+    margin-right: 20px !important;
   }
 }
