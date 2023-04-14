@@ -21,18 +21,23 @@ export const Signup = (props) => {
   return (
     <Container fluid style={{ height: "50px" }}>
       <Row>
-        <Col md={6} style={{ padding: "100px 200px 200px 200px" }}>
-          <div style={{ maxWidth: "85%" }}>
+        <Col className="contact-content"
+          md={12} lg={6} sm={12} style={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center", padding: "100px 200px 200px 200px"
+          }}>
+          <div >
             <Stack dir="vertical" gap={4}>
               <LoginTitle />
               <h1 data-testid="signup-header" id="signup-signup-h1" className="mb-4" >
                 Create an account
               </h1>
             </Stack>
-            <SignupForm data_testid="signup-form" name="signup-form-div" />
+            <SignupForm className="test-class" data_testid="signup-form" name="signup-form-div" />
           </div>
         </Col>
-        <Col md={6} className="g-0">
+        <Col md={0} lg={6} sm={0} className="g-0 d-none d-lg-block" >
           <LoginImage data_testid="signup-image"
             img_url={test_image}
             img_caption="Winston Baker"

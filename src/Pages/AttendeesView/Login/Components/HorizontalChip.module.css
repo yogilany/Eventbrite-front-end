@@ -1,13 +1,19 @@
 @media all {
 
-    .MuiChip-root {
+    .MuiChip_root_chip {
         color: #6f7287;
         border: #a9a8b3 1px solid;
         font-weight: bold;
     }
 
-   
-    .hr{
+
+    .hr_chip {
         min-width: 50%;
     }
+}
+
+.hr_chip {
+    width: 50%;
+    color: #a9a8b3;
+    border-top: 2px solid;
 }

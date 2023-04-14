@@ -1,13 +1,16 @@
 import { Box, IconButton, LinearProgress } from "@mui/material";
-import { Formik, useFormikContext } from "formik";
+import { Formik } from "formik";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { Button, Form, InputGroup, Stack } from "react-bootstrap";
+import { Button, Form, InputGroup, Stack, Col } from "react-bootstrap";
 import * as TiIcons from "react-icons/ti";
 import zxcvbn from "zxcvbn";
+import HorizontalChip from '../../Login/Components/HorizontalChip'
 import SignupMethods from "./SignupMethods";
 import { addUser } from "../../../../services/services";
 import { useNavigate } from "react-router";
+import SignupFormCSS from './SignupForm.module.css'
 import '../Signup.scss';
 import './SignupMethods';
 import * as Yup from 'yup';
@@ -36,21 +39,21 @@ import * as Yup from 'yup';
 // };
 
 const SignupSchema = Yup.object().shape({
-    firstName: Yup.string()
+  firstName: Yup.string()
 
-        .min(2, "Too Short!")
+    .min(2, "Too Short!")
 
-        .max(50, "Too Long!")
+    .max(50, "Too Long!")
 
-        .required("Required"),
+    .required("Required"),
 
-    lastName: Yup.string()
+  lastName: Yup.string()
 
-        .min(2, "Too Short!")
+    .min(2, "Too Short!")
 
-        .max(50, "Too Long!")
+    .max(50, "Too Long!")
 
-        .required("Required"),
+    .required("Required"),
 
   email: Yup.string().notRequired(),
   emailConfirm: Yup.string()
@@ -80,21 +83,21 @@ const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
  * @returns {{}}
  */
 function getPasswordState(password) {
-    const result = zxcvbn(password).score;
-    switch (result) {
-        case 0:
-            return [0, "#e02e46", "Your password must be at least 8 characters"];
-        case 1:
-            return [1, "#e02e46", "Your password is weak"];
-        case 2:
-            return [2, "#f05537", "Your password is moderate"];
-        case 3:
-            return [3, "#16a85a", "Your password is strong"];
-        case 4:
-            return [4, "#16a85a", "Your password is very strong"];
-        default:
-            return "";
-    }
+  const result = zxcvbn(password).score;
+  switch (result) {
+    case 0:
+      return [0, "#e02e46", "Your password must be at least 8 characters"];
+    case 1:
+      return [1, "#e02e46", "Your password is weak"];
+    case 2:
+      return [2, "#f05537", "Your password is moderate"];
+    case 3:
+      return [3, "#16a85a", "Your password is strong"];
+    case 4:
+      return [4, "#16a85a", "Your password is very strong"];
+    default:
+      return "";
+  }
 }
 
 /**
@@ -107,46 +110,46 @@ function getPasswordState(password) {
  * @returns {JSX.Element}
  */
 function LinearProgressWithLabel(props) {
-    const [progressBar, setProgressBar] = useState({
-        value: 0,
-        colorHex: "#1a90ff",
-        labelString: "Your password must be at least 8 characters",
-    });
-    useEffect(() => {
-        const result = getPasswordState(props.password);
-        setProgressBar((state) => ({
-            ...state,
-            ...progressBar,
-            value: result[0],
-            colorHex: result[1],
-            labelString: result[2],
-        }));
-    }, [props.password]);
-    return (
-        <Box sx={{ alignItems: "center" }}>
-            <Box sx={{ width: "100%", mr: 1 }}>
-                <LinearProgress
-                    variant="determinate"
-                    value={progressBar.value * 25}
-                    sx={{
-                        "& .MuiLinearProgress-bar1Determinate": {
-                            backgroundColor: progressBar.colorHex,
-                        },
-                    }}
-                />
-            </Box>
-            <Box sx={{ minWidth: 35, fontSize: "0.8rem", pt: 2 }}>
-                {progressBar.labelString}
-            </Box>
-        </Box>
-    );
+  const [progressBar, setProgressBar] = useState({
+    value: 0,
+    colorHex: "#1a90ff",
+    labelString: "Your password must be at least 8 characters",
+  });
+  useEffect(() => {
+    const result = getPasswordState(props.password);
+    setProgressBar((state) => ({
+      ...state,
+      ...progressBar,
+      value: result[0],
+      colorHex: result[1],
+      labelString: result[2],
+    }));
+  }, [props.password]);
+  return (
+    <Box sx={{ alignItems: "center" }}>
+      <Box sx={{ width: "100%", mr: 1 }}>
+        <LinearProgress
+          variant="determinate"
+          value={progressBar.value * 25}
+          sx={{
+            "& .MuiLinearProgress-bar1Determinate": {
+              backgroundColor: progressBar.colorHex,
+            },
+          }}
+        />
+      </Box>
+      <Box sx={{ minWidth: 35, fontSize: "0.8rem", pt: 2 }}>
+        {progressBar.labelString}
+      </Box>
+    </Box>
+  );
 }
 LinearProgressWithLabel.propTypes = {
-    /**
-     * The value of the progress indicator for the determinate and buffer variants.
-     * Value between 0 and 100.
-     */
-    value: PropTypes.number.isRequired,
+  /**
+   * The value of the progress indicator for the determinate and buffer variants.
+   * Value between 0 and 100.
+   */
+  value: PropTypes.number.isRequired,
 };
 /**
  * The signup form which contains the information needed to create a new account.
@@ -158,53 +161,52 @@ LinearProgressWithLabel.propTypes = {
  * @returns {*}
  */
 export const SignupForm = (props) => {
-    const [showSignUpInfo, setShowSignUpInfo] = useState(false);
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+  const [showSignUpInfo, setShowSignUpInfo] = useState(false);
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-    return (
-        <Formik
-            initialValues={{
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                emailConfirm: '',
-                showSignupInfo2: false
-            }}
-            onSubmit={(values, actions) => {
+  return (
+    <Formik
+      initialValues={{
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        emailConfirm: '',
+        showSignupInfo2: false
+      }}
+      onSubmit={(values, actions) => {
 
-                if (values.email && values.email.length && values.email.match(isValidEmail)) {
-                    setShowSignUpInfo(state => state = true)
-                    console.log("good email")
-                } else {
-                    setShowSignUpInfo(state => state = false)
-                    console.log("bad email")
-                }
-                console.log("pressed on submit")
-                addUser(
-                    {
-                        name: values.firstName,
-                        email: values.email,
-                        password: values.password,
-                        username: values.lastName
-                    }
-                )
-            }}
-            validationSchema={SignupSchema}
-            validateOnChange={false}
-            validateOnMount={false}
-        >
-            {(props, setFieldValue) => (
-                <>
-                    {/* <ShowInfo /> */}
+        if (values.email && values.email.length && values.email.match(isValidEmail)) {
+          setShowSignUpInfo(state => state = true)
+          console.log("good email")
+        } else {
+          setShowSignUpInfo(state => state = false)
+          console.log("bad email")
+        }
+        console.log("pressed on submit")
+        addUser(
+          {
+            name: values.firstName,
+            email: values.email,
+            password: values.password,
+            username: values.lastName
+          }
+        )
+      }}
+      validationSchema={SignupSchema}
+      validateOnChange={false}
+      validateOnMount={false}
+    >
+      {(props, setFieldValue) => (
+        <>
+          {/* <ShowInfo /> */}
 
           <Form data-testid={props.data_testid} onSubmit={props.handleSubmit}>
-            <InputGroup>
-              <Form.Group
+            <InputGroup >
+              <Form.Group as={Col}
                 className="mb-3"
                 controlId="formLoginEmail"
-                style={{ width: "100%" }}
               >
                 <Form.Control
                   disabled={props.values.showSignupInfo2}
@@ -306,24 +308,32 @@ export const SignupForm = (props) => {
                 password={props.values.password}
               />
             </div>
+            {props.values.showSignupInfo2 ?
+              <>
+                <Button as="input" className='mt-5 mb-2' type="submit" value={showSignUpInfo ? "Create account" : "Continue"} variant="flat btn-flat" />
+              </>
+              :
+              <>
+                <Button as="input" className='mt-5 mb-2'
+                  onClick={() => {
+                    if (props.values.email.match(isValidEmail)) {
+                      props.setFieldValue('showSignupInfo2', true)
+                      props.setErrors({});
+                      props.setTouched({});
+                    }
+                  }}
+                  type="button" value="Continue" variant="flat btn-flat" />
+                <HorizontalChip />
+              </>
+            }
+            {props.values.showSignupInfo2 ? null : <SignupMethods />}
 
-                        {props.values.showSignupInfo2 ?
-                            <Button as="input" className='mt-5 mb-2' type="submit" value={showSignUpInfo ? "Create account" : "Continue"} variant="flat btn-flat" /> :
-                            <Button as="input" className='mt-5 mb-2'
-                                onClick={() => {
-                                    if (props.values.email.match(isValidEmail)) {
-                                        props.setFieldValue('showSignupInfo2', true)
-                                        props.setErrors({});
-                                        props.setTouched({});
-                                    }
-                                }}
-                                type="button" value="Continue" variant="flat btn-flat" />
-                        }
-                    </Form>
-                    {props.values.showSignupInfo2 ? null : <SignupMethods />}
-                </>
-            )}
-        </Formik>
-    );
+          </Form>
+          <Link to={"/login"} className={SignupFormCSS.a_link} >Login</Link>
+
+        </>
+      )}
+    </Formik>
+  );
 };
 export default SignupForm;

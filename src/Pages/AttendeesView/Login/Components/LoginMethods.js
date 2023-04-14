@@ -1,8 +1,9 @@
-import { Link } from "@mui/material";
+import { Link } from "react-router-dom";
 import { ButtonGroup, Col, Row, Button, Container } from "react-bootstrap";
 import * as FcIcons from "react-icons/fc";
 import * as TiIcons from "react-icons/ti";
 import "../Login.scss";
+import LoginMethodsCSS from './LoginMethods.module.css'
 /**
  *
  * @param {name: Name of this element after creation} props
@@ -41,9 +42,10 @@ export const LoginMethods = (props) => {
           </Col>
         </Row>
         <Row className="pt-5 pb-0" >
-          <Link href="/signup" underline="always" style={{ width: "auto" }}>
+          {/* <Link href="/signup" underline="always" style={{ width: "auto" }}>
             {'Sign up'}
-          </Link>
+          </Link> */}
+          <Link to={"/signup"} className={LoginMethodsCSS.a_link} >Sign up</Link>
         </Row>
       </Container>
     </Container>
