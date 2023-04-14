@@ -110,7 +110,7 @@ export const Login = (props) => {
         <Col md={6} className="g-0" style={{ padding: "100px 200px 0 225px" }}>
           <div style={{ maxWidth: "85%" }}>
             <Stack dir="vertical" gap={4}>
-              <LoginTitle />
+              <LoginTitle className="login-title" />
               <h1
                 data-testid="login-header"
                 id="login-login-h1"

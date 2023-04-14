@@ -12,7 +12,7 @@ import './HorizontalChip.css'
  */
 export const HorizontalChip = (props) => {
     return (
-        <Stack name={props.name} direction="horizontal" className="horizontal-chip d-flex justify-content-center mt-4 mb-4" style={{ display: "flex" }} data-testid={props.data_testid}>
+        <Stack name={props.name} direction="horizontal" className="horizontal-chip d-flex justify-content-center mt-4 mb-4" style={{ display: "contents", minWidth: "100%", }} data-testid={props.data_testid}>
             <hr style={{ width: "50%", color: "#a9a8b3", borderTop: "2px solid" }} />
             <Chip label="&nbsp;&nbsp;or&nbsp;&nbsp;" size="small" variant="outlined" />
             <hr style={{ width: "50%", color: "#a9a8b3", borderTop: "2px solid" }} />
