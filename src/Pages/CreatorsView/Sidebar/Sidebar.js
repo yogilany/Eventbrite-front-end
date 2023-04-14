@@ -221,7 +221,7 @@ const Sidebar = () => {
             href="#"
             className="event__name"
           >
-            <h2 style={{ marginLeft: "35px", color: "#1E0A3C" }}>MK</h2>
+            <h2 style={{ marginLeft: "35px", color: "#1E0A3C" , marginTop:'15px' , fontWeight:'700' }}>mm</h2>
           </a>
           <p
             style={{
@@ -274,7 +274,7 @@ const Sidebar = () => {
             style={{ borderTop: "2px solid grey", width: "100%" }}
           ></div>
           <div>
-            <a href="#" className="EventOption" style={{ fontWeight: "500" }}>
+            <a href="#" className="EventOption" style={{ fontWeight: "600" }}>
               Dashboard
             </a>
             <Dropdown Name="Order Options" Links={orderOptions} />
