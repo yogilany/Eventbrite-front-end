@@ -1,6 +1,7 @@
 #root {
   font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto,
     Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+    font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
 }
 
 #login-left-div {
@@ -13,6 +14,36 @@
   font-family: "Neue Plak Black", -apple-system, BlinkMacSystemFont, Roboto,
     Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
   font-size: 3.25rem;
+}
+
+#circular-icon {
+    background: #1877f2;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#circular-icon {
+    background: #1877f2;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#circular-icon {
+    background: #1877f2;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-control:focus {
@@ -57,14 +88,16 @@
 }
 
 .btn-flat {
-  background-color: #d1410c;
-  color: white;
-  padding: 0.6rem 0rem;
-  width: 100%;
-  justify-content: center;
-  transition: backgroundColor 100ms ease-in;
-  border-radius: 0.5vmin;
-  font-size: 1rem;
+    background-color: #d1410c;
+    color: white;
+    padding: 0.6rem 0rem;
+    width: 100%;
+    justify-content: center;
+    transition: background-color 100ms ease-in;
+    border-radius: 0.5vmin;
+    font-size: 1rem;
+
+  
 }
 
 .btn-flat:hover {

@@ -3,10 +3,15 @@ import { CgProfile } from 'react-icons/cg'
 import {FiExternalLink} from 'react-icons/fi'
 import "./Publish.css"
 import eventphoto from '../../assets/like1.jpeg' 
-
-const Containerpub = () => {
+/**
+ * @author Ziad Ezzat
+ * @param {string} props.data_testid
+ * @description This component shows the actual event that you want to publish
+ * @returns {JSX.Element of event you want to create found in publish page} 
+ */
+const Containerpub = (props) => {
     return (
-        <div className='Full__Container'>
+        <div className='Full__Container' data-testid={props.data_testid}>
             <div >
                 <img src={eventphoto} className='Full__Container_img' />
             </div>

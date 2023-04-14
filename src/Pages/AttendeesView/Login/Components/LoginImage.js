@@ -1,6 +1,12 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Row, Col, Container } from 'react-bootstrap';
+/**
+ * Returns an image with a caption at the bottom right 
+ * @date 3/29/2023 - 2:54:09 AM
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {*}
+ */
 export const LoginImage = (props) => {
     const ImageStyle = {
         backgroundImage: `url(${props.img_url})`,
@@ -9,16 +15,15 @@ export const LoginImage = (props) => {
         backgroundPosition: "0",
         width: "100%",
         height: "100%",
-
     }
 
     const ContainerCaptionStyle = {
         textAlign: "right",
         color: "white",
         fontSize: "0.75rem",
-        fontWeight:"400"
-
+        fontWeight: "400"
     }
+
     return (
         <Container style={ImageStyle} data-testid={props.data_testid}>
             <Row style={{ height: "100vh" }}>
