@@ -14,11 +14,13 @@ export default function TimePickerValue() {
         <TimePicker
           label="Start Time"
           defaultValue={dayjs("2022-04-17T15:30")}
+          sx={{ width: "100px !important" }}
         />
         <TimePicker
           label="End Time"
           value={value}
           onChange={(newValue) => setValue(newValue)}
+          sx={{ width: "100px !important" }}
         />
       </DemoContainer>
     </LocalizationProvider>
