@@ -1,0 +1,14 @@
+.login_image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.caption_image {
+    text-align: right;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 400;
+}

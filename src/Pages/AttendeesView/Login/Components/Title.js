@@ -9,7 +9,8 @@ export const LoginTitle = (props) => {
   const TitleStyle = {
     height: "auto",
     width: "150px",
-    minWidth: "30%"
+    minWidth: "30%",
+    color:"#e2533e"
   };
 
   return (
