@@ -2,7 +2,7 @@
 {
     display: flex;
     align-items: center;
-    margin-right: 2px;
+    margin-right: 0px;
 }
 .dot
 {
@@ -13,4 +13,8 @@
 {
     text-decoration: underline;
     color: #3d64ff;
+}
+@media screen and (min-width: 400px) and (max-width: 600px)
+{
+    
 }
