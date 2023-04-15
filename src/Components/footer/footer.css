@@ -4,30 +4,34 @@
   background-color: #1e0a3c;
   color: white;
   padding: 16px 24px;
-  margin-top: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .footer__container-left {
   display: flex;
   align-items: center;
 }
+
 .footer__container-left p {
   font-size: 12px;
   margin-top: 15px;
 }
+
 .footer__container-left .copyright {
   font-size: 12px;
   margin-right: 3px;
 }
+
 .footer__container-links {
   display: flex;
   align-items: center;
 }
+
 .footer__container-links a {
   text-decoration: none;
-  font-size: 12px;
+  font-size: 13px;
   color: #dbdae3;
 }
 
@@ -36,6 +40,7 @@
   font-size: 12px;
   color: #dbdae3;
 }
+
 .options {
   background-color: #1e0a3c;
   color: white;

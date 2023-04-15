@@ -7,13 +7,6 @@
     }
 
 
-    .hr_chip {
-        min-width: 50%;
-    }
+   
 }
 
-.hr_chip {
-    width: 50%;
-    color: #a9a8b3;
-    border-top: 2px solid;
-}

@@ -13,9 +13,9 @@ import HorizontalChipCSS from './HorizontalChip.module.css'
 export const HorizontalChip = (props) => {
     return (
         <Stack name={props.name} direction="horizontal" className="horizontal-chip d-flex justify-content-center mt-4 mb-4" style={{ display: "contents" }} data-testid={props.data_testid}>
-            <hr style={{ width: "50%", color: "#a9a8b3", borderTop: "2px solid" }} />
+            <hr style={{ width: "50%", backgroundColor: "#a9a8b3", borderTop: "2px solid" }} />
             <Chip className={HorizontalChipCSS.MuiChip_root_chip} label="&nbsp;&nbsp;or&nbsp;&nbsp;" size="small" variant="outlined" />
-            <hr style={{ width: "50%", color: "#a9a8b3", borderTop: "2px solid" }} />
+            <hr style={{ width: "50%", backgroundColor: "#a9a8b3", borderTop: "2px solid" }} />
         </Stack>)
 }
 export default HorizontalChip;

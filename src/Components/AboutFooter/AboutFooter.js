@@ -4,10 +4,12 @@ import styled from '@emotion/styled'
 export const FooterLink = styled(Link)`
     color: white;
     padding: 0.15rem 0;
-    font-size:0.75rem;
-    font-weight: 200;
+    font-size:13px;
+    letter-spacing: 0;
+    line-height: 22px;
+    font-weight: 400;
+    font-family:Neue Plak,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Tahoma,Arial,sans-serif;
     width: auto;
-
         &: hover {
     text-decoration: underline;
     }
@@ -16,12 +18,12 @@ export const AboutFooter = (props) => {
     const ContainerStyle = {
         backgroundColor: "#1e0a3c",
         color: "white",
-        fontSize: "0.8rem",
+        fontSize: "0.9rem",
         paddingTop: "5rem 0"
     }
 
     const StackStyle = {
-        paddingTop: "1rem"
+        paddingTop: "1rem",
     }
     return (
 
