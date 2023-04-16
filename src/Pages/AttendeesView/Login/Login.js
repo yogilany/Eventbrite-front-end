@@ -169,6 +169,10 @@ export const Login = (props) => {
             </Row>
             <Row className="g-0">
               <LoginForm
+              style={{
+                minWidth: "100%",
+                width: "350px"
+              }}
                 user_ref={userRef}
                 User={user}
                 set_Pwd={setPwd}

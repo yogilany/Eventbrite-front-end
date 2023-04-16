@@ -13,9 +13,7 @@ import ButtonWhiteStyled from '../../../../components/Buttons/WhiteButton';
 export const SignupMethods = (props) => {
     return (
         <Container name={props.name} className='m-0 p-0' style={{ minWidth: "200px" }} >
-            <ButtonGroup vertical style={{ width: "100%" }}>
-                <ButtonWhiteStyled style={{ margin: "0" }} variant="secondary"> <FcIcons.FcGoogle size="1.5em" />{" Sign in with Google"}</ButtonWhiteStyled>
-            </ButtonGroup>
+                <ButtonWhiteStyled style={{ margin: "0",width:"100%" }} variant="secondary"> <FcIcons.FcGoogle size="1.5em" />{" Sign in with Google"}</ButtonWhiteStyled>
             <div style={{ margin: "1.5rem 0" }}>Other sign up methods</div>
             <Container style={{ margin: "1rem 0" }}>
                 <Row xs={1} md={4} lg={4}>

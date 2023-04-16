@@ -76,15 +76,9 @@
 }
 
 @media screen {
-
-
-  .btn-flat,
-  .form-control,
-  .btn-secondary,
-  .horizontal-chip,
-  .form,
-  .input-group {
-    min-width: 250px;
-    width: 350px;
+ 
+  .horizontal-chip{
+    max-width: 100%;
   }
+  
 }

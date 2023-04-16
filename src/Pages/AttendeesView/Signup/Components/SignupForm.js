@@ -2,7 +2,7 @@ import { Box, IconButton, LinearProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { Form, InputGroup, Col, Container, Row, FloatingLabel } from "react-bootstrap";
+import { Form, InputGroup, Col, Container, Row, FloatingLabel, Stack } from "react-bootstrap";
 import * as TiIcons from "react-icons/ti";
 import zxcvbn from "zxcvbn";
 import HorizontalChip from '../../Login/Components/HorizontalChip'
@@ -272,62 +272,49 @@ export const SignupForm = (props) => {
           <Row className="mb-2" style={{
             display: showSignUpInfo ? "block" : "none",
           }}>
-            <Container className="p-0">
-              <Row>
+            <Stack direction="horizontal" gap={3} className="p-0">
+              <Col>
+                <FloatingLabel
+                  className={SignupFormCSS['floating-label']}
+                  label="First name">
+                  <TextInputStyled
+                    data-testid="firstname-input"
+                    type="text"
+                    id="firstName"
+                    isInvalid={errors?.firstName}
+                    {...register("firstName", { required: "First name is required" })}
+                  />
+                </FloatingLabel>
+                {errors.firstName && (
+                  <Form.Text className="text-danger">
+                    {errors.firstName.message}
+                  </Form.Text>
+                )}
+              </Col>
+              <Col>
 
-                <Col >
-                  <FloatingLabel
-                    className={SignupFormCSS['floating-label']}
-                    label="First name">
-                    <TextInputStyled
-                      style={{
-                        minWidth: "100%",
-                        width: "35%"
-                      }}
-                      data-testid="firstname-input"
-                      type="text"
-                      id="firstName"
-                      isInvalid={errors?.firstName}
-                      {...register("firstName", { required: "First name is required" })}
-                    />
-                  </FloatingLabel>
+                <FloatingLabel
+                  className={SignupFormCSS['floating-label']}
+                  label="Last name">
+                  <TextInputStyled
 
-                  {errors.firstName && (
-                    <Form.Text className="text-danger">
-                      {errors.firstName.message}
-                    </Form.Text>
-                  )}
-                </Col>
+                    data-testid="lastname-input"
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    isInvalid={errors?.lastName}
+                    {...register("lastName", { required: "Last name is required" })}
+                  />
 
-                <Col>
-                  <FloatingLabel
-                    className={SignupFormCSS['floating-label']}
-                    label="Last name">
-                    <TextInputStyled
-                      style={{
-                        minWidth: "100%",
-                        width: "35%"
-                      }}
-                      data-testid="lastname-input"
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      isInvalid={errors?.lastName}
-                      {...register("lastName", { required: "Last name is required" })}
-                    />
-                  </FloatingLabel>
-                  {errors.lastName && (
-                    <Form.Text className="text-danger">
-                      {errors.lastName.message}
-                    </Form.Text>
-                  )}
-                </Col>
-              </Row>
-
-            </Container>
-
+                </FloatingLabel>
+                {errors.lastName && (
+                  <Form.Text className="text-danger">
+                    {errors.lastName.message}
+                  </Form.Text>
+                )}
+              </Col>
+            </Stack>
           </Row>
-
           <Row className="mb-2" style={{
             display: showSignUpInfo ? "block" : "none",
           }}>

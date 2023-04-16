@@ -11,7 +11,11 @@ import ButtonOrangeStyled from "../../../../components/Buttons/OrangeButton";
  */
 export const LoginForm = (props) => {
   return (
-    <Form onSubmit={props.submitAction}>
+    <Form onSubmit={props.submitAction}
+      style={{
+        minWidth: "100%",
+        width: "350px"
+      }}>
       <Container
         fluid
         className="m-0"
@@ -21,6 +25,10 @@ export const LoginForm = (props) => {
       >
         <Row className="mb-3">
           <TextInputStyled
+            style={{
+              minWidth: "100%",
+              width: "350px"
+            }}
             ref={props.user_ref}
             autoComplete="off"
             onChange={(e) => props.set_User(e.target.value)}
