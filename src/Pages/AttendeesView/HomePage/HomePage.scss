@@ -138,19 +138,28 @@ h3 {
   color: #39364f;
 }
 
-@media screen and (max-width: 1260px) and (min-width: 768px) {
-  .tile-group {
-    display: grid;
-    grid-template-columns: repeat(4, 1.2fr);
-    grid-column-gap: 12px;
-    grid-row-gap: 12px;
-  }
+// @media screen and (max-width: 1260px) and (min-width: 768px) {
+.tile-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1.2fr);
+  grid-column-gap: 12px;
+  grid-row-gap: 12px;
 }
+// }
 
 @media screen and (max-width: 768px) and (min-width: 576px) {
   .tile-group {
     display: grid;
     grid-template-columns: repeat(2, 1.2fr);
+    grid-column-gap: 12px;
+    grid-row-gap: 12px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .tile-group {
+    display: grid;
+    grid-template-columns: repeat(1, 1.2fr);
     grid-column-gap: 12px;
     grid-row-gap: 12px;
   }

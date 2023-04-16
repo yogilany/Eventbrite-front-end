@@ -7,6 +7,8 @@ import Header from "../../../components/header/Header";
 import "./HomePage.scss";
 import { motion } from "framer-motion";
 import Footer from "../../../components/footer/Footer";
+import { useState, useEffect } from "react";
+
 import { selectCurrentUser } from "../../../features/authSlice";
 /**
  * @author Yousef Gilany
@@ -18,14 +20,34 @@ import { selectCurrentUser } from "../../../features/authSlice";
 
 export const HomePage = () => {
   console.log("USERR", window.User);
-  console.log(selectCurrentUser)
+  const [screenSize, setScreenSize] = useState(getCurrentDimension());
+
+  function getCurrentDimension() {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  }
+
+  useEffect(() => {
+    const updateDimension = () => {
+      setScreenSize(getCurrentDimension());
+      console.log(getCurrentDimension());
+    };
+    window.addEventListener("resize", updateDimension);
+
+    return () => {
+      window.removeEventListener("resize", updateDimension);
+    };
+  }, [screenSize]);
+  console.log(selectCurrentUser);
   return (
     <>
-      <Header />
+      <Header screenSize={screenSize} />
       <Container fluid id="homePageContainer">
         <Row>
           <Col className="p-0">
-            <Hero />
+            <Hero screenSize={screenSize} />
             {/* <Categories /> */}
             <Events />
             {/* <MoreEvents /> */}

@@ -107,10 +107,3 @@ h3 {
   cursor: pointer;
   color: #39364f;
 }
-
-.tile-group {
-  display: grid;
-  grid-template-columns: repeat(4, 1.2fr);
-  grid-column-gap: 12px;
-  grid-row-gap: 12px;
-}
