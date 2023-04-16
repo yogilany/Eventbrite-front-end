@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Tile } from "./Tile";
 import { Container, Row, Col } from "react-bootstrap";
 import { AccessAlarm } from "@mui/icons-material";
@@ -10,60 +10,65 @@ import PhotoOutlinedIcon from "@mui/icons-material/PhotoOutlined";
 import WineBarOutlinedIcon from "@mui/icons-material/WineBarOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlined";
+import axios from "axios";
+import { Link } from "react-router-dom";
 /**
  * @author Yousef Gilany
  * @description This is the Categories component that contains the categories tiles. It takes the user to a new page that shows event in that category.
  * @returns {JSX.Element}
  */
-const CategoriesCards = () => {
+const CategoriesCards = ({ location }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [categories, setCategories] = useState([]);
+
+  const categoriesIcons = [
+    <AudiotrackOutlinedIcon sx={{ color: "#d1410c" }} />,
+    <VideogameAssetOutlinedIcon sx={{ color: "#d1410c" }} />,
+    <ColorLensOutlinedIcon sx={{ color: "#d1410c" }} />,
+    <BusinessCenterOutlinedIcon sx={{ color: "#d1410c" }} />,
+    <PhotoOutlinedIcon sx={{ color: "#d1410c" }} />,
+    <WineBarOutlinedIcon sx={{ color: "#d1410c" }} />,
+    <FavoriteBorderOutlinedIcon sx={{ color: "#d1410c" }} />,
+    <SportsFootballOutlinedIcon sx={{ color: "#d1410c" }} />,
+  ];
+
+  const fetchCategories = () => {
+    axios
+      .get("http://localhost:8001/categories")
+      .then(function (response) {
+        console.log(response);
+        setCategories(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   return (
-    <Container className="mb-5">
+    <Container className="mb-5" id="categoriesCards">
       <Row className="justify-content-md-center">
         <Col md={12}>
           <h3 className="heading3">Check out trending categories</h3>
           <Row>
             <Col>
               <div className="tile-group">
-                <Tile
-                  icon={<AudiotrackOutlinedIcon sx={{ color: "#d1410c" }} />}
-                  name="Music"
-                />
-                <Tile
-                  icon={
-                    <VideogameAssetOutlinedIcon sx={{ color: "#d1410c" }} />
-                  }
-                  name="Hobbies"
-                />
-                <Tile
-                  icon={<ColorLensOutlinedIcon sx={{ color: "#d1410c" }} />}
-                  name="Performing & Arts"
-                />{" "}
-                <Tile
-                  icon={
-                    <BusinessCenterOutlinedIcon sx={{ color: "#d1410c" }} />
-                  }
-                  name="Business"
-                />{" "}
-                <Tile
-                  icon={<PhotoOutlinedIcon sx={{ color: "#d1410c" }} />}
-                  name="Holiday"
-                />
-                <Tile
-                  icon={<WineBarOutlinedIcon sx={{ color: "#d1410c" }} />}
-                  name="Food & Drink"
-                />
-                <Tile
-                  icon={
-                    <FavoriteBorderOutlinedIcon sx={{ color: "#d1410c" }} />
-                  }
-                  name="Health"
-                />
-                <Tile
-                  icon={
-                    <SportsFootballOutlinedIcon sx={{ color: "#d1410c" }} />
-                  }
-                  name="Sports"
-                />
+                {categories.map((category, index) => {
+                  return (
+                    <Link to={`/events/${category.name}/${location}`}>
+                      <Tile
+                        icon={categoriesIcons[index]}
+                        name={category.name}
+                        key={index}
+                        id="categoryTile"
+                      />
+                    </Link>
+                  );
+                })}
               </div>
             </Col>
           </Row>

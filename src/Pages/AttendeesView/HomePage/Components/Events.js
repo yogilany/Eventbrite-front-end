@@ -7,6 +7,7 @@ import EventCard from "./EventCard";
 import Hr from "../../../../components/Elements/Hr";
 import { MdCalendarMonth } from "react-icons/md";
 import { Link } from "react-router-dom";
+import axios from "axios";
 /**
  * @author Yousef Gilany
  * @description This is the Events section of the HomePage.
@@ -26,6 +27,18 @@ const Events = () => {
   const [isCategoriesShown, setIsCategoriesShown] = useState(true);
   const [location, setLocation] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  function fetchEvents() {
+    axios
+      .get("http://localhost:8001/categories")
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  }
 
   useEffect(() => {
     async function fetchLocation() {
@@ -77,11 +90,17 @@ const Events = () => {
 
   return (
     <>
-      <CategoriesTaps categorySelector={setCategory} location={location} />
-      {isCategoriesShown ? <CategoriesCards /> : null}
+      <CategoriesTaps
+        categorySelector={setCategory}
+        location={location}
+        id="categoriesTaps"
+      />
+      {isCategoriesShown ? (
+        <CategoriesCards location={location} id="categoriesCards" />
+      ) : null}
 
       {events.length != 0 ? (
-        <Container className=" pl-5 pr-5 mb-5">
+        <Container className=" pl-5 pr-5 mb-5" id="eventsByLocationSection">
           <h3 className="heading3">Events in {location}</h3>
 
           <Row className="justify-content-md-right">
@@ -115,7 +134,7 @@ const Events = () => {
       {events.length != 0 ? (
         <>
           <Hr />
-          <Container className=" pl-5 pr-5 mb-5 mt-5">
+          <Container className=" pl-5 pr-5 mb-5 mt-5" id="moreEventsSection">
             <Row>
               <Col>
                 <h3 className="heading3">More Events</h3>
@@ -141,7 +160,9 @@ const Events = () => {
             <Row className="justify-content-md-center">
               <Col md={4}>
                 <Link to="/all-events">
-                  <button className="darkOutlineBtn">See More</button>
+                  <button className="darkOutlineBtn" id="seeMoreEventsBtn">
+                    See More
+                  </button>
                 </Link>
               </Col>
             </Row>

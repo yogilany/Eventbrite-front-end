@@ -9,7 +9,7 @@ import slogan from "../../../../assets/slogan.svg";
  */
 const Hero = () => {
   return (
-    <Container className="mb-5 p-0" fluid>
+    <Container className="mb-5 p-0" fluid id="heroContainer">
       <div className="header-img">
         <Container className="p-6">
           <Col md={2}>
@@ -25,7 +25,9 @@ const Hero = () => {
             </Row>
             <Row>
               <Col>
-                <button className="primaryBtn">Find your next event</button>
+                <button className="primaryBtn" id="nextEventBtn">
+                  Find your next event
+                </button>
               </Col>
             </Row>
           </Col>

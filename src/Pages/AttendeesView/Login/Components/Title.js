@@ -10,11 +10,14 @@ export const LoginTitle = (props) => {
     height: "auto",
     width: "150px",
     minWidth: "30%",
-    color:"#e2533e"
+    color: "#e2533e",
   };
 
   return (
-    <a href="./" style={TitleStyle} data-testid={props.data_testid}
+    <a
+      href="./"
+      style={TitleStyle}
+      data-testid={props.data_testid}
       className={props.className}
     >
       <Logo />
