@@ -29,9 +29,9 @@ const SingleEvent = (props) => {
 
   const fetchEvent = () => {
     axios
-      .get(`http://localhost:8000/events/id/${id}`)
+      .get(`${process.env.REACT_APP_BASE_API}/events/id/${id}`)
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
 
         setEvent(response.data);
       })

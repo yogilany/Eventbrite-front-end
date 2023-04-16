@@ -20,9 +20,11 @@ const EventsByCategory = () => {
 
   const fetchSubCategories = () => {
     axios
-      .get(`http://localhost:8000/categories/${category}/sub_categories`)
+      .get(
+        `${process.env.REACT_APP_BASE_API}/categories/${category}/sub_categories`
+      )
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         setSubcategories(response.data);
       })
       .catch(function (error) {
@@ -32,9 +34,9 @@ const EventsByCategory = () => {
 
   const fetchEvents = () => {
     axios
-      .get(`http://localhost:8000/events/category/${category}`)
+      .get(`${process.env.REACT_APP_BASE_API}/events/category/${category}`)
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
 
         setEvents(response.data);
       })

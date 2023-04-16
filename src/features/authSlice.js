@@ -6,13 +6,16 @@ export const authUser = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       console.log("User data = ", userData);
-      const response = await fetch("http://localhost:8000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_API}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
 
       const data = await response.json();
       // console.log(data)
@@ -29,14 +32,17 @@ export const registerUser = createAsyncThunk(
   "auth/signup",
   async (registerData, thunkAPI) => {
     try {
-      const response = await fetch("http://localhost:8000/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(registerData),
-      });
-      console.log("Response = ", response);
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_API}/auth/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(registerData),
+        }
+      );
+      // console.log("Response = ", response);
       if (!response.ok) throw new Error("Email already exists");
       return { ...registerData, ...response };
     } catch (error) {
@@ -60,7 +66,7 @@ export const authSlice = createSlice({
       state.token = null;
     },
     testReducer: (state) => {
-      console.log("hello from test");
+      // console.log("hello from test");
     },
   },
   extraReducers: (builder) => {
@@ -89,10 +95,10 @@ export const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action);
+        // console.log(action);
         state.user = action.payload["email"];
         state.token = action.payload["token"];
-        console.log(state);
+        // console.log(state);
       });
   },
 });

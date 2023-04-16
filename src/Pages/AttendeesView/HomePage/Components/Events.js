@@ -22,7 +22,6 @@ const Events = () => {
   const [events, setEvents] = useState([]);
   const [moreEvents, setMoreEvents] = useState([]);
 
-  const [filters, setFilters] = useState({});
   const [category, setCategory] = useState("All");
   const [isCategoriesShown, setIsCategoriesShown] = useState(true);
   const [location, setLocation] = useState([]);
@@ -30,9 +29,9 @@ const Events = () => {
 
   function fetchEvents() {
     axios
-      .get("http://localhost:8000/categories")
+      .get(`${process.env.REACT_APP_BASE_API}/categories`)
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
       })
       .catch(function (error) {
         // handle error

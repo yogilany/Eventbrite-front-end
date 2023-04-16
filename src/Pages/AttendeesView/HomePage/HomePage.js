@@ -1,11 +1,8 @@
 import { Row, Col, Container } from "react-bootstrap";
-import Hr from "../../../components/Elements/Hr";
-import { Categories } from "./Components/Categories";
 import Events from "./Components/Events";
 import Hero from "./Components/Hero";
 import Header from "../../../components/header/Header";
 import "./HomePage.scss";
-import { motion } from "framer-motion";
 import Footer from "../../../components/footer/Footer";
 import { useState, useEffect } from "react";
 
@@ -19,7 +16,7 @@ import { selectCurrentUser } from "../../../features/authSlice";
  */
 
 export const HomePage = () => {
-  console.log("USERR", window.User);
+  // console.log("USERR", window.User);
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
   function getCurrentDimension() {
@@ -32,7 +29,7 @@ export const HomePage = () => {
   useEffect(() => {
     const updateDimension = () => {
       setScreenSize(getCurrentDimension());
-      console.log(getCurrentDimension());
+      // console.log(getCurrentDimension());
     };
     window.addEventListener("resize", updateDimension);
 
@@ -40,7 +37,7 @@ export const HomePage = () => {
       window.removeEventListener("resize", updateDimension);
     };
   }, [screenSize]);
-  console.log(selectCurrentUser);
+  // console.log(selectCurrentUser);
   return (
     <>
       <Header screenSize={screenSize} />
