@@ -28,7 +28,7 @@ const Header = () => {
   const USER = useSelector(selectUserState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(window.User);
+  // console.log(window.User);
 
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
@@ -42,7 +42,7 @@ const Header = () => {
   useEffect(() => {
     const updateDimension = () => {
       setScreenSize(getCurrentDimension());
-      console.log(getCurrentDimension());
+      // console.log(getCurrentDimension());
     };
     window.addEventListener("resize", updateDimension);
 

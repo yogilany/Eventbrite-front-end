@@ -76,11 +76,11 @@ export const Login = (props) => {
         email: user,
         password: pwd,
       };
-      console.warn("User: ", user, " Pwd: ", pwd);
+      // console.warn("User: ", user, " Pwd: ", pwd);
       dispatch(authUser(data))
         .unwrap()
         .then(() => {
-          console.log("SUCCESS::LOG IN");
+          // console.log("SUCCESS::LOG IN");
           navigate("/");
           setSuccess(true);
           window.location.reload();

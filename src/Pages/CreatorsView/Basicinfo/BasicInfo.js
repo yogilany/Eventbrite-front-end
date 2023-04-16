@@ -34,7 +34,7 @@ function Basicinfo() {
     } else {
       setWarning(false);
     }
-    console.log("Added !");
+    // console.log("Added !");
   }
 
   function addtaghandler(event) {
