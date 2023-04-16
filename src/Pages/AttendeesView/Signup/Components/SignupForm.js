@@ -1,16 +1,19 @@
 import { Box, IconButton, LinearProgress } from "@mui/material";
-import { Formik, useFormikContext } from "formik";
+import { Formik } from "formik";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { Button, Form, InputGroup, Stack } from "react-bootstrap";
+import { Button, Form, InputGroup, Stack, Col } from "react-bootstrap";
 import * as TiIcons from "react-icons/ti";
 import zxcvbn from "zxcvbn";
+import HorizontalChip from '../../Login/Components/HorizontalChip'
 import SignupMethods from "./SignupMethods";
 import { addUser } from "../../../../services/services";
-import "../Signup.scss";
-import "./SignupMethods";
-import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
+import SignupFormCSS from './SignupForm.module.css'
+import '../Signup.scss';
+import './SignupMethods';
+import * as Yup from 'yup';
 
 // const ShowInfo = () => {
 
@@ -165,47 +168,45 @@ export const SignupForm = (props) => {
   return (
     <Formik
       initialValues={{
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        emailConfirm: "",
-        showSignupInfo2: false,
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        emailConfirm: '',
+        showSignupInfo2: false
       }}
       onSubmit={(values, actions) => {
-        if (
-          values.email &&
-          values.email.length &&
-          values.email.match(isValidEmail)
-        ) {
-          setShowSignUpInfo((state) => (state = true));
-          //   console.log("good email");
+
+        if (values.email && values.email.length && values.email.match(isValidEmail)) {
+          setShowSignUpInfo(state => state = true)
+          console.log("good email")
         } else {
-          setShowSignUpInfo((state) => (state = false));
-          //   console.log("bad email");
+          setShowSignUpInfo(state => state = false)
+          console.log("bad email")
         }
-        // console.log("pressed on submit");
-        addUser({
-          name: values.firstName,
-          email: values.email,
-          password: values.password,
-          username: values.lastName,
-        });
-        navigate("/login");
+        console.log("pressed on submit")
+        addUser(
+          {
+            name: values.firstName,
+            email: values.email,
+            password: values.password,
+            username: values.lastName
+          }
+        )
       }}
       validationSchema={SignupSchema}
       validateOnChange={false}
+      validateOnMount={false}
     >
       {(props, setFieldValue) => (
         <>
           {/* <ShowInfo /> */}
 
           <Form data-testid={props.data_testid} onSubmit={props.handleSubmit}>
-            <InputGroup>
-              <Form.Group
+            <InputGroup >
+              <Form.Group as={Col}
                 className="mb-3"
                 controlId="formLoginEmail"
-                style={{ width: "100%" }}
               >
                 <Form.Control
                   disabled={props.values.showSignupInfo2}
@@ -307,30 +308,29 @@ export const SignupForm = (props) => {
                 password={props.values.password}
               />
             </div>
+            {props.values.showSignupInfo2 ?
+              <>
+                <Button as="input" className='mt-5 mb-2' type="submit" value={showSignUpInfo ? "Create account" : "Continue"} variant="flat btn-flat" />
+              </>
+              :
+              <>
+                <Button as="input" className='mt-5 mb-2'
+                  onClick={() => {
+                    if (props.values.email.match(isValidEmail)) {
+                      props.setFieldValue('showSignupInfo2', true)
+                      props.setErrors({});
+                      props.setTouched({});
+                    }
+                  }}
+                  type="button" value="Continue" variant="flat btn-flat" />
+                <HorizontalChip />
+              </>
+            }
+            {props.values.showSignupInfo2 ? null : <SignupMethods />}
 
-            {props.values.showSignupInfo2 ? (
-              <Button
-                as="input"
-                className="mt-5 mb-2"
-                type="submit"
-                value={showSignUpInfo ? "Create account" : "Continue"}
-                variant="flat btn-flat"
-              />
-            ) : (
-              <Button
-                as="input"
-                className="mt-5 mb-2"
-                onClick={() => {
-                  if (props.values.email.match(isValidEmail))
-                    props.setFieldValue("showSignupInfo2", true);
-                }}
-                type="button"
-                value="Continue"
-                variant="flat btn-flat"
-              />
-            )}
           </Form>
-          {props.values.showSignupInfo2 ? null : <SignupMethods />}
+          <Link to={"/login"} className={SignupFormCSS.a_link} >Login</Link>
+
         </>
       )}
     </Formik>

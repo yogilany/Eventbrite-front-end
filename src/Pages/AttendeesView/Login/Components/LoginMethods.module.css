@@ -1,0 +1,11 @@
+.a_link {
+    width: auto;
+    color: #3659e3;
+    font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 600;
+}
+
+.a_link:hover {
+    text-decoration: underline;
+}

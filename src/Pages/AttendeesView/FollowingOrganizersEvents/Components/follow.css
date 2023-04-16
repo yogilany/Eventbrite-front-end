@@ -20,7 +20,6 @@
     font-size: 18px;
     color: #39364F;
     font-weight: 600;
-    margin-bottom:10px;
 }
 .follow__container-left .date
 {
@@ -196,7 +195,7 @@
         display: flex;
         justify-content: space-between;
         width: 500px;
-        height: 186px;
+        min-height: 240px;
         padding: 12px;
         transition: all 0.3s ease-in-out;
         margin-bottom: 12px;
@@ -222,7 +221,33 @@
         display: flex;
         justify-content: space-between;
         width: 450px;
-        min-height: 186px;
+        min-height: 240px;
+        padding: 12px;
+        transition: all 0.3s ease-in-out;
+        margin-bottom: 12px;
+    }
+    .follow__container-right-img img
+    {
+        width: 100px;
+        height: 100px;
+    }
+    .follow__container-left .title
+    {
+        font-size: 18px;
+        color: #39364F;
+        font-weight: 600;
+        margin-bottom:10px;
+        max-width: 98%;
+    }
+}
+@media screen and (max-width: 479px) and (min-width: 400px)
+{
+    .follow__container
+    {
+        display: flex;
+        justify-content: space-between;
+        width: 400px;
+        min-height: 260px;
         padding: 12px;
         transition: all 0.3s ease-in-out;
         margin-bottom: 12px;

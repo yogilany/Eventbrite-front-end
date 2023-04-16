@@ -14,7 +14,7 @@ const AddFAQ = ({ Title, Logo }) => {
     <div className = "add__section-faq">
         <div className='add__section-faq-left'>
             <div className='faq__icon'>{Logo}</div>
-            <h4 style = {{fontSize:'18px'}}>{Title}</h4>
+            <h4 style = {{fontSize:'18px' , fontWeight : '700' , marginTop:'10px'}}>{Title}</h4>
         </div>
         <div className='add__section-faq-right'>
             <a href = "#" style = {{marginRight:'30px' , textDecoration:'none' , color:"rgb(54, 89, 227)"}}>How it works</a>

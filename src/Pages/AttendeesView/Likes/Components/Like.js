@@ -7,9 +7,9 @@ const Like = ({Title , Date , Location , Price , Photo}) => {
     <div className="like__container">
       <div className="like__container-left">
         <p className="title">{Title}</p>
-        <p className="date">{Date}</p>
-        <p className="location">{Location}</p>
-        <p className="price">{Price}</p>
+        <p className="date" style = {{marginLeft:'0px'}}>{Date}</p>
+        <p className="location" style = {{marginLeft:'0px'}}>{Location}</p>
+        <p className="price" style = {{marginLeft:'0px'}}>{Price}</p>
       </div>
       <div className="like__container-right">
         <div className="like__container-right-img">

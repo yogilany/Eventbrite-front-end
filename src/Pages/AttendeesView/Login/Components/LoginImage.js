@@ -1,4 +1,5 @@
 import { Row, Col, Container } from 'react-bootstrap';
+import LoginImageCSS from './LoginImage.module.css'
 /**
  * Returns an image with a caption at the bottom right 
  * @date 3/29/2023 - 2:54:09 AM
@@ -8,24 +9,11 @@ import { Row, Col, Container } from 'react-bootstrap';
  * @returns {*}
  */
 export const LoginImage = (props) => {
-    const ImageStyle = {
-        backgroundImage: `url(${props.img_url})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "0",
-        width: "100%",
-        height: "100%",
-    }
-
-    const ContainerCaptionStyle = {
-        textAlign: "right",
-        color: "white",
-        fontSize: "0.75rem",
-        fontWeight: "400"
-    }
 
     return (
-        <Container style={ImageStyle} data-testid={props.data_testid}>
+        <Container className={LoginImageCSS.login_image}
+            style={{ backgroundImage: `url(${props.img_url})` }}
+            data-testid={props.data_testid}>
             <Row style={{ height: "100vh" }}>
                 <Col md={4} >
                 </Col>
@@ -34,7 +22,7 @@ export const LoginImage = (props) => {
                 <Col md={4} className="d-flex 
                 justify-content-end 
                 flex-column ml-3" style={{ marginBottom: "150px" }}>
-                    <div className='p-3' style={ContainerCaptionStyle}>
+                    <div className={` p-3 ${LoginImageCSS.caption_image}`} >
                         <div style={{ fontWeight: "700" }}>
                             <strong>
                                 {props.img_caption}

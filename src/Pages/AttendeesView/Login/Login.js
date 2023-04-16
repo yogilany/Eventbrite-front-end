@@ -108,10 +108,13 @@ export const Login = (props) => {
   return (
     <Container className={props.name} fluid style={{ height: "50px" }}>
       <Row>
-        <Col md={6} className="g-0" style={{ padding: "100px 200px 0 225px" }}>
-          <div style={{ maxWidth: "85%" }}>
+        <Col md={12} lg={6} sm={12} className="g-0" style={{
+          padding: "100px 200px 0 225px", display: "flex",
+          justifyContent: "center",
+        }}>
+          <div >
             <Stack dir="vertical" gap={4}>
-              <LoginTitle />
+              <LoginTitle className="login-title" />
               <h1
                 data-testid="login-header"
                 id="login-login-h1"
@@ -154,7 +157,7 @@ export const Login = (props) => {
             />
           </div>
         </Col>
-        <Col md={6} className="g-0">
+        <Col md={0} lg={6} sm={0} className="g-0 d-none d-lg-block" >
           <LoginImage
             data_testid="login-image"
             img_url={imageLogin}

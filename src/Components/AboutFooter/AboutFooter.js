@@ -1,30 +1,29 @@
-import { Container, Stack } from "react-bootstrap";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { unstable_extendSxProp } from "@mui/system";
+import { Container, Stack, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styled from '@emotion/styled'
-
-export const FooterLink = styled.a(`
+export const FooterLink = styled(Link)`
     color: white;
     padding: 0.15rem 0;
-    font-size:0.75rem;
-    font-weight: 200;
+    font-size:13px;
+    letter-spacing: 0;
+    line-height: 22px;
+    font-weight: 400;
+    font-family:Neue Plak,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Tahoma,Arial,sans-serif;
     width: auto;
-
         &: hover {
     text-decoration: underline;
     }
-`)
+`
 export const AboutFooter = (props) => {
     const ContainerStyle = {
         backgroundColor: "#1e0a3c",
         color: "white",
-        fontSize: "0.8rem",
+        fontSize: "0.9rem",
         paddingTop: "5rem 0"
     }
 
     const StackStyle = {
-        paddingTop: "1rem"
+        paddingTop: "1rem",
     }
     return (
 
@@ -34,18 +33,18 @@ export const AboutFooter = (props) => {
                     <Container >
                         <strong>Use Eventbrite</strong>
                         <Stack style={StackStyle}>
-                            <FooterLink href="google.com">Create Events</FooterLink>
-                            <FooterLink href="google.com">Pricing</FooterLink>
-                            <FooterLink href="google.com">Eventbrite Boost</FooterLink>
-                            <FooterLink href="google.com">Eventbrite Mobile Ticket App</FooterLink>
-                            <FooterLink href="google.com">Eventbrite Check-In App</FooterLink>
-                            <FooterLink href="google.com">Eventbrite App Marketplace</FooterLink>
-                            <FooterLink href="google.com">Event Registration Software</FooterLink>
-                            <FooterLink href="google.com">Content Standards</FooterLink>
-                            <FooterLink href="google.com">FAQs</FooterLink>
+                            <FooterLink to="/signup">Create Events</FooterLink>
+                            <FooterLink to="/signup">Pricing</FooterLink>
+                            <FooterLink to="/signup">Eventbrite Boost</FooterLink>
+                            <FooterLink to="/signup">Eventbrite Mobile Ticket App</FooterLink>
+                            <FooterLink to="/signup">Eventbrite Check-In App</FooterLink>
+                            <FooterLink to="/signup">Eventbrite App Marketplace</FooterLink>
+                            <FooterLink to="/signup">Event Registration Software</FooterLink>
+                            <FooterLink to="/signup">Content Standards</FooterLink>
+                            <FooterLink to="/signup">FAQs</FooterLink>
                         </Stack>
 
-                        <FooterLink href="google.com">Sitemap</FooterLink>
+                        <FooterLink to="/signup">Sitemap</FooterLink>
                     </Container>
                 </Col>
 
@@ -53,16 +52,16 @@ export const AboutFooter = (props) => {
                     <Container>
                         <strong>Plan Events</strong>
                         <Stack style={StackStyle}>
-                            <FooterLink href="google.com">Sell Tickets Online</FooterLink>
-                            <FooterLink href="google.com">Event Planning</FooterLink>
-                            <FooterLink href="google.com">Sell Concert Tickets Online</FooterLink>
-                            <FooterLink href="google.com">Event Payment System</FooterLink>
-                            <FooterLink href="google.com">Solutions for Professional Services</FooterLink>
-                            <FooterLink href="google.com">Event Management Software</FooterLink>
-                            <FooterLink href="google.com">Community Engagement</FooterLink>
-                            <FooterLink href="google.com">Virtual Events Platform</FooterLink>
-                            <FooterLink href="google.com">QR Codes for Event Check-In</FooterLink>
-                            <FooterLink href="google.com">Post your event online</FooterLink>
+                            <FooterLink to="/signup">Sell Tickets Online</FooterLink>
+                            <FooterLink to="/signup">Event Planning</FooterLink>
+                            <FooterLink to="/signup">Sell Concert Tickets Online</FooterLink>
+                            <FooterLink to="/signup">Event Payment System</FooterLink>
+                            <FooterLink to="/signup">Solutions for Professional Services</FooterLink>
+                            <FooterLink to="/signup">Event Management Software</FooterLink>
+                            <FooterLink to="/signup">Community Engagement</FooterLink>
+                            <FooterLink to="/signup">Virtual Events Platform</FooterLink>
+                            <FooterLink to="/signup">QR Codes for Event Check-In</FooterLink>
+                            <FooterLink to="/signup">Post your event online</FooterLink>
                         </Stack>
                     </Container>
                 </Col>
@@ -70,16 +69,16 @@ export const AboutFooter = (props) => {
                 <Col>
                     <strong>Find Events</strong>
                     <Stack style={StackStyle}>
-                        <FooterLink href="google.com">New Orleans Food & Drink Events</FooterLink>
-                        <FooterLink href="google.com">San Francisco Holiday Events</FooterLink>
-                        <FooterLink href="google.com">Tulum Music Events</FooterLink>
-                        <FooterLink href="google.com">Denver Hobby Events</FooterLink>
-                        <FooterLink href="google.com">Atlanta Pop Music Events</FooterLink>
-                        <FooterLink href="google.com">New York Events</FooterLink>
-                        <FooterLink href="google.com">Chicago Events</FooterLink>
-                        <FooterLink href="google.com">Events in Dallas Today</FooterLink>
-                        <FooterLink href="google.com">Los Angeles Events</FooterLink>
-                        <FooterLink href="google.com">Washington Events</FooterLink>
+                        <FooterLink to="/signup">New Orleans Food & Drink Events</FooterLink>
+                        <FooterLink to="/signup">San Francisco Holiday Events</FooterLink>
+                        <FooterLink to="/signup">Tulum Music Events</FooterLink>
+                        <FooterLink to="/signup">Denver Hobby Events</FooterLink>
+                        <FooterLink to="/signup">Atlanta Pop Music Events</FooterLink>
+                        <FooterLink to="/signup">New York Events</FooterLink>
+                        <FooterLink to="/signup">Chicago Events</FooterLink>
+                        <FooterLink to="/signup">Events in Dallas Today</FooterLink>
+                        <FooterLink to="/signup">Los Angeles Events</FooterLink>
+                        <FooterLink to="/signup">Washington Events</FooterLink>
                     </Stack>
                 </Col>
 
@@ -87,11 +86,11 @@ export const AboutFooter = (props) => {
                     <Container>
                         <strong>Connect With Us</strong>
                         <Stack style={StackStyle}>
-                            <FooterLink href="google.com">Contact Support</FooterLink>
-                            <FooterLink href="google.com">Twitter</FooterLink>
-                            <FooterLink href="google.com">Facebook</FooterLink>
-                            <FooterLink href="google.com">LinkedIn</FooterLink>
-                            <FooterLink href="google.com">Instagram</FooterLink>
+                            <FooterLink to="/signup">Contact Support</FooterLink>
+                            <FooterLink to="/signup">Twitter</FooterLink>
+                            <FooterLink to="/signup">Facebook</FooterLink>
+                            <FooterLink to="/signup">LinkedIn</FooterLink>
+                            <FooterLink to="/signup">Instagram</FooterLink>
                         </Stack>
                     </Container>
 
