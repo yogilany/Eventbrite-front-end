@@ -10,6 +10,8 @@ import { BiLogOut } from "react-icons/bi";
 import { MdOutlineKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUserState } from "../../features/authSlice";
 
 /**
  * @author Ziad Ezzat
@@ -20,6 +22,7 @@ import { Link } from "react-router-dom";
 const Headerpub = (props) => {
   const [showAccountSetting, setShowAccountSetting] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const USER = useSelector(selectUserState);
 
   return (
     <div className="header_container" data-testid={props.data_testid}>
@@ -33,7 +36,7 @@ const Headerpub = (props) => {
       >
         <div className="circular__name">MK</div>
         <div className="user__name" style={{ cursor: "pointer" }}>
-          Mahmoud Khaled{" "}
+          {USER}{" "}
           {showAccountSetting ? (
             <MdKeyboardArrowUp className="arrow" />
           ) : (
