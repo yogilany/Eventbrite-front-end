@@ -21,7 +21,7 @@ import { useDispatch } from "react-redux";
 import { userAuthorize } from "../../features";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { HiOutlinePlus } from "react-icons/hi";
-const Header = ({ MenuShow }) => {
+const Header = () => {
   const [toggleSearch, setToggleSearch] = useState(false);
   const [isOrganizer, setIsOrganizer] = useState(false);
 
@@ -29,6 +29,28 @@ const Header = ({ MenuShow }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   console.log(window.User);
+
+  const [screenSize, setScreenSize] = useState(getCurrentDimension());
+
+  function getCurrentDimension() {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  }
+
+  useEffect(() => {
+    const updateDimension = () => {
+      setScreenSize(getCurrentDimension());
+      console.log(getCurrentDimension());
+    };
+    window.addEventListener("resize", updateDimension);
+
+    return () => {
+      window.removeEventListener("resize", updateDimension);
+    };
+  }, [screenSize]);
+
   const [user, setUser] = useState(window.User);
 
   return (
@@ -38,22 +60,24 @@ const Header = ({ MenuShow }) => {
           <a href="/">
             <img src={Logo} alt="headerLogo" />
           </a>
-          <button
-            id="eventSearchBtn"
-            className="search-button"
-            onClick={() => setToggleSearch(true)}
-          >
-            <Container>
-              <Row>
-                <Col md="auto" className="m-0 p-0">
-                  <MdOutlineSearch className="btn-search-icon" />
-                </Col>
-                <Col>
-                  <span>Search event</span>
-                </Col>
-              </Row>
-            </Container>
-          </button>
+          {screenSize.width > 768 ? (
+            <button
+              id="eventSearchBtn"
+              className="search-button"
+              onClick={() => setToggleSearch(true)}
+            >
+              <Container>
+                <Row>
+                  <Col md="auto" className="m-0 p-0">
+                    <MdOutlineSearch className="btn-search-icon" />
+                  </Col>
+                  <Col>
+                    <span>Search event</span>
+                  </Col>
+                </Row>
+              </Container>
+            </button>
+          ) : null}
         </div>
         <div className="header-container-links">
           {!USER ? (

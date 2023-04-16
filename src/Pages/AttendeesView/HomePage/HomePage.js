@@ -7,6 +7,7 @@ import Header from "../../../components/header/Header";
 import "./HomePage.scss";
 import { motion } from "framer-motion";
 import Footer from "../../../components/footer/Footer";
+import { useState, useEffect } from "react";
 
 /**
  * @author Yousef Gilany
@@ -18,13 +19,33 @@ import Footer from "../../../components/footer/Footer";
 
 export const HomePage = () => {
   console.log("USERR", window.User);
+  const [screenSize, setScreenSize] = useState(getCurrentDimension());
+
+  function getCurrentDimension() {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  }
+
+  useEffect(() => {
+    const updateDimension = () => {
+      setScreenSize(getCurrentDimension());
+      console.log(getCurrentDimension());
+    };
+    window.addEventListener("resize", updateDimension);
+
+    return () => {
+      window.removeEventListener("resize", updateDimension);
+    };
+  }, [screenSize]);
   return (
     <>
-      <Header />
+      <Header screenSize={screenSize} />
       <Container fluid id="homePageContainer">
         <Row>
           <Col className="p-0">
-            <Hero />
+            <Hero screenSize={screenSize} />
             {/* <Categories /> */}
             <Events />
             {/* <MoreEvents /> */}

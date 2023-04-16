@@ -10,6 +10,7 @@ import AllEvents from "../Pages/AttendeesView/BrowseEvents/AllEvents";
 import Organizer from "../Pages/AttendeesView/Organizer/Organizer";
 import SearchPage from "../Pages/AttendeesView/HomePage/Components/SearchPage";
 import SingleEvent from "../Pages/AttendeesView/SingleEvent/SingleEvent";
+import EventsByCategory from "../Pages/AttendeesView/EventsByCategory/EventsByCategory";
 function UnauthenticatedApp() {
   const router = createBrowserRouter([
     {
@@ -38,8 +39,13 @@ function UnauthenticatedApp() {
       path: "/search",
       element: <SearchPage />,
     },
+
     {
-      path: "/event",
+      path: "/events/:category/:location",
+      element: <EventsByCategory />,
+    },
+    {
+      path: "/event/:id",
       element: <SingleEvent />,
     },
   ]);
