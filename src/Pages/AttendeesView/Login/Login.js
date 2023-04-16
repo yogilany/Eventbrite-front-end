@@ -80,9 +80,17 @@ export const Login = (props) => {
         password: pwd
       }
       console.warn("User: ", user, " Pwd: ", pwd);
-      const res = dispatch(authUser(data))
-
-      console.log(res)
+      dispatch(authUser(data))
+      .unwrap()
+      .then(() => {
+        navigate("/login")
+        setSuccess(true);
+        // window.location.reload();
+      })
+      .catch(() => {
+        console.log('Error')
+        setSuccess(false);
+      });
       //   const userExists = users.filter((u) => u.email === user);
       //   if (userExists.length !== 0) {
       //     if (userExists[0].password === pwd) {

@@ -5,7 +5,7 @@ export const authUser = createAsyncThunk('auth/login',
     const { rejectWithValue } = thunkAPI;
     try {
       console.log('User data = ', userData)
-      const res = await fetch('http://localhost:8000/auth/login',
+      const response = await fetch('http://localhost:8000/auth/login',
         {
           method: "POST",
           headers: {
@@ -14,8 +14,10 @@ export const authUser = createAsyncThunk('auth/login',
           body: JSON.stringify(userData),
         });
 
-      const data = await res.json()
+      const data = await response.json()
       // console.log(data)
+      if(!response.ok)
+        throw new Error('Email or password are incorrect')
       // Return user data in addition to access token
       return { ...userData, ...data };
     } catch (error) {
