@@ -11,14 +11,14 @@ import { MdOutlineSearch } from "react-icons/md";
 import { Container, Row, Col } from "react-bootstrap";
 import SearchPage from "../../Pages/AttendeesView/HomePage/Components/SearchPage";
 import { useSelector } from "react-redux";
-import { selectUserState } from "../../features";
+import { selectUserState } from "../../features/authSlice";
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 import { VscAccount } from "react-icons/vsc";
 import { BiLogOut } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { userAuthorize } from "../../features";
+import { authUser } from "../../features/authSlice";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { HiOutlinePlus } from "react-icons/hi";
 const Header = () => {
@@ -189,10 +189,9 @@ const Header = () => {
           ) : null}
 
           {USER ? (
-            <div className="dropdown" style={{ minWidth: "150px" }}>
-              <button className="dropbtn" id="myProfileBtn">
-                {user ? user[0].email : "My profile"}{" "}
-                <MdOutlineKeyboardArrowDown />
+            <div className="dropdown">
+              <button className="dropbtn">
+                {USER} <MdOutlineKeyboardArrowDown />
               </button>
               <div className="dropdown-content">
                 <a href="#">Browse events</a>
@@ -201,7 +200,7 @@ const Header = () => {
                 <a
                   href="/login"
                   onClick={() => {
-                    dispatch(userAuthorize(false));
+                    dispatch(authUser(null));
                   }}
                 >
                   Log out

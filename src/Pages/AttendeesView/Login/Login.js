@@ -6,7 +6,7 @@ import test_image from "../../../assets/side_image.jpg";
 import imageLogin from "../../../assets/adelLogin.png";
 import AboutFooter from "../../../components/AboutFooter/AboutFooter";
 import Footer from "../../../components/footer/Footer";
-import { userAuthorize } from "../../../features";
+import { authUser } from "../../../features/authSlice";
 import { getUsers } from "../../../services/services";
 import { HorizontalChip } from "./Components/HorizontalChip";
 import LoginForm from "./Components/LoginForm";
@@ -52,6 +52,7 @@ export const Login = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+
   useEffect(() => {
     userRef.current.focus();
 
@@ -71,24 +72,40 @@ export const Login = (props) => {
 
   const handleSubmit = async (e) => {
     try {
-      e.preventDefault();
-      console.warn("User: ", user, " Pwd: ", pwd);
 
-      const userExists = users.filter((u) => u.email === user);
-      if (userExists.length !== 0) {
-        if (userExists[0].password === pwd) {
-          dispatch(userAuthorize(true));
-          setSuccess(true);
-          window.User = userExists;
-          navigate("/");
-        } else {
-          setPasswordIncorrect(true);
-          setSuccess(false);
-          dispatch(userAuthorize(false));
-        }
-      } else {
-        setEmailExist(false);
+
+      e.preventDefault();
+      const data = {
+        email: user,
+        password: pwd
       }
+      console.warn("User: ", user, " Pwd: ", pwd);
+      dispatch(authUser(data))
+      .unwrap()
+      .then(() => {
+        navigate("/login")
+        setSuccess(true);
+        // window.location.reload();
+      })
+      .catch(() => {
+        console.log('Error')
+        setSuccess(false);
+      });
+      //   const userExists = users.filter((u) => u.email === user);
+      //   if (userExists.length !== 0) {
+      //     if (userExists[0].password === pwd) {
+      //       dispatch(authUser(data));
+      //       setSuccess(true);
+      //       window.User = userExists;
+      //       navigate("/");
+      //     } else {
+      //       setPasswordIncorrect(true);
+      //       setSuccess(false);
+      //       dispatch(authUser(data));
+      //     }
+      //   } else {
+      //     setEmailExist(false);
+      //   }
     } catch (err) {
       console.log(err);
     }
@@ -108,54 +125,75 @@ export const Login = (props) => {
   return (
     <Container className={props.name} fluid style={{ height: "50px" }}>
       <Row>
-        <Col md={12} lg={6} sm={12} className="g-0" style={{
-          padding: "100px 200px 0 225px", display: "flex",
-          justifyContent: "center",
-        }}>
-          <div >
-            <Stack dir="vertical" gap={4}>
-              <LoginTitle className="login-title" />
-              <h1
-                data-testid="login-header"
-                id="login-login-h1"
-                className="mb-5"
-                style={{ minWidth: "200px" }}
-              >
-                Log in
-              </h1>
-            </Stack>
-            {!emailExist && user.length > 10 ? (
-              <div className="formMsg">
-                <div></div>
-                <p>
-                  There is no account associated with the email.{" "}
-                  <a href="/signup">Create account.</a>{" "}
-                </p>
-              </div>
-            ) : null}
-            {passwordIncorrect ? (
-              <div className="formMsg">
-                <div></div>
-                <p>Password is incorrect. </p>
-              </div>
-            ) : null}
-            <LoginForm
-              user_ref={userRef}
-              User={user}
-              set_Pwd={setPwd}
-              set_User={setUser}
-              Pwd={pwd}
-              submitAction={handleSubmit}
-              Success={success}
-              data_testid="login-form"
-              name="login-form-div"
-            />
-            <HorizontalChip data_testid="horizontal-chip" />
-            <LoginMethods
-              data_testid="login-methods"
-              name="login-methods-div"
-            />
-          </div>
+        <Col className="contact-content"
+          md={12} lg={6} sm={12} style={{
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center", padding: "100px 25% 250px 25%",
+          }}>
+          <Col >
+            <Row>
+
+              <Stack dir="vertical" gap={4} className="">
+                <LoginTitle className="login-title" />
+                <h1
+                  data-testid="login-header"
+                  id="login-login-h1"
+                  className="mb-5"
+                  style={{ minWidth: "200px" }}
+                >
+                  Log in
+                </h1>
+              </Stack>
+            </Row>
+            <Row>
+
+              {!emailExist && user.length > 10 ? (
+                <div className="formMsg">
+                  <div></div>
+                  <p>
+                    There is no account associated with the email.{" "}
+                    <a href="/signup">Create account.</a>{" "}
+                  </p>
+                </div>
+              ) : null}
+            </Row>
+            <Row>
+
+              {passwordIncorrect ? (
+                <div className="formMsg">
+                  <div></div>
+                  <p>Password is incorrect. </p>
+                </div>
+              ) : null}
+            </Row>
+            <Row className="g-0">
+              <LoginForm
+              style={{
+                minWidth: "100%",
+                width: "350px"
+              }}
+                user_ref={userRef}
+                User={user}
+                set_Pwd={setPwd}
+                set_User={setUser}
+                Pwd={pwd}
+                submitAction={handleSubmit}
+                Success={success}
+                data_testid="login-form"
+                name="login-form-div"
+              />
+            </Row>
+            <Row className="g-0">
+              <HorizontalChip data_testid="horizontal-chip" />
+            </Row>
+            <Row className="g-0">
+              <LoginMethods
+                data_testid="login-methods"
+                name="login-methods-div"
+              />
+            </Row>
+          </Col>
         </Col>
         <Col md={0} lg={6} sm={0} className="g-0 d-none d-lg-block" >
           <LoginImage
@@ -167,10 +205,10 @@ export const Login = (props) => {
           />
         </Col>
       </Row>
-      <Row>
+      <Row className="d-none d-lg-block d-md-block">
         <AboutFooter />
       </Row>
-      <Row>
+      <Row >
         <Footer data_testid="login-footer" />
       </Row>
     </Container>

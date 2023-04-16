@@ -24,9 +24,7 @@ const Headerpub = (props) => {
   return (
     <div className="header_container" data-testid={props.data_testid}>
       <div className="header_container-left">
-        <a href="/">
-          <img src={Logo} alt="headerLogo" />
-        </a>
+        <img src={Logo} alt="headerLogo" />
       </div>
       <div
         className="header__container-right"

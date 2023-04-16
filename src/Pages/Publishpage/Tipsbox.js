@@ -9,7 +9,7 @@ import { AiOutlineRight } from 'react-icons/ai'
  */
 const Tipsbox = (props) => {
     return (
-        <div data-testid={props.data_testid}>
+        <div data-testid={props.data_testid} className={props.className}>
             <div style={{ display: 'flex' }}>
                 <img src={bulb} alt="bulbLogo" style={{ width: 35, height: 35 }} />
                 <p className='tpyp'>Tips before you publish</p>

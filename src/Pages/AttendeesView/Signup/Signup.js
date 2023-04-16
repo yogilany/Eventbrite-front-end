@@ -21,21 +21,25 @@ export const Signup = (props) => {
   return (
     <Container fluid style={{ height: "50px" }}>
       <Row>
-        <Col className="contact-content"
+        <Col className="contact-content g-0"
           md={12} lg={6} sm={12} style={{
             display: "flex",
             justifyContent: "center",
-            alignContent: "center", padding: "100px 200px 200px 200px"
+            alignContent: "center", padding: "100px 200px 250px 250px",
           }}>
-          <div >
-            <Stack dir="vertical" gap={4}>
+          <Col className="g-0">
+            <Row className="mb-4 g-0">
               <LoginTitle />
+            </Row>
+            <Row>
               <h1 data-testid="signup-header" id="signup-signup-h1" className="mb-4" >
                 Create an account
               </h1>
-            </Stack>
-            <SignupForm className="test-class" data_testid="signup-form" name="signup-form-div" />
-          </div>
+            </Row>
+            <Row className="g-0">
+              <SignupForm className="test-class" data_testid="signup-form" name="signup-form-div" />
+            </Row>
+          </Col>
         </Col>
         <Col md={0} lg={6} sm={0} className="g-0 d-none d-lg-block" >
           <LoginImage data_testid="signup-image"
@@ -46,7 +50,7 @@ export const Signup = (props) => {
           />
         </Col>
       </Row>
-      <Row>
+      <Row className="d-none d-lg-block d-md-block">
         <AboutFooter />
       </Row>
       <Row>

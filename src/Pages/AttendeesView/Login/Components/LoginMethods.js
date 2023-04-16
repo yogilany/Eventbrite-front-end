@@ -4,6 +4,7 @@ import * as FcIcons from "react-icons/fc";
 import * as TiIcons from "react-icons/ti";
 import "../Login.scss";
 import LoginMethodsCSS from './LoginMethods.module.css'
+import ButtonWhiteStyled from "../../../../components/Buttons/WhiteButton";
 /**
  *
  * @param {name: Name of this element after creation} props
@@ -12,22 +13,28 @@ import LoginMethodsCSS from './LoginMethods.module.css'
 export const LoginMethods = (props) => {
 
   return (
-    <Container className="m-0 p-0" style={{ minWidth: "200px" }}
+    <Container className="m-0 " style={{ minWidth: "200px" }}
       data-testid={props.data_testid}
       name={props.name}>
+      <Row>
 
-      <ButtonGroup vertical style={{ width: "100%" }}>
-        <Button variant="secondary" >
+        <ButtonWhiteStyled variant="secondary" >
           {" "}
           Email me a login link
-        </Button>
-        <Button variant="secondary" >
+        </ButtonWhiteStyled>
+      </Row>
+      <Row>
+
+        <ButtonWhiteStyled variant="secondary" >
           {" "}
           <FcIcons.FcGoogle size="1.5em" />
           {" Sign in with Google"}
-        </Button>
-      </ButtonGroup>
-      <div style={{ margin: "1.5rem 0" }}>Other login methods</div>
+        </ButtonWhiteStyled>
+      </Row>
+      <Row>
+
+        <div style={{ margin: "1.5rem 0" }}>Other login methods</div>
+      </Row>
       <Container style={{ margin: "1rem 0" }}>
         <Row xs={1} md={4} lg={4}>
           <Col>
@@ -42,9 +49,7 @@ export const LoginMethods = (props) => {
           </Col>
         </Row>
         <Row className="pt-5 pb-0" >
-          {/* <Link href="/signup" underline="always" style={{ width: "auto" }}>
-            {'Sign up'}
-          </Link> */}
+
           <Link to={"/signup"} className={LoginMethodsCSS.a_link} >Sign up</Link>
         </Row>
       </Container>

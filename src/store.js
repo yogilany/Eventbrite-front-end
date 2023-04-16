@@ -24,9 +24,9 @@ import storage from 'redux-persist/lib/storage';
 import { combineReducers } from "redux";
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
-import appReducer from './features'
+import authReducer from './features/authSlice'
 const reducers = combineReducers({
-    app: appReducer
+    auth: authReducer
 });
 
 const persistConfig = {
