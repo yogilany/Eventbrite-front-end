@@ -179,7 +179,7 @@ const Sidebar = () => {
           {/* <hr className='line' /> */}
           <div>
             <a
-              href="#"
+              href="/dashboard"
               className="EventOption"
               style={{ fontWeight: "500", fontSize: "14px", fontWeight: "600" }}
             >
@@ -221,7 +221,16 @@ const Sidebar = () => {
             href="#"
             className="event__name"
           >
-            <h2 style={{ marginLeft: "35px", color: "#1E0A3C" , marginTop:'15px' , fontWeight:'700' }}>mm</h2>
+            <h2
+              style={{
+                marginLeft: "35px",
+                color: "#1E0A3C",
+                marginTop: "15px",
+                fontWeight: "700",
+              }}
+            >
+              mm
+            </h2>
           </a>
           <p
             style={{
@@ -274,8 +283,12 @@ const Sidebar = () => {
             style={{ borderTop: "2px solid grey", width: "100%" }}
           ></div>
           <div>
-            <a href="#" className="EventOption" style={{ fontWeight: "600" }}>
-              Dashboard
+            <a
+              href="/dashboard"
+              className="EventOption"
+              style={{ fontWeight: "500" }}
+            >
+              Dashboardd
             </a>
             <Dropdown Name="Order Options" Links={orderOptions} />
             <Dropdown Name="Marketing" Links={Marketing} />

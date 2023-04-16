@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 import { RiCopyrightLine } from "react-icons/ri";
-import { BsDot } from 'react-icons/bs'
-import FooterLink from '../footerLink/FooterLink';
-import './footer.css'
+import { BsDot } from "react-icons/bs";
+import FooterLink from "../footerLink/FooterLink";
+import "./footer.css";
 const Footer = () => {
   return (
     <div className="footer__container">
@@ -26,13 +26,13 @@ const Footer = () => {
         <FooterLink Name="Cookies" />
         <FooterLink Name="Cookie Consent" />
       </div>
-      <div className='footer__container-select'>
-        <select className='options'>
+      <div className="footer__container-select">
+        <select className="options">
           <option>United states</option>
         </select>
       </div>
     </div>
   );
-}
+};
 
-export default Footer
+export default Footer;

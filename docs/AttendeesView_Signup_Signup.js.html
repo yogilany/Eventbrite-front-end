@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: AttendeesView/Signup/Signup.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: AttendeesView/Signup/Signup.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Col, Container, Row, Stack } from "react-bootstrap/";
+import test_image from "../../../assets/side_image.jpg";
+import AboutFooter from "../../../components/AboutFooter/AboutFooter";
+import Footer from "../../../components/footer/Footer";
+import LoginImage from "../Login/Components/LoginImage";
+import LoginTitle from "../Login/Components/Title";
+import SignupForm from "./Components/SignupForm";
+import './Signup.scss';
+
+/**
+ * This is the sign up page where an attendee user can create a new account.
+ * After successful sign up, the user shall be re-directed to the login page to
+ * login with their new credentials.
+ * @date 3/29/2023 - 2:46:54 AM
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {JSX.Element}
+ */
+export const Signup = (props) => {
+  return (
+    &lt;Container fluid style={{ height: "50px" }}>
+      &lt;Row>
+        &lt;Col md={6} style={{ padding: "100px 200px 200px 200px" }}>
+          &lt;div style={{ maxWidth: "85%" }}>
+            &lt;Stack dir="vertical" gap={4}>
+              &lt;LoginTitle />
+              &lt;h1 data-testid="signup-header" id="signup-signup-h1" className="mb-4" >
+                Create an account
+              &lt;/h1>
+            &lt;/Stack>
+            &lt;SignupForm data_testid="signup-form" name="signup-form-div" />
+          &lt;/div>
+        &lt;/Col>
+        &lt;Col md={6} className="g-0">
+          &lt;LoginImage data_testid="signup-image"
+            img_url={test_image}
+            img_caption="Winston Baker"
+            img_credit="Confluence Summit"
+            img_location="San Francisco, CA"
+          />
+        &lt;/Col>
+      &lt;/Row>
+      &lt;Row>
+        &lt;AboutFooter />
+      &lt;/Row>
+      &lt;Row>
+        &lt;Footer data_testid="login-footer" />
+      &lt;/Row>
+    &lt;/Container>
+  );
+};
+
+export default Signup;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Apr 16 2023 15:54:40 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

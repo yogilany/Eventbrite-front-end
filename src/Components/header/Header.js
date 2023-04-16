@@ -39,6 +39,7 @@ const Header = ({ MenuShow }) => {
             <img src={Logo} alt="headerLogo" />
           </a>
           <button
+            id="eventSearchBtn"
             className="search-button"
             onClick={() => setToggleSearch(true)}
           >
@@ -58,7 +59,7 @@ const Header = ({ MenuShow }) => {
           {!USER ? (
             <>
               <div className="dropdown">
-                <button className="dropbtn">
+                <button className="dropbtn" id="organizeBtn">
                   Organize <MdOutlineKeyboardArrowDown />
                 </button>
                 <div className="dropdown-content">
@@ -69,7 +70,7 @@ const Header = ({ MenuShow }) => {
                 </div>
               </div>
               <div className="dropdown">
-                <button className="dropbtn">
+                <button className="dropbtn" id="helpBtn">
                   Help <MdOutlineKeyboardArrowDown />
                 </button>
                 <div className="dropdown-content">
@@ -80,12 +81,16 @@ const Header = ({ MenuShow }) => {
               </div>
               <div className="button">
                 <Link to="/login">
-                  <button className="header-button">Log In</button>
+                  <button className="header-button" id="loginBtn">
+                    Log In
+                  </button>
                 </Link>
               </div>
               <div className="button">
                 <Link to="/signup">
-                  <button className="header-button">Sign Up</button>
+                  <button className="header-button" id="signupBtn">
+                    Sign Up
+                  </button>
                 </Link>
               </div>
             </>
@@ -108,7 +113,7 @@ const Header = ({ MenuShow }) => {
                   >
                     <HiOutlinePlus fontSize="18px" />
                   </div>{" "}
-                  Create an event
+                  <span style={{ color: "#3659e3" }}>Create an event</span>
                 </div>
               </Link>
               <Link to="/likes">
@@ -136,7 +141,7 @@ const Header = ({ MenuShow }) => {
 
           {isOrganizer ? (
             <div className="dropdown">
-              <button className="dropbtn">
+              <button className="dropbtn" id="userBtn">
                 Mahmoud Khaled <MdKeyboardArrowUp className="arrow" />
               </button>
               <div className="dropdown-content">
@@ -167,7 +172,7 @@ const Header = ({ MenuShow }) => {
               <div className="dropdown-content">
                 <a href="#">Browse events</a>
                 <a href="/basic-info">Manage my events</a>
-                <a href="#">Account settings</a>
+                <a href="/profile">Account settings</a>
                 <a
                   href="/login"
                   onClick={() => {

@@ -49,6 +49,41 @@
     padding: 20px;
     width: 100%;
 }
+.description__btn-agenda
+{
+    height: 80px;
+    margin-top: 15px;
+    width: 82%;
+    padding-left: 10px;
+}
+.remove__description
+{
+    outline: none;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    margin-left: 1px;
+    font-size: 20px;
+}
+.remove__hostname
+{
+    outline: none;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    margin-left: 1px;
+    font-size: 20px;
+}
+.addHost__agenda
+{
+    margin-top: 17px;
+}
+.addHost__agenda input
+{
+    padding-left: 15px;
+    height: 52px;
+    width: 30%;
+}
 .delete__section-btn
 {
     border: none;
@@ -145,7 +180,52 @@
     {
         max-width:  100%;
     }
-
+    .add__Agenda
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width: 590px;
+        position: relative;
+    } 
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:590px;
+        position: relative;
+    }
+    .add__slot-title
+    {
+        width: 415px !important;
+    }  
+    .vertical__line-agenda
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 250px;
+        left: 390px;
+        color: rgb(164, 164, 164);
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 400px;
+        color: rgb(164, 164, 164);
+    }
+    .delete__FAQ
+    {
+        margin-left: 60px;
+        margin-top: -20px;
+        font-size: 20px;
+    }
 }
 @media screen and (max-width: 1200px) and (min-width: 1100px)
 {
@@ -160,6 +240,53 @@
     .add__section p 
     {
         width: 510px;
+    }
+    .add__Agenda
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width: 510px;
+        position: relative;
+    } 
+    
+    .add__slot-title
+    {
+        width: 350px !important;
+    }  
+    .vertical__line-agenda
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 250px;
+        left: 310px;
+        color: rgb(164, 164, 164);
+    }
+    .delete__FAQ
+    {
+        margin-left: 50px;
+        margin-top: -20px;
+        font-size: 20px;
+    }
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:510px;
+        position: relative;
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 320px;
+        color: rgb(164, 164, 164);
     }
 }
 @media screen and (max-width: 1100px) and (min-width: 1000px)
@@ -176,6 +303,52 @@
     {
         width: 480px;
     }
+    .add__Agenda
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width: 480px;
+        position: relative;
+    } 
+    .add__slot-title
+    {
+        width: 320px !important;
+    }  
+    .vertical__line-agenda
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 250px;
+        left: 290px;
+        color: rgb(164, 164, 164);
+    }
+    .delete__FAQ
+    {
+        margin-left: 50px;
+        margin-top: -20px;
+        font-size: 20px;
+    }
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:480px;
+        position: relative;
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 300px;
+        color: rgb(164, 164, 164);
+    }
 }
 @media screen and (max-width: 1000px) and (min-width: 960px)
 {
@@ -190,6 +363,53 @@
     .add__section p 
     {
         width: 440px;
+    }
+    .add__Agenda
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width: 440px;
+        position: relative;
+        margin-bottom: 20px;
+    } 
+    .add__slot-title
+    {
+        width: 300px !important;
+    }  
+    .vertical__line-agenda
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 250px;
+        left: 270px;
+        color: rgb(164, 164, 164);
+    }
+    .delete__FAQ
+    {
+        margin-left: 50px;
+        margin-top: -20px;
+        font-size: 20px;
+    }
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:440px;
+        position: relative;
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 270px;
+        color: rgb(164, 164, 164);
     }
 }
 @media screen and (max-width: 959px) and (min-width: 400px)
@@ -208,10 +428,58 @@
         border-radius: 8px;
         padding: 32px;
         width: 590px;
+        
     }
     .add__section p 
     {
         max-width:  100%;
+    }
+    .add__Agenda
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width: 590px;
+        position: relative;
+        margin-bottom: 20px;
+    } 
+    .add__slot-title
+    {
+        width: 420px !important;
+    }  
+    .vertical__line-agenda
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 250px;
+        left: 380px;
+        color: rgb(164, 164, 164);
+    }
+    .delete__FAQ
+    {
+        margin-left: 50px;
+        margin-top: -20px;
+        font-size: 20px;
+    }
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:590px;
+        position: relative;
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 390px;
+        color: rgb(164, 164, 164);
     }
 }
 @media screen and (max-width: 792px) and (min-width: 660px)
@@ -228,6 +496,53 @@
     {
         max-width: 400px;
     }
+    .add__Agenda
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width: 590px;
+        position: relative;
+        margin-bottom: 20px;
+    } 
+    .add__slot-title
+    {
+        width: 410px !important;
+    }  
+    .vertical__line-agenda
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 250px;
+        left: 370px;
+        color: rgb(164, 164, 164);
+    }
+    .delete__FAQ
+    {
+        margin-left: 50px;
+        margin-top: -20px;
+        font-size: 20px;
+    }
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:590px;
+        position: relative;
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 390px;
+        color: rgb(164, 164, 164);
+    }
 }
 @media screen and (max-width: 792px) and (min-width: 720px)
 {
@@ -242,6 +557,53 @@
     .add__section p 
     {
         max-width: 400px;
+    }
+    .add__Agenda
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width: 590px;
+        position: relative;
+        margin-bottom: 20px;
+    } 
+    .add__slot-title
+    {
+        width: 410px !important;
+    }  
+    .vertical__line-agenda
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 250px;
+        left: 370px;
+        color: rgb(164, 164, 164);
+    }
+    .delete__FAQ
+    {
+        margin-left: 50px;
+        margin-top: -20px;
+        font-size: 20px;
+    }
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:590px;
+        position: relative;
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 390px;
+        color: rgb(164, 164, 164);
     }
 }
 @media screen and (max-width: 500px) and (min-width: 400px)
@@ -258,6 +620,54 @@
     {
         max-width: 100px;
     }
+    .add__Agenda
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width: 370px;
+        position: relative;
+        margin-bottom: 20px;
+    } 
+    .add__slot-title
+    {
+        width: 200px !important;
+    }  
+    .vertical__line-agenda
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 250px;
+        left: 170px;
+        color: rgb(164, 164, 164);
+        margin-top: 20px;
+    }
+    .delete__FAQ
+    {
+        margin-left: 60px;
+        margin-top: -20px;
+        font-size: 20px;
+    }
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:370px;
+        position: relative;
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 200px;
+        color: rgb(164, 164, 164);
+    }
 }
 @media screen and (max-width: 600px) and (min-width: 500px)
 {
@@ -273,6 +683,71 @@
     {
         max-width: 100px;
     }
+    .add__Agenda
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width: 470px;
+        position: relative;
+        margin-bottom: 20px;
+    } 
+    .add__slot-title
+    {
+        width: 300px !important;
+    }  
+    .vertical__line-agenda
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 250px;
+        left: 270px;
+        color: rgb(164, 164, 164);
+    }
+    .delete__FAQ
+    {
+        margin-left: 50px;
+        margin-top: -20px;
+        font-size: 20px;
+    }
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:470px;
+        position: relative;
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 290px;
+        color: rgb(164, 164, 164);
+    }
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:470px;
+        position: relative;
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 290px;
+        color: rgb(164, 164, 164);
+    }
 }
 @media screen and (max-width: 660px) and (min-width: 600px)
 {
@@ -287,5 +762,102 @@
     .add__section p 
     {
         max-width: 100px;
+    }
+    .add__Agenda
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width: 570px;
+        position: relative;
+        margin-bottom: 20px;
+    } 
+    .add__slot-title
+    {
+        width: 390px !important;
+    }  
+    .vertical__line-agenda
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 250px;
+        left: 370px;
+        color: rgb(164, 164, 164);
+    }
+    .delete__FAQ
+    {
+        margin-left: 50px;
+        margin-top: -20px;
+        font-size: 20px;
+    }
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:570px;
+        position: relative;
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 370px;
+        color: rgb(164, 164, 164);
+    }
+}
+@media screen and (max-width: 719px) and (min-width: 661px)
+{
+    .add__Agenda
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width: 540px;
+        position: relative;
+        margin-bottom: 20px;
+    } 
+    .add__slot-title
+    {
+        width: 390px !important;
+    }  
+    .vertical__line-agenda
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 250px;
+        left: 370px;
+        color: rgb(164, 164, 164);
+    }
+    .delete__FAQ
+    {
+        margin-left: 60px;
+        margin-top: -20px;
+        font-size: 20px;
+    }
+    .add__FAQ
+    {
+        margin: 32px 0px 0px;
+        padding: 25px 32px 32px;
+        border: 2px solid rgb(238, 237, 242);
+        border-radius: 8px;
+        max-width:540px;
+        position: relative;
+    }
+    .vertical__line
+    {
+        transform: rotate(90deg);
+        width: 200px;
+        position: absolute;
+        top: 210px;
+        left: 370px;
+        color: rgb(164, 164, 164);
     }
 }

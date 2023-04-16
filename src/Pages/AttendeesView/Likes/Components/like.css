@@ -174,7 +174,7 @@
         display: flex;
         justify-content: space-between;
         width: 569px;
-        height: 186px;
+        min-height: 220px;
         padding: 12px;
         transition: all 0.3s ease-in-out;
         margin-bottom: 12px;
@@ -192,7 +192,7 @@
         display: flex;
         justify-content: space-between;
         width: 500px;
-        height: 186px;
+        min-height: 250px;
         padding: 12px;
         transition: all 0.3s ease-in-out;
         margin-bottom: 12px;
@@ -204,11 +204,11 @@
     }
     .like__container-left .title
     {
-    font-size: 18px;
-    color: #39364F;
-    font-weight: 600;
-    margin-bottom:10px;
-    max-width: 70%;
+        font-size: 18px;
+        color: #39364F;
+        font-weight: 600;
+        margin-bottom:10px;
+        max-width: 70%;
     }
 }
 @media screen and (max-width: 529px) and (min-width: 480px)
@@ -218,7 +218,7 @@
         display: flex;
         justify-content: space-between;
         width: 450px;
-        min-height: 186px;
+        min-height: 230px;
         padding: 12px;
         transition: all 0.3s ease-in-out;
         margin-bottom: 12px;

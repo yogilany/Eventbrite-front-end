@@ -43,6 +43,7 @@
     .following__container-heading
     {
         margin: 100px 100px 0px !important;
+        margin-bottom: 200px !important;
     }
 }
 @media screen and (max-width: 1150px) and (min-width: 400px)
@@ -50,11 +51,13 @@
     .following__container-heading
     {
         margin: 100px 20px 0px !important;
+        margin-bottom: 200px !important;
     }
 }
 .following__container-heading
 {
     margin: 30px 120px 0px;
+    margin-bottom: 200px;
 }
 .following__container-heading h1
 {

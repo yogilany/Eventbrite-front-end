@@ -14,6 +14,8 @@ import SingleEvent from "../Pages/AttendeesView/SingleEvent/SingleEvent";
 import Login from "../Pages/AttendeesView/Login/Login";
 import Signup from "../Pages/AttendeesView/Signup/Signup";
 import Profile from "../Pages/AttendeesView/Profile/Profile";
+import Dashboard from "../Pages/CreatorsView/Dashboard/Dashboard";
+import EventsByCategory from "../Pages/AttendeesView/EventsByCategory/EventsByCategory";
 
 function AuthenticatedApp() {
   const router = createBrowserRouter([
@@ -47,6 +49,10 @@ function AuthenticatedApp() {
       element: <Publish />,
     },
     {
+      path: "/dashboard",
+      element: <Dashboard />,
+    },
+    {
       path: "/basic-info",
       element: <BasicInfo />,
     },
@@ -55,7 +61,11 @@ function AuthenticatedApp() {
       element: <SearchPage />,
     },
     {
-      path: "/event",
+      path: "/events/:category/:location",
+      element: <EventsByCategory />,
+    },
+    {
+      path: "/event/:id",
       element: <SingleEvent />,
     },
     {

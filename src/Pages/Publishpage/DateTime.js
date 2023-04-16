@@ -1,5 +1,6 @@
 import "./Publish.css"
 import { CiCalendar, CiClock2 } from "react-icons/ci"
+import { useState } from 'react';
 /**
  * @author Ziad Ezzat
  * @param {string} props.data_testid
@@ -7,24 +8,28 @@ import { CiCalendar, CiClock2 } from "react-icons/ci"
  * @returns {JSX.Element of Date and Tome component found in publish page} 
  */
 const DateTime = (props) => {
+    const [val, setval] = useState('now');
+    const readorwrite = event => {
+        setval(event.target.value);
+    };
     return (
-        <div data-testid={props.data_testid}>
-            <h2 className='rdh'>When should we publish your event?</h2>
+        <div data-testid={props.data_testid} style={{paddingBottom:70 }}>
+            <h2 className='rdh'>{props.title}</h2>
             <div style={{ display: 'flex' }}>
-                <input type="radio" name ='nowlater' checked ></input>
-                <p style={{ marginLeft: 20, marginTop: 15, color: '#39364f' }}>Publish Now</p>
+                <input type="radio" value= "now" name ='nowlater' onChange={readorwrite} checked={val === 'now'} style={{ cursor: "pointer" }}  ></input>
+                <p style={{ marginLeft: 20, marginTop: 15, color: '#39364f' }}>{props.c1}</p>
             </div>
             <div style={{ display: 'flex', lineHeight: 0, marginBottom: 10 }}>
-                <input type="radio" name ='nowlater'></input>
-                <p style={{ marginLeft: 20, marginTop: 10, color: '#39364f' }}>Schedule for later</p>
+                <input type="radio" value = "sch"  name ='nowlater' onChange={readorwrite} checked={val === 'sch'} style={{ cursor: "pointer" }}></input>
+                <p style={{ marginLeft: 20, marginTop: 10, color: '#39364f' }}>{props.c2}</p>
             </div>
             <div style={{ display: 'flex' }}>
                 <div style={{ backgroundColor: '#f2f2f5', width: 240, height: 50 }}>
                     <div style={{ display: 'flex' }}>
                         <CiCalendar style={{ height: 50, width: 20, marginLeft: 10 }}></CiCalendar>
-                        <div style={{ display: 'block', lineHeight: 0, marginTop: 15 }}>
-                            <p style={{ fontSize: '.8rem', marginLeft: 12, color: '#aaaaab' }}>Start date</p>
-                            <p style={{ fontSize: '1rem', marginLeft: 12 }}>03/11/2023</p>
+                        <div style={{ display: 'block', lineHeight: 0, marginTop: 15}}>
+                            <p style={{ fontSize: '.8rem', marginLeft: 12, color: '#aaaaab'}}>Start date</p>
+                            <input type='text' defaultValue={"03/11/2023"} className="dd" readOnly= {val==="now"}/>
 
                         </div>
 
@@ -33,15 +38,20 @@ const DateTime = (props) => {
                 <div style={{ marginLeft: 10, backgroundColor: '#f2f2f5', width: 240, height: 50 }}>
                     <div style={{ display: 'flex' }}>
                         <CiClock2 style={{ height: 50, width: 20, marginLeft: 10 }}></CiClock2>
-                        <div style={{ display: 'block', lineHeight: 0, marginTop: 15 }}>
+                        <div style={{ display: 'block',lineHeight:0, marginTop: 15 }}>
                             <p style={{ fontSize: '.8rem', marginLeft: 12, color: '#aaaaab' }}>Start time</p>
-                            <p style={{ fontSize: '1rem', marginLeft: 12 }}>2:00 PM</p>
+                            <input type='text' defaultValue={"2:00PM"} className="dd" readOnly= {val==="now"}/>
                         </div>
                     </div>
                 </div>
             </div>
             <div><p style={{ fontSize: '.875rem', lineHeight: '1.25rem' }}>Time zone is same as your event's</p></div>
-
+            {val==="sch" &&(<div class="ft">
+                <button className="ftbtn">Schedule</button>
+            </div>)}
+            {val==="now" &&(<div class="ft">
+                <button className="ftbtn">Publish</button>
+            </div>)}
         </div>
     )
 }

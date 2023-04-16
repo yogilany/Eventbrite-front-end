@@ -1,0 +1,72 @@
+.dashboard-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 24%;
+  min-height: 124px;
+
+  //   margin: 12px;
+  box-shadow: 0 4px 4px #dbdae3;
+  border-radius: 6px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.card-small-title {
+  font-weight: 600;
+  color: #39364f;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.card-large-title {
+  font-size: 1.875rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.5px;
+  margin-right: -0.5px;
+  font-weight: 700;
+  color: #1e0a3c;
+}
+
+.card-small-subtitle {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #39364f;
+}
+
+.card-large-title .sold {
+  font-size: 1.875rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.5px;
+  font-family: "Neue Plak Bold";
+  color: #1e0a3c;
+}
+
+.card-large-title .total {
+  letter-spacing: 0.25px;
+  margin-right: -0.25px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  color: #1e0a3c;
+}
+
+.sales-table thead {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+}
+
+.sales-table td {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+}
+
+.sales-table .blue-data {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: #3659e3;
+}

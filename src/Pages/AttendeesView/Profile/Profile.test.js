@@ -2,26 +2,26 @@ import Profile from "../Profile/Profile";
 import { render, screen } from "@testing-library/react";
 
 test("Render Order Component", () => {
-    render(<Profile />);
+  render(<Profile />);
 
-    const ordid = screen.getByTestId("Order-Form-id");
-    expect(ordid).toBeInTheDocument();
+  const ordid = screen.getByTestId("Order-Form-id");
+  expect(ordid).toBeInTheDocument();
 });
 test("Render Like Component", () => {
-    render(<Profile />);
+  render(<Profile />);
 
-    const likeid = screen.getByTestId("Like-Form-id");
-    expect(likeid).toBeInTheDocument();
+  const likeid = screen.getByTestId("Like-Form-id");
+  expect(likeid).toBeInTheDocument();
 });
 test("Render Follwing Component", () => {
-    render(<Profile />);
+  render(<Profile />);
 
-    const folid = screen.getByTestId("Follow-Form-id");
-    expect(folid).toBeInTheDocument();
+  const folid = screen.getByTestId("Follow-Form-id");
+  expect(folid).toBeInTheDocument();
 });
 test("Checking number of liked events", () => {
-    render(<Profile />);
+  render(<Profile />);
 
-    const likenum = screen.getAllByTestId("Like-Form-id");
-    expect(likenum).toHaveLength(4);
+  const likenum = screen.getAllByTestId("Like-Form-id");
+  expect(likenum).toHaveLength(4);
 });

@@ -195,7 +195,7 @@
         display: flex;
         justify-content: space-between;
         width: 500px;
-        height: 186px;
+        min-height: 240px;
         padding: 12px;
         transition: all 0.3s ease-in-out;
         margin-bottom: 12px;
