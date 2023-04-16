@@ -18,7 +18,7 @@ const AddFAQ = ({ Title, Logo }) => {
         </div>
         <div className='add__section-faq-right'>
             <a href = "#" style = {{marginRight:'30px' , textDecoration:'none' , color:"rgb(54, 89, 227)"}}>How it works</a>
-            <button className='add__btn-faq' onClick = {() => {setAddEventBtn(!addEventBtn);}}>
+            <button id = "add__btn-faq" className='add__btn-faq' onClick = {() => {setAddEventBtn(!addEventBtn);}}>
                 Add
             </button>
         </div>
