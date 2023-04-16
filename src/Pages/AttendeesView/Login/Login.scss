@@ -1,0 +1,84 @@
+#root {
+  font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+}
+
+#login-left-div {
+  /* margin: 15% 10%;
+    width: 50% */
+}
+
+#login-login-h1 {
+  color: #1e0a3c;
+  font-family: "Neue Plak Black", -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+  font-size: 3.25rem;
+  font-weight: 800;
+}
+
+#circular-icon {
+  background: #1877f2;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formMsg {
+  color: #39364f;
+  line-height: 1rem;
+  margin-top: 0.5rem;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(46, 55, 77, 0.06);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 24px;
+  width: 100%;
+  letter-spacing: normal;
+  font-size: 14px;
+  font-weight: 400;
+
+  min-height: 48px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.formMsg p {
+  margin: 0;
+}
+
+.formMsg div {
+  background-color: #d1410c;
+  width: 4px;
+  height: 100%;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+@media (min-width:30px) {
+
+  .login-title {
+    width: 100px;
+    height: 100px;
+    // min-width: 50%;
+    // min-height: 50%;
+  }
+}
+
+@media screen {
+ 
+  .horizontal-chip{
+    max-width: 100%;
+  }
+  
+}

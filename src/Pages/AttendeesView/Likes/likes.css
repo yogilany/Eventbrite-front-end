@@ -1,0 +1,40 @@
+.likes__container-heading h1
+{
+    font-size: 52px;
+    color: #1E0A3C;
+    margin-bottom: 32px;
+}
+.likes__header
+{
+    font-size: 52px;
+    letter-spacing: 1px;
+    font-weight: 800;
+    color: #1e0a3c;
+}
+@media screen and (max-width: 1200px) and (min-width: 1151px)
+{
+    .likes__container-heading
+    {
+        margin: 100px 100px 0px !important;
+        margin-bottom: 200px !important;
+    }
+}
+@media screen and (max-width: 1150px) and (min-width: 400px)
+{
+    .likes__container-heading
+    {
+        margin: 100px 20px 0px !important;
+        margin-bottom: 200px !important;
+    }
+}
+.likes__container-heading
+{
+    margin: 70px 120px 0px;
+    margin-bottom: 200px;
+}
+.likes__container-heading h1
+{
+    font-size: 52px;
+    color: #1E0A3C;
+    margin-bottom: 32px;
+}

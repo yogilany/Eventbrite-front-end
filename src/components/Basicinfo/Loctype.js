@@ -5,7 +5,7 @@ import './Loctype.scss';
 function Loctype(props) {
     return (
         <div class="wrapper">
-            <input type="radio" name="selectloctype" id="option-1" defaultChecked onClick={props.onchoose} />
+            <input type="radio" name="selectloctype" id="option-1" data-testid='loctypetest' defaultChecked onClick={props.onchoose} />
             <input type="radio" name="selectloctype" id="option-2" onClick={props.onchoose} />
             <input type="radio" name="selectloctype" id="option-3" onClick={props.onchoose} />
             <label for="option-1" class="option option-1">

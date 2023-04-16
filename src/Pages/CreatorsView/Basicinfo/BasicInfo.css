@@ -1,0 +1,401 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,500,600,700&display=swap");
+
+.wholepage {
+  padding-top: 50px;
+}
+
+.basicinfoandimg {
+  position: relative;
+}
+
+.locandimg {
+  position: relative;
+  top: 50px;
+  height: auto;
+}
+
+.dateandimg {
+  position: relative;
+  top: 50px;
+  height: auto;
+}
+
+.basicinfo {
+  width: 50%;
+  height: auto;
+  position: relative;
+  top: 0;
+  left: 25%;
+  display: inline-block;
+}
+
+.title1 {
+  font-size: 30px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 2px;
+  width: 210px;
+  position: relative;
+  display: inline-block;
+}
+
+.disc1 {
+  font-size: 14px;
+  color: #000000;
+  margin-bottom: 2px;
+  width: 80%;
+  position: relative;
+}
+
+.img1 {
+  background-image: url(../../../assets/basicinfo1.png);
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 0px;
+  left: 19%;
+  display: inline-block;
+}
+
+.inputtitle {
+  margin-top: 10px;
+}
+
+.inputtitle label {
+  position: absolute;
+  font-size: 12px;
+  color: grey;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.inputtitle input {
+  padding-left: 2px;
+  padding-top: 15px;
+  border-radius: 0;
+  width: 100%;
+}
+
+.inputtitle input:focus {
+  border-radius: 0;
+}
+
+.smallinfo {
+  margin-top: 5px;
+  font-size: 12px;
+  color: black;
+}
+
+.lol {
+  color: blue;
+}
+
+.selector {
+  border: 1px solid #777;
+  border-radius: 4px;
+  padding: 0 2px;
+  width: auto;
+  background-color: #fff;
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.selector label {
+  font-size: 8px;
+  text-transform: uppercase;
+  color: #777;
+  padding: 0 4px;
+  position: absolute;
+  top: 6px;
+}
+
+select {
+  background-color: #fff;
+  border: 0px;
+  height: 50px;
+  font-size: 16px;
+  width: auto;
+}
+
+.thetags {
+  margin-top: 30px;
+  position: relative;
+}
+
+.tagsdisc {
+  font-size: 14px;
+  color: #000000;
+  margin-bottom: 2px;
+  width: 80%;
+  position: relative;
+}
+
+.inputtag {
+  margin-top: 10px;
+}
+
+.inputtag label {
+  position: absolute;
+  font-size: 12px;
+  color: grey;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.inputtag input {
+  padding-left: 2px;
+  padding-top: 15px;
+  border-radius: 0;
+  width: 75%;
+  margin-right: auto;
+  display: inline-block;
+}
+
+.inputtag input:focus {
+  border-radius: 0;
+}
+
+.addbtn {
+  border: 1px solid rgb(42, 42, 42);
+  color: white;
+  text-align: auto;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+  top: -8px;
+  width: 100px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  transition-duration: 0.4s;
+  border-radius: 5px;
+  margin-left: 5%;
+}
+
+.addbtn:hover {
+  background-color: rgb(210, 210, 210);
+  color: black;
+}
+
+.line {
+  border: 1px solid rgb(210, 210, 210);
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+}
+
+.img2 {
+  background-image: url(../../../assets/loc.png);
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 0px;
+  left: 19%;
+  display: inline-block;
+}
+
+.img3 {
+  background-image: url(../../../assets/date.png);
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 0px;
+  left: 19%;
+  display: inline-block;
+}
+
+.mapouter {
+  position: relative;
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 300px;
+  width: 800px;
+}
+
+.gmap_canvas {
+  overflow: hidden;
+  background: none !important;
+  height: 300px;
+  width: 800px;
+}
+
+.wrapper {
+  display: inline-flex;
+  background: #fff;
+  height: 90px;
+  width: 400px;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  padding: 20px 15px;
+  padding-left: 0px;
+}
+
+.wrapper .option {
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0 10px;
+  border: 2px solid lightgrey;
+  transition: all 0.3s ease;
+}
+
+.wrapper .option .dot {
+  height: 20px;
+  width: 20px;
+  background: #d9d9d9;
+  border-radius: 50%;
+  position: relative;
+}
+
+.wrapper .option .dot::before {
+  position: absolute;
+  content: "";
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  background: #0069d9;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(1.5);
+  transition: all 0.3s ease;
+}
+
+#option-1:checked:checked ~ .option-1,
+#option-2:checked:checked ~ .option-2 {
+  border-color: #0069d9;
+  background: #0069d9;
+}
+
+#option-1:checked:checked ~ .option-1 .dot,
+#option-2:checked:checked ~ .option-2 .dot {
+  background: #fff;
+}
+
+#option-1:checked:checked ~ .option-1 .dot::before,
+#option-2:checked:checked ~ .option-2 .dot::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.wrapper .option span {
+  font-size: 15px;
+  color: #808080;
+}
+
+#option-1:checked:checked ~ .option-1 span,
+#option-2:checked:checked ~ .option-2 span {
+  color: #fff;
+}
+
+.datepicker {
+  margin-top: 10px;
+  display: inline-block;
+  margin-right: 10%;
+}
+
+.datepicker label {
+  position: absolute;
+  font-size: 12px;
+  color: grey;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.datepicker input {
+  padding-left: 2px;
+  padding-top: 15px;
+  border-radius: 0;
+  width: 200px;
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.datepicker input:focus {
+  border-radius: 0;
+}
+
+.label-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.label-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.label-container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.label-container input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.label-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.label-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.checkbtns {
+  margin-top: 20px;
+}

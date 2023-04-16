@@ -5,7 +5,7 @@ function Tag(props) {
     return (
         <div class="tagging-form-field__tag-container">
             <div class="eds-tag eds-tag--default eds-tag--closeable eds-tag--closeable--default">
-                <span class="eds-tag__text eds-tag__item eds-text-bs eds-text-weight--heavy eds-tag__text--small-padding">{props.text}</span>
+                <span class="eds-tag__text eds-tag__item eds-text-bs eds-text-weight--heavy eds-tag__text--small-padding" data-testid='tagtest'>{props.text}</span>
                 <div class="eds-tag__close-button eds-tag__item">
                     <button aria-label="Close tag button" class="eds-btn--button eds-btn--none eds-btn--icon-only" type="button" onClick={props.onPress}>
                         <i class="eds-vector-image eds-icon--small eds-vector-image--grey-700" data-spec="icon" data-testid="icon" aria-hidden="true">

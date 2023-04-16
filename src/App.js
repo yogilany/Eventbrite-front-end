@@ -1,22 +1,27 @@
 import "./App.css";
 import { Layout } from "./app/layout";
-import { Col, Row, Container } from "react-bootstrap";
-import { Header } from "./components/HomePage/Header";
-import { Events } from "./components/HomePage/Events";
-import Likes from './Pages/Likes/Likes'
-import Following from './Pages/Following/Following'
-import Organizer from "./Pages/Organizer/Organizer";
-import Basicinfo from "./Pages/Basicinfo/Basicinfo";
+import AuthenticatedApp from "./app/AuthenticatedApp";
+import UnauthenticatedApp from "./app/UnauthenticatedApp";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectUserState } from "./features/authSlice";
 function App() {
+  const user = useSelector(selectUserState);
+  console.log("USER = ", user);
+
   return (
-    <Layout>
-      {/* <Header />
-      <Events /> */}
-      {/* <Likes /> */}
-      {/* <Following /> */}
-      {/* <Organizer /> */}
-      {<Basicinfo />}
-    </Layout>
+    <>
+      {user ? (
+        <Layout>
+          <AuthenticatedApp />
+        </Layout>
+      ) : (
+        <Layout>
+          <UnauthenticatedApp />
+        </Layout>
+
+      )}
+    </>
   );
 }
 
