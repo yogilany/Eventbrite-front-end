@@ -83,6 +83,7 @@ export const Login = (props) => {
       dispatch(authUser(data))
         .unwrap()
         .then(() => {
+          alert('asdasd')
           console.log('SUCCESS::LOG IN')
           navigate("/")
           setSuccess(true);
