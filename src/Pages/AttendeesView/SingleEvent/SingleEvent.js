@@ -29,7 +29,7 @@ const SingleEvent = (props) => {
 
   const fetchEvent = () => {
     axios
-      .get(`http://localhost:8001/events/id/${id}`)
+      .get(`http://localhost:8000/events/id/${id}`)
       .then(function (response) {
         console.log(response);
 

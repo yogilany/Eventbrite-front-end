@@ -34,7 +34,7 @@ const CategoriesCards = ({ location }) => {
 
   const fetchCategories = () => {
     axios
-      .get("http://localhost:8001/categories")
+      .get("http://localhost:8000/categories")
       .then(function (response) {
         console.log(response);
         setCategories(response.data);

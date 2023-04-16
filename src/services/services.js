@@ -4,7 +4,7 @@ export const getUsers = async () => {
   var usersData = [];
 
   await axios
-    .get("http://localhost:8000/users")
+    .get("http://localhost:8001/users")
     // .then((response) => response.json())
     .then((response) => {
       // console.log("response: ", response);
@@ -20,7 +20,7 @@ export const getUsers = async () => {
 export const addUser = async ({ name, username, email, password }) => {
   // console.log("IN SERVICE ", email, password, username, name);
   await axios
-    .post("http://localhost:8000/users", {
+    .post("http://localhost:8001/users", {
       name: name,
       username: username,
       email: email,
@@ -40,7 +40,7 @@ export const getEvents = async ({ category }) => {
   var eventsData = [];
 
   await axios
-    .get("http://localhost:8000/events")
+    .get("http://localhost:8001/events")
     // .then((response) => response.json())
     .then((response) => {
       eventsData = response.data;

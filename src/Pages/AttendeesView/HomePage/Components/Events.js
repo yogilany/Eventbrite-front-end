@@ -30,7 +30,7 @@ const Events = () => {
 
   function fetchEvents() {
     axios
-      .get("http://localhost:8001/categories")
+      .get("http://localhost:8000/categories")
       .then(function (response) {
         console.log(response);
       })

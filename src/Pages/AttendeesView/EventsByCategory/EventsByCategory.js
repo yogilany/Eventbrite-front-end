@@ -20,7 +20,7 @@ const EventsByCategory = () => {
 
   const fetchSubCategories = () => {
     axios
-      .get(`http://localhost:8001/categories/${category}/sub_categories`)
+      .get(`http://localhost:8000/categories/${category}/sub_categories`)
       .then(function (response) {
         console.log(response.data);
         setSubcategories(response.data);
@@ -32,7 +32,7 @@ const EventsByCategory = () => {
 
   const fetchEvents = () => {
     axios
-      .get(`http://localhost:8001/events/category/${category}`)
+      .get(`http://localhost:8000/events/category/${category}`)
       .then(function (response) {
         console.log(response);
 
