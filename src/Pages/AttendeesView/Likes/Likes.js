@@ -7,7 +7,7 @@ import Like3 from "../../../assets/like3.jpeg";
 import Footer from "../../../components/footer/Footer";
 import Header from "../../../components/header/Header";
 import { useSelector } from "react-redux";
-import { selectUserState } from "../../../features";
+// import { selectUserState } from "../../../features";
 
 /**
  * @author Mahmoud Khalid
@@ -17,7 +17,7 @@ import { selectUserState } from "../../../features";
  */
 
 const Likes = () => {
-  const user = useSelector(selectUserState);
+  // const user = useSelector(selectUserState);
   // console.log("USER = ", user);
   return (
     <div className="likes__container">

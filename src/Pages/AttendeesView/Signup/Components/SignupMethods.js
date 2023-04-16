@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import * as FcIcons from 'react-icons/fc';
 import * as TiIcons from 'react-icons/ti';
 import '../Signup.scss';
+import ButtonWhiteStyled from '../../../../components/Buttons/WhiteButton';
 /**
  * 
  * @param {name: Name of this element after creation} props 
@@ -13,7 +14,7 @@ export const SignupMethods = (props) => {
     return (
         <Container name={props.name} className='m-0 p-0' style={{ minWidth: "200px" }} >
             <ButtonGroup vertical style={{ width: "100%" }}>
-                <Button variant="secondary"> <FcIcons.FcGoogle size="1.5em" />{" Sign in with Google"}</Button>
+                <ButtonWhiteStyled style={{ margin: "0" }} variant="secondary"> <FcIcons.FcGoogle size="1.5em" />{" Sign in with Google"}</ButtonWhiteStyled>
             </ButtonGroup>
             <div style={{ margin: "1.5rem 0" }}>Other sign up methods</div>
             <Container style={{ margin: "1rem 0" }}>

@@ -9,3 +9,19 @@
 .a_link:hover {
     text-decoration: underline;
 }
+
+.floating-label {
+    font-size: 0.8rem;
+    line-height: 1rem;
+}
+
+.floating-label:focus {
+    font-size: 0.8rem;
+    line-height: 1rem;
+
+}
+
+.form-control::placeholder {
+    color: #3659e3;
+}
+

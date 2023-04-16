@@ -1,7 +1,9 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { Navigate } from "react-router";
+import TextInputStyled from "../../../../components/TextInput/TextInput";
+import ButtonOrangeStyled from "../../../../components/Buttons/OrangeButton";
 /**
  *
  * @param {name: Name of this element after creation} props
@@ -9,16 +11,16 @@ import { Navigate } from "react-router";
  */
 export const LoginForm = (props) => {
   return (
-    <Container
-      fluid
-      className="m-0 p-0"
-      style={{ minWidth: "200px" }}
-      data-testid={props.data_testid}
-      name={props.name}
-    >
-      <Form onSubmit={props.submitAction}>
-        <Form.Group className="mb-3" controlId="formLoginEmail">
-          <Form.Control
+    <Form onSubmit={props.submitAction}>
+      <Container
+        fluid
+        className="m-0"
+        style={{ minWidth: "200px" }}
+        data-testid={props.data_testid}
+        name={props.name}
+      >
+        <Row className="mb-3">
+          <TextInputStyled
             ref={props.user_ref}
             autoComplete="off"
             onChange={(e) => props.set_User(e.target.value)}
@@ -27,9 +29,9 @@ export const LoginForm = (props) => {
             type="email"
             placeholder="Email address"
           />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formLoginPassword">
-          <Form.Control
+        </Row>
+        <Row className="mb-3">
+          <TextInputStyled
             autoComplete="off"
             onChange={(e) => props.set_Pwd(e.target.value)}
             value={props.Pwd}
@@ -37,15 +39,17 @@ export const LoginForm = (props) => {
             type="password"
             placeholder="Password"
           />
-        </Form.Group>
-        <Button
-          as="input"
-          type="submit"
-          value="Log in"
-          variant="flat btn-flat"
-        />{" "}
-      </Form>
-    </Container>
+        </Row>
+        <Row className="mb-3">
+          <ButtonOrangeStyled
+            as="input"
+            type="submit"
+            value="Log in"
+            variant="flat btn-flat"
+          />{" "}
+        </Row>
+      </Container >
+    </Form>
   );
 };
 

@@ -1,60 +1,35 @@
 import { Box, IconButton, LinearProgress } from "@mui/material";
-import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { Button, Form, InputGroup, Stack, Col } from "react-bootstrap";
+import { Form, InputGroup, Col, Container, Row, FloatingLabel } from "react-bootstrap";
 import * as TiIcons from "react-icons/ti";
 import zxcvbn from "zxcvbn";
 import HorizontalChip from '../../Login/Components/HorizontalChip'
 import SignupMethods from "./SignupMethods";
-import { addUser } from "../../../../services/services";
+import { registerUser, selectCurrentUser } from "../../../../features/authSlice";
 import { useNavigate } from "react-router";
 import SignupFormCSS from './SignupForm.module.css'
 import '../Signup.scss';
 import './SignupMethods';
 import * as Yup from 'yup';
-
-// const ShowInfo = () => {
-
-//     // Grab values and submitForm from context
-
-//     const { values, submitForm } = useFormikContext();
-
-//     useEffect(() => {
-
-//         // Submit the form imperatively as an effect as soon as form values.token are 6 digits long
-
-//         if (values.email.length > 0) {
-//             values.showSignupInfo2 = true
-//         } else {
-//             values.showSignupInfo2 = false
-
-//         }
-
-//     }, [values, submitForm]);
-
-//     return null;
-
-// };
+import { useDispatch } from "react-redux";
+import { useForm } from 'react-hook-form'
+import TextInputStyled from '../../../../components/TextInput/TextInput'
+import ButtonOrangeStyled from "../../../../components/Buttons/OrangeButton";
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
-
+    .required('First name is required')
     .min(2, "Too Short!")
-
     .max(50, "Too Long!")
-
-    .required("Required"),
-
+  ,
   lastName: Yup.string()
-
+    .required("Last name is required")
     .min(2, "Too Short!")
-
     .max(50, "Too Long!")
-
-    .required("Required"),
-
+  ,
   email: Yup.string().notRequired(),
   emailConfirm: Yup.string()
     .oneOf(
@@ -62,6 +37,8 @@ const SignupSchema = Yup.object().shape({
       "Email address doesn't match. Please try again"
     )
     .required("Required"),
+  password: Yup.string()
+    .required('Field is required')
 });
 /**
  * Regex for verifying emails.
@@ -116,6 +93,9 @@ function LinearProgressWithLabel(props) {
     labelString: "Your password must be at least 8 characters",
   });
   useEffect(() => {
+
+    if (!props?.password)
+      return
     const result = getPasswordState(props.password);
     setProgressBar((state) => ({
       ...state,
@@ -126,7 +106,7 @@ function LinearProgressWithLabel(props) {
     }));
   }, [props.password]);
   return (
-    <Box sx={{ alignItems: "center" }}>
+    <Box sx={{ alignItems: "center", padding: 0 }}>
       <Box sx={{ width: "100%", mr: 1 }}>
         <LinearProgress
           variant="determinate"
@@ -160,180 +140,239 @@ LinearProgressWithLabel.propTypes = {
  * @param {*} props
  * @returns {*}
  */
+
 export const SignupForm = (props) => {
   const [showSignUpInfo, setShowSignUpInfo] = useState(false);
-  const [password, setPassword] = useState("");
+  const [successful, setSuccess] = useState(false)
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    watch,
+    clearErrors,
+    setFocus, setError,
+    formState: { errors }
+  } = useForm({
+    mode: "onTouched",
+    reValidateMode: "onChange",
+    resolver: yupResolver(SignupSchema)
+  });
+  const watchPassword = watch("password");
 
+  const onSubmit = (values) => {
+    if (!showSignUpInfo) {
+      setShowSignUpInfo(true)
+      return
+    }
+    console.log("Values:::", values);
+    console.log("Values:::", JSON.stringify(values));
+
+    const data = {
+      firstname: getValues('firstName'),
+      lastname: getValues('lastName'),
+      email: getValues('email'),
+      password: getValues('password'),
+      is_verified: false,
+    }
+    dispatch(registerUser(data))
+      .unwrap()
+      .then(() => {
+        navigate("/login")
+        setSuccess(true);
+        // window.location.reload();
+      })
+      .catch(() => {
+        console.log('Error')
+        setSuccess(false);
+        setError('email');
+        setFocus('email')
+      });
+
+  };
+
+  const onError = (error) => {
+    console.log("ERROR:::", error);
+    if (!showSignUpInfo) {
+      setShowSignUpInfo(true)
+      clearErrors();
+      setFocus('confirmEmail')
+      return
+    }
+  };
+  useEffect(() => {
+    // redirect user to login page if registration was successful
+    // if (selectCurrentUser) navigate('/login')
+
+  }, [dispatch])
   return (
-    <Formik
-      initialValues={{
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        emailConfirm: '',
-        showSignupInfo2: false
-      }}
-      onSubmit={(values, actions) => {
-
-        if (values.email && values.email.length && values.email.match(isValidEmail)) {
-          setShowSignUpInfo(state => state = true)
-          console.log("good email")
-        } else {
-          setShowSignUpInfo(state => state = false)
-          console.log("bad email")
-        }
-        console.log("pressed on submit")
-        addUser(
-          {
-            name: values.firstName,
-            email: values.email,
-            password: values.password,
-            username: values.lastName
-          }
-        )
-      }}
-      validationSchema={SignupSchema}
-      validateOnChange={false}
-      validateOnMount={false}
+    <Form data-testid={props.data_testid} onSubmit={handleSubmit(onSubmit, onError)}
     >
-      {(props, setFieldValue) => (
-        <>
-          {/* <ShowInfo /> */}
-
-          <Form data-testid={props.data_testid} onSubmit={props.handleSubmit}>
-            <InputGroup >
-              <Form.Group as={Col}
-                className="mb-3"
-                controlId="formLoginEmail"
-              >
-                <Form.Control
-                  disabled={props.values.showSignupInfo2}
-                  type="email"
-                  placeholder="Email address"
-                  value={props.values.email}
-                  {...props.getFieldProps("email")}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Email address invalid.
-                </Form.Control.Feedback>
+      <Container>
+        <Col className="g-0">
+          <Row className="mb-2">
+            <InputGroup className="p-0">
+              <Form.Group style={{ width: "100%" }}>
+                <FloatingLabel label="Email address">
+                  <TextInputStyled
+                    disabled={showSignUpInfo}
+                    type="email"
+                    data-testid="email-input"
+                    {...register("email", { required: "Field required" })} />
+                </FloatingLabel>
+                {errors.email && (
+                  <Form.Text className="text-danger">
+                    {errors.email.message}
+                  </Form.Text>
+                )}
               </Form.Group>
               <IconButton
                 style={{
-                  display: props.values.showSignupInfo2 ? "inherit" : "none",
+                  display: showSignUpInfo ? "inherit" : "none",
                   position: "absolute",
                   right: "1rem",
                   top: "0.3rem",
                   backgroundColor: "transparent",
                 }}
+                data-testid="changeemail-input"
                 onClick={() => {
-                  props.setFieldValue("showSignupInfo2", false);
+                  setShowSignUpInfo(false);
                 }}
                 type="reset"
               >
                 <TiIcons.TiPencil />
               </IconButton>
             </InputGroup>
+          </Row>
 
-            <div
-              style={{
-                display: props.values.showSignupInfo2 ? "block" : "none",
-              }}
-            >
-              <Form.Group>
-                <Form.Control
+          <Row className="mb-2"
+            style={{
+              display: showSignUpInfo ? "block" : "none",
+            }}
+          >
+            <Form.Group className="p-0">
+              <FloatingLabel label="Confirm Email">
+                <TextInputStyled
                   type="email"
-                  placeholder="Confirm Email"
+                  data-testid="emailconfirm-input"
                   id="emailConfirm"
-                  {...props.getFieldProps("emailConfirm")}
-                  isInvalid={
-                    props.touched.emailConfirm && props.errors.emailConfirm
-                  }
-                  isValid={
-                    !props.touched.emailConfirm && !props.errors.emailConfirm
-                  }
-                  onBlur={props.handleBlur}
+                  {...register("emailConfirm", { required: "Required" })}
+                  isInvalid={errors?.emailConfirm}
                 />
-                <Form.Control.Feedback type="invalid">
-                  Email address doesn't match. Please try again
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Stack direction="horizontal" gap={3} className=" mt-3 ">
-                <Form.Group className="pb-4">
-                  <Form.Control
-                    type="text"
-                    placeholder="First Name"
-                    id="firstName"
-                    {...props.getFieldProps("firstName")}
-                    isValid={
-                      !props.touched.firstName && !props.errors.firstName
-                    }
-                    isInvalid={
-                      props.touched.firstName && props.errors.firstName
-                    }
-                    onBlur={props.handleBlur}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {props.errors.firstName}
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group className="pb-4">
-                  <Form.Control
-                    type="text"
-                    placeholder="Last Name"
-                    id="lastName"
-                    name="lastName"
-                    {...props.getFieldProps("lastName")}
-                    isValid={!props.touched.lastName && !props.errors.lastName}
-                    isInvalid={props.touched.lastName && props.errors.lastName}
-                    onBlur={props.handleBlur}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {props.errors.lastName}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Stack>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  {...props.getFieldProps("password")}
+              </FloatingLabel>
+              {errors.emailConfirm && (
+                <Form.Text className="text-danger">
+                  {errors.emailConfirm.message}
+                </Form.Text>
+              )}
+            </Form.Group>
+          </Row>
+
+          <Row className="mb-2" style={{
+            display: showSignUpInfo ? "block" : "none",
+          }}>
+            <Container className="p-0">
+              <Row>
+
+                <Col >
+                  <FloatingLabel
+                    className={SignupFormCSS['floating-label']}
+                    label="First name">
+                    <TextInputStyled
+                      style={{
+                        minWidth: "100%",
+                        width: "35%"
+                      }}
+                      data-testid="firstname-input"
+                      type="text"
+                      id="firstName"
+                      isInvalid={errors?.firstName}
+                      {...register("firstName", { required: "First name is required" })}
+                    />
+                  </FloatingLabel>
+
+                  {errors.firstName && (
+                    <Form.Text className="text-danger">
+                      {errors.firstName.message}
+                    </Form.Text>
+                  )}
+                </Col>
+
+                <Col>
+                  <FloatingLabel
+                    className={SignupFormCSS['floating-label']}
+                    label="Last name">
+                    <TextInputStyled
+                      style={{
+                        minWidth: "100%",
+                        width: "35%"
+                      }}
+                      data-testid="lastname-input"
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      isInvalid={errors?.lastName}
+                      {...register("lastName", { required: "Last name is required" })}
+                    />
+                  </FloatingLabel>
+                  {errors.lastName && (
+                    <Form.Text className="text-danger">
+                      {errors.lastName.message}
+                    </Form.Text>
+                  )}
+                </Col>
+              </Row>
+
+            </Container>
+
+          </Row>
+
+          <Row className="mb-2" style={{
+            display: showSignUpInfo ? "block" : "none",
+          }}>
+            <Form.Group className="mb-3 p-0">
+              <FloatingLabel label="Password">
+                <TextInputStyled
                   type="password"
-                  placeholder="Password"
+                  data-testid="password-input"
                   id="password"
                   name="password"
+                  isInvalid={errors?.password}
+                  {...register("password", { required: "Field required" })}
                 />
-              </Form.Group>
-              <LinearProgressWithLabel
-                value={0}
-                password={props.values.password}
-              />
-            </div>
-            {props.values.showSignupInfo2 ?
-              <>
-                <Button as="input" className='mt-5 mb-2' type="submit" value={showSignUpInfo ? "Create account" : "Continue"} variant="flat btn-flat" />
-              </>
-              :
-              <>
-                <Button as="input" className='mt-5 mb-2'
-                  onClick={() => {
-                    if (props.values.email.match(isValidEmail)) {
-                      props.setFieldValue('showSignupInfo2', true)
-                      props.setErrors({});
-                      props.setTouched({});
-                    }
-                  }}
-                  type="button" value="Continue" variant="flat btn-flat" />
-                <HorizontalChip />
-              </>
+                {errors.password && (
+                  <Form.Text className="text-danger">
+                    {errors.password.message}
+                  </Form.Text>
+                )}
+              </FloatingLabel>
+            </Form.Group>
+            <LinearProgressWithLabel
+              value={0}
+              password={watchPassword}
+            />
+          </Row>
+          <Row>
+            <ButtonOrangeStyled data-testid="submit-input"
+              as="input" className='mt-4 mb-4' type="submit" value={showSignUpInfo ? "Create account" : "Continue"} variant="flat btn-flat" />
+          </Row>
+          <Row>
+            {showSignUpInfo ? null : <>
+              <HorizontalChip />
+              <SignupMethods />
+            </>
             }
-            {props.values.showSignupInfo2 ? null : <SignupMethods />}
+          </Row>
+          <Row>
+            <Link to={"/login"} className={SignupFormCSS.a_link} >Login</Link>
+          </Row>
+        </Col >
 
-          </Form>
-          <Link to={"/login"} className={SignupFormCSS.a_link} >Login</Link>
+      </Container >
+    </Form >
 
-        </>
-      )}
-    </Formik>
+
   );
 };
 export default SignupForm;
