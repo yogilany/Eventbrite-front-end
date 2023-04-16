@@ -80,12 +80,13 @@ export const Login = (props) => {
       dispatch(authUser(data))
         .unwrap()
         .then(() => {
-          navigate("/login");
+          console.log("SUCCESS::LOG IN");
+          navigate("/");
           setSuccess(true);
-          // window.location.reload();
+          window.location.reload();
         })
         .catch(() => {
-          console.log("Error");
+          console.log("ERROR::LOG IN");
           setSuccess(false);
         });
       //   const userExists = users.filter((u) => u.email === user);

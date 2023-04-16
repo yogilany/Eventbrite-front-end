@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import Footer from "../../../components/footer/Footer";
 import { useState, useEffect } from "react";
 
+import { selectCurrentUser } from "../../../features/authSlice";
 /**
  * @author Yousef Gilany
  * @description This is the Main page of the application that contains the Hero , Categories , Events and More Events Sections.
@@ -39,6 +40,7 @@ export const HomePage = () => {
       window.removeEventListener("resize", updateDimension);
     };
   }, [screenSize]);
+  console.log(selectCurrentUser);
   return (
     <>
       <Header screenSize={screenSize} />

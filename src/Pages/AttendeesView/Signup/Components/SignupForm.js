@@ -2,7 +2,7 @@ import { Box, IconButton, LinearProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { Form, InputGroup, Col, Container, Row, FloatingLabel, Stack } from "react-bootstrap";
+import { Form, InputGroup, Col, Container, Row, FloatingLabel, Stack, Modal } from "react-bootstrap";
 import * as TiIcons from "react-icons/ti";
 import zxcvbn from "zxcvbn";
 import HorizontalChip from '../../Login/Components/HorizontalChip'
@@ -18,6 +18,8 @@ import { useForm } from 'react-hook-form'
 import TextInputStyled from '../../../../components/TextInput/TextInput'
 import ButtonOrangeStyled from "../../../../components/Buttons/OrangeButton";
 import { yupResolver } from '@hookform/resolvers/yup';
+import SignupVerifyModal from "./SignupVerifyModal";
+
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -59,6 +61,8 @@ const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
  * @param {*} password
  * @returns {{}}
  */
+
+
 function getPasswordState(password) {
   const result = zxcvbn(password).score;
   switch (result) {
@@ -144,6 +148,8 @@ LinearProgressWithLabel.propTypes = {
 export const SignupForm = (props) => {
   const [showSignUpInfo, setShowSignUpInfo] = useState(false);
   const [successful, setSuccess] = useState(false)
+  const [privacyPolicyModalShow, setPrivacyPolicyModalShow] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -193,8 +199,9 @@ export const SignupForm = (props) => {
   };
 
   const onError = (error) => {
+    setPrivacyPolicyModalShow(true)
     console.log("ERROR:::", error);
-    if (!showSignUpInfo) {
+    if (getValues('firstName').match(isValidEmail) && !showSignUpInfo) {
       setShowSignUpInfo(true)
       clearErrors();
       setFocus('confirmEmail')
@@ -206,7 +213,11 @@ export const SignupForm = (props) => {
     // if (selectCurrentUser) navigate('/login')
 
   }, [dispatch])
-  return (
+  return (<>
+    <SignupVerifyModal
+      show={privacyPolicyModalShow}
+      onHide={() => setPrivacyPolicyModalShow(false)}
+    />
     <Form data-testid={props.data_testid} onSubmit={handleSubmit(onSubmit, onError)}
     >
       <Container>
@@ -355,9 +366,9 @@ export const SignupForm = (props) => {
             <Link to={"/login"} className={SignupFormCSS.a_link} >Login</Link>
           </Row>
         </Col >
-
       </Container >
     </Form >
+  </>
 
 
   );
