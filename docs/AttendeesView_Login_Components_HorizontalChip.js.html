@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: AttendeesView/Login/Components/HorizontalChip.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: AttendeesView/Login/Components/HorizontalChip.js</h1>
 
     
 
@@ -26,28 +26,26 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
-
+            <pre class="prettyprint source linenums"><code>import { Chip } from '@mui/material'
+import React from 'react'
+import { Stack } from 'react-bootstrap'
+import './HorizontalChip.css'
 /**
+ * Horizontal chip with the word 'or' in a pill and 2 lines on both sides of the pill
+ * @date 3/29/2023 - 2:52:24 AM
+ * @author h4z3m
  *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ * @param {*} props
+ * @returns {*}
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
-
-  return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
-  );
-};
-
-export default LoginTitle;
+export const HorizontalChip = (props) => {
+    return (
+        &lt;Stack name={props.name} direction="horizontal" className="horizontal-chip d-flex justify-content-center mt-4 mb-4" style={{ display: "flex" }} data-testid={props.data_testid}>
+            &lt;hr style={{ width: "50%", color: "#a9a8b3", borderTop: "2px solid" }} />
+            &lt;Chip label="&amp;nbsp;&amp;nbsp;or&amp;nbsp;&amp;nbsp;" size="small" variant="outlined" />
+            &lt;hr style={{ width: "50%", color: "#a9a8b3", borderTop: "2px solid" }} />
+        &lt;/Stack>)
+}
 </code></pre>
         </article>
     </section>

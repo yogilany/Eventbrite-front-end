@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: AttendeesView/BrowseEvents/AllEvents.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: AttendeesView/BrowseEvents/AllEvents.js</h1>
 
     
 
@@ -26,28 +26,55 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { Container, Col, Row } from "react-bootstrap";
+import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 /**
  *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ * @param {*} param0
+ * @returns
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
+const AllEvents = ({ toggle }) => {
+  const navigate = useNavigate();
 
   return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
+    &lt;Container fluid className="search-page p-5">
+      &lt;Row className="p-5">
+        &lt;Col className="p-5">
+          &lt;h1
+            style={{
+              fontSize: "90px",
+              fontWeight: "800",
+              color: "#39364f",
+              fontFamily: "Neue Plak Black",
+            }}
+          >
+            Browse Events Page
+          &lt;/h1>
+          &lt;h1
+            style={{
+              fontSize: "60px",
+              fontWeight: "500",
+              color: "#39364f",
+              fontFamily: "Neue Plak",
+            }}
+          >
+            Under Construction
+          &lt;/h1>
+          {/* &lt;Link to="/"> */}
+          &lt;button className="primaryBtn" onClick={() => navigate(-1)}>
+            Back
+          &lt;/button>
+          {/* &lt;/Link> */}
+        &lt;/Col>
+      &lt;/Row>
+    &lt;/Container>
   );
 };
 
-export default LoginTitle;
+export default AllEvents;
 </code></pre>
         </article>
     </section>

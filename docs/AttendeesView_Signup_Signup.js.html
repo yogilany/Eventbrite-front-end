@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: AttendeesView/Signup/Signup.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: AttendeesView/Signup/Signup.js</h1>
 
     
 
@@ -26,28 +26,60 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
+            <pre class="prettyprint source linenums"><code>import { Col, Container, Row, Stack } from "react-bootstrap/";
+import test_image from "../../../assets/side_image.jpg";
+import AboutFooter from "../../../components/AboutFooter/AboutFooter";
+import Footer from "../../../components/footer/Footer";
+import LoginImage from "../Login/Components/LoginImage";
+import LoginTitle from "../Login/Components/Title";
+import SignupForm from "./Components/SignupForm";
+import './Signup.scss';
 
 /**
+ * This is the sign up page where an attendee user can create a new account.
+ * After successful sign up, the user shall be re-directed to the login page to
+ * login with their new credentials.
+ * @date 3/29/2023 - 2:46:54 AM
+ * @author h4z3m
  *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ * @param {*} props
+ * @returns {JSX.Element}
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
-
+export const Signup = (props) => {
   return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
+    &lt;Container fluid style={{ height: "50px" }}>
+      &lt;Row>
+        &lt;Col md={6} style={{ padding: "100px 200px 200px 200px" }}>
+          &lt;div style={{ maxWidth: "85%" }}>
+            &lt;Stack dir="vertical" gap={4}>
+              &lt;LoginTitle />
+              &lt;h1 data-testid="signup-header" id="signup-signup-h1" className="mb-4" >
+                Create an account
+              &lt;/h1>
+            &lt;/Stack>
+            &lt;SignupForm data_testid="signup-form" name="signup-form-div" />
+          &lt;/div>
+        &lt;/Col>
+        &lt;Col md={6} className="g-0">
+          &lt;LoginImage data_testid="signup-image"
+            img_url={test_image}
+            img_caption="Winston Baker"
+            img_credit="Confluence Summit"
+            img_location="San Francisco, CA"
+          />
+        &lt;/Col>
+      &lt;/Row>
+      &lt;Row>
+        &lt;AboutFooter />
+      &lt;/Row>
+      &lt;Row>
+        &lt;Footer data_testid="login-footer" />
+      &lt;/Row>
+    &lt;/Container>
   );
 };
 
-export default LoginTitle;
+export default Signup;
 </code></pre>
         </article>
     </section>

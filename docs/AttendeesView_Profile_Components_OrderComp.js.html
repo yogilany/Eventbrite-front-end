@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: AttendeesView/Profile/Components/OrderComp.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: AttendeesView/Profile/Components/OrderComp.js</h1>
 
     
 
@@ -26,28 +26,37 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
-
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./OrderComp.css";
+import eventphoto from "../../../../assets/randomeventphoto.png";
 /**
- *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ * @author Ziad Ezzat
+ * @param {string} props.data_testid
+ * @description This container shows the order component used in profile page showing The ordered event with some information of this event like date and location.
+ * @returns {JSX.Element of order component found in profile page}
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
-
+const OrderComp = (props) => {
   return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
+    &lt;div className="MainComp_prof" data-testid={props.data_testid}>
+      &lt;div className="Datee_prof">
+        &lt;p style={{ color: "red" }}>Mar&lt;/p>
+        &lt;p style={{ color: "grey" }}>30&lt;/p>
+      &lt;/div>
+      &lt;img src={eventphoto} className="Full_Container_img_prof" />
+      &lt;div className="eventdata_prof">
+        &lt;h3 style={{ paddingBottom: 0 }}>
+          Demo Day: Present Your Project to get your dream job - GoMyCode Egypt
+        &lt;/h3>
+        &lt;div className="detaileddate_prof">Thu,Mar 30,8:00pm EET &lt;/div>
+        &lt;div className="detaileddated_prof">
+          Free order #6209763949 placed on Fri,Mar 24,2:46 PM
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
   );
 };
 
-export default LoginTitle;
+export default OrderComp;
 </code></pre>
         </article>
     </section>

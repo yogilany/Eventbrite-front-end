@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: AttendeesView/HomePage/HomePage.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: AttendeesView/HomePage/HomePage.js</h1>
 
     
 
@@ -26,28 +26,43 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
+            <pre class="prettyprint source linenums"><code>import { Row, Col, Container } from "react-bootstrap";
+import Hr from "../../../components/Elements/Hr";
+import { Categories } from "./Components/Categories";
+import Events from "./Components/Events";
+import Hero from "./Components/Hero";
+import Header from "../../../components/header/Header";
+import "./HomePage.scss";
+import { motion } from "framer-motion";
+import Footer from "../../../components/footer/Footer";
 
 /**
- *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ * @author Yousef Gilany
+ * @description This is the Main page of the application that contains the Hero , Categories , Events and More Events Sections.
+ * It is the first page that the user sees when he enters the application.
+ * @returns {JSX.Element}
+ * @todo make the page more responsive .
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
 
+export const HomePage = () => {
+  console.log("USERR", window.User);
   return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
+    &lt;>
+      &lt;Header />
+      &lt;Container fluid id="homePageContainer">
+        &lt;Row>
+          &lt;Col className="p-0">
+            &lt;Hero />
+            {/* &lt;Categories /> */}
+            &lt;Events />
+            {/* &lt;MoreEvents /> */}
+          &lt;/Col>
+        &lt;/Row>
+      &lt;/Container>
+      &lt;Footer />
+    &lt;/>
   );
 };
-
-export default LoginTitle;
 </code></pre>
         </article>
     </section>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: Publishpage/Tipsbox.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: Publishpage/Tipsbox.js</h1>
 
     
 
@@ -26,28 +26,47 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
-
+            <pre class="prettyprint source linenums"><code>import "./Publish.css"
+import bulb from '../../assets/bulb.png'
+import { AiOutlineRight } from 'react-icons/ai'
 /**
- *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ * @author Ziad Ezzat
+ * @param {string} props.data_testid
+ * @description This container shows the Tipsbox container component used in publish page showing some tips you can use like making promocodes for your ev ent.
+ * @returns {JSX.Element of Tipsbox component found in publish page} 
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
+const Tipsbox = (props) => {
+    return (
+        &lt;div data-testid={props.data_testid}>
+            &lt;div style={{ display: 'flex' }}>
+                &lt;img src={bulb} alt="bulbLogo" style={{ width: 35, height: 35 }} />
+                &lt;p className='tpyp'>Tips before you publish&lt;/p>
+            &lt;/div>
+            &lt;div style={{ marginTop: 12, backgroundColor: '#f8f7fa', width: 485, height: 125 }}>
+                &lt;div style={{ padding: 15 }}>
+                    &lt;div style={{display:'flex'}}>
+                    &lt;p style={{ fontSize: 14, color: '#3659e3', cursor: 'pointer', marginLeft: 30, fontWeight: 600, fontFamily: 'Neue Plak,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Tahoma,Arial,sans-serif' }}>Create promo codes for your event&lt;/p>
+                    &lt;AiOutlineRight style={{ marginLeft: 10 ,color :'blue',width:'12',marginTop:5,cursor:'pointer'}} className='arr' />
+                    &lt;/div>
+                    &lt;div style={{display:'flex'}}>
+                    &lt;p style={{ fontSize: 14, color: '#3659e3', cursor: 'pointer', marginLeft: 30, fontWeight: 600, fontFamily: 'Neue Plak,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Tahoma,Arial,sans-serif' }}>Customize your order form&lt;/p>
+                    &lt;AiOutlineRight style={{ marginLeft: 10 ,color :'blue',width:'12',marginTop:5,cursor:'pointer'}} className='arr' />
+                    &lt;/div>
+                    &lt;div style={{display:'flex'}}>
+                    &lt;p style={{ fontSize: 14, color: '#3659e3', cursor: 'pointer', marginLeft: 30, fontWeight: 600, fontFamily: 'Neue Plak,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Helvetica,Tahoma,Arial,sans-serif' }}>Add this event to collection to increase visibility&lt;/p>
+                    &lt;AiOutlineRight style={{ marginLeft: 10 ,color :'blue',width:'12',marginTop:5,cursor:'pointer'}} className='arr' />
+                    &lt;/div>
+                    &lt;/div>
 
-  return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
-  );
-};
+            &lt;/div>
 
-export default LoginTitle;
+
+
+        &lt;/div>
+    )
+}
+
+export default Tipsbox
 </code></pre>
         </article>
     </section>

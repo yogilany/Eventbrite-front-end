@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: CreatorsView/Details/Components/AddFAQ/AddFAQ.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: CreatorsView/Details/Components/AddFAQ/AddFAQ.js</h1>
 
     
 
@@ -26,29 +26,35 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
-
+            <pre class="prettyprint source linenums"><code>import React, { Component, useContext } from 'react'
+import './AddFAQ.css'
+import { AddEventContext } from '../AddEvents/AddEvents'
 /**
- *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ * @author Mahmoud Khaled
+ * @description This is Add Event Section in Details Page
+ * @param {String} Title Title like FAQ or Agenda
+ * @param {Component} Logo Take Logo of passed Title
+ * @returns {JSX.Element}
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
-
+const AddFAQ = ({ Title, Logo }) => {
+  const { addEventBtn, setAddEventBtn } = useContext(AddEventContext);
   return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
-  );
-};
+    &lt;div className = "add__section-faq">
+        &lt;div className='add__section-faq-left'>
+            &lt;div className='faq__icon'>{Logo}&lt;/div>
+            &lt;h4 style = {{fontSize:'18px'}}>{Title}&lt;/h4>
+        &lt;/div>
+        &lt;div className='add__section-faq-right'>
+            &lt;a href = "#" style = {{marginRight:'30px' , textDecoration:'none' , color:"rgb(54, 89, 227)"}}>How it works&lt;/a>
+            &lt;button className='add__btn-faq' onClick = {() => {setAddEventBtn(!addEventBtn);}}>
+                Add
+            &lt;/button>
+        &lt;/div>
+    &lt;/div>
+  )
+}
 
-export default LoginTitle;
-</code></pre>
+export default AddFAQ</code></pre>
         </article>
     </section>
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: AttendeesView/HomePage/Components/Tile.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: AttendeesView/HomePage/Components/Tile.js</h1>
 
     
 
@@ -26,28 +26,23 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
-
-/**
+            <pre class="prettyprint source linenums"><code>/**
+ * @author Yousef Gilany
+ * @description This is the tile component used for searching .
+ * @returns {React.FC}
  *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ *
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
-
+export const Tile = (props) => {
   return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
+    &lt;a href="facebook.com" style={{ textDecoration: "none" }}>
+      &lt;div className="tile">
+        &lt;aside className="tile-icon">{props.icon}&lt;/aside>
+        &lt;div className="tile-name">{props.name}&lt;/div>
+      &lt;/div>
     &lt;/a>
   );
 };
-
-export default LoginTitle;
 </code></pre>
         </article>
     </section>

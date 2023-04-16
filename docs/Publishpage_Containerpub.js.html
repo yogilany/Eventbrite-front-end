@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: Publishpage/Containerpub.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: Publishpage/Containerpub.js</h1>
 
     
 
@@ -26,28 +26,51 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
-
+            <pre class="prettyprint source linenums"><code>import { TfiTicket } from 'react-icons/tfi';
+import { CgProfile } from 'react-icons/cg'
+import {FiExternalLink} from 'react-icons/fi'
+import "./Publish.css"
+import eventphoto from '../../assets/like1.jpeg' 
 /**
- *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ * @author Ziad Ezzat
+ * @param {string} props.data_testid
+ * @description This component shows the actual event that you want to publish
+ * @returns {JSX.Element of event you want to create found in publish page} 
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
+const Containerpub = (props) => {
+    return (
+        &lt;div className='Full__Container' data-testid={props.data_testid}>
+            &lt;div >
+                &lt;img src={eventphoto} className='Full__Container_img' />
+            &lt;/div>
+            &lt;div>
+                &lt;h1 style={{ marginTop: 28, marginLeft: 10, fontSize: 20 }}>Food Truck Festival&lt;/h1>
+                &lt;div style={{ lineHeight: 0, marginTop: 12 }}>
+                    &lt;p style={{ marginLeft: 10, fontSize: 12 }}>Tuesday, April 18, 2023 at 7:00 PM EET&lt;/p>
+                    &lt;p style={{ marginLeft: 10, fontSize: 12 }}>Egypt, Cairo, Cairo Governorate 12212&lt;/p>
+                    &lt;div style={{ marginTop: 25, marginRight: 10, display: 'flex' }}>
+                        &lt;TfiTicket style={{ width: 45, height: 20 }} />
+                        &lt;p style={{ marginTop: 10 }} >12&lt;/p>
+                        &lt;div style={{ marginLeft: 10, display: 'flex' }}>
+                            &lt;CgProfile style={{ width: 45, height: 20 }} />
+                            &lt;p style={{ marginTop: 10 }} >12&lt;/p>
+                        &lt;/div>
+                    &lt;/div>
+                    &lt;div className='hline'>
+                    &lt;/div>
+                    &lt;div style={{ display: 'block', marginLeft: '35%' }}>
+                        &lt;div style={{ display: 'flex' }}>
+                            &lt;p style={{ marginTop: 30, color: 'blue', fontSize: 14, cursor: 'pointer' }}>Preview your event&lt;/p>
+                            &lt;FiExternalLink style={{ width: 45, height: 20, color: 'blue', textAlign: 'center', marginTop: 20, cursor: 'pointer' }} />
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    )
+}
 
-  return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
-  );
-};
-
-export default LoginTitle;
+export default Containerpub
 </code></pre>
         </article>
     </section>

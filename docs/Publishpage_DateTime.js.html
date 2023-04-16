@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: Publishpage/DateTime.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: Publishpage/DateTime.js</h1>
 
     
 
@@ -26,28 +26,55 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
-
+            <pre class="prettyprint source linenums"><code>import "./Publish.css"
+import { CiCalendar, CiClock2 } from "react-icons/ci"
 /**
- *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ * @author Ziad Ezzat
+ * @param {string} props.data_testid
+ * @description This container shows the radio button container component used in publish page showing some data related to date and time of your event.
+ * @returns {JSX.Element of Date and Tome component found in publish page} 
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
+const DateTime = (props) => {
+    return (
+        &lt;div data-testid={props.data_testid}>
+            &lt;h2 className='rdh'>When should we publish your event?&lt;/h2>
+            &lt;div style={{ display: 'flex' }}>
+                &lt;input type="radio" name ='nowlater' checked >&lt;/input>
+                &lt;p style={{ marginLeft: 20, marginTop: 15, color: '#39364f' }}>Publish Now&lt;/p>
+            &lt;/div>
+            &lt;div style={{ display: 'flex', lineHeight: 0, marginBottom: 10 }}>
+                &lt;input type="radio" name ='nowlater'>&lt;/input>
+                &lt;p style={{ marginLeft: 20, marginTop: 10, color: '#39364f' }}>Schedule for later&lt;/p>
+            &lt;/div>
+            &lt;div style={{ display: 'flex' }}>
+                &lt;div style={{ backgroundColor: '#f2f2f5', width: 240, height: 50 }}>
+                    &lt;div style={{ display: 'flex' }}>
+                        &lt;CiCalendar style={{ height: 50, width: 20, marginLeft: 10 }}>&lt;/CiCalendar>
+                        &lt;div style={{ display: 'block', lineHeight: 0, marginTop: 15 }}>
+                            &lt;p style={{ fontSize: '.8rem', marginLeft: 12, color: '#aaaaab' }}>Start date&lt;/p>
+                            &lt;p style={{ fontSize: '1rem', marginLeft: 12 }}>03/11/2023&lt;/p>
 
-  return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
-  );
-};
+                        &lt;/div>
 
-export default LoginTitle;
+                    &lt;/div>
+                &lt;/div>
+                &lt;div style={{ marginLeft: 10, backgroundColor: '#f2f2f5', width: 240, height: 50 }}>
+                    &lt;div style={{ display: 'flex' }}>
+                        &lt;CiClock2 style={{ height: 50, width: 20, marginLeft: 10 }}>&lt;/CiClock2>
+                        &lt;div style={{ display: 'block', lineHeight: 0, marginTop: 15 }}>
+                            &lt;p style={{ fontSize: '.8rem', marginLeft: 12, color: '#aaaaab' }}>Start time&lt;/p>
+                            &lt;p style={{ fontSize: '1rem', marginLeft: 12 }}>2:00 PM&lt;/p>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;div>&lt;p style={{ fontSize: '.875rem', lineHeight: '1.25rem' }}>Time zone is same as your event's&lt;/p>&lt;/div>
+
+        &lt;/div>
+    )
+}
+
+export default DateTime
 </code></pre>
         </article>
     </section>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: AttendeesView/HomePage/Components/EventCard.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: AttendeesView/HomePage/Components/EventCard.js</h1>
 
     
 
@@ -26,28 +26,104 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { MdPersonOutline } from "react-icons/md";
+import card_bg from "../../../../assets/adel-10.png";
+import adelEv1 from "../../../../assets/adelEv1.png";
+import adelEv2 from "../../../../assets/adelEv2.png";
+import adelEv3 from "../../../../assets/adelEv3.png";
+import adelEv4 from "../../../../assets/adelEv4.png";
+import adelEv5 from "../../../../assets/adelEv5.png";
+import adelEv6 from "../../../../assets/adelEv6.png";
+import adelEv7 from "../../../../assets/adelEv7.png";
+import adelEv8 from "../../../../assets/adelEv8.png";
+import adelEv9 from "../../../../assets/adelEv9.png";
+import adelEv10 from "../../../../assets/adelEv10.png";
+import adelEv11 from "../../../../assets/adelEv11.png";
+import adelEv12 from "../../../../assets/adelEv12.png";
+import adelEv13 from "../../../../assets/adelEv13.png";
+import adelEv14 from "../../../../assets/adelEv14.png";
+
+import { format } from "date-fns";
+var parseISO = require("date-fns/parseISO");
 
 /**
+ * @author Yousef Gilany
+ * @description The event card component.
+ * It shows the event's image, title, date, location, price, and the organizer's name and followers.
+ * It is used in the Events &amp; MoreEvents component.
+ * @returns {React.FC}
  *
- * @param {None} props
- * @returns Returns Eventbrite logo
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
+
+const EventCard = ({
+  eventTitle,
+  eventDate,
+  eventTime,
+  eventLocation,
+  eventPrice,
+  eventOrganizer,
+  organizerFollowers,
+  eventCover,
+  eventID,
+}) => {
+  const eventsCover = [
+    adelEv1,
+    adelEv2,
+    adelEv3,
+    adelEv4,
+    adelEv5,
+    adelEv6,
+    adelEv7,
+    adelEv8,
+    adelEv9,
+    adelEv10,
+    adelEv11,
+    adelEv12,
+    adelEv13,
+    adelEv14,
+  ];
 
   return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
+    &lt;Col xl={3} lg={4} md={4} sm={6} data-testid="event-card">
+      &lt;div className="card-container">
+        &lt;a href={`/event/${eventID}`}>
+          &lt;img
+            data-testid="event-card-image"
+            variant="top"
+            width="100%"
+            height="150px"
+            alt="desc"
+            style={{ objectFit: "cover" }}
+            src={
+              eventCover
+                ? eventCover
+                : eventsCover[Math.floor(Math.random() * eventsCover.length)]
+            }
+          />
+        &lt;/a>
+        &lt;div className="p-3">
+          &lt;a href={`/event/${eventID}`}>
+            &lt;h1 className="card-title">{eventTitle}&lt;/h1>
+          &lt;/a>
+          &lt;h3 className="card-date">{eventDate}&lt;/h3>
+          &lt;h3 className="card-text">{eventLocation}&lt;/h3>
+          &lt;h3 className="card-text">{eventPrice == 0 ? "Free" : eventPrice}&lt;/h3>
+          &lt;div>
+            &lt;h3 className="card-caption">{eventOrganizer}&lt;/h3>
+            &lt;h3 className="card-caption">
+              {" "}
+              &lt;MdPersonOutline /> {organizerFollowers} Followers
+            &lt;/h3>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    &lt;/Col>
   );
 };
 
-export default LoginTitle;
+export default EventCard;
 </code></pre>
         </article>
     </section>

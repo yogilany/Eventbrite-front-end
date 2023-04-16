@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: Publishpage/Headerpub.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: Publishpage/Headerpub.js</h1>
 
     
 
@@ -26,28 +26,79 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./Headerpub.css";
+import Logo from "../../assets/logo.png";
+import { AiOutlineSearch } from "react-icons/ai";
+import { RiArrowDownSLine } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
+import { HiOutlineSwitchHorizontal } from "react-icons/hi";
+import { VscAccount } from "react-icons/vsc";
+import { BiLogOut } from "react-icons/bi";
+import { MdOutlineKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 /**
- *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ * @author Ziad Ezzat
+ * @param {string} props.data_testid
+ * @description This container shows header of the page.
+ * @returns {JSX.Element of Header component found in publish page}
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
+const Headerpub = (props) => {
+  const [showAccountSetting, setShowAccountSetting] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
+    &lt;div className="header_container" data-testid={props.data_testid}>
+      &lt;div className="header_container-left">
+        &lt;a href="/">
+          &lt;img src={Logo} alt="headerLogo" />
+        &lt;/a>
+      &lt;/div>
+      &lt;div
+        className="header__container-right"
+        style={{ marginLeft: "-15px" }}
+        onClick={() => setShowAccountSetting(!showAccountSetting)}
+      >
+        &lt;div className="circular__name">MK&lt;/div>
+        &lt;div className="user__name" style={{ cursor: "pointer" }}>
+          Mahmoud Khaled{" "}
+          {showAccountSetting ? (
+            &lt;MdKeyboardArrowUp className="arrow" />
+          ) : (
+            &lt;MdOutlineKeyboardArrowDown className="arrow" />
+          )}
+        &lt;/div>
+        {showAccountSetting &amp;&amp; (
+          &lt;div className="account__dropdown">
+            &lt;div className="account__dropdown-item">
+              &lt;HiOutlineSwitchHorizontal className="account__logo" />{" "}
+              &lt;a href="/" style={{ fontWeight: "500" }}>
+                Switching to attending
+              &lt;/a>
+            &lt;/div>
+            &lt;div className="account__dropdown-item">
+              &lt;VscAccount className="account__logo" />{" "}
+              &lt;a href="#" style={{ fontWeight: "500" }}>
+                Account Settings
+              &lt;/a>
+            &lt;/div>
+            &lt;hr style={{ marginBottom: "3px", marginTop: "5px" }}>&lt;/hr>
+            &lt;div className="account__dropdown-item">
+              &lt;BiLogOut className="account__logo" />{" "}
+              &lt;a href="#" style={{ fontWeight: "500" }}>
+                Log out
+              &lt;/a>
+            &lt;/div>
+          &lt;/div>
+        )}
+      &lt;/div>
+    &lt;/div>
   );
 };
 
-export default LoginTitle;
+export default Headerpub;
 </code></pre>
         </article>
     </section>

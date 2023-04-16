@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: AttendeesView/Login/Components/Title.js</title>
+    <title>JSDoc: Source: AttendeesView/Likes/Likes.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: AttendeesView/Login/Components/Title.js</h1>
+    <h1 class="page-title">Source: AttendeesView/Likes/Likes.js</h1>
 
     
 
@@ -26,28 +26,60 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./likes.css";
+import Like from "./Components/Like";
+import Like1 from "../../../assets/like1.jpeg";
+import Like2 from "../../../assets/like2.jpeg";
+import Like3 from "../../../assets/like3.jpeg";
+import Footer from "../../../components/footer/Footer";
+import Header from "../../../components/header/Header";
+import { useSelector } from "react-redux";
+import { selectUserState } from "../../../features";
 
 /**
- *
- * @param {None} props
- * @returns Returns Eventbrite logo
+ * @author Mahmoud Khalid
+ * @param {}
+ * @description This is likes page. It shows which events a user liked and the user can see the details of the event.
+ * @returns {JSX.Element}
  */
-export const LoginTitle = (props) => {
-  const TitleStyle = {
-    height: "auto",
-    width: "150px",
-    minWidth: "30%",
-  };
 
+const Likes = () => {
+  const user = useSelector(selectUserState);
+  // console.log("USER = ", user);
   return (
-    &lt;a href="./" style={TitleStyle} data-testid={props.data_testid}>
-      &lt;Logo />
-    &lt;/a>
+    &lt;div className="likes__container">
+      &lt;Header MenuShow={false} />
+      &lt;div className="likes__container-heading">
+        &lt;h1>Likes&lt;/h1>
+        &lt;Like
+          Title="E7kky to Empower: Beyond the Story!"
+          Date="Fri, Mar 10, 9:00 AM"
+          Location="Greek Campus, Ad Dawawin"
+          Price="Free"
+          Photo={Like1}
+        >&lt;/Like>
+        &lt;Like
+          Title="Arab Public Health Assosciation 3rd International Conference"
+          Date="Sun, Mar 12, 8:00 AM"
+          Location="InterContinental Cairo Semiramis, an IHG Hotel, Qasr Ad Dobarah"
+          Price="Starts at €120.00"
+          Photo={Like2}
+        >&lt;/Like>
+        &lt;Like
+          Title="CABLEXX"
+          Date="Wed, Mar 15, 9:00 AM"
+          Location="Dusit Thani Lakeview Cairo, Cairo"
+          Price="Free"
+          Photo={Like3}
+        >&lt;/Like>
+      &lt;/div>
+      &lt;Footer />
+    &lt;/div>
   );
 };
 
-export default LoginTitle;
+export default Likes;
 </code></pre>
         </article>
     </section>

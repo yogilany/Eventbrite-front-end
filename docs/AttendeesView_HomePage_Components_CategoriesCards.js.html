@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: CreatorsView/Details/Components/SummaryBox/Summary.js</title>
+    <title>JSDoc: Source: AttendeesView/HomePage/Components/CategoriesCards.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: CreatorsView/Details/Components/SummaryBox/Summary.js</h1>
+    <h1 class="page-title">Source: AttendeesView/HomePage/Components/CategoriesCards.js</h1>
 
     
 
@@ -26,38 +26,87 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from "react";
-import "./summary.css";
-import { RxText } from "react-icons/rx";
-import Text from "../../../../../components/Text/Text";
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
+import { Tile } from "./Tile";
+import { Container, Row, Col } from "react-bootstrap";
+import { AccessAlarm } from "@mui/icons-material";
+import AudiotrackOutlinedIcon from "@mui/icons-material/AudiotrackOutlined";
+import VideogameAssetOutlinedIcon from "@mui/icons-material/VideogameAssetOutlined";
+import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
+import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
+import PhotoOutlinedIcon from "@mui/icons-material/PhotoOutlined";
+import WineBarOutlinedIcon from "@mui/icons-material/WineBarOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlined";
+import axios from "axios";
+import { Link } from "react-router-dom";
 /**
- * @author Mahmoud Khaled
- * @param {}
- * @description This is Summary Section that contains textBox used to write summary about Event
+ * @author Yousef Gilany
+ * @description This is the Categories component that contains the categories tiles. It takes the user to a new page that shows event in that category.
  * @returns {JSX.Element}
  */
-const Summary = () => {
+const CategoriesCards = ({ location }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [categories, setCategories] = useState([]);
+
+  const categoriesIcons = [
+    &lt;AudiotrackOutlinedIcon sx={{ color: "#d1410c" }} />,
+    &lt;VideogameAssetOutlinedIcon sx={{ color: "#d1410c" }} />,
+    &lt;ColorLensOutlinedIcon sx={{ color: "#d1410c" }} />,
+    &lt;BusinessCenterOutlinedIcon sx={{ color: "#d1410c" }} />,
+    &lt;PhotoOutlinedIcon sx={{ color: "#d1410c" }} />,
+    &lt;WineBarOutlinedIcon sx={{ color: "#d1410c" }} />,
+    &lt;FavoriteBorderOutlinedIcon sx={{ color: "#d1410c" }} />,
+    &lt;SportsFootballOutlinedIcon sx={{ color: "#d1410c" }} />,
+  ];
+
+  const fetchCategories = () => {
+    axios
+      .get("http://localhost:8001/categories")
+      .then(function (response) {
+        console.log(response);
+        setCategories(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   return (
-    &lt;div className="summary__container" data-testid = "summaryContainer">
-      &lt;RxText className="text__logo" />
-      &lt;h1 style={{ marginBottom: "7px", fontSize: "30px", fontWeight: "700" }}>
-        Summary
-      &lt;/h1>
-      &lt;p style={{ fontSize: "14px" }}>
-        Grab people's attention with a short description about your event.
-        Attendees will see this at the top of your event page. (140 characters
-        max).
-        &lt;a href="#" className="see__examples">
-          {" "}
-          See Examples
-        &lt;/a>
-      &lt;/p>
-      &lt;Text className="text" data-testid = "textBox" Label = "Summary" PlaceHolder = "Write a short event summary to get attended excited."/>
-    &lt;/div>
+    &lt;Container className="mb-5" id="categoriesCards">
+      &lt;Row className="justify-content-md-center">
+        &lt;Col md={12}>
+          &lt;h3 className="heading3">Check out trending categories&lt;/h3>
+          &lt;Row>
+            &lt;Col>
+              &lt;div className="tile-group">
+                {categories.map((category, index) => {
+                  return (
+                    &lt;Link to={`/events/${category.name}/${location}`}>
+                      &lt;Tile
+                        icon={categoriesIcons[index]}
+                        name={category.name}
+                        key={index}
+                        id="categoryTile"
+                      />
+                    &lt;/Link>
+                  );
+                })}
+              &lt;/div>
+            &lt;/Col>
+          &lt;/Row>
+        &lt;/Col>
+      &lt;/Row>
+    &lt;/Container>
   );
 };
 
-export default Summary;
+export default CategoriesCards;
 </code></pre>
         </article>
     </section>
