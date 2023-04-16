@@ -9,12 +9,10 @@ const UploadButton = () => {
   };
   return (
     <>
-      <button onClick={handleClick} className = "upload__btn"><CgImage className="img__logo" /> Upload Image</button>
-      <input
-        type="file"
-        ref={hiddenFileInput}
-        style={{ display: "none" }}
-      />
+      <button id="upload__btn" onClick={handleClick} className="upload__btn">
+        <CgImage className="img__logo" /> Upload Image
+      </button>
+      <input type="file" ref={hiddenFileInput} style={{ display: "none" }} />
     </>
   );
 };

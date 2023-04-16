@@ -29,6 +29,7 @@ const AddSection = ({ Title, Logo }) => {
           How it works
         </a>
         <button
+          id = "add__btn"
           className="add__btn"
           onClick={() => {
             setAddAgendaBtn(!addAgendaBtn);

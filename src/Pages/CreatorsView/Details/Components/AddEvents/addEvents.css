@@ -49,6 +49,41 @@
     padding: 20px;
     width: 100%;
 }
+.description__btn-agenda
+{
+    height: 80px;
+    margin-top: 15px;
+    width: 82%;
+    padding-left: 10px;
+}
+.remove__description
+{
+    outline: none;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    margin-left: 1px;
+    font-size: 20px;
+}
+.remove__hostname
+{
+    outline: none;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    margin-left: 1px;
+    font-size: 20px;
+}
+.addHost__agenda
+{
+    margin-top: 17px;
+}
+.addHost__agenda input
+{
+    padding-left: 15px;
+    height: 52px;
+    width: 30%;
+}
 .delete__section-btn
 {
     border: none;
