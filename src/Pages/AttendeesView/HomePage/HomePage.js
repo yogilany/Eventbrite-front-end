@@ -7,7 +7,7 @@ import Header from "../../../components/header/Header";
 import "./HomePage.scss";
 import { motion } from "framer-motion";
 import Footer from "../../../components/footer/Footer";
-
+import { selectCurrentUser } from "../../../features/authSlice";
 /**
  * @author Yousef Gilany
  * @description This is the Main page of the application that contains the Hero , Categories , Events and More Events Sections.
@@ -18,6 +18,7 @@ import Footer from "../../../components/footer/Footer";
 
 export const HomePage = () => {
   console.log("USERR", window.User);
+  console.log(selectCurrentUser)
   return (
     <>
       <Header />
