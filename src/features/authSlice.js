@@ -42,7 +42,7 @@ export const registerUser = createAsyncThunk(
           body: JSON.stringify(registerData),
         }
       );
-      // console.log("Response = ", response);
+      console.log("Response = ", response);
       if (!response.ok) throw new Error("Email already exists");
       return { ...registerData, ...response };
     } catch (error) {
@@ -55,7 +55,6 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
-
     token: null,
     isLoading: false,
     isLoggedIn: false,
@@ -83,6 +82,21 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload["email"];
         state.token = action.payload["token"];
+      });
+
+    builder
+      .addCase(authUser.rejected, (state, action) => {
+        state.user = null;
+        state.token = null;
+        state.isLoading = false;
+      })
+      .addCase(authUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(authUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload["email"];
+        state.token = action.payload["token"];
       })
 
       .addCase(registerUser.rejected, (state, action) => {
@@ -95,15 +109,16 @@ export const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        // console.log(action);
+        console.log(action);
         state.user = action.payload["email"];
         state.token = action.payload["token"];
-        // console.log(state);
+        console.log(state);
       });
   },
 });
 
 export const { logOut } = authSlice.actions;
+
 export const selectLoading = (state) => state.auth.isLoading;
 export const selectCurrentUser = (state) => state.auth.user;
 export const selectCurrentToken = (state) => state.auth.token;

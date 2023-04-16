@@ -25,8 +25,10 @@ import { combineReducers } from "redux";
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import authReducer from './features/authSlice'
+import eventReducer from './features/eventSlice'
 const reducers = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    events: eventReducer
 });
 
 const persistConfig = {
