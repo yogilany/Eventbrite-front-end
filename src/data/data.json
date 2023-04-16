@@ -1236,6 +1236,13 @@
       "email": "remonda@gmail.com",
       "password": "remonda@123",
       "id": 5
+    },
+    {
+      "name": "monda",
+      "username": "talaat",
+      "email": "modatalaat@gmail.com",
+      "password": "Monda21#",
+      "id": 6
     }
   ],
   "events": [

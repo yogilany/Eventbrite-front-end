@@ -179,7 +179,7 @@ const Sidebar = () => {
           {/* <hr className='line' /> */}
           <div>
             <a
-              href="#"
+              href="/dashboard"
               className="EventOption"
               style={{ fontWeight: "500", fontSize: "14px", fontWeight: "600" }}
             >
@@ -274,8 +274,12 @@ const Sidebar = () => {
             style={{ borderTop: "2px solid grey", width: "100%" }}
           ></div>
           <div>
-            <a href="#" className="EventOption" style={{ fontWeight: "500" }}>
-              Dashboard
+            <a
+              href="/dashboard"
+              className="EventOption"
+              style={{ fontWeight: "500" }}
+            >
+              Dashboardd
             </a>
             <Dropdown Name="Order Options" Links={orderOptions} />
             <Dropdown Name="Marketing" Links={Marketing} />

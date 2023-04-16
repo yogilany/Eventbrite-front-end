@@ -37,6 +37,8 @@ const EventCard = ({
   eventPrice,
   eventOrganizer,
   organizerFollowers,
+  eventCover,
+  eventID,
 }) => {
   const eventsCover = [
     adelEv1,
@@ -58,7 +60,7 @@ const EventCard = ({
   return (
     <Col xl={3} lg={4} md={4} sm={6} data-testid="event-card">
       <div className="card-container">
-        <a href="/event">
+        <a href={`/event/${eventID}`}>
           <img
             data-testid="event-card-image"
             variant="top"
@@ -66,11 +68,15 @@ const EventCard = ({
             height="150px"
             alt="desc"
             style={{ objectFit: "cover" }}
-            src={eventsCover[Math.floor(Math.random() * eventsCover.length)]}
+            src={
+              eventCover
+                ? eventCover
+                : eventsCover[Math.floor(Math.random() * eventsCover.length)]
+            }
           />
         </a>
         <div className="p-3">
-          <a href="/event">
+          <a href={`/event/${eventID}`}>
             <h1 className="card-title">{eventTitle}</h1>
           </a>
           <h3 className="card-date">{eventDate}</h3>

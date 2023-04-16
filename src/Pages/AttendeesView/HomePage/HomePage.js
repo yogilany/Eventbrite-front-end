@@ -15,11 +15,13 @@ import Footer from "../../../components/footer/Footer";
  * @returns {JSX.Element}
  * @todo make the page more responsive .
  */
+
 export const HomePage = () => {
+  console.log("USERR", window.User);
   return (
     <>
       <Header />
-      <Container fluid>
+      <Container fluid id="homePageContainer">
         <Row>
           <Col className="p-0">
             <Hero />

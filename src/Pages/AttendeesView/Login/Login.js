@@ -3,6 +3,7 @@ import { Container, Col, Row, Stack } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import test_image from "../../../assets/side_image.jpg";
+import imageLogin from "../../../assets/adelLogin.png";
 import AboutFooter from "../../../components/AboutFooter/AboutFooter";
 import Footer from "../../../components/footer/Footer";
 import { userAuthorize } from "../../../features";
@@ -156,7 +157,7 @@ export const Login = (props) => {
         <Col md={6} className="g-0">
           <LoginImage
             data_testid="login-image"
-            img_url={test_image}
+            img_url={imageLogin}
             img_caption="Winston Baker"
             img_credit="Confluence Summit"
             img_location="San Francisco, CA"
