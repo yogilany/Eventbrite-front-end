@@ -52,8 +52,10 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
+
     token: null,
-    isLoading: false
+    isLoading: false,
+    isLoggedIn: false
   },
   reducers: {
 
@@ -78,7 +80,11 @@ export const authSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload['email']
       state.token = action.payload['token']
-    }).addCase(registerUser.rejected, (state, action) => {
+    })
+    
+    
+    
+    .addCase(registerUser.rejected, (state, action) => {
       state.user = null;
       state.token = null;
       state.isLoading = false;

@@ -81,16 +81,17 @@ export const Login = (props) => {
       }
       console.warn("User: ", user, " Pwd: ", pwd);
       dispatch(authUser(data))
-      .unwrap()
-      .then(() => {
-        navigate("/login")
-        setSuccess(true);
-        // window.location.reload();
-      })
-      .catch(() => {
-        console.log('Error')
-        setSuccess(false);
-      });
+        .unwrap()
+        .then(() => {
+          console.log('SUCCESS::LOG IN')
+          navigate("/")
+          setSuccess(true);
+          window.location.reload();
+        })
+        .catch(() => {
+          console.log('ERROR::LOG IN')
+          setSuccess(false);
+        });
       //   const userExists = users.filter((u) => u.email === user);
       //   if (userExists.length !== 0) {
       //     if (userExists[0].password === pwd) {
@@ -169,10 +170,10 @@ export const Login = (props) => {
             </Row>
             <Row className="g-0">
               <LoginForm
-              style={{
-                minWidth: "100%",
-                width: "350px"
-              }}
+                style={{
+                  minWidth: "100%",
+                  width: "350px"
+                }}
                 user_ref={userRef}
                 User={user}
                 set_Pwd={setPwd}
