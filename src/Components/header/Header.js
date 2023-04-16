@@ -11,7 +11,7 @@ import { MdOutlineSearch } from "react-icons/md";
 import { Container, Row, Col } from "react-bootstrap";
 import SearchPage from "../../Pages/AttendeesView/HomePage/Components/SearchPage";
 import { useSelector } from "react-redux";
-import { selectUserState } from "../../features/authSlice";
+import { logOut, selectUserState } from "../../features/authSlice";
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 import { VscAccount } from "react-icons/vsc";
@@ -200,7 +200,7 @@ const Header = () => {
                 <a
                   href="/login"
                   onClick={() => {
-                    dispatch(authUser(null));
+                    dispatch(logOut());
                   }}
                 >
                   Log out
