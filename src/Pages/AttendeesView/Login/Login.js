@@ -52,7 +52,6 @@ export const Login = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   useEffect(() => {
     userRef.current.focus();
 
@@ -72,25 +71,23 @@ export const Login = (props) => {
 
   const handleSubmit = async (e) => {
     try {
-
-
       e.preventDefault();
       const data = {
         email: user,
-        password: pwd
-      }
+        password: pwd,
+      };
       console.warn("User: ", user, " Pwd: ", pwd);
       dispatch(authUser(data))
-      .unwrap()
-      .then(() => {
-        navigate("/login")
-        setSuccess(true);
-        // window.location.reload();
-      })
-      .catch(() => {
-        console.log('Error')
-        setSuccess(false);
-      });
+        .unwrap()
+        .then(() => {
+          navigate("/login");
+          setSuccess(true);
+          // window.location.reload();
+        })
+        .catch(() => {
+          console.log("Error");
+          setSuccess(false);
+        });
       //   const userExists = users.filter((u) => u.email === user);
       //   if (userExists.length !== 0) {
       //     if (userExists[0].password === pwd) {
@@ -125,15 +122,20 @@ export const Login = (props) => {
   return (
     <Container className={props.name} fluid style={{ height: "50px" }}>
       <Row>
-        <Col className="contact-content"
-          md={12} lg={6} sm={12} style={{
+        <Col
+          className="contact-content"
+          md={12}
+          lg={6}
+          sm={12}
+          style={{
             display: "flex",
             justifyContent: "center",
-            alignContent: "center", padding: "100px 25% 250px 25%",
-          }}>
-          <Col >
+            alignContent: "center",
+            padding: "100px 25% 250px 25%",
+          }}
+        >
+          <Col>
             <Row>
-
               <Stack dir="vertical" gap={4} className="">
                 <LoginTitle className="login-title" />
                 <h1
@@ -147,8 +149,7 @@ export const Login = (props) => {
               </Stack>
             </Row>
             <Row>
-
-              {!emailExist && user.length > 10 ? (
+              {/* {!emailExist && user.length > 10 ? (
                 <div className="formMsg">
                   <div></div>
                   <p>
@@ -156,10 +157,9 @@ export const Login = (props) => {
                     <a href="/signup">Create account.</a>{" "}
                   </p>
                 </div>
-              ) : null}
+              ) : null} */}
             </Row>
             <Row>
-
               {passwordIncorrect ? (
                 <div className="formMsg">
                   <div></div>
@@ -169,10 +169,10 @@ export const Login = (props) => {
             </Row>
             <Row className="g-0">
               <LoginForm
-              style={{
-                minWidth: "100%",
-                width: "350px"
-              }}
+                style={{
+                  minWidth: "100%",
+                  width: "350px",
+                }}
                 user_ref={userRef}
                 User={user}
                 set_Pwd={setPwd}
@@ -195,7 +195,7 @@ export const Login = (props) => {
             </Row>
           </Col>
         </Col>
-        <Col md={0} lg={6} sm={0} className="g-0 d-none d-lg-block" >
+        <Col md={0} lg={6} sm={0} className="g-0 d-none d-lg-block">
           <LoginImage
             data_testid="login-image"
             img_url={imageLogin}
@@ -208,7 +208,7 @@ export const Login = (props) => {
       <Row className="d-none d-lg-block d-md-block">
         <AboutFooter />
       </Row>
-      <Row >
+      <Row>
         <Footer data_testid="login-footer" />
       </Row>
     </Container>
