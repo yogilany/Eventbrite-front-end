@@ -83,37 +83,6 @@ export const authSlice = createSlice({
         state.user = action.payload["email"];
         state.token = action.payload["token"];
       });
-
-    builder
-      .addCase(authUser.rejected, (state, action) => {
-        state.user = null;
-        state.token = null;
-        state.isLoading = false;
-      })
-      .addCase(authUser.pending, (state, action) => {
-        state.isLoading = true;
-      })
-      .addCase(authUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload["email"];
-        state.token = action.payload["token"];
-      })
-
-      .addCase(registerUser.rejected, (state, action) => {
-        state.user = null;
-        state.token = null;
-        state.isLoading = false;
-      })
-      .addCase(registerUser.pending, (state, action) => {
-        state.isLoading = true;
-      })
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        console.log(action);
-        state.user = action.payload["email"];
-        state.token = action.payload["token"];
-        console.log(state);
-      });
   },
 });
 
