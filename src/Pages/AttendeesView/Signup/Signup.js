@@ -2,10 +2,10 @@ import { Col, Container, Row, Stack } from "react-bootstrap/";
 import test_image from "../../../assets/side_image.jpg";
 import AboutFooter from "../../../Components/AboutFooter/AboutFooter";
 import Footer from "../../../Components/footer/Footer";
-import LoginImage from "../Login/Components/loginImage";
-import LoginTitle from "../Login/Components/title";
-import SignupForm from "./Components/signupForm";
-import "./Signup.scss";
+import LoginImage from "../Login/Components/LoginImage";
+import LoginTitle from "../Login/Components/Title";
+import SignupForm from "./Components/SignupForm";
+import './Signup.scss';
 
 /**
  * This is the sign up page where an attendee user can create a new account.
@@ -21,28 +21,18 @@ export const Signup = (props) => {
   return (
     <Container fluid style={{ height: "50px" }}>
       <Row>
-        <Col
-          className="contact-content g-0"
-          md={12}
-          lg={6}
-          sm={12}
-          style={{
+        <Col className="contact-content g-0"
+          md={12} lg={6} sm={12} style={{
             display: "flex",
             justifyContent: "center",
-            alignContent: "center",
-            padding: "25px 13% 250px 13%",
-          }}
-        >
+            alignContent: "center", padding: "25px 13% 250px 13%",
+          }}>
           <Col className="g-0">
             <Row className="mb-4 g-0">
               <LoginTitle />
             </Row>
             <Row>
-              <h1
-                data-testid="signup-header"
-                id="signup-signup-h1"
-                className="mb-4"
-              >
+              <h1 data-testid="signup-header" id="signup-signup-h1" className="mb-4" >
                 Create an account
               </h1>
             </Row>
@@ -51,9 +41,8 @@ export const Signup = (props) => {
             </Row>
           </Col>
         </Col>
-        <Col md={0} lg={6} sm={0} className="g-0 d-none d-lg-block">
-          <LoginImage
-            data_testid="signup-image"
+        <Col md={0} lg={6} sm={0} className="g-0 d-none d-lg-block" >
+          <LoginImage data_testid="signup-image"
             img_url={test_image}
             img_caption="Winston Baker"
             img_credit="Confluence Summit"

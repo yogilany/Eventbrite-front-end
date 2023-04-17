@@ -14,8 +14,8 @@ import {
 } from "react-bootstrap";
 import * as TiIcons from "react-icons/ti";
 import zxcvbn from "zxcvbn";
-import HorizontalChip from "../../Login/Components/horizontalChip";
-import SignupMethods from "./signupMethods";
+import HorizontalChip from "../../Login/Components/HorizontalChip";
+import SignupMethods from "./SignupMethods";
 import {
   registerUser,
   selectCurrentUser,
@@ -23,14 +23,14 @@ import {
 import { useNavigate } from "react-router";
 import SignupFormCSS from "./SignupForm.module.css";
 import "../Signup.scss";
-import "./signupMethods";
+import "./SignupMethods";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import TextInputStyled from "../../../../Components/TextInput/TextInput";
 import ButtonOrangeStyled from "../../../../Components/Buttons/OrangeButton";
 import { yupResolver } from "@hookform/resolvers/yup";
-import SignupVerifyModal from "./signupVerifyModal";
+import SignupVerifyModal from "./SignupVerifyModal";
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -48,7 +48,7 @@ const SignupSchema = Yup.object().shape({
       "Email address doesn't match. Please try again"
     )
     .required("Required"),
-  password: Yup.string().required("Field is required").min(8, ""),
+  password: Yup.string().required("Field is required").min(8, ''),
 });
 /**
  * Regex for verifying emails.
@@ -74,9 +74,10 @@ function getPasswordState(password) {
   const result = zxcvbn(password).score;
   switch (result) {
     case 0:
-      return password.length < 8
-        ? [0, "#e02e46", "Your password must be at least 8 characters"]
-        : [1, "#e02e46", "Your password is weak"];
+      return (password.length < 8 ?
+        [0, "#e02e46", "Your password must be at least 8 characters"] :
+        [1, "#e02e46", "Your password is weak"]);
+      ;
     case 1:
       return [1, "#e02e46", "Your password is weak"];
     case 2:
@@ -143,6 +144,7 @@ LinearProgressWithLabel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
+
 /**
  * The signup form which contains the information needed to create a new account.
  * This form validates all inputs before submission.
@@ -206,7 +208,7 @@ export const SignupForm = (props) => {
         setError("email");
         setFocus("email");
       });
-  };
+  }
   const onError = (error) => {
     console.log("ERROR:::", error);
     if (getValues("email").match(isValidEmail) && !showSignUpInfo) {
@@ -223,6 +225,7 @@ export const SignupForm = (props) => {
   return (
     <>
       <SignupVerifyModal
+
         show={privacyPolicyModalShow}
         onHide={() => setPrivacyPolicyModalShow(false)}
         onAccept={() => {

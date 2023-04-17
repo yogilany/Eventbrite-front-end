@@ -3,9 +3,9 @@ import "./Profile.scss";
 import Header from "../../../Components/header/Header";
 import { BiPencil } from "react-icons/bi";
 import emptyprofile from "../../../assets/emptyprofile.png";
-import OrderComp from "./Components/orderComp";
-import LikeComp from "./Components/likeComp";
-import FollComp from "./Components/follComp";
+import OrderComp from "./Components/OrderComp";
+import LikeComp from "./Components/LikeComp";
+import FollComp from "./Components/FollComp";
 import { AiOutlineRight } from "react-icons/ai";
 /**
  * @author Ziad Ezzat
@@ -91,10 +91,7 @@ const Profile = () => {
           <div style={{ marginTop: 65, marginLeft: 445 }}>
             <h5>Orders</h5>
             <OrderComp data_testid="Order-Form-id" />
-            <button id="btn_prof_id" className="btn_prof">
-              {" "}
-              See past Orders
-            </button>
+            <button id="btn_prof_id" className="btn_prof"> See past Orders</button>
             <hr style={{ width: "85%", marginTop: 30 }}></hr>
             <div style={{ display: "flex" }}>
               <a href="#" className="intersts_prof">
