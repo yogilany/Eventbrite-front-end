@@ -250,6 +250,7 @@ export const SignupForm = (props) => {
                       disabled={showSignUpInfo}
                       type="email"
                       data-testid="email-input"
+                      id="email-input"
                       {...register("email", { required: "Field required" })}
                     />
                   </FloatingLabel>
@@ -316,8 +317,8 @@ export const SignupForm = (props) => {
                   >
                     <TextInputStyled
                       data-testid="firstname-input"
+                      id="firstName-input"
                       type="text"
-                      id="firstName"
                       isInvalid={errors?.firstName}
                       {...register("firstName", {
                         required: "First name is required",
@@ -338,8 +339,8 @@ export const SignupForm = (props) => {
                     <TextInputStyled
                       data-testid="lastname-input"
                       type="text"
-                      id="lastName"
-                      name="lastName"
+                      id="lastName-input"
+                      name="lastName-input"
                       isInvalid={errors?.lastName}
                       {...register("lastName", {
                         required: "Last name is required",
@@ -365,7 +366,7 @@ export const SignupForm = (props) => {
                   <TextInputStyled
                     type="password"
                     data-testid="password-input"
-                    id="password"
+                    id="password-input"
                     name="password"
                     isInvalid={errors?.password}
                     {...register("password", { required: "Field required" })}
@@ -381,7 +382,8 @@ export const SignupForm = (props) => {
             </Row>
             <Row>
               <ButtonOrangeStyled
-                data-testid="submit-input"
+                data-testid="submit-button"
+                id="submit-button"
                 as="input"
                 className="mt-4 mb-4"
                 type="submit"
@@ -392,13 +394,19 @@ export const SignupForm = (props) => {
             <Row>
               {showSignUpInfo ? null : (
                 <>
-                  <HorizontalChip />
+                  <HorizontalChip
+                    data-testid="HorizontalChip"
+                    id="HorizontalChip"
+                  />
                   <SignupMethods />
                 </>
               )}
             </Row>
             <Row>
-              <Link to={"/login"} className={SignupFormCSS.a_link}>
+              <Link
+                data-testid="login-link"
+                id="login-link"
+                to={"/login"} className={SignupFormCSS.a_link}>
                 Login
               </Link>
             </Row>
