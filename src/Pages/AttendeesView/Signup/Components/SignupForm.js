@@ -384,12 +384,11 @@ export const SignupForm = (props) => {
               <ButtonOrangeStyled
                 data-testid="submit-button"
                 id="submit-button"
-                as="input"
+                as="button"
                 className="mt-4 mb-4"
                 type="submit"
-                value={showSignUpInfo ? "Create account" : "Continue"}
                 variant="flat btn-flat"
-              />
+              >{showSignUpInfo ? "Create account" : "Continue"}</ButtonOrangeStyled>
             </Row>
             <Row>
               {showSignUpInfo ? null : (

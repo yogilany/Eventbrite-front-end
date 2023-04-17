@@ -18,7 +18,7 @@ export const LoginForm = (props) => {
       }}
       id='login-form'
       data-testid='login-form'
-      >
+    >
       <Container
         fluid
         className="m-0"
@@ -59,11 +59,11 @@ export const LoginForm = (props) => {
           <ButtonOrangeStyled
             id='login-submit-button'
             data-testid='login-submit-button'
-            as="input"
+            as="button"
             type="submit"
-            value="Log in"
+            value=""
             variant="flat btn-flat"
-          />{" "}
+          >Log in</ButtonOrangeStyled>
         </Row>
       </Container >
     </Form>

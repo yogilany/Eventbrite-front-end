@@ -127,11 +127,12 @@ export const Login = (props) => {
           lg={6}
           sm={12}
           style={{
-            display: "flex",
+            display: "block",
             justifyContent: "center",
             alignContent: "center",
-            padding: "100px 13% 250px 13%",
           }}
+          id='login-column-left'
+          data-testid='login-column-left'
         >
           <Col>
             <Row>
