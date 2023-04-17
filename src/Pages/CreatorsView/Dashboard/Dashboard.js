@@ -1,15 +1,11 @@
-import React, { useRef, useState } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import Headerpub from "../../Publishpage/Headerpub";
-import { Col, Container, Row, Card, Table } from "react-bootstrap";
+import { Col, Container, Row  } from "react-bootstrap";
 import "./Dashboard.scss";
-import TicketsCard from "./components/TicketsCard-1";
-import ViewsCard from "./components/ViewsCard-1";
-import Recommendations from "./components/Recommendations-1";
-import URLBox from "./components/URLBox-1";
-import SalesTable from "./components/SalesTable-1";
-import OrdersTable from "./components/OrdersTable-1";
-import DashboardHeader from "./components/DashboardHeader-1";
+import URLBox from "./Components/URLBox-1";
+import SalesTable from "./Components/SalesTable-1";
+import OrdersTable from "./Components/OrdersTable-1";
+import DashboardHeader from "./Components/DashboardHeader-1";
 const Dashboard = () => {
   return (
     <>

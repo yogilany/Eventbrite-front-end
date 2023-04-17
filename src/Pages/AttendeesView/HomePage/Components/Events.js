@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { getUsers, getTodos, getEvents } from "../../../../services/services";
+import { Container, Row, Col,  } from "react-bootstrap";
+import { getEvents } from "../../../../services/services";
 import { CategoriesTaps } from "./Categories";
 import CategoriesCards from "./CategoriesCards";
 import EventCard from "./EventCard";

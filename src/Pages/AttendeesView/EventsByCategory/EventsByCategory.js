@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router";
-import Hero from "./components/Hero-1";
+import Hero from "./Components/Hero-1";
 import Header from "../../../Components/header/Header";
 import Footer from "../../../Components/footer/Footer";
-import { Avatar } from "@mui/material";
 import testimage from "../../../assets/adelEv2.png";
 import axios from "axios";
-import SubCategoryCard from "./components/SubCategoryCard-1";
+import SubCategoryCard from "./Components/SubCategoryCard-1";
 import EventCard from "../HomePage/Components/EventCard";
 import { MdCalendarMonth } from "react-icons/md";
 import { Breadcrumbs, Link, Typography } from "@mui/material";
-import { Link as routerLink } from "react-router-dom";
 
 const EventsByCategory = () => {
   const { category, location } = useParams();

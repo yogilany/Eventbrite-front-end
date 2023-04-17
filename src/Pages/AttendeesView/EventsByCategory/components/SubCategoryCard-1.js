@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Container } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 const SubCategoryCard = ({ testimage, name }) => {
   return (
     <Col
