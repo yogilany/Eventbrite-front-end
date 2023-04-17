@@ -16,14 +16,14 @@ const Radpub = (props) => {
         <div data-testid={props.data_testid} className={props.className}>
             <h2 className='rdh'>Who can see your event ?</h2>
             <div style={{ display: 'flex' }}>
-                <input type="radio" name="pubpriv" value="public" data_testid="radiopub" onChange={renderaudience} checked={val === 'public'} style={{ cursor: "pointer" }}></input>
+                <input type="radio" id ="pubevent_publish" name="pubpriv" value="public" data_testid="radiopub" onChange={renderaudience} checked={val === 'public'} style={{ cursor: "pointer" }}></input>
                 <div style={{ display: 'block', lineHeight: 0 }}>
                     <p style={{ marginLeft: 20, marginTop: 10, color: '#39364f' }}>Public</p>
                     <p style={{ marginTop: 20, marginLeft: 20, fontSize: '.875rem' }}>Shared on Eventbrite and search engines</p>
                 </div>
             </div>
             <div style={{ display: 'flex' }}>
-                <input type="radio" name="pubpriv" value="private" data_testid="radiopri" onChange={renderaudience} checked={val === 'private'} style={{ cursor: "pointer" }}></input>
+                <input type="radio" id ="privevent_publish" name="pubpriv" value="private" data_testid="radiopri" onChange={renderaudience} checked={val === 'private'} style={{ cursor: "pointer" }}></input>
                 <div style={{ display: 'block', lineHeight: 0 }}>
                     <p style={{ marginLeft: 20, marginTop: 10, color: '#39364f' }}>Private</p>
                     <p style={{ marginTop: 20, marginLeft: 20, fontSize: '.875rem' }}>Only available to a selected audience</p>
