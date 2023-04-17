@@ -2,11 +2,11 @@ import { fontSize } from "@mui/system";
 import { useState } from "react";
 import react from "react";
 import "./BasicInfo.scss";
-import Tag from "./Components/Tag.js";
-import Venue from "./Components/Venue.js";
-import Loctype from "./Components/Loctype.js";
-import Mapframe from "./Components/Mapframe.js";
-import Singleevent from "./Components/Singleevent.js";
+import Tag from "./components/Tag-1.js";
+import Venue from "./components/Venue-1.js";
+import Loctype from "./components/Loctype-1.js";
+import Mapframe from "./components/Mapframe-1.js";
+import Singleevent from "./components/Singleevent-1.js";
 import Sidebar from "../Sidebar/Sidebar";
 import Headerpub from "../../Publishpage/Headerpub";
 
