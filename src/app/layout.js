@@ -7,7 +7,7 @@ import {
   Navbar,
   NavDropdown,
 } from "react-bootstrap";
-// import Loading from "../Components/loading";
+import Loading from "../Components/loading";
 import Footer from "../Components/footer/Footer";
 export const Layout = ({ children }) => {
   return (
@@ -15,7 +15,7 @@ export const Layout = ({ children }) => {
       {/* <Header /> */}
 
       <main id="centerView" className="">
-        {/* <Suspense fallback={<Loading />}>{children}</Suspense> */}
+        <Suspense fallback={<Loading />}>{children}</Suspense>
       </main>
       {/* <Footer /> */}
     </>
