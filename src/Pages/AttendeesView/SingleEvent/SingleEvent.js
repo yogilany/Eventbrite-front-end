@@ -13,8 +13,8 @@ import { EventTicketCard } from "./Components/EventTicketCard";
 import * as HIIcons from "react-icons/hi";
 import "./SingleEvent.css";
 import testbackground from "../../../assets/adelEv10.png";
-import Header from "../../../components/header/Header";
-import Footer from "../../../components/footer/Footer";
+import Header from "../../../Components/header/Header";
+import Footer from "../../../Components/footer/Footer";
 import { useParams } from "react-router";
 import axios from "axios";
 

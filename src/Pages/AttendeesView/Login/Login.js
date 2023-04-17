@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import test_image from "../../../assets/side_image.jpg";
 import imageLogin from "../../../assets/adelLogin.png";
-import AboutFooter from "../../../components/AboutFooter/AboutFooter";
-import Footer from "../../../components/footer/Footer";
+import AboutFooter from "../../../Components/AboutFooter/AboutFooter";
+import Footer from "../../../Components/footer/Footer";
 import { authUser } from "../../../features/authSlice";
 import { getUsers } from "../../../services/services";
 import { HorizontalChip } from "./Components/HorizontalChip";
@@ -132,7 +132,7 @@ export const Login = (props) => {
             display: "flex",
             justifyContent: "center",
             alignContent: "center",
-            padding: "100px 25% 250px 25%",
+            padding: "25px 13% 250px 13%",
           }}
         >
           <Col>

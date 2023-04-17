@@ -9,7 +9,7 @@ import { MdDelete } from 'react-icons/md'
 import {MdOutlineAccountCircle} from 'react-icons/md'
 import { createContext, useState } from 'react';
 import {GoPlusSmall} from 'react-icons/go'
-import TimePickerValue from '../../../../../components/TimeBox/TimeBox';
+import TimePickerValue from '../../../../../Components/TimeBox/TimeBox';
 import { CiCircleRemove } from 'react-icons/ci'
 export const AddEventContext = createContext({});
 const AddEvents = () => {

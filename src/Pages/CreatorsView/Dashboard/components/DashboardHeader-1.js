@@ -1,8 +1,8 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import TicketsCard from "./TicketsCard";
-import ViewsCard from "./ViewsCard";
-import Recommendations from "./Recommendations";
+import TicketsCard from "./TicketsCard-1";
+import ViewsCard from "./ViewsCard-1";
+import Recommendations from "./Recommendations-1";
 const DashboardHeader = () => {
   return (
     <Container fluid className="mt-4">

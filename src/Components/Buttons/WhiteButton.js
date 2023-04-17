@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Button } from 'react-bootstrap'
 
-export const ButtonWhiteStyled = styled(Button)`
+export const ButtonWhiteStyled = styled.button`
 
     background-color: white;
     color: #39364f;
@@ -22,6 +22,10 @@ export const ButtonWhiteStyled = styled(Button)`
       transition: 0.5s;
       background-color: #f8f7fa;
   
+    }
+    &:active{
+      background-color: #eeedf2 !important;
+      color:unset;
     }
 `;
 export default ButtonWhiteStyled;

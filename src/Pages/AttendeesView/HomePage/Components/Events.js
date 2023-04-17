@@ -4,7 +4,7 @@ import { getUsers, getTodos, getEvents } from "../../../../services/services";
 import { CategoriesTaps } from "./Categories";
 import CategoriesCards from "./CategoriesCards";
 import EventCard from "./EventCard";
-import Hr from "../../../../components/Elements/Hr";
+import Hr from "../../../../Components/Elements/Hr";
 import { MdCalendarMonth } from "react-icons/md";
 import { Link } from "react-router-dom";
 import axios from "axios";

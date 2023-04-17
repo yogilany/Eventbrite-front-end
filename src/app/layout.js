@@ -7,8 +7,8 @@ import {
   Navbar,
   NavDropdown,
 } from "react-bootstrap";
-import Loading from "../components/loading";
-import Footer from "../components/footer/Footer";
+import Loading from "../Components/loading";
+import Footer from "../Components/footer/Footer";
 export const Layout = ({ children }) => {
   return (
     <>

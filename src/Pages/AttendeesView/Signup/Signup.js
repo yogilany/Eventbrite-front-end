@@ -1,7 +1,7 @@
 import { Col, Container, Row, Stack } from "react-bootstrap/";
 import test_image from "../../../assets/side_image.jpg";
-import AboutFooter from "../../../components/AboutFooter/AboutFooter";
-import Footer from "../../../components/footer/Footer";
+import AboutFooter from "../../../Components/AboutFooter/AboutFooter";
+import Footer from "../../../Components/footer/Footer";
 import LoginImage from "../Login/Components/LoginImage";
 import LoginTitle from "../Login/Components/Title";
 import SignupForm from "./Components/SignupForm";
@@ -25,7 +25,7 @@ export const Signup = (props) => {
           md={12} lg={6} sm={12} style={{
             display: "flex",
             justifyContent: "center",
-            alignContent: "center", padding: "100px 200px 250px 250px",
+            alignContent: "center", padding: "25px 13% 250px 13%",
           }}>
           <Col className="g-0">
             <Row className="mb-4 g-0">
@@ -37,7 +37,7 @@ export const Signup = (props) => {
               </h1>
             </Row>
             <Row className="g-0">
-              <SignupForm className="test-class" data_testid="signup-form" name="signup-form-div" />
+              <SignupForm data_testid="signup-form" name="signup-form-div" />
             </Row>
           </Col>
         </Col>

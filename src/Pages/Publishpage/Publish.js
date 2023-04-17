@@ -2,7 +2,7 @@ import React from 'react'
 import "./Publish.css"
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Footer from "../../../src/components/footer/Footer";
+import Footer from "../../../src/Components/footer/Footer";
 import Radpub from './Radpub'
 import Headerpub from './Headerpub'
 import Tipsbox from './Tipsbox'
