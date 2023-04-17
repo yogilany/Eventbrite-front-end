@@ -1,10 +1,10 @@
 import React from "react";
 import "./following.css";
 import Follow from "./Components/Follow";
-import Footer from "../../../components/footer/Footer";
+import Footer from "../../../Components/footer/Footer";
 import FollowImage from "../../../assets/follow1.jpeg";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import Header from "../../../components/header/Header";
+import Header from "../../../Components/header/Header";
 import { useState } from "react";
 const FollowingOrgEvents = () => {
   const [counter, setCounter] = useState(1);

@@ -2,8 +2,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Container, Row } from "react-bootstrap";
 import { Navigate } from "react-router";
-import TextInputStyled from "../../../../components/TextInput/TextInput";
-import ButtonOrangeStyled from "../../../../components/Buttons/OrangeButton";
+import TextInputStyled from "../../../../Components/TextInput/TextInput";
+import ButtonOrangeStyled from "../../../../Components/Buttons/OrangeButton";
 /**
  *
  * @param {name: Name of this element after creation} props

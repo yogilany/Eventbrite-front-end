@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import * as FcIcons from 'react-icons/fc';
 import * as TiIcons from 'react-icons/ti';
 import '../Signup.scss';
-import ButtonWhiteStyled from '../../../../components/Buttons/WhiteButton';
+import ButtonWhiteStyled from '../../../../Components/Buttons/WhiteButton';
 /**
  * 
  * @param {name: Name of this element after creation} props 

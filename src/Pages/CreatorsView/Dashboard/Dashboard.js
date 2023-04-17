@@ -3,13 +3,13 @@ import Sidebar from "../Sidebar/Sidebar";
 import Headerpub from "../../Publishpage/Headerpub";
 import { Col, Container, Row, Card, Table } from "react-bootstrap";
 import "./Dashboard.scss";
-import TicketsCard from "./components/TicketsCard";
-import ViewsCard from "./components/ViewsCard";
-import Recommendations from "./components/Recommendations";
-import URLBox from "./components/URLBox";
-import SalesTable from "./components/SalesTable";
-import OrdersTable from "./components/OrdersTable";
-import DashboardHeader from "./components/DashboardHeader";
+import TicketsCard from "./Components/TicketsCard";
+import ViewsCard from "./Components/ViewsCard";
+import Recommendations from "./Components/Recommendations";
+import URLBox from "./Components/URLBox";
+import SalesTable from "./Components/SalesTable";
+import OrdersTable from "./Components/OrdersTable";
+import DashboardHeader from "./Components/DashboardHeader";
 const Dashboard = () => {
   return (
     <>

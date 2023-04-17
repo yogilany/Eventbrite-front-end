@@ -27,8 +27,8 @@ import "./SignupMethods";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import TextInputStyled from "../../../../components/TextInput/TextInput";
-import ButtonOrangeStyled from "../../../../components/Buttons/OrangeButton";
+import TextInputStyled from "../../../../Components/TextInput/TextInput";
+import ButtonOrangeStyled from "../../../../Components/Buttons/OrangeButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SignupVerifyModal from "./SignupVerifyModal";
 

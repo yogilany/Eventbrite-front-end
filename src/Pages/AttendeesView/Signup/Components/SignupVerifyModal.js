@@ -3,8 +3,8 @@ import React from 'react'
 import { Modal, Button, Container, Row, Col, Stack, ButtonGroup } from 'react-bootstrap';
 import * as BiIcons from 'react-icons/bi'
 import { Link } from 'react-router-dom';
-import ButtonWhiteStyled from '../../../../components/Buttons/WhiteButton';
-import ButtonOrangeStyled from '../../../../components/Buttons/OrangeButton';
+import ButtonWhiteStyled from '../../../../Components/Buttons/WhiteButton';
+import ButtonOrangeStyled from '../../../../Components/Buttons/OrangeButton';
 import '../Signup.scss'
 import './SignupVerifyModal.scss'
 

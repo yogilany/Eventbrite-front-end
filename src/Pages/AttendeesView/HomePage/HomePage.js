@@ -1,9 +1,9 @@
 import { Row, Col, Container } from "react-bootstrap";
 import Events from "./Components/Events";
 import Hero from "./Components/Hero";
-import Header from "../../../components/header/Header";
+import Header from "../../../Components/header/Header";
 import "./HomePage.scss";
-import Footer from "../../../components/footer/Footer";
+import Footer from "../../../Components/footer/Footer";
 import { useState, useEffect } from "react";
 
 import { selectCurrentUser } from "../../../features/authSlice";

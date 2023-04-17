@@ -1,6 +1,6 @@
 import React from "react";
 import "./Profile.scss";
-import Header from "../../../components/header/Header";
+import Header from "../../../Components/header/Header";
 import { BiPencil } from "react-icons/bi";
 import emptyprofile from "../../../assets/emptyprofile.png";
 import OrderComp from "./Components/OrderComp";

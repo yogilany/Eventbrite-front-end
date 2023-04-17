@@ -4,7 +4,7 @@ import * as FcIcons from "react-icons/fc";
 import * as TiIcons from "react-icons/ti";
 import "../Login.scss";
 import LoginMethodsCSS from './LoginMethods.module.css'
-import ButtonWhiteStyled from "../../../../components/Buttons/WhiteButton";
+import ButtonWhiteStyled from "../../../../Components/Buttons/WhiteButton";
 /**
  *
  * @param {name: Name of this element after creation} props
