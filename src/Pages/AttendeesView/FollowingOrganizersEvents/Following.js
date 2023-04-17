@@ -1,6 +1,6 @@
 import React from "react";
 import "./following.css";
-import Follow from "./Components/Follow";
+import Follow from "./Components/follow";
 import Footer from "../../../Components/footer/Footer";
 import FollowImage from "../../../assets/follow1.jpeg";
 import { IoMdArrowRoundBack } from "react-icons/io";

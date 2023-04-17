@@ -2,9 +2,9 @@ import React from "react";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import "./Organizer.css";
-import Head from "./Components/Head";
+import Head from "./Components/head";
 import Myphoto1 from "../../../assets/Organizer/AnasOrg.jpg";
-import Events from "./Components/Events";
+import Events from "./Components/events";
 import { Container } from "react-bootstrap";
 
 // make function

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router";
-import Hero from "./Components/Hero";
+import Hero from "./components/hero";
 import Header from "../../../Components/header/Header";
 import Footer from "../../../Components/footer/Footer";
 import { Avatar } from "@mui/material";
 import testimage from "../../../assets/adelEv2.png";
 import axios from "axios";
-import SubCategoryCard from "./Components/SubCategoryCard";
+import SubCategoryCard from "./components/subCategoryCard";
 import EventCard from "../HomePage/Components/EventCard";
 import { MdCalendarMonth } from "react-icons/md";
 import { Breadcrumbs, Link, Typography } from "@mui/material";

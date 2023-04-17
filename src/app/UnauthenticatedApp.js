@@ -3,14 +3,14 @@ import { Col, Row, Container } from "react-bootstrap";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomePage } from "../Pages/AttendeesView/HomePage/HomePage";
 import Likes from "../Pages/AttendeesView/Likes/Likes";
-import Login from "../Pages/AttendeesView/Login/Login";
-import { Signup } from "../Pages/AttendeesView/Signup/Signup";
+import Login from "../Pages/AttendeesView/Login/login";
+import { Signup } from "../Pages/AttendeesView/Signup/signup";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
-import AllEvents from "../Pages/AttendeesView/BrowseEvents/AllEvents";
-import Organizer from "../Pages/AttendeesView/Organizer/Organizer";
+import AllEvents from "../Pages/AttendeesView/BrowseEvents/allEvents";
+import Organizer from "../Pages/AttendeesView/Organizer/organizer";
 import SearchPage from "../Pages/AttendeesView/HomePage/Components/SearchPage";
-import SingleEvent from "../Pages/AttendeesView/SingleEvent/SingleEvent";
-import EventsByCategory from "../Pages/AttendeesView/EventsByCategory/EventsByCategory";
+import SingleEvent from "../Pages/AttendeesView/SingleEvent/singleEvent";
+import EventsByCategory from "../Pages/AttendeesView/EventsByCategory/eventsByCategory";
 function UnauthenticatedApp() {
   const router = createBrowserRouter([
     {

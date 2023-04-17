@@ -8,11 +8,11 @@ import AboutFooter from "../../../Components/AboutFooter/AboutFooter";
 import Footer from "../../../Components/footer/Footer";
 import { authUser } from "../../../features/authSlice";
 import { getUsers } from "../../../services/services";
-import { HorizontalChip } from "./Components/HorizontalChip";
-import LoginForm from "./Components/LoginForm";
-import LoginImage from "./Components/LoginImage";
-import LoginMethods from "./Components/LoginMethods";
-import { LoginTitle } from "./Components/Title";
+import { HorizontalChip } from "./Components/horizontalChip";
+import LoginForm from "./Components/loginForm";
+import LoginImage from "./Components/loginImage";
+import LoginMethods from "./Components/loginMethods";
+import { LoginTitle } from "./Components/title";
 import "./Login.scss";
 
 /**
