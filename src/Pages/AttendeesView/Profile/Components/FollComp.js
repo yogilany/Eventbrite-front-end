@@ -20,7 +20,7 @@ const FollComp = (props) => {
         style={{ width: 65, height: 65 }}
       />
       <h5 style={{ marginTop: 20, fontSize: 17 }}>{props.text}</h5>
-      <button className="btnfol_prof">Following</button>
+      <button id="btnfol_prof_id" className="btnfol_prof">Following</button>
     </div>
   );
 };
