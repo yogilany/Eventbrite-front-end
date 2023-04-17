@@ -169,7 +169,7 @@ function Basicinfo() {
               <p className="organizer-helper-text">
                 This profile describes a unique organizer and shows all of the
                 events on one page.{" "}
-                <a href="#" target="_blank" rel="noopener noreferrer">
+                <a href="google.com" target="_blank" rel="noopener noreferrer">
                   View Organizer Info
                 </a>
               </p>

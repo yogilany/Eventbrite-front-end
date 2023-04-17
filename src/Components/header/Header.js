@@ -87,10 +87,10 @@ const Header = () => {
                   Organize <MdOutlineKeyboardArrowDown />
                 </button>
                 <div className="dropdown-content">
-                  <a href="#">Create events</a>
-                  <a href="#">Pricing</a>
-                  <a href="#">Resources</a>
-                  <a href="#">Contact Sales</a>
+                  <a href="google.com">Create events</a>
+                  <a href="google.com">Pricing</a>
+                  <a href="google.com">Resources</a>
+                  <a href="google.com">Contact Sales</a>
                 </div>
               </div>
               <div className="dropdown">
@@ -98,9 +98,9 @@ const Header = () => {
                   Help <MdOutlineKeyboardArrowDown />
                 </button>
                 <div className="dropdown-content">
-                  <a href="#">Find your tickets</a>
-                  <a href="#">Contact your event organizer</a>
-                  <a href="#">Visit the help center3</a>
+                  <a href="google.com">Find your tickets</a>
+                  <a href="google.com">Contact your event organizer</a>
+                  <a href="google.com">Visit the help center3</a>
                 </div>
               </div>
               <div className="button">
@@ -169,18 +169,18 @@ const Header = () => {
                 Mahmoud Khaled <MdKeyboardArrowUp className="arrow" />
               </button>
               <div className="dropdown-content">
-                <a href="#" style={{ fontWeight: "500" }}>
+                <a href="google.com" style={{ fontWeight: "500" }}>
                   <HiOutlineSwitchHorizontal fontSize="25px" color="black" />{" "}
                   <span style={{ marginLeft: "10px" }}>
                     Switching to attending
                   </span>
                 </a>
-                <a href="#" style={{ fontWeight: "500" }}>
+                <a href="google.com" style={{ fontWeight: "500" }}>
                   <VscAccount fontSize="25px" color="black" />{" "}
                   <span style={{ marginLeft: "10px" }}>Account Settings</span>
                 </a>
 
-                <a href="#" style={{ fontWeight: "500" }}>
+                <a href="google.com" style={{ fontWeight: "500" }}>
                   <BiLogOut fontSize="25px" color="black" />{" "}
                   <span style={{ marginLeft: "10px" }}>Log out</span>
                 </a>
@@ -194,7 +194,7 @@ const Header = () => {
                 {USER} <MdOutlineKeyboardArrowDown />
               </button>
               <div className="dropdown-content">
-                <a href="#">Browse events</a>
+                <a href="google.com">Browse events</a>
                 <a href="/basic-info">Manage my events</a>
                 <a href="/profile">Account settings</a>
                 <a

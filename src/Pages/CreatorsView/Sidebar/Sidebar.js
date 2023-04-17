@@ -64,32 +64,32 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebar__links">
-        <a href="#">
+        <a href="google.com">
           <AiOutlineHome className="logo" />
         </a>
-        <a href="#">
+        <a href="google.com">
           <BsCalendar2Date className="logo" />
         </a>
-        <a href="#">
+        <a href="google.com">
           <HiOutlineClipboardList className="logo" />
         </a>
-        <a href="#">
+        <a href="google.com">
           <TfiAnnouncement className="logo" />
         </a>
-        <a href="#">
+        <a href="google.com">
           <SiSimpleanalytics className="logo" />
         </a>
-        <a href="#">
+        <a href="google.com">
           <SiEsphome className="logo" />
         </a>
-        <a href="#">
+        <a href="google.com">
           <FiSettings className="logo" />
         </a>
         <div className="footer">
-          <a href="#">
+          <a href="google.com">
             <AiOutlineAppstore className="logo" />
           </a>
-          <a href="#">
+          <a href="google.com">
             <FiHelpCircle className="logo" />
           </a>
         </div>
@@ -98,7 +98,7 @@ const Sidebar = () => {
         <div className="sidebar__Event-options">
           <a
             className="events__link"
-            href="#"
+            href="google.com"
             style={{ marginLeft: "30px", marginBottom: "15px" }}
           >
             <AiOutlineArrowLeft className="arrowLeft" /> Events
@@ -108,18 +108,18 @@ const Sidebar = () => {
             style={{ borderTop: "2px solid grey", width: "100%" }}
           ></div>
           {/* <hr className='line' /> */}
-          <a className="draft__btn">
+          <a className="draft__btn" href="google.com">
             Draft <MdOutlineKeyboardArrowDown className="arrow__down" />
           </a>
           <a
             style={{ textDecoration: "none", marginTop: "15px" }}
-            href="#"
+            href="google.com"
             className="event__name"
           >
             <h2
               style={{
                 marginLeft: "30px",
-                color: "#1E0A3C",
+                color: "google.com1E0A3C",
                 fontSize: "24px",
                 fontWeight: "700",
               }}
@@ -131,7 +131,7 @@ const Sidebar = () => {
             style={{
               marginLeft: "30px",
               fontSize: "14px",
-              color: "#4b4d63",
+              color: "google.com4b4d63",
               marginTop: "2px",
               fontWeight: "600",
             }}
@@ -139,7 +139,7 @@ const Sidebar = () => {
             Sun, Apr 16, 2023 7:00 PM
           </p>
           <a
-            href="#"
+            href="google.com"
             style={{
               marginLeft: "30px",
               marginTop: "-8px",
@@ -163,7 +163,7 @@ const Sidebar = () => {
               <TbNumber2 className="number" />
               Details
             </a>
-            <a href="#" className="EventOption">
+            <a href="google.com" className="EventOption">
               <TbNumber3 className="number" />
               Tickets
             </a>
@@ -181,7 +181,7 @@ const Sidebar = () => {
             <a
               href="/dashboard"
               className="EventOption"
-              style={{ fontWeight: "500", fontSize: "14px", fontWeight: "600" }}
+              style={{ fontSize: "14px", fontWeight: "600" }}
             >
               Dashboard
             </a>
@@ -206,7 +206,7 @@ const Sidebar = () => {
         >
           <a
             className="events__link"
-            href="#"
+            href="google.com"
             style={{ marginLeft: "35px", marginBottom: "18px" }}
           >
             <AiOutlineArrowLeft className="arrowLeft" /> Events
@@ -218,13 +218,13 @@ const Sidebar = () => {
           ></div>
           <a
             style={{ textDecoration: "none", marginTop: "15px" }}
-            href="#"
+            href="google.com"
             className="event__name"
           >
             <h2
               style={{
                 marginLeft: "35px",
-                color: "#1E0A3C",
+                color: "google.com1E0A3C",
                 marginTop: "15px",
                 fontWeight: "700",
               }}
@@ -236,7 +236,7 @@ const Sidebar = () => {
             style={{
               marginLeft: "35px",
               fontSize: "14px",
-              color: "#4b4d63",
+              color: "google.com4b4d63",
               marginTop: "2px",
               fontWeight: "600",
             }}
@@ -244,7 +244,7 @@ const Sidebar = () => {
             Sun, Apr 16, 2023 7:00 PM
           </p>
           <a
-            href="#"
+            href="google.com"
             style={{
               marginLeft: "35px",
               marginTop: "-8px",
@@ -260,19 +260,19 @@ const Sidebar = () => {
             style={{ borderTop: "2px solid grey", width: "100%" }}
           ></div>
           <div className="routing__options">
-            <a href="#" className="EventOption">
+            <a href="google.com" className="EventOption">
               <TbNumber1 className="number" />
               Basic Info
             </a>
-            <a href="#" className="EventOption">
+            <a href="google.com" className="EventOption">
               <TbNumber2 className="number" />
               Details
             </a>
-            <a href="#" className="EventOption">
+            <a href="google.com" className="EventOption">
               <TbNumber3 className="number" />
               Tickets
             </a>
-            <a href="#" className="EventOption">
+            <a href="google.com" className="EventOption">
               <TbNumber4 className="number" />
               Publish
             </a>

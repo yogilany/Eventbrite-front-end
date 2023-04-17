@@ -23,7 +23,7 @@ function Organizer() {
           />
           <div className="lowersection">
             <div className="scrollmenu">
-              <a href="#">Events</a>
+              <a href="google.com">Events</a>
             </div>
             <p className="select">Events</p>
             <div className="uporpast">

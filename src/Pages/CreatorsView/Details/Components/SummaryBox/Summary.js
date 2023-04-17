@@ -10,7 +10,7 @@ import Text from "../../../../../Components/Text/Text";
  */
 const Summary = () => {
   return (
-    <div className="summary__container" data-testid = "summaryContainer">
+    <div className="summary__container" data-testid="summaryContainer">
       <RxText className="text__logo" />
       <h1 style={{ marginBottom: "7px", fontSize: "30px", fontWeight: "700" }}>
         Summary
@@ -19,12 +19,17 @@ const Summary = () => {
         Grab people's attention with a short description about your event.
         Attendees will see this at the top of your event page. (140 characters
         max).
-        <a href="#" className="see__examples">
+        <a href="google.com" className="see__examples">
           {" "}
           See Examples
         </a>
       </p>
-      <Text className="text" data-testid = "textBox" Label = "Summary" PlaceHolder = "Write a short event summary to get attended excited."/>
+      <Text
+        className="text"
+        data-testid="textBox"
+        Label="Summary"
+        PlaceHolder="Write a short event summary to get attended excited."
+      />
     </div>
   );
 };

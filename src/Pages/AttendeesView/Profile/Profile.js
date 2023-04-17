@@ -51,13 +51,13 @@ const Profile = () => {
                 </div>
                 <div style={{ display: "flex" }}>
                   <a
-                    href="#"
+                    href="google.com"
                     style={{ marginLeft: 15, color: "grey", fontSize: 15 }}
                   >
                     1 order
                   </a>
                   <a
-                    href="#"
+                    href="google.com"
                     style={{
                       marginLeft: 8,
                       color: "grey",
@@ -67,11 +67,11 @@ const Profile = () => {
                   >
                     .
                   </a>
-                  <a href="#" style={{ color: "grey", fontSize: 15 }}>
+                  <a href="google.com" style={{ color: "grey", fontSize: 15 }}>
                     2 likes
                   </a>
                   <a
-                    href="#"
+                    href="google.com"
                     style={{
                       marginLeft: 8,
                       color: "grey",
@@ -81,7 +81,7 @@ const Profile = () => {
                   >
                     .
                   </a>
-                  <a href="#" style={{ color: "grey", fontSize: 15 }}>
+                  <a href="google.com" style={{ color: "grey", fontSize: 15 }}>
                     2 following
                   </a>
                 </div>
@@ -91,10 +91,13 @@ const Profile = () => {
           <div style={{ marginTop: 65, marginLeft: 445 }}>
             <h5>Orders</h5>
             <OrderComp data_testid="Order-Form-id" />
-            <button id="btn_prof_id" className="btn_prof"> See past Orders</button>
+            <button id="btn_prof_id" className="btn_prof">
+              {" "}
+              See past Orders
+            </button>
             <hr style={{ width: "85%", marginTop: 30 }}></hr>
             <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+              <a href="google.com" className="intersts_prof">
                 Interests
               </a>
               <AiOutlineRight
@@ -104,7 +107,7 @@ const Profile = () => {
             </div>
             <hr style={{ width: "85%", marginTop: 80 }}></hr>
             <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+              <a href="google.com" className="intersts_prof">
                 Collections
               </a>
               <AiOutlineRight
@@ -114,7 +117,7 @@ const Profile = () => {
             </div>
             <hr style={{ width: "85%", marginTop: 80 }}></hr>
             <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+              <a href="google.com" className="intersts_prof">
                 Likes
               </a>
               <AiOutlineRight
@@ -132,7 +135,7 @@ const Profile = () => {
 
             <div style={{ display: "flex", marginTop: 25 }}>
               <p className="intersts_prof">Following</p>
-              <a href="#" className="events_prof">
+              <a href="google.com" className="events_prof">
                 See events
               </a>
               <AiOutlineRight

@@ -1,4 +1,3 @@
-import { Col, Row, Container } from "react-bootstrap";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomePage } from "../Pages/AttendeesView/HomePage/HomePage";
 import Likes from "../Pages/AttendeesView/Likes/Likes";

@@ -5,10 +5,8 @@ import Summary from "./Components/SummaryBox/Summary";
 import Description from "./Components/Description/Description";
 import AddEvents from "./Components/AddEvents/AddEvents";
 import Sidebar from "../Sidebar/Sidebar";
-import Header from "../../../Components/header/Header";
 import CreatorHeader from "./Components/creatorHeader/CreatorHeader";
 import { createContext } from "react";
-import Headerpub from "../../Publishpage/Headerpub";
 
 export const AppContext = createContext({});
 /**

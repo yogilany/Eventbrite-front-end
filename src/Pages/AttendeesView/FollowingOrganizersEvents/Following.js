@@ -12,7 +12,7 @@ const FollowingOrgEvents = () => {
     <div className="following__container">
       <Header MenuShow={false} />
       <div className="following__container-heading">
-        <a href="#" className="back-btn">
+        <a href="google.com" className="back-btn">
           <IoMdArrowRoundBack />
         </a>
         <h1>Events from Organizers you follow</h1>

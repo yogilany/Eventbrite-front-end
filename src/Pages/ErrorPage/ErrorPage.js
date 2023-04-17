@@ -22,7 +22,10 @@ const ErrorPage = () => {
                 </parseFloat>
                 <p className="paragraph">
                   If you feel this message is in error,{" "}
-                  <a className="link">please let us know</a>.
+                  <a className="link" href="gpoogle.com">
+                    please let us know
+                  </a>
+                  .
                 </p>
               </Col>
             </Row>
