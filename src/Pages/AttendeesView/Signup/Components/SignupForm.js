@@ -48,7 +48,7 @@ const SignupSchema = Yup.object().shape({
       "Email address doesn't match. Please try again"
     )
     .required("Required"),
-  password: Yup.string().required("Field is required"),
+  password: Yup.string().required("Field is required").min(8, ''),
 });
 /**
  * Regex for verifying emails.
@@ -74,7 +74,10 @@ function getPasswordState(password) {
   const result = zxcvbn(password).score;
   switch (result) {
     case 0:
-      return [0, "#e02e46", "Your password must be at least 8 characters"];
+      return (password.length < 8 ?
+        [0, "#e02e46", "Your password must be at least 8 characters"] :
+        [1, "#e02e46", "Your password is weak"]);
+      ;
     case 1:
       return [1, "#e02e46", "Your password is weak"];
     case 2:
@@ -140,6 +143,8 @@ LinearProgressWithLabel.propTypes = {
    */
   value: PropTypes.number.isRequired,
 };
+
+
 /**
  * The signup form which contains the information needed to create a new account.
  * This form validates all inputs before submission.
@@ -171,6 +176,7 @@ export const SignupForm = (props) => {
     reValidateMode: "onChange",
     resolver: yupResolver(SignupSchema),
   });
+
   const watchPassword = watch("password");
 
   const onSubmit = (values) => {
@@ -178,9 +184,10 @@ export const SignupForm = (props) => {
       setShowSignUpInfo(true);
       return;
     }
-    // console.log("Values:::", values);
-    // console.log("Values:::", JSON.stringify(values));
+    setPrivacyPolicyModalShow(true);
+  };
 
+  const registerUserHandler = () => {
     const data = {
       firstname: getValues("firstName"),
       lastname: getValues("lastName"),
@@ -201,12 +208,10 @@ export const SignupForm = (props) => {
         setError("email");
         setFocus("email");
       });
-  };
-
+  }
   const onError = (error) => {
-    setPrivacyPolicyModalShow(true);
     console.log("ERROR:::", error);
-    if (getValues("firstName").match(isValidEmail) && !showSignUpInfo) {
+    if (getValues("email").match(isValidEmail) && !showSignUpInfo) {
       setShowSignUpInfo(true);
       clearErrors();
       setFocus("confirmEmail");
@@ -220,8 +225,16 @@ export const SignupForm = (props) => {
   return (
     <>
       <SignupVerifyModal
+
         show={privacyPolicyModalShow}
         onHide={() => setPrivacyPolicyModalShow(false)}
+        onAccept={() => {
+          //Register user
+          registerUserHandler();
+        }}
+        onCancel={() => {
+          //Show error message
+        }}
       />
       <Form
         data-testid={props.data_testid}

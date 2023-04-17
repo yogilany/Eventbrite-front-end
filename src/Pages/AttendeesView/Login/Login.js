@@ -132,7 +132,7 @@ export const Login = (props) => {
             display: "flex",
             justifyContent: "center",
             alignContent: "center",
-            padding: "100px 25% 250px 25%",
+            padding: "25px 13% 250px 13%",
           }}
         >
           <Col>

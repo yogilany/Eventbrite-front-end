@@ -25,7 +25,7 @@ export const Signup = (props) => {
           md={12} lg={6} sm={12} style={{
             display: "flex",
             justifyContent: "center",
-            alignContent: "center", padding: "100px 200px 250px 250px",
+            alignContent: "center", padding: "25px 13% 250px 13%",
           }}>
           <Col className="g-0">
             <Row className="mb-4 g-0">
@@ -37,7 +37,7 @@ export const Signup = (props) => {
               </h1>
             </Row>
             <Row className="g-0">
-              <SignupForm className="test-class" data_testid="signup-form" name="signup-form-div" />
+              <SignupForm data_testid="signup-form" name="signup-form-div" />
             </Row>
           </Col>
         </Col>

@@ -13,13 +13,17 @@ import ButtonWhiteStyled from '../../../../components/Buttons/WhiteButton';
 export const SignupMethods = (props) => {
     return (
         <Container name={props.name} className='m-0 p-0' style={{ minWidth: "200px" }} >
-                <ButtonWhiteStyled style={{ margin: "0",width:"100%" }} variant="secondary"> <FcIcons.FcGoogle size="1.5em" />{" Sign in with Google"}</ButtonWhiteStyled>
+            <ButtonWhiteStyled style={{ margin: "0", width: "100%" }} variant="secondary"> <FcIcons.FcGoogle size="1.5em" />{" Sign in with Google"}</ButtonWhiteStyled>
             <div style={{ margin: "1.5rem 0" }}>Other sign up methods</div>
             <Container style={{ margin: "1rem 0" }}>
                 <Row xs={1} md={4} lg={4}>
                     <Col>
                         <div id="circular-icon">
-                            <TiIcons.TiSocialFacebook color="white" size="32px">
+                            <TiIcons.TiSocialFacebook
+                                data-testid='SignupMethods-FacebookButton'
+                                id='SignupMethods-FacebookButton'
+                                role='button'
+                                color="white" size="32px">
                             </TiIcons.TiSocialFacebook>
                         </div>
                     </Col>
