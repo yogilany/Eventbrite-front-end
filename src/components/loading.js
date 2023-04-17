@@ -5,3 +5,4 @@ export const Loading = () => {
     <span className="visually-hidden">Loading...</span>
   </Spinner>;
 };
+export default Loading;
