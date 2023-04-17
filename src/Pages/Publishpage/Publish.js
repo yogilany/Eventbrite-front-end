@@ -1,10 +1,10 @@
-import React from "react";
-import "./Publish.css";
-import Radpub from "./Radpub";
-import Headerpub from "./Headerpub";
-import Tipsbox from "./Tipsbox";
-import Sidebar from "../../Pages/CreatorsView/Sidebar/Sidebar";
-import Containerpub from "./Containerpub";
+import React from 'react'
+import "./Publish.css"
+import Radpub from './Radpub'
+import Headerpub from './Headerpub'
+import Tipsbox from './Tipsbox'
+import Sidebar from "../../Pages/CreatorsView/Sidebar/Sidebar"
+import Containerpub from './Containerpub';
 /**
  * @author Ziad Ezzat
  * @param {}

@@ -18,15 +18,14 @@ export const LoginMethods = (props) => {
       name={props.name}>
       <Row>
 
-        <ButtonWhiteStyled variant="secondary" >
+        <ButtonWhiteStyled as="button" variant="secondary" >
           {" "}
           Email me a login link
         </ButtonWhiteStyled>
       </Row>
       <Row>
 
-        <ButtonWhiteStyled variant="secondary" >
-          {" "}
+        <ButtonWhiteStyled as="button" variant="secondary" >
           <FcIcons.FcGoogle size="1.5em" />
           {" Sign in with Google"}
         </ButtonWhiteStyled>
@@ -38,13 +37,13 @@ export const LoginMethods = (props) => {
       <Container style={{ margin: "1rem 0" }}>
         <Row xs={1} md={4} lg={4}>
           <Col>
-            <div id="circular-icon">
-              <TiIcons.TiSocialFacebook color="white" size="30px" />
+            <div id='login-facbook' className="circular-icon">
+              <TiIcons.TiSocialFacebook role="button" color="white" size="30px" />
             </div>
           </Col>
           <Col>
-            <div id="circular-icon" style={{ backgroundColor: "#4b4d63" }}>
-              <TiIcons.TiVendorApple color="white" size="30px" />
+            <div id='login-apple' className="circular-icon" style={{ backgroundColor: "#4b4d63" }}>
+              <TiIcons.TiVendorApple role="button" color="white" size="30px" />
             </div>
           </Col>
         </Row>

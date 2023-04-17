@@ -13,7 +13,8 @@ export const LoginImage = (props) => {
     return (
         <Container className={LoginImageCSS.login_image}
             style={{ backgroundImage: `url(${props.img_url})` }}
-            data-testid={props.data_testid}>
+            data-testid={props.data_testid}
+            >
             <Row style={{ height: "100vh" }}>
                 <Col md={4} >
                 </Col>
@@ -23,18 +24,26 @@ export const LoginImage = (props) => {
                 justify-content-end 
                 flex-column ml-3" style={{ marginBottom: "150px" }}>
                     <div className={` p-3 ${LoginImageCSS.caption_image}`} >
-                        <div style={{ fontWeight: "700" }}>
+                        <div
+                            data-testid="img_caption"
+                            id="img_caption"
+                            style={{ fontWeight: "700" }}>
                             <strong>
                                 {props.img_caption}
                             </strong>
                         </div>
-                        <div>
+                        <div
+                            data-testid="img_credit"
+                            id="img_credit"
+                        >
                             {props.img_credit}
                         </div>
-                        <div>
+                        <div
+                            data-testid="img_location"
+                            id="img_location"
+                        >
                             {props.img_location}
                         </div>
-
                     </div>
                 </Col>
 

@@ -15,7 +15,10 @@ export const LoginForm = (props) => {
       style={{
         minWidth: "100%",
         width: "350px"
-      }}>
+      }}
+      id='login-form'
+      data-testid='login-form'
+    >
       <Container
         fluid
         className="m-0"
@@ -29,6 +32,8 @@ export const LoginForm = (props) => {
               minWidth: "100%",
               width: "350px"
             }}
+            id='login-email-input'
+            data-testid='login-email-input'
             ref={props.user_ref}
             autoComplete="off"
             onChange={(e) => props.set_User(e.target.value)}
@@ -40,6 +45,8 @@ export const LoginForm = (props) => {
         </Row>
         <Row className="mb-3">
           <TextInputStyled
+            id='login-password-input'
+            data-testid='login-password-input'
             autoComplete="off"
             onChange={(e) => props.set_Pwd(e.target.value)}
             value={props.Pwd}
@@ -50,11 +57,13 @@ export const LoginForm = (props) => {
         </Row>
         <Row className="mb-3">
           <ButtonOrangeStyled
-            as="input"
+            id='login-submit-button'
+            data-testid='login-submit-button'
+            as="button"
             type="submit"
-            value="Log in"
+            value=""
             variant="flat btn-flat"
-          />{" "}
+          >Log in</ButtonOrangeStyled>
         </Row>
       </Container >
     </Form>

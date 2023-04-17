@@ -7,12 +7,12 @@ export const ButtonOrangeStyled = styled.button`
     background-color: #d1410c;
     border:unset;
     color: white;
-    padding: 0.6rem 0rem;
+    padding: 0.8rem 0rem;
     justify-content: center;
     transition: background-color 100ms ease-in;
     border-radius: 0.5vmin;
-    font-size: 1rem;
-
+    font-size: 0.875rem;
+    font-weight:bold;
     &:hover {
         color: white;
         background-color: #f05537;

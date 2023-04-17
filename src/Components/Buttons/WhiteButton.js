@@ -10,10 +10,10 @@ export const ButtonWhiteStyled = styled.button`
     border-radius: 0.1vmin;
     border: 0.01rem solid #dbdae3;
     margin: 0.5rem 0;
-    padding: 0.6rem 0rem;
+    padding: 0.8rem 0rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
-    font-weight: 600;
+    font-weight: bold;
     letter-spacing: 0.2px;
   
     &:hover {

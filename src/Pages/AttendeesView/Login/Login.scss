@@ -1,6 +1,7 @@
 #root {
   font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto,
     Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+  letter-spacing: .2px;
   font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
 }
 
@@ -9,7 +10,7 @@
     width: 50% */
 }
 
-#login-login-h1 {
+#login-header {
   color: #1e0a3c;
   font-family: "Neue Plak Black", -apple-system, BlinkMacSystemFont, Roboto,
     Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
@@ -17,7 +18,7 @@
   font-weight: 800;
 }
 
-#circular-icon {
+.circular-icon {
   background: #1877f2;
   border-radius: 50%;
   width: 48px;
@@ -76,9 +77,16 @@
 }
 
 @media screen {
- 
-  .horizontal-chip{
+
+  .horizontal-chip {
     max-width: 100%;
   }
-  
+
 }
+
+
+#login-column-left {
+  padding: 5% 13% 250px 13%;
+}
+
+

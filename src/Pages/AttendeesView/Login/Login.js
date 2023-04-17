@@ -41,7 +41,6 @@ export const Login = (props) => {
   const errRef = useRef();
   const [user, setUser] = useState("");
   const [users, setUsers] = useState([]);
-
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -60,7 +59,6 @@ export const Login = (props) => {
       // console.log("res: ", res);
       setUsers(res);
     }
-
     fetchUsers();
     // console.log("users: ", users);
   }, []);
@@ -129,11 +127,12 @@ export const Login = (props) => {
           lg={6}
           sm={12}
           style={{
-            display: "flex",
+            display: "block",
             justifyContent: "center",
             alignContent: "center",
-            padding: "25px 13% 250px 13%",
           }}
+          id='login-column-left'
+          data-testid='login-column-left'
         >
           <Col>
             <Row>
@@ -141,7 +140,7 @@ export const Login = (props) => {
                 <LoginTitle className="login-title" />
                 <h1
                   data-testid="login-header"
-                  id="login-login-h1"
+                  id="login-header"
                   className="mb-5"
                   style={{ minWidth: "200px" }}
                 >
@@ -150,7 +149,7 @@ export const Login = (props) => {
               </Stack>
             </Row>
             <Row>
-              {/* {!emailExist && user.length > 10 ? (
+              {!emailExist && user.length > 10 ? (
                 <div className="formMsg">
                   <div></div>
                   <p>
@@ -158,7 +157,7 @@ export const Login = (props) => {
                     <a href="/signup">Create account.</a>{" "}
                   </p>
                 </div>
-              ) : null} */}
+              ) : null}
             </Row>
             <Row>
               {passwordIncorrect ? (
@@ -186,7 +185,7 @@ export const Login = (props) => {
               />
             </Row>
             <Row className="g-0">
-              <HorizontalChip data_testid="horizontal-chip" />
+              <HorizontalChip id='login-horizontalchip' data_testid="horizontal-chip" />
             </Row>
             <Row className="g-0">
               <LoginMethods
@@ -198,6 +197,7 @@ export const Login = (props) => {
         </Col>
         <Col md={0} lg={6} sm={0} className="g-0 d-none d-lg-block">
           <LoginImage
+            id='login-image'
             data_testid="login-image"
             img_url={imageLogin}
             img_caption="Winston Baker"
@@ -207,10 +207,10 @@ export const Login = (props) => {
         </Col>
       </Row>
       <Row className="d-none d-lg-block d-md-block">
-        <AboutFooter />
+        <AboutFooter id='login-aboutfooter' />
       </Row>
       <Row>
-        <Footer data_testid="login-footer" />
+        <Footer id='login-footer' data_testid="login-footer" />
       </Row>
     </Container>
   );

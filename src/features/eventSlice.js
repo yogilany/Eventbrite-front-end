@@ -6,7 +6,7 @@ export const publishEvent = createAsyncThunk('auth/login',
         try {
             eventData.eventName = getState().events.eventName;
 
-            const response = await fetch('http://localhost:8000/events/create',
+            const response = await fetch(`${process.env.REACT_APP_BASE_API}/auth/login`,
                 {
                     method: "POST",
                     headers: {

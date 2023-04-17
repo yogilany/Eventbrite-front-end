@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-
 import Loadings from "../Components/loadings";
 export const Layout = ({ children }) => {
   return (

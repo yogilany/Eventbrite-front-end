@@ -22,10 +22,11 @@ export const Signup = (props) => {
     <Container fluid style={{ height: "50px" }}>
       <Row>
         <Col className="contact-content g-0"
+          id='signup-column-left'
           md={12} lg={6} sm={12} style={{
             display: "flex",
             justifyContent: "center",
-            alignContent: "center", padding: "25px 13% 250px 13%",
+            alignContent: "center",
           }}>
           <Col className="g-0">
             <Row className="mb-4 g-0">
