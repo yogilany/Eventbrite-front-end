@@ -1,6 +1,5 @@
-import { Box, IconButton, LinearProgress } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import {
   Form,
@@ -9,141 +8,31 @@ import {
   Container,
   Row,
   FloatingLabel,
-  Stack,
-  Modal,
+  Stack
 } from "react-bootstrap";
 import * as TiIcons from "react-icons/ti";
-import zxcvbn from "zxcvbn";
 import HorizontalChip from "../../Login/Components/HorizontalChip";
 import SignupMethods from "./SignupMethods";
 import {
+  checkEmailExists,
   registerUser,
-  selectCurrentUser,
 } from "../../../../features/authSlice";
 import { useNavigate } from "react-router";
 import SignupFormCSS from "./SignupForm.module.css";
 import "../Signup.scss";
 import "./SignupMethods";
-import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import TextInputStyled from "../../../../Components/TextInput/TextInput";
 import ButtonOrangeStyled from "../../../../Components/Buttons/OrangeButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SignupVerifyModal from "./SignupVerifyModal";
-
-const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .required("First name is required")
-    .min(2, "Too Short!")
-    .max(50, "Too Long!"),
-  lastName: Yup.string()
-    .required("Last name is required")
-    .min(2, "Too Short!")
-    .max(50, "Too Long!"),
-  email: Yup.string().notRequired(),
-  emailConfirm: Yup.string()
-    .oneOf(
-      [Yup.ref("email"), null],
-      "Email address doesn't match. Please try again"
-    )
-    .required("Required"),
-  password: Yup.string().required("Field is required").min(8, ''),
-});
-/**
- * Regex for verifying emails.
- * @date 3/29/2023 - 2:48:25 AM
- * @author h4z3m
- *
- * @type {{}}
- */
-const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-
-/**
- * Runs a check on the password and returns its score,
- *  a hex color indicating the score,
- *  and a short description about the password strength
- * @date 3/29/2023 - 2:48:25 AM
- * @author h4z3m
- *
- * @param {*} password
- * @returns {{}}
- */
-
-function getPasswordState(password) {
-  const result = zxcvbn(password).score;
-  switch (result) {
-    case 0:
-      return (password.length < 8 ?
-        [0, "#e02e46", "Your password must be at least 8 characters"] :
-        [1, "#e02e46", "Your password is weak"]);
-      ;
-    case 1:
-      return [1, "#e02e46", "Your password is weak"];
-    case 2:
-      return [2, "#f05537", "Your password is moderate"];
-    case 3:
-      return [3, "#16a85a", "Your password is strong"];
-    case 4:
-      return [4, "#16a85a", "Your password is very strong"];
-    default:
-      return "";
-  }
-}
-
-/**
- * Create a linear progress bar with a label under it.
- * Must provide password in props
- * @date 3/29/2023 - 2:48:25 AM
- * @author h4z3m
- *
- * @param {*} props
- * @returns {JSX.Element}
- */
-function LinearProgressWithLabel(props) {
-  const [progressBar, setProgressBar] = useState({
-    value: 0,
-    colorHex: "#1a90ff",
-    labelString: "Your password must be at least 8 characters",
-  });
-  useEffect(() => {
-    if (!props?.password) return;
-    const result = getPasswordState(props.password);
-    setProgressBar((state) => ({
-      ...state,
-      ...progressBar,
-      value: result[0],
-      colorHex: result[1],
-      labelString: result[2],
-    }));
-  }, [props.password]);
-  return (
-    <Box sx={{ alignItems: "center", padding: 0 }}>
-      <Box sx={{ width: "100%", mr: 1 }}>
-        <LinearProgress
-          variant="determinate"
-          value={progressBar.value * 25}
-          sx={{
-            "& .MuiLinearProgress-bar1Determinate": {
-              backgroundColor: progressBar.colorHex,
-            },
-          }}
-        />
-      </Box>
-      <Box sx={{ minWidth: 35, fontSize: "0.8rem", pt: 2 }}>
-        {progressBar.labelString}
-      </Box>
-    </Box>
-  );
-}
-LinearProgressWithLabel.propTypes = {
-  /**
-   * The value of the progress indicator for the determinate and buffer variants.
-   * Value between 0 and 100.
-   */
-  value: PropTypes.number.isRequired,
-};
-
+import { unwrapResult } from "@reduxjs/toolkit";
+import { motion, useAnimation } from "framer-motion";
+import * as BiIcons from 'react-icons/bi'
+import LinearProgressWithLabel from "../../../../Components/LinearProgressWithLabel/LinearProgressWithLabel";
+import { SignupSchema, getPasswordState, isValidEmail } from "./Signup-utils";
+import FormMessage from "../../../../Components/FormMessage/FormMessage";
 
 /**
  * The signup form which contains the information needed to create a new account.
@@ -159,9 +48,12 @@ export const SignupForm = (props) => {
   const [showSignUpInfo, setShowSignUpInfo] = useState(false);
   const [successful, setSuccess] = useState(false);
   const [privacyPolicyModalShow, setPrivacyPolicyModalShow] = useState(false);
+  const [emailExists, setEmailExists] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const controls = useAnimation();
+
   const {
     register,
     handleSubmit,
@@ -170,6 +62,8 @@ export const SignupForm = (props) => {
     clearErrors,
     setFocus,
     setError,
+    reset,
+    setValue,
     formState: { errors },
   } = useForm({
     mode: "onTouched",
@@ -178,6 +72,7 @@ export const SignupForm = (props) => {
   });
 
   const watchPassword = watch("password");
+  const watchEmail = watch("email");
 
   const onSubmit = (values) => {
     if (!showSignUpInfo) {
@@ -211,21 +106,37 @@ export const SignupForm = (props) => {
   }
   const onError = (error) => {
     console.log("ERROR:::", error);
-    if (getValues("email").match(isValidEmail) && !showSignUpInfo) {
+    if (emailExists) {
+      controls.start('start');
+      return
+    }
+    if (!emailExists && getValues("email").match(isValidEmail) && !showSignUpInfo) {
       setShowSignUpInfo(true);
       clearErrors();
       setFocus("confirmEmail");
       return;
     }
   };
+
   useEffect(() => {
-    // redirect user to login page if registration was successful
-    // if (selectCurrentUser) navigate('/login')
-  }, [dispatch]);
+    const isValid = getValues('email').match(isValidEmail);
+    if (!isValid)
+      setEmailExists(false)
+    if (getValues('email').length > 0 && isValid) {
+      dispatch(checkEmailExists(getValues('email')))
+        .unwrap(unwrapResult)
+        .then((result) => {
+          setEmailExists(result);
+        })
+        .catch(() => {
+          //Server error
+        });
+    }
+  }, [watchEmail, dispatch, getValues]);
+
   return (
     <>
       <SignupVerifyModal
-
         show={privacyPolicyModalShow}
         onHide={() => setPrivacyPolicyModalShow(false)}
         onAccept={() => {
@@ -233,7 +144,7 @@ export const SignupForm = (props) => {
           registerUserHandler();
         }}
         onCancel={() => {
-          //Show error message
+          setPrivacyPolicyModalShow(false)
         }}
       />
       <Form
@@ -243,6 +154,37 @@ export const SignupForm = (props) => {
         <Container>
           <Col className="g-0">
             <Row className="mb-2">
+              {emailExists ? (
+                <motion.div
+                  variants={{
+                    start: () => ({
+                      x: [-30, 30, -30, 30, 0],
+                      transition: {
+                        duration: 0.5,
+                      }
+                    })
+                  }}
+                  animate={controls}
+                  initial={{
+                    x: "0px"
+                  }}
+                >
+                  <FormMessage>
+
+                      <BiIcons.BiInfoCircle size={24} style={{
+                        transform: "rotate(180deg) scaleX(-1)",
+                        // display: "inline"
+                        flexDirection: "row",
+                        display:"flex"
+                      }} />
+                      <p style={{
+                        display:"flex",
+                        flexDirection: "row",
+                      }}>There is an account associated with the email. <Link to="/login">Log in</Link></p>
+
+                  </FormMessage>
+                </motion.div>
+              ) : null}
               <InputGroup className="p-0">
                 <Form.Group style={{ width: "100%" }}>
                   <FloatingLabel label="Email address">
@@ -271,6 +213,9 @@ export const SignupForm = (props) => {
                   data-testid="changeemail-input"
                   onClick={() => {
                     setShowSignUpInfo(false);
+                    reset();
+                    setValue('password', null)
+                    setFocus('email')
                   }}
                   type="reset"
                 >
@@ -313,8 +258,7 @@ export const SignupForm = (props) => {
                 <Col>
                   <FloatingLabel
                     className={SignupFormCSS["floating-label"]}
-                    label="First name"
-                  >
+                    label="First name">
                     <TextInputStyled
                       data-testid="firstname-input"
                       id="firstName-input"
@@ -325,17 +269,15 @@ export const SignupForm = (props) => {
                       })}
                     />
                   </FloatingLabel>
-                  {errors.firstName && (
-                    <Form.Text className="text-danger">
-                      {errors.firstName.message}
-                    </Form.Text>
-                  )}
+                  <Form.Text className="text-danger"
+                    style={{ visibility: (`${errors.firstName}` ? "visible" : "hidden") }}>
+                    {errors.firstName?.message}
+                  </Form.Text>
                 </Col>
                 <Col>
                   <FloatingLabel
                     className={SignupFormCSS["floating-label"]}
-                    label="Last name"
-                  >
+                    label="Last name">
                     <TextInputStyled
                       data-testid="lastname-input"
                       type="text"
@@ -347,20 +289,18 @@ export const SignupForm = (props) => {
                       })}
                     />
                   </FloatingLabel>
-                  {errors.lastName && (
-                    <Form.Text className="text-danger">
-                      {errors.lastName.message}
-                    </Form.Text>
-                  )}
+                  <Form.Text className="text-danger"
+                    style={{ visibility: (`${errors.lastName}` ? "visible" : "hidden") }}>
+                    {errors.lastName?.message}
+                  </Form.Text>
                 </Col>
               </Stack>
             </Row>
             <Row
               className="mb-2"
               style={{
-                display: showSignUpInfo ? "block" : "none",
-              }}
-            >
+                display: showSignUpInfo ? "block" : "none"
+              }}>
               <Form.Group className="mb-3 p-0">
                 <FloatingLabel label="Password">
                   <TextInputStyled
@@ -378,40 +318,31 @@ export const SignupForm = (props) => {
                   )}
                 </FloatingLabel>
               </Form.Group>
-              <LinearProgressWithLabel value={0} password={watchPassword} />
+              <LinearProgressWithLabel defaultLabel="Your password must be at least 8 characters"
+                defaultColor="#1a90ff" progressFunction={getPasswordState} value={watchPassword} />
             </Row>
             <Row>
-              <ButtonOrangeStyled
-                data-testid="submit-button"
-                id="submit-button"
-                as="button"
-                className="mt-4 mb-4"
-                type="submit"
-                variant="flat btn-flat"
-              >{showSignUpInfo ? "Create account" : "Continue"}</ButtonOrangeStyled>
+              <ButtonOrangeStyled data-testid="submit-button" id="submit-button" as="button"
+                className="mt-4 mb-4" type="submit" variant="flat btn-flat">
+                {showSignUpInfo ? "Create account" : "Continue"}
+              </ButtonOrangeStyled>
             </Row>
             <Row>
               {showSignUpInfo ? null : (
                 <>
-                  <HorizontalChip
-                    data-testid="HorizontalChip"
-                    id="HorizontalChip"
-                  />
+                  <HorizontalChip data-testid="HorizontalChip" id="HorizontalChip" />
                   <SignupMethods />
                 </>
               )}
             </Row>
             <Row>
-              <Link
-                data-testid="login-link"
-                id="login-link"
-                to={"/login"} className={SignupFormCSS.a_link}>
+              <Link data-testid="login-link" id="login-link" to={"/login"} className={SignupFormCSS.a_link}>
                 Login
               </Link>
             </Row>
           </Col>
-        </Container>
-      </Form>
+        </Container >
+      </Form >
     </>
   );
 };

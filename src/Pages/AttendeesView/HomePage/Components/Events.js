@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col,  } from "react-bootstrap";
+import { Container, Row, Col, } from "react-bootstrap";
 import { getEvents } from "../../../../services/services";
 import { CategoriesTaps } from "./Categories";
 import CategoriesCards from "./CategoriesCards";
@@ -44,7 +44,7 @@ const Events = () => {
       let url = "https://ipinfo.io/json?token=89085807858d6e";
       let response = await fetch(url);
       let data = await response.json();
-      // console.log(data);
+      console.log(data);
       setLocation(data.city);
     }
     fetchLocation();
@@ -94,9 +94,9 @@ const Events = () => {
         location={location}
         id="categoriesTaps"
       />
-      {isCategoriesShown ? (
-        <CategoriesCards location={location} id="categoriesCards" />
-      ) : null}
+      {/* {isCategoriesShown ? (
+      ): null} */}
+      <CategoriesCards location={location} id="categoriesCards" />
 
       {events.length != 0 ? (
         <Container className=" pl-5 pr-5 mb-5" id="eventsByLocationSection">
@@ -105,17 +105,17 @@ const Events = () => {
           <Row className="justify-content-md-right">
             {events
               ? events.map((event, index) => (
-                  <EventCard
-                    key={index}
-                    eventTitle={event.eventName}
-                    eventDate={event.eventDate}
-                    eventTime={event.eventTime}
-                    eventLocation={event.eventLocation}
-                    eventPrice={event.eventPrice}
-                    eventOrganizer={event.eventOrganizer}
-                    organizerFollowers={event.organizerFollowers}
-                  />
-                ))
+                <EventCard
+                  key={index}
+                  eventTitle={event.eventName}
+                  eventDate={event.eventDate}
+                  eventTime={event.eventTime}
+                  eventLocation={event.eventLocation}
+                  eventPrice={event.eventPrice}
+                  eventOrganizer={event.eventOrganizer}
+                  organizerFollowers={event.organizerFollowers}
+                />
+              ))
               : "Loading..."}
           </Row>
         </Container>
@@ -143,17 +143,17 @@ const Events = () => {
             <Row className="justify-content-md-right">
               {moreEvents
                 ? moreEvents.map((event2, index) => (
-                    <EventCard
-                      key={index}
-                      eventTitle={event2.eventName}
-                      eventDate={event2.eventDate}
-                      eventTime={event2.eventTime}
-                      eventLocation={event2.eventLocation}
-                      eventPrice={event2.eventPrice}
-                      eventOrganizer={event2.eventOrganizer}
-                      organizerFollowers={event2.organizerFollowers}
-                    />
-                  ))
+                  <EventCard
+                    key={index}
+                    eventTitle={event2.eventName}
+                    eventDate={event2.eventDate}
+                    eventTime={event2.eventTime}
+                    eventLocation={event2.eventLocation}
+                    eventPrice={event2.eventPrice}
+                    eventOrganizer={event2.eventOrganizer}
+                    organizerFollowers={event2.organizerFollowers}
+                  />
+                ))
                 : "Loading..."}
             </Row>
             <Row className="justify-content-md-center">
