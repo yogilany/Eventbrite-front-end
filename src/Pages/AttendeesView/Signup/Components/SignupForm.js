@@ -17,6 +17,7 @@ import zxcvbn from "zxcvbn";
 import HorizontalChip from "../../Login/Components/HorizontalChip";
 import SignupMethods from "./SignupMethods";
 import {
+  checkEmailExists,
   registerUser,
   selectCurrentUser,
 } from "../../../../features/authSlice";
@@ -31,6 +32,8 @@ import TextInputStyled from "../../../../Components/TextInput/TextInput";
 import ButtonOrangeStyled from "../../../../Components/Buttons/OrangeButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SignupVerifyModal from "./SignupVerifyModal";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { motion, transform, useAnimation } from "framer-motion";
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -159,9 +162,11 @@ export const SignupForm = (props) => {
   const [showSignUpInfo, setShowSignUpInfo] = useState(false);
   const [successful, setSuccess] = useState(false);
   const [privacyPolicyModalShow, setPrivacyPolicyModalShow] = useState(false);
-
+  const [emailExists, setEmailExists] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const controls = useAnimation();
+
   const {
     register,
     handleSubmit,
@@ -178,6 +183,7 @@ export const SignupForm = (props) => {
   });
 
   const watchPassword = watch("password");
+  const watchEmail = watch("email");
 
   const onSubmit = (values) => {
     if (!showSignUpInfo) {
@@ -211,21 +217,37 @@ export const SignupForm = (props) => {
   }
   const onError = (error) => {
     console.log("ERROR:::", error);
-    if (getValues("email").match(isValidEmail) && !showSignUpInfo) {
+    if (emailExists) {
+      controls.start('start');
+      return
+    }
+    if (!emailExists && getValues("email").match(isValidEmail) && !showSignUpInfo) {
       setShowSignUpInfo(true);
       clearErrors();
       setFocus("confirmEmail");
       return;
     }
   };
+
   useEffect(() => {
-    // redirect user to login page if registration was successful
-    // if (selectCurrentUser) navigate('/login')
-  }, [dispatch]);
+    if (getValues('email').length > 0 && getValues('email').match(isValidEmail)) {
+      console.log('use eff')
+
+      dispatch(checkEmailExists(getValues('email')))
+        .unwrap(unwrapResult)
+        .then((result) => {
+          console.log(result)
+          setEmailExists(result);
+        })
+        .catch(() => {
+          //Server error
+        });
+    }
+  }, [watchEmail]);
+ 
   return (
     <>
       <SignupVerifyModal
-
         show={privacyPolicyModalShow}
         onHide={() => setPrivacyPolicyModalShow(false)}
         onAccept={() => {
@@ -243,6 +265,27 @@ export const SignupForm = (props) => {
         <Container>
           <Col className="g-0">
             <Row className="mb-2">
+              <motion.div
+                variants={{
+                  start: () => ({
+                    x: [-30, 30, -30, 30, 0],
+                    transition: {
+                      duration: 0.5,
+                    }
+                  })
+                }}
+                animate={controls}
+                initial={{
+                  x: "0px"
+                }}
+              >
+                {emailExists ? (
+                  <div className="formMsg">
+                    <div></div>
+                    <p>There is an account associated with the email. <Link to="/login">Log in</Link> </p>
+                  </div>
+                ) : null}
+              </motion.div>
               <InputGroup className="p-0">
                 <Form.Group style={{ width: "100%" }}>
                   <FloatingLabel label="Email address">
@@ -325,11 +368,11 @@ export const SignupForm = (props) => {
                       })}
                     />
                   </FloatingLabel>
-                  {errors.firstName && (
-                    <Form.Text className="text-danger">
-                      {errors.firstName.message}
-                    </Form.Text>
-                  )}
+                  <Form.Text className="text-danger"
+                    style={{ visibility: (`${errors.firstName}` ? "visible" : "hidden") }}
+                  >
+                    {errors.firstName?.message}
+                  </Form.Text>
                 </Col>
                 <Col>
                   <FloatingLabel
@@ -347,11 +390,11 @@ export const SignupForm = (props) => {
                       })}
                     />
                   </FloatingLabel>
-                  {errors.lastName && (
-                    <Form.Text className="text-danger">
-                      {errors.lastName.message}
-                    </Form.Text>
-                  )}
+                  <Form.Text className="text-danger"
+                    style={{ visibility: (`${errors.lastName}` ? "visible" : "hidden") }}
+                  >
+                    {errors.lastName?.message}
+                  </Form.Text>
                 </Col>
               </Stack>
             </Row>
@@ -411,7 +454,7 @@ export const SignupForm = (props) => {
             </Row>
           </Col>
         </Container>
-      </Form>
+      </Form >
     </>
   );
 };
