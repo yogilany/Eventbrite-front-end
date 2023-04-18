@@ -1,24 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 export const authUser = createAsyncThunk(
-  "auth/login",
-  async (userData, thunkAPI) => {
+  "auth/login", async (userData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
       console.log("User data = ", userData);
-      const response = await axios(
-        `${process.env.REACT_APP_BASE_API}/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
+      const response = await axios.post(`${process.env.REACT_APP_BASE_API}/auth/signup`,
+        JSON.stringify(userData)
+        , {
+          headers: { 'Content-Type': 'application/json' }
         }
       );
-
       const data = await response.json();
       // console.log(data)
       if (!response.ok) throw new Error("Email or password are incorrect");
@@ -35,14 +28,10 @@ export const registerUser = createAsyncThunk(
   "auth/signup",
   async (registerData, thunkAPI) => {
     try {
-      const response = await axios(
-        `${process.env.REACT_APP_BASE_API}/auth/signup`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(registerData),
+      const response = await axios.post(`${process.env.REACT_APP_BASE_API}/auth/signup`,
+        JSON.stringify(registerData)
+        , {
+          headers: { 'Content-Type': 'application/json' }
         }
       );
       console.log("Response = ", response);
@@ -144,9 +133,41 @@ export const authSlice = createSlice({
 
 export const { logOut } = authSlice.actions;
 
+/**
+ * Description placeholder
+ * @date 4/18/2023 - 4:44:32 AM
+ * @author h4z3m
+ *
+ * @param {*} state
+ * @returns {*}
+ */
 export const selectLoading = (state) => state.auth.isLoading;
+/**
+ * Description placeholder
+ * @date 4/18/2023 - 4:44:32 AM
+ * @author h4z3m
+ *
+ * @param {*} state
+ * @returns {*}
+ */
 export const selectCurrentUser = (state) => state.auth.user;
+/**
+ * Description placeholder
+ * @date 4/18/2023 - 4:44:32 AM
+ * @author h4z3m
+ *
+ * @param {*} state
+ * @returns {*}
+ */
 export const selectCurrentToken = (state) => state.auth.token;
+/**
+ * Description placeholder
+ * @date 4/18/2023 - 4:44:32 AM
+ * @author h4z3m
+ *
+ * @param {*} state
+ * @returns {*}
+ */
 export const selectUserState = (state) => state.auth.user;
 
 export default authSlice.reducer;
