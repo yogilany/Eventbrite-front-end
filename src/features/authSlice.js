@@ -6,17 +6,14 @@ export const authUser = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       console.log("User data = ", userData);
-      const response = await axios.post(`${process.env.REACT_APP_BASE_API}/auth/signup`,
+      const response = await axios.post(`${process.env.REACT_APP_BASE_API}/auth/login`,
         JSON.stringify(userData)
         , {
           headers: { 'Content-Type': 'application/json' }
         }
       );
-      const data = await response.json();
-      // console.log(data)
-      if (!response.ok) throw new Error("Email or password are incorrect");
       // Return user data in addition to access token
-      return { ...userData, ...data };
+      return { ...userData, token: response?.data['token'] };
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.message);
@@ -34,8 +31,6 @@ export const registerUser = createAsyncThunk(
           headers: { 'Content-Type': 'application/json' }
         }
       );
-      console.log("Response = ", response);
-      if (!response.ok) throw new Error("Email already exists");
       return { ...registerData, ...response };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

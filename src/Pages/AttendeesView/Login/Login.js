@@ -6,7 +6,7 @@ import test_image from "../../../assets/side_image.jpg";
 import imageLogin from "../../../assets/adelLogin.png";
 import AboutFooter from "../../../Components/AboutFooter/AboutFooter";
 import Footer from "../../../Components/footer/Footer";
-import { authUser } from "../../../features/authSlice";
+import { authUser, checkEmailExists } from "../../../features/authSlice";
 import { getUsers } from "../../../services/services";
 import { HorizontalChip } from "./Components/HorizontalChip";
 import LoginForm from "./Components/LoginForm";
@@ -14,6 +14,7 @@ import LoginImage from "./Components/LoginImage";
 import LoginMethods from "./Components/LoginMethods";
 import { LoginTitle } from "./Components/Title";
 import "./Login.scss";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 /**
  *
@@ -21,10 +22,6 @@ import "./Login.scss";
  * @returns Login page
  */
 const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-
-const validateEmail = (e) => {
-  return true;
-};
 
 /**
  * This is the login page for attendees where they can log in using
@@ -86,36 +83,29 @@ export const Login = (props) => {
         .catch(() => {
           console.log("ERROR::LOG IN");
           setSuccess(false);
+          setPasswordIncorrect(true);
         });
-      //   const userExists = users.filter((u) => u.email === user);
-      //   if (userExists.length !== 0) {
-      //     if (userExists[0].password === pwd) {
-      //       dispatch(authUser(data));
-      //       setSuccess(true);
-      //       window.User = userExists;
-      //       navigate("/");
-      //     } else {
-      //       setPasswordIncorrect(true);
-      //       setSuccess(false);
-      //       dispatch(authUser(data));
-      //     }
-      //   } else {
-      //     setEmailExist(false);
-      //   }
+
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    const userExists = users.filter((u) => u.email === user);
-
-    if (userExists.length === 0) {
-      setEmailExist(false);
-    } else {
-      setEmailExist(true);
-      setPasswordIncorrect(false);
+    const isValid = user.match(isValidEmail);
+    if (!isValid)
+      setEmailExist(false)
+    if (user.length > 0 && isValid) {
+      dispatch(checkEmailExists(user))
+        .unwrap(unwrapResult)
+        .then((result) => {
+          setEmailExist(result);
+        })
+        .catch(() => {
+          //Server error
+        });
     }
+
   }, [user]);
 
   return (

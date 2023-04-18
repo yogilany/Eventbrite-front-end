@@ -8,7 +8,7 @@ import axios from "axios";
  *
  * @type {*}
  */
-export const publishEvent = createAsyncThunk('auth/login',
+export const publishEvent = createAsyncThunk('events/create',
     async (eventData, thunkAPI) => {
 
         const { rejectWithValue, getState } = thunkAPI;
