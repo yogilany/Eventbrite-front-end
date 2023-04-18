@@ -170,10 +170,18 @@ export const SignupForm = (props) => {
                   }}
                 >
                   <FormMessage>
-                    <BiIcons.BiInfoCircle size={40} style={{
-                      transform: "rotate(180deg) scaleX(-1)"
-                    }} />
-                    <p>There is an account associated with the email. <Link to="/login">Log in</Link> </p>
+
+                      <BiIcons.BiInfoCircle size={24} style={{
+                        transform: "rotate(180deg) scaleX(-1)",
+                        // display: "inline"
+                        flexDirection: "row",
+                        display:"flex"
+                      }} />
+                      <p style={{
+                        display:"flex",
+                        flexDirection: "row",
+                      }}>There is an account associated with the email. <Link to="/login">Log in</Link></p>
+
                   </FormMessage>
                 </motion.div>
               ) : null}

@@ -1,5 +1,5 @@
 import React from 'react'
-import './FormMessage.scss'
+import './FormMessage.css'
 const FormMessage = (props) => {
     return (
         <div className="formMsg">
