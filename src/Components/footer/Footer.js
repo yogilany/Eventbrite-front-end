@@ -1,7 +1,7 @@
 import React from "react";
 import { RiCopyrightLine } from "react-icons/ri";
 import { BsDot } from "react-icons/bs";
-import FooterLink from "../footerLink/FooterLink";
+import FooterLink from "../footer";
 import "./footer.css";
 const Footer = () => {
   return (
