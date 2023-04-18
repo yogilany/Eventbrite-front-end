@@ -32,6 +32,7 @@ import { motion, useAnimation } from "framer-motion";
 import * as BiIcons from 'react-icons/bi'
 import LinearProgressWithLabel from "../../../../Components/LinearProgressWithLabel/LinearProgressWithLabel";
 import { SignupSchema, getPasswordState, isValidEmail } from "./Signup-utils";
+import FormMessage from "../../../../Components/FormMessage/FormMessage";
 
 /**
  * The signup form which contains the information needed to create a new account.
@@ -153,29 +154,29 @@ export const SignupForm = (props) => {
         <Container>
           <Col className="g-0">
             <Row className="mb-2">
-              <motion.div
-                variants={{
-                  start: () => ({
-                    x: [-30, 30, -30, 30, 0],
-                    transition: {
-                      duration: 0.5,
-                    }
-                  })
-                }}
-                animate={controls}
-                initial={{
-                  x: "0px"
-                }}
-              >
-                {emailExists ? (
-                  <div className="formMsg">
-                    <div><BiIcons.BiInfoCircle size={40} style={{
+              {emailExists ? (
+                <motion.div
+                  variants={{
+                    start: () => ({
+                      x: [-30, 30, -30, 30, 0],
+                      transition: {
+                        duration: 0.5,
+                      }
+                    })
+                  }}
+                  animate={controls}
+                  initial={{
+                    x: "0px"
+                  }}
+                >
+                  <FormMessage>
+                    <BiIcons.BiInfoCircle size={40} style={{
                       transform: "rotate(180deg) scaleX(-1)"
-                    }} /></div>
+                    }} />
                     <p>There is an account associated with the email. <Link to="/login">Log in</Link> </p>
-                  </div>
-                ) : null}
-              </motion.div>
+                  </FormMessage>
+                </motion.div>
+              ) : null}
               <InputGroup className="p-0">
                 <Form.Group style={{ width: "100%" }}>
                   <FloatingLabel label="Email address">
@@ -332,7 +333,7 @@ export const SignupForm = (props) => {
               </Link>
             </Row>
           </Col>
-        </Container>
+        </Container >
       </Form >
     </>
   );

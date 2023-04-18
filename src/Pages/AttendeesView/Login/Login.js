@@ -15,6 +15,9 @@ import LoginMethods from "./Components/LoginMethods";
 import { LoginTitle } from "./Components/Title";
 import "./Login.scss";
 import { unwrapResult } from "@reduxjs/toolkit";
+import FormMessage from "../../../Components/FormMessage/FormMessage";
+import { Link } from "react-router-dom";
+import { motion, useAnimation } from "framer-motion";
 
 /**
  *
@@ -47,6 +50,7 @@ export const Login = (props) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const controls = useAnimation();
 
   useEffect(() => {
     userRef.current.focus();
@@ -84,6 +88,7 @@ export const Login = (props) => {
           console.log("ERROR::LOG IN");
           setSuccess(false);
           setPasswordIncorrect(true);
+          controls.start('start');
         });
 
     } catch (err) {
@@ -100,6 +105,7 @@ export const Login = (props) => {
         .unwrap(unwrapResult)
         .then((result) => {
           setEmailExist(result);
+          controls.start('start');
         })
         .catch(() => {
           //Server error
@@ -140,21 +146,48 @@ export const Login = (props) => {
             </Row>
             <Row>
               {!emailExist && user.length > 10 ? (
-                <div className="formMsg">
-                  <div></div>
-                  <p>
+                <motion.div
+                  variants={{
+                    start: () => ({
+                      x: [-30, 30, -30, 30, 0],
+                      transition: {
+                        duration: 0.5,
+                      }
+                    })
+                  }}
+                  animate={controls}
+                  initial={{
+                    x: "0px"
+                  }}
+                >
+                  <FormMessage>
                     There is no account associated with the email.{" "}
-                    <a href="/signup">Create account.</a>{" "}
-                  </p>
-                </div>
+                    <Link to="/signup">Create account.</Link>{" "}
+                  </FormMessage>
+                </motion.div>
               ) : null}
             </Row>
             <Row>
-              {passwordIncorrect ? (
-                <div className="formMsg">
-                  <div></div>
-                  <p>Password is incorrect. </p>
-                </div>
+              {passwordIncorrect && emailExist ? (
+                <motion.div
+                  variants={{
+                    start: () => ({
+                      x: [-30, 30, -30, 30, 0],
+                      transition: {
+                        duration: 0.5,
+                      }
+                    })
+                  }}
+                  animate={controls}
+                  initial={{
+                    x: "0px"
+                  }}
+                >
+                  <FormMessage>
+                    <div></div>
+                    <p>Password is incorrect. </p>
+                  </FormMessage>
+                </motion.div>
               ) : null}
             </Row>
             <Row className="g-0">
