@@ -180,7 +180,7 @@ export const SignupForm = (props) => {
                       <p style={{
                         display:"flex",
                         flexDirection: "row",
-                      }}>There is an account associated with the email. <Link to="/login">Log in</Link></p>
+                      }}>There is an account associated with the email. <Link to="/login"> Log in</Link></p>
 
                   </FormMessage>
                 </motion.div>
