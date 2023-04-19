@@ -35,7 +35,7 @@ const CategoriesCards = ({ location }) => {
   const fetchCategories = () => {
     // console.log("baseee", process.env.REACT_APP_BASE_API);
     axios
-      .get(`${process.env.REACT_APP_BASE_API}/categories`)
+      .get(`${process.env.REACT_APP_BASE_API}/categories/`)
       .then(function (response) {
         console.log(response);
         setCategories(response.data);
