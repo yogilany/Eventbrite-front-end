@@ -1,6 +1,6 @@
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Form,
   InputGroup,
@@ -49,7 +49,9 @@ export const SignupForm = (props) => {
   const [successful, setSuccess] = useState(false);
   const [privacyPolicyModalShow, setPrivacyPolicyModalShow] = useState(false);
   const [emailExists, setEmailExists] = useState(false);
-
+  const [submitPosition, setSubmitPosition] = useState("");
+  const [oldSubmitPosition, setOldSubmitPosition] = useState("");
+  const rowRef = useRef()
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const controls = useAnimation();
@@ -133,7 +135,6 @@ export const SignupForm = (props) => {
         });
     }
   }, [watchEmail, dispatch, getValues]);
-
   return (
     <>
       <SignupVerifyModal
@@ -171,16 +172,16 @@ export const SignupForm = (props) => {
                 >
                   <FormMessage>
 
-                      <BiIcons.BiInfoCircle size={24} style={{
-                        transform: "rotate(180deg) scaleX(-1)",
-                        // display: "inline"
-                        flexDirection: "row",
-                        display:"flex"
-                      }} />
-                      <p style={{
-                        display:"flex",
-                        flexDirection: "row",
-                      }}>There is an account associated with the email. <Link to="/login">Log in</Link></p>
+                    <BiIcons.BiInfoCircle size={24} style={{
+                      transform: "rotate(180deg) scaleX(-1)",
+                      // display: "inline"
+                      flexDirection: "row",
+                      display: "flex"
+                    }} />
+                    <p style={{
+                      display: "flex",
+                      flexDirection: "row",
+                    }}>There is an account associated with the email. <Link to="/login">Log in</Link></p>
 
                   </FormMessage>
                 </motion.div>
@@ -321,11 +322,70 @@ export const SignupForm = (props) => {
               <LinearProgressWithLabel defaultLabel="Your password must be at least 8 characters"
                 defaultColor="#1a90ff" progressFunction={getPasswordState} value={watchPassword} />
             </Row>
-            <Row>
-              <ButtonOrangeStyled data-testid="submit-button" id="submit-button" as="button"
-                className="mt-4 mb-4" type="submit" variant="flat btn-flat">
-                {showSignUpInfo ? "Create account" : "Continue"}
-              </ButtonOrangeStyled>
+            <Row
+              ref={rowRef}
+              id={rowRef}
+              onMouseLeave={
+                () => {
+                  controls.start({ x: 0, transition: { duration: 0.3 } })
+                  return;
+                }
+              }
+            >
+              <motion.div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  gridTemplateRows: "1fr",
+                  gridColumnGap: "0",
+                  gridRowGap: "0"
+                }}
+                animate={controls}
+
+                initial={{ x: 0 }}
+              >
+                <div
+                  onMouseEnter={() => {
+
+                    console.log("going right")
+                    setSubmitPosition("go-right")
+                    controls.start({
+                      x: [0, 200],
+                      transition: {
+                        duration: 0.3,
+                      }
+                    })
+                  }}
+                  onMouseOut={() => {
+                    setSubmitPosition("go-right")
+                  }}
+                >
+                  <ButtonOrangeStyled
+                    style={{ minWidth: "200%" }}
+                    data-testid="submit-button" id="submit-button" as="button"
+                    className="mt-4 mb-4" type="submit" variant="flat btn-flat">
+                    {showSignUpInfo ? "Create account" : "Continue"}
+                  </ButtonOrangeStyled>
+                </div>
+                <div
+                  onMouseEnter={() => {
+
+                    console.log("going left")
+                    setSubmitPosition("go-left")
+                    controls.start({
+                      x: [0, -200],
+                      transition: {
+                        duration: 0.3,
+                      }
+                    })
+                  }}
+                  onMouseOut={() => {
+                    setSubmitPosition("go-left")
+                  }}
+
+                >
+                </div>
+              </motion.div>
             </Row>
             <Row>
               {showSignUpInfo ? null : (
@@ -334,6 +394,8 @@ export const SignupForm = (props) => {
                   <SignupMethods />
                 </>
               )}
+
+
             </Row>
             <Row>
               <Link data-testid="login-link" id="login-link" to={"/login"} className={SignupFormCSS.a_link}>
