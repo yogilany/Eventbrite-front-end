@@ -52,21 +52,21 @@ export const Login = (props) => {
   const navigate = useNavigate();
   const controls = useAnimation();
 
-  useEffect(() => {
-    userRef.current.focus();
+  // useEffect(() => {
+  //   userRef.current.focus();
 
-    async function fetchUsers() {
-      const res = await getUsers();
-      // console.log("res: ", res);
-      setUsers(res);
-    }
-    fetchUsers();
-    // console.log("users: ", users);
-  }, []);
+  //   async function fetchUsers() {
+  //     const res = await getUsers();
+  //     // console.log("res: ", res);
+  //     setUsers(res);
+  //   }
+  //   fetchUsers();
+  //   // console.log("users: ", users);
+  // }, []);
 
-  useEffect(() => {
-    setErrMsg("");
-  }, [user, pwd]);
+  // useEffect(() => {
+  //   setErrMsg("");
+  // }, [user, pwd]);
 
   const handleSubmit = async (e) => {
     try {
@@ -88,7 +88,7 @@ export const Login = (props) => {
           console.log("ERROR::LOG IN");
           setSuccess(false);
           setPasswordIncorrect(true);
-          console.log('err = ',err)
+          console.log('err = ', err)
           setErrMsg(err);
           controls.start('start');
         });
@@ -111,6 +111,7 @@ export const Login = (props) => {
         })
         .catch(() => {
           //Server error
+          setEmailExist(false)
         });
     }
 
@@ -163,8 +164,10 @@ export const Login = (props) => {
                   }}
                 >
                   <FormMessage>
-                    There is no account associated with the email.{" "}
-                    <Link to="/signup">Create account.</Link>{" "}
+                    <p>
+                      There is no account associated with the email.{" "}
+                      <Link to="/signup">Create account.</Link>{" "}
+                    </p>
                   </FormMessage>
                 </motion.div>
               ) : null}
@@ -207,6 +210,7 @@ export const Login = (props) => {
                 Success={success}
                 data_testid="login-form"
                 name="login-form-div"
+                email_exists={emailExist}
               />
             </Row>
             <Row className="g-0">

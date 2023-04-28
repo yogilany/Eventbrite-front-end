@@ -63,6 +63,7 @@ export const LoginForm = (props) => {
             type="submit"
             value=""
             variant="flat btn-flat"
+            disabled={!props.email_exists}
           >Log in</ButtonOrangeStyled>
         </Row>
       </Container >

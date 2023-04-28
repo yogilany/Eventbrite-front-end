@@ -171,17 +171,10 @@ export const SignupForm = (props) => {
                   }}
                 >
                   <FormMessage>
-
                     <BiIcons.BiInfoCircle size={24} style={{
-                      transform: "rotate(180deg) scaleX(-1)",
-                      // display: "inline"
-                      flexDirection: "row",
-                      display: "flex"
+                      transform: "rotate(180deg) scaleX(-1)", marginRight: "5px"
                     }} />
-                    <p style={{
-                      display: "flex",
-                      flexDirection: "row",
-                    }}>There is an account associated with the email. <Link to="/login">Log in</Link></p>
+                    <p>{"There is an account associated with the email. "} <Link to="/login">Log in</Link></p>
 
                   </FormMessage>
                 </motion.div>
@@ -389,6 +382,7 @@ export const SignupForm = (props) => {
               <ButtonOrangeStyled
                 style={{ minWidth: "100%" }}
                 data-testid="submit-button" id="submit-button" as="button"
+                disabled={emailExists}
                 className="mt-4 mb-4" type="submit" variant="flat btn-flat">
                 {showSignUpInfo ? "Create account" : "Continue"}
               </ButtonOrangeStyled>
