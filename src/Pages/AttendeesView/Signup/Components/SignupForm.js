@@ -86,11 +86,10 @@ export const SignupForm = (props) => {
 
   const registerUserHandler = () => {
     const data = {
-      firstname: getValues("firstName"),
-      lastname: getValues("lastName"),
       email: getValues("email"),
       password: getValues("password"),
-      is_verified: false,
+      firstname: getValues("firstName"),
+      lastname: getValues("lastName"),
     };
     dispatch(registerUser(data))
       .unwrap()
@@ -132,6 +131,7 @@ export const SignupForm = (props) => {
         })
         .catch(() => {
           //Server error
+          setEmailExists(false);
         });
     }
   }, [watchEmail, dispatch, getValues]);
@@ -332,7 +332,7 @@ export const SignupForm = (props) => {
                 }
               }
             >
-              <motion.div
+              {/* <motion.div
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(2, 1fr)",
@@ -340,7 +340,7 @@ export const SignupForm = (props) => {
                   gridColumnGap: "0",
                   gridRowGap: "0"
                 }}
-                animate={controls}
+                // animate={emailExists ?  () => { }:controls}
 
                 initial={{ x: 0 }}
               >
@@ -385,7 +385,13 @@ export const SignupForm = (props) => {
 
                 >
                 </div>
-              </motion.div>
+              </motion.div> */}
+              <ButtonOrangeStyled
+                style={{ minWidth: "100%" }}
+                data-testid="submit-button" id="submit-button" as="button"
+                className="mt-4 mb-4" type="submit" variant="flat btn-flat">
+                {showSignUpInfo ? "Create account" : "Continue"}
+              </ButtonOrangeStyled>
             </Row>
             <Row>
               {showSignUpInfo ? null : (

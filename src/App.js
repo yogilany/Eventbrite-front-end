@@ -4,14 +4,16 @@ import AuthenticatedApp from "./app/AuthenticatedApp";
 import UnauthenticatedApp from "./app/UnauthenticatedApp";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { selectUserState } from "./features/authSlice";
+import { selectCurrentToken, selectUserState } from "./features/authSlice";
 function App() {
   const user = useSelector(selectUserState);
-  console.log("USER = ", user);
+  const token = useSelector(selectCurrentToken);
+  console.log("User = ", user);
+  console.log("Token = ", token);
 
   return (
     <>
-      {user ? (
+      {token ? (
         <Layout>
           <AuthenticatedApp />
         </Layout>

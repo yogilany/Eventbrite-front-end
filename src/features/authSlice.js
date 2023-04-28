@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const qs = require('qs')
 
 export const authUser = createAsyncThunk(
   "auth/login", async (userData, thunkAPI) => {
@@ -7,16 +8,16 @@ export const authUser = createAsyncThunk(
     try {
       console.log("User data = ", userData);
       const response = await axios.post(`${process.env.REACT_APP_BASE_API}/auth/login`,
-        JSON.stringify(userData)
+        qs.stringify(userData)
         , {
-          headers: { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }
       );
       // Return user data in addition to access token
-      return { ...userData, token: response?.data['token'] };
+      return { ...userData, token: response?.data['access_token'] };
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.message);
+      return rejectWithValue(error?.response?.data?.detail);
     }
   }
 );
@@ -33,6 +34,7 @@ export const registerUser = createAsyncThunk(
       );
       return { ...registerData, ...response };
     } catch (error) {
+      console.log(error.message)
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -51,9 +53,10 @@ export const checkEmailExists = createAsyncThunk(
       }
       );
       console.log(checkEmailExists.name, " Response = ", response);
+      if (response.status !== 200)
+        throw new Error('Error');
       return response.data
     } catch (error) {
-      console.log('errrr')
       return thunkAPI.rejectWithValue(true);
     }
   }

@@ -72,22 +72,24 @@ export const Login = (props) => {
     try {
       e.preventDefault();
       const data = {
-        email: user,
+        username: user,
         password: pwd,
       };
       // console.warn("User: ", user, " Pwd: ", pwd);
       dispatch(authUser(data))
-        .unwrap()
-        .then(() => {
+        .unwrap(unwrapResult)
+        .then((result) => {
           // console.log("SUCCESS::LOG IN");
           navigate("/");
           setSuccess(true);
           window.location.reload();
         })
-        .catch(() => {
+        .catch((err) => {
           console.log("ERROR::LOG IN");
           setSuccess(false);
           setPasswordIncorrect(true);
+          console.log('err = ',err)
+          setErrMsg(err);
           controls.start('start');
         });
 
@@ -185,7 +187,7 @@ export const Login = (props) => {
                 >
                   <FormMessage>
                     <div></div>
-                    <p>Password is incorrect. </p>
+                    <p>{errMsg}</p>
                   </FormMessage>
                 </motion.div>
               ) : null}
