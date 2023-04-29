@@ -1,32 +1,21 @@
 pipeline {
-    agent { 
-        node {
-            label 'master' 
-            }
-      }
+    agent any
     stages {
-        stage('Build') {
-            steps {
-                echo "Building.."
-                sh '''
-                echo "doing build stuff.."
-                '''
-            }
-        }
         stage('Test') {
             steps {
-                echo "Testing.."
-                sh '''
-                echo "doing test stuff.."
-                '''
+                echo "This step tests the project"
             }
         }
-        stage('Deliver') {
+        }
+        stage('Deploy') {
             steps {
-                echo 'Deliver....'
-                sh '''
-                echo "doing delivery stuff.."
-                '''
+                echo "This stage deploys the project"
+            }
+        }        :
+        stage('Report') {
+            steps {
+                echo "This stage generates a report"
+                
             }
         }
     }
