@@ -4,7 +4,7 @@ pipeline
     stages { 
         stage('Test') {
             steps {
-                echo "This step tests the project"
+                echo "we need to install dependancies first This step tests the project"
             }
         }
         
