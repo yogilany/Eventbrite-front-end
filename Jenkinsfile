@@ -1,7 +1,7 @@
 pipeline 
 {
     agent any
-    stages {
+    stages { 
         stage('Test') {
             steps {
                 echo "This step tests the project"
