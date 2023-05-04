@@ -48,7 +48,6 @@ export const LoginMethods = (props) => {
           </Col>
         </Row>
         <Row className="pt-5 pb-0" >
-
           <Link to={"/signup"} className={LoginMethodsCSS.a_link} >Sign up</Link>
         </Row>
       </Container>

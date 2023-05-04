@@ -154,7 +154,7 @@ export const SignupForm = (props) => {
       >
         <Container>
           <Col className="g-0">
-            <Row className="mb-2">
+            <Row className="mb-2 g-0">
               {emailExists ? (
                 <motion.div
                   variants={{
@@ -174,7 +174,7 @@ export const SignupForm = (props) => {
                     <BiIcons.BiInfoCircle size={24} style={{
                       transform: "rotate(180deg) scaleX(-1)", marginRight: "5px"
                     }} />
-                    <p>{"There is an account associated with the email. "} <Link to="/login">Log in</Link></p>
+                    <p><strong>{"There is an account associated with the email. "} </strong><Link to="/login">Log in</Link></p>
 
                   </FormMessage>
                 </motion.div>
@@ -183,6 +183,7 @@ export const SignupForm = (props) => {
                 <Form.Group style={{ width: "100%" }}>
                   <FloatingLabel label="Email address">
                     <TextInputStyled
+                      isInvalid={errors.email}
                       disabled={showSignUpInfo}
                       type="email"
                       data-testid="email-input"
@@ -382,7 +383,6 @@ export const SignupForm = (props) => {
               <ButtonOrangeStyled
                 style={{ minWidth: "100%" }}
                 data-testid="submit-button" id="submit-button" as="button"
-                disabled={emailExists}
                 className="mt-4 mb-4" type="submit" variant="flat btn-flat">
                 {showSignUpInfo ? "Create account" : "Continue"}
               </ButtonOrangeStyled>

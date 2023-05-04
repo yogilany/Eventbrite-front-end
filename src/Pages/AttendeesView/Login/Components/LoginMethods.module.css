@@ -9,3 +9,14 @@
 .a_link:hover {
     text-decoration: underline;
 }
+
+.floating-label {
+    font-size: 14px;
+    line-height: 1rem;
+}
+
+.floating-label:focus {
+    font-size: 14px;
+    line-height: 1rem;
+
+}

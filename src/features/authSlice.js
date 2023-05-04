@@ -41,23 +41,44 @@ export const registerUser = createAsyncThunk(
 );
 
 export const checkEmailExists = createAsyncThunk(
-  "auth/signup",
+  "auth/check-email-exists",
   async (email, thunkAPI) => {
     try {
-      console.log(`${process.env.REACT_APP_BASE_API}/auth/check-email`)
       const response = await axios({
-        method: "POST",
-        url: `${process.env.REACT_APP_BASE_API}/auth/check-email`,
+        method: "GET",
+        url: `${process.env.REACT_APP_BASE_API}/users/emails/check`,
         params: { "email": email },
         headers: { 'Content-Type': 'application/json' }
       }
       );
       console.log(checkEmailExists.name, " Response = ", response);
       if (response.status !== 200)
-        throw new Error('Error');
+        throw new Error(response?.data);
       return response.data
     } catch (error) {
-      return thunkAPI.rejectWithValue(true);
+      return thunkAPI.rejectWithValue(false);
+    }
+  }
+);
+
+
+export const forgotPassword = createAsyncThunk(
+  "auth/forgot-password",
+  async (email, thunkAPI) => {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_BASE_API}/auth/forgot-password`,
+        params: { "email": email },
+        headers: { 'Content-Type': 'application/json' }
+      }
+      );
+      console.log(checkEmailExists.name, " Response = ", response);
+      if (response.status !== 200)
+        throw new Error(response?.data);
+      return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(false);
     }
   }
 );
