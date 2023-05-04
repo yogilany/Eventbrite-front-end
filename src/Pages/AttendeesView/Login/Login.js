@@ -2,12 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { Container, Col, Row, Stack, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import test_image from "../../../assets/side_image.jpg";
 import imageLogin from "../../../assets/adelLogin.png";
 import AboutFooter from "../../../Components/AboutFooter/AboutFooter";
 import Footer from "../../../Components/footer/Footer";
-import { authUser, checkEmailExists, forgotPassword as forgotPassword } from "../../../features/authSlice";
-import { getUsers } from "../../../services/services";
+import { authUser, checkEmailExists, forgotPassword } from "../../../features/authSlice";
 import { HorizontalChip } from "./Components/HorizontalChip";
 import LoginForm from "./Components/LoginForm";
 import LoginImage from "./Components/LoginImage";
@@ -16,10 +14,9 @@ import { LoginTitle } from "./Components/Title";
 import "./Login.scss";
 import { unwrapResult } from "@reduxjs/toolkit";
 import FormMessage from "../../../Components/FormMessage/FormMessage";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import LoginForgotPasswordModal from "./Components/LoginForgotPasswordModal";
-import LoginMethodsCSS from "./Components/LoginMethods.module.css";
 /**
  *
  * @param {name: Name of this element after creation} props
@@ -70,7 +67,7 @@ export const Login = (props) => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     try {
       const data = {
         username: e.email,
@@ -81,12 +78,11 @@ export const Login = (props) => {
       setEmailInput(e.email)
 
       console.log(data);
+
       dispatch(authUser(data))
         .unwrap(unwrapResult)
         .then((result) => {
-          navigate("/");
           setSuccess(true);
-          window.location.reload();
         })
         .catch((err) => {
           setSuccess(false);
@@ -97,12 +93,19 @@ export const Login = (props) => {
           }, 500);
         });
 
+      if (success) {
+        navigate("/");
+
+      }
     } catch (err) {
       console.log(err);
     }
+
+
   };
 
   useEffect(() => {
+
     const isValid = user.match(isValidEmail);
 
     if (!isValid)
@@ -114,7 +117,6 @@ export const Login = (props) => {
         .then((result) => {
           setEmailExist(true);
           setPasswordIncorrect(false);
-          setSuccess(true)
           setTimeout(() => {
             controls.start('start');
           }, 500);

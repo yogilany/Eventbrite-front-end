@@ -23,7 +23,7 @@ export const LoginSchema = Yup.object().shape({
  */
 export const LoginForm = (props) => {
   const { register, handleSubmit, watch, getValues, formState: { errors } } = useForm({
-    mode: "onBlur",
+    mode: "onChange",
     reValidateMode: "onChange",
     resolver: yupResolver(LoginSchema)
   });
@@ -95,8 +95,11 @@ export const LoginForm = (props) => {
             </FloatingLabel>
             <Form.Text className="text-danger"
               style={{ visibility: (`${errors.password || props.passwordIncorrect}` ? "visible" : "hidden") }}>
-              {errors.password?.message}
-              {props.passwordIncorrect ? "The password is not correct." : null}
+
+              {errors.password ? errors.password.message :
+                (
+                  props.passwordIncorrect ? "The password is not correct." : null)
+              }
 
             </Form.Text>
           </Form.Group>

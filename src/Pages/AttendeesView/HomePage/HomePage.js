@@ -6,7 +6,6 @@ import "./HomePage.scss";
 import Footer from "../../../Components/footer/Footer";
 import { useState, useEffect } from "react";
 
-import { selectCurrentUser } from "../../../features/authSlice";
 /**
  * @author Yousef Gilany
  * @description This is the Main page of the application that contains the Hero , Categories , Events and More Events Sections.
