@@ -93,16 +93,18 @@ export const Login = (props) => {
           }, 500);
         });
 
-      if (success) {
-        navigate("/");
 
-      }
     } catch (err) {
       console.log(err);
     }
 
 
   };
+  useEffect(() => {
+    if (success) {
+      navigate("/", { replace: true });
+    }
+  }, [success])
 
   useEffect(() => {
 

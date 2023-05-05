@@ -1,13 +1,17 @@
-import { Navigate } from "react-router";
+import { Navigate, Outlet, useLocation } from "react-router";
 import { useAuth } from "./useAuth";
+import { selectUserToken } from "../features/authSlice";
+import { useSelector } from "react-redux";
 
 export const ProtectedRoute = ({ children }) => {
-    const { user } = useAuth();
-    if (!user) {
-        // user is not authenticated
-        return <Navigate to="/login" />;
-    }
-    return children;
+    const token = useSelector(selectUserToken);
+    // const { user } = useAuth();
+    const location = useLocation();
+    return token ? (
+        <Outlet />
+    ) : (
+        <Navigate to="/login" replace state={{ from: location }} />
+    );
 };
 
 export default ProtectedRoute;

@@ -9,6 +9,7 @@ import Organizer from "../Pages/AttendeesView/Organizer/Organizer";
 import SearchPage from "../Pages/AttendeesView/HomePage/Components/SearchPage";
 import SingleEvent from "../Pages/AttendeesView/SingleEvent/SingleEvent";
 import EventsByCategory from "../Pages/AttendeesView/EventsByCategory/EventsByCategory";
+import VerifyUser from "../Pages/AttendeesView/VerifyUser/VerifyUser";
 function UnauthenticatedApp() {
   const router = createBrowserRouter([
     {
@@ -45,6 +46,10 @@ function UnauthenticatedApp() {
     {
       path: "/event/:id",
       element: <SingleEvent />,
+    },
+    {
+      path: "/verify",
+      element: <VerifyUser />,
     },
   ]);
 

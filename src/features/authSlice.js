@@ -282,6 +282,15 @@ export const authSlice = createSlice({
         state.userFirstName = action.payload.firstname
         state.userLastName = action.payload.lastname
         state.userAvatarURL = action.payload.avatar_url
+      }).addCase(verifyUser.rejected, (state, action) => {
+        console.log('rejected action.payload = ', action.payload);
+        state.isLoading = false;
+      })
+      .addCase(verifyUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(verifyUser.fulfilled, (state, action) => {
+        state.isLoading = false;
       })
   },
 });

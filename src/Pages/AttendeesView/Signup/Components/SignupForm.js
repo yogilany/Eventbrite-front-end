@@ -152,9 +152,10 @@ export const SignupForm = (props) => {
         data-testid={props.data_testid}
         onSubmit={handleSubmit(onSubmit, onError)}
       >
-        <Container>
+        <Container
+        >
           <Col className="g-0">
-            <Row className="mb-2 g-0">
+            <Row className="mb-2">
               {emailExists ? (
                 <motion.div
                   variants={{
@@ -180,8 +181,10 @@ export const SignupForm = (props) => {
                 </motion.div>
               ) : null}
               <InputGroup className="p-0">
-                <Form.Group style={{ width: "100%" }}>
-                  <FloatingLabel label="Email address">
+                <Form.Group
+                  className="p-0"
+                  style={{ width: "100%" }}>
+                  <Form.Floating >
                     <TextInputStyled
                       isInvalid={errors.email}
                       disabled={showSignUpInfo}
@@ -190,7 +193,8 @@ export const SignupForm = (props) => {
                       id="email-input"
                       {...register("email", { required: "Field required" })}
                     />
-                  </FloatingLabel>
+                    <label >Email Address</label>
+                  </Form.Floating>
                   {errors.email && (
                     <Form.Text className="text-danger">
                       {errors.email.message}
@@ -381,7 +385,7 @@ export const SignupForm = (props) => {
                 </div>
               </motion.div> */}
               <ButtonOrangeStyled
-                style={{ minWidth: "100%" }}
+                // style={{ minWidth: "100%" }}
                 data-testid="submit-button" id="submit-button" as="button"
                 className="mt-4 mb-4" type="submit" variant="flat btn-flat">
                 {showSignUpInfo ? "Create account" : "Continue"}

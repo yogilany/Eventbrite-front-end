@@ -1,8 +1,8 @@
-import { Form, Container, FloatingLabel, Row } from "react-bootstrap";
+import { Form, Container, FloatingLabel, Row, InputGroup } from "react-bootstrap";
 import TextInputStyled from "../../../../Components/TextInput/TextInput";
 import ButtonOrangeStyled from "../../../../Components/Buttons/OrangeButton";
 import { useForm } from "react-hook-form";
-import LoginMethodsCSS from "./LoginMethods.module.css";
+import LoginMethodsCSS from "./LoginMethods.module.scss";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { isValidEmail } from "../../Signup/Components/Signup-utils";
 import * as Yup from "yup";
@@ -54,15 +54,13 @@ export const LoginForm = (props) => {
         name={props.name}
       >
         <Row className="mb-3">
-          <Form.Group className="p-0">
-            <FloatingLabel
-              className={LoginMethodsCSS["floating-label"]}
-              label="Email address">
+          <Form.Group
+            className="p-0"
+            style={{ width: "100%" }}>
+            <Form.Floating
+              className={LoginMethodsCSS["form-floating"]}
+            >
               <TextInputStyled
-                style={{
-                  minWidth: "100%",
-                  width: "350px"
-                }}
                 id='login-email-input'
                 data-testid='login-email-input'
                 {...register("email", { required: "Required" })}
@@ -71,7 +69,8 @@ export const LoginForm = (props) => {
                 type="email"
                 isInvalid={errors?.email}
               />
-            </FloatingLabel>
+              <label>Email Address</label>
+            </Form.Floating>
             <Form.Text className="text-danger"
               style={{ visibility: (`${errors.email}` ? "visible" : "hidden") }}>
               {errors.email?.message}
@@ -80,9 +79,9 @@ export const LoginForm = (props) => {
         </Row>
         <Row className="mb-3">
           <Form.Group className="p-0">
-            <FloatingLabel
-              className={LoginMethodsCSS["floating-label"]}
-              label="Password">
+            <Form.Floating
+              className={LoginMethodsCSS["form-floating"]}
+            >
               <TextInputStyled
                 id='login-password-input'
                 data-testid='login-password-input'
@@ -92,7 +91,8 @@ export const LoginForm = (props) => {
                 type="password"
                 isInvalid={errors?.password || props.passwordIncorrect}
               />
-            </FloatingLabel>
+              <label >Password</label>
+            </Form.Floating>
             <Form.Text className="text-danger"
               style={{ visibility: (`${errors.password || props.passwordIncorrect}` ? "visible" : "hidden") }}>
 
