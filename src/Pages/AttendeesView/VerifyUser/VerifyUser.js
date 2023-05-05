@@ -1,13 +1,16 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { verifyUser } from '../../../features/authSlice'
+import { logOut, verifyUser } from '../../../features/authSlice'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { useState } from 'react'
 import { Spinner } from 'react-bootstrap'
+import { useNavigate } from 'react-router'
 const VerifyUser = () => {
+  const secondsBeforeRedirect = 5;
   const [verificationState, setVerificationState] = useState("undefined")
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     // get parameters from url
@@ -16,6 +19,10 @@ const VerifyUser = () => {
     console.log('Token = ', token);
     dispatch(verifyUser(token)).unwrap(unwrapResult).then((result) => {
       setVerificationState(true)
+      logOut()
+      setTimeout(() => {
+        navigate("/login", { replace: true })
+      }, secondsBeforeRedirect * 1000)
     }).catch((err) => {
       setVerificationState(false)
       console.log(err);
