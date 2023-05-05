@@ -50,6 +50,7 @@ import SearchPage from "./Pages/AttendeesView/HomePage/Components/SearchPage";
 import EventsByCategory from "./Pages/AttendeesView/EventsByCategory/EventsByCategory";
 import SingleEvent from "./Pages/AttendeesView/SingleEvent/SingleEvent";
 import Profile from "./Pages/AttendeesView/Profile/Profile";
+import VerifyUser from "./Pages/AttendeesView/VerifyUser/VerifyUser";
 
 function App() {
   const userToken = useSelector(selectUserToken);
@@ -66,6 +67,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/organizer" element={<Organizer />} />
+            <Route path="/verify" element={<VerifyUser />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/likes" element={<Likes />} />
               <Route path="/all-events" element={<AllEvents />} />

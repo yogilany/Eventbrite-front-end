@@ -174,6 +174,7 @@ export const verifyUser = createAsyncThunk(
         }
       }
       );
+      console.log(" Verify response = ", response);
       if (response.status !== 200)
         throw new Error(response?.data);
       return response.data

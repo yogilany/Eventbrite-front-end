@@ -14,19 +14,18 @@ const VerifyUser = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     console.log('Token = ', token);
-
     dispatch(verifyUser(token)).unwrap(unwrapResult).then((result) => {
       setVerificationState(true)
     }).catch((err) => {
       setVerificationState(false)
       console.log(err);
     });
-  })
+  }, [])
   switch (verificationState) {
     case true:
       return (
         <>
-          <div >Verified successfully</div>
+          <div className='d-flex justify-content-md-center'>Verified successfully</div>
         </>
       )
     case false:
@@ -34,8 +33,10 @@ const VerifyUser = () => {
         <div className='d-flex justify-content-md-center'>Verification failed</div>
       )
     default:
-      return (
+      return (<>
+        <div className='d-flex justify-content-md-center'>Verification in progress...</div>
         <Spinner animation="border" role="status" />
+      </>
       )
   }
 }
