@@ -62,13 +62,16 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="*" element={<Navigate to="/" replace />} />
-
             <Route path="/" element={<HomePage />} errorElement={<ErrorPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/organizer" element={<Organizer />} />
             <Route path="/verify" element={<VerifyUser />} />
-            <Route element={<ProtectedRoute />}>
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/events/:category/:location" element={<EventsByCategory />} />
+            <Route path="/event/:id" element={<SingleEvent />} />
+
+            <Route path="/" element={<ProtectedRoute />}>
               <Route path="/likes" element={<Likes />} />
               <Route path="/all-events" element={<AllEvents />} />
               <Route path="/details" element={<Details />} />
@@ -76,12 +79,8 @@ function App() {
               <Route path="/Publish" element={<Publish />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/basic-info" element={<Basicinfo />} />
-              <Route path="/search" element={<SearchPage />} />
-              <Route path="/events/:category/:location" element={<EventsByCategory />} />
-              <Route path="/event/:id" element={<SingleEvent />} />
               <Route path="/Profile" element={<Profile />} />
             </Route>
-
           </Routes>
         </BrowserRouter>
       </Layout>

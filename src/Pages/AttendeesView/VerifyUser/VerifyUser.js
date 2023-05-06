@@ -27,7 +27,7 @@ const VerifyUser = () => {
       setVerificationState(false)
       console.log(err);
     });
-  }, [])
+  })
   switch (verificationState) {
     case true:
       return (
