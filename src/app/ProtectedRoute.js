@@ -8,9 +8,7 @@ export const ProtectedRoute = () => {
     // const { user } = useAuth();
     const location = useLocation();
     return token ? (
-        <Route>
-            <Outlet />
-        </Route>
+        <Outlet />
     ) : (
         <Navigate to="/login" replace state={{ from: location }} />
     );

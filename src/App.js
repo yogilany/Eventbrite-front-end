@@ -71,7 +71,7 @@ function App() {
             <Route path="/events/:category/:location" element={<EventsByCategory />} />
             <Route path="/event/:id" element={<SingleEvent />} />
 
-            <Route path="/" element={<ProtectedRoute />}>
+            <Route element={<ProtectedRoute />}>
               <Route path="/likes" element={<Likes />} />
               <Route path="/all-events" element={<AllEvents />} />
               <Route path="/details" element={<Details />} />
