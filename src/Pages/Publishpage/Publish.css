@@ -54,21 +54,29 @@
     display: flex;
     margin-top: 40px;
     border: 1px solid #eeedf2;
-    ;
     height: 209px;
-    width: 950px;
+    width: 90%;
     box-shadow: 1px 1px 1px 1px #f4f4f5;
-
+    position: relative;
 }
 
 .Full__Container_img {
-    width: 95%;
+    width: 41%;
     height: 209px;
+    position: absolute;
+}
+
+.rtpart {
+    width: 59%;
+    position: absolute;
+    top: 0;
+    left: 43%;
 }
 
 .hline {
+    position: absolute;
     border-bottom: 2px solid #ededee;
-    width: 480px;
+    width: 90%;
     margin-left: 10px;
     margin-top: 20px;
 }
@@ -100,13 +108,40 @@
     height: auto;
     margin-Top: 30px;
     display: flex;
+    padding-right: 20%;
 }
 
 .tipp {
-    margin-left: 120px;
+    margin-left: 32%;
+    position: absolute;
 }
 
-@media screen and (max-width: 1300px) and (min-width: 1100px) {
+.ppt {
+    margin-left: 30%;
+    margin-top: 20;
+}
+
+@media screen and (max-width: 1200px) {
+    .ppt {
+        margin-left: 100px;
+    }
+
+    .radtipp {
+        display: block;
+        height: 750px;
+    }
+
+    .tipp {
+        margin-left: -1%;
+        margin-top: -5%;
+        z-index: -1;
+    }
+
+}
+
+
+
+/* @media screen and (max-width: 1300px) and (min-width: 1100px) {
     .radd {
         margin-right: 180px;
     }
@@ -122,7 +157,7 @@
         margin-right: 100px;
     }
 
-}
+} */
 
 .radd {
     width: 400px;
@@ -139,13 +174,14 @@
 
 .audbox {
     margin-top: 15px;
-    height: 100px;
+    height: 400px;
     transition: all 1s ease-in-out;
 }
 
 .dtt {
     margin-top: 40px;
 }
+
 .ft {
     position: fixed;
     left: 0;
@@ -157,8 +193,8 @@
     height: 75px;
     border: 1px solid #ececec;
 }
-.ftbtn
-{
+
+.ftbtn {
     background-color: #D1410C;
     height: 45px;
     width: 110px;
@@ -168,5 +204,77 @@
     border: none;
     border-color: #D1410C;
     margin-top: 15px;
-    margin-left: 1300px;
+    margin-left: 87%;
+}
+@media screen and (max-width: 770px) {
+    
+    .radtipp {
+        display: block;
+        height: 790px;
+        margin-left: 10px;
+    }
+
+    .ppt {
+        margin-left: -1px;
+    }
+
+    .Full__Container {
+        height: 409px;
+        margin-left: 10px;
+    }
+
+    .Full__Container_img {
+        width: 100%;
+    }
+
+    .rtpart {
+        position: absolute;
+        left: 0;
+        top: 50%;
+    }
+
+    .hline {
+        position: absolute;
+        width: 150%;
+        margin-left: 30px;
+    }
+
+    .prev {
+        margin-left: 30%;
+    }
+    .ftbtn
+    {
+        margin-left: -20px;
+        width: 95%;
+        
+    }
+}
+@media screen and (max-width: 855px) {
+    .header__container-right {
+        width: 30%;
+    }
+    .header__responsive-links{
+        margin-left: -20px;
+    }
+}
+
+@media screen and (max-width: 515px) {
+    
+
+}
+
+@media screen and (max-width: 1200px) and (min-width: 770px) {
+    .sidebar__Event-options {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 769px) and (min-width: 400px) {
+    .sidebar__Event-options {
+        display: none;
+    }
+
+    .sidebar__links {
+        display: none;
+    }
 }
