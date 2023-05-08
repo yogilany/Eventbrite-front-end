@@ -48,7 +48,7 @@ const Events = () => {
       setLocation(data.city);
     }
     fetchLocation();
-  });
+  },[]);
   var cards = [];
 
   for (var i = 1; i <= 8; i++) {
@@ -93,10 +93,11 @@ const Events = () => {
         categorySelector={setCategory}
         location={location}
         id="categoriesTaps"
+        setLocation={setLocation}
       />
       {/* {isCategoriesShown ? (
       ): null} */}
-      <CategoriesCards location={location} id="categoriesCards" />
+      <CategoriesCards location={location} id="categoriesCards" setLocation={setLocation} />
 
       {events.length != 0 ? (
         <Container className=" pl-5 pr-5 mb-5" id="eventsByLocationSection">

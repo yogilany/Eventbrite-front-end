@@ -7,6 +7,7 @@ import OrderComp from "./Components/OrderComp";
 import LikeComp from "./Components/LikeComp";
 import FollComp from "./Components/FollComp";
 import { AiOutlineRight } from "react-icons/ai";
+import {RxDotFilled} from 'react-icons/rx'
 /**
  * @author Ziad Ezzat
  * @param {}
@@ -54,47 +55,25 @@ const Profile = () => {
                     href="#"
                     style={{ marginLeft: 15, color: "grey", fontSize: 15 }}
                   >
-                    1 order
-                  </a>
-                  <a
-                    href="#"
-                    style={{
-                      marginLeft: 8,
-                      color: "grey",
-                      width: 15,
-                      fontWeight: 600,
-                    }}
-                  >
-                    .
+                    1 order <RxDotFilled className = "info__dot" />
                   </a>
                   <a href="#" style={{ color: "grey", fontSize: 15 }}>
-                    2 likes
-                  </a>
-                  <a
-                    href="#"
-                    style={{
-                      marginLeft: 8,
-                      color: "grey",
-                      width: 15,
-                      fontWeight: 600,
-                    }}
-                  >
-                    .
+                    2 likes <RxDotFilled className = "info__dot" />
                   </a>
                   <a href="#" style={{ color: "grey", fontSize: 15 }}>
-                    2 following
+                    2 following <RxDotFilled className = "info__dot" />
                   </a>
                 </div>
               </div>
             </div>
           </div>
-          <div className="compon" >
-            <h5>Orders</h5>
-            <div className="orderecss"><OrderComp data_testid="Order-Form-id"  /></div>
+          <div style={{ marginTop: 65, marginLeft: 445 }}>
+            <span style = {{fontSize:'18px' , fontWeight:'600'}}>Orders</span>
+            <OrderComp data_testid="Order-Form-id" />
             <button id="btn_prof_id" className="btn_prof"> See past Orders</button>
-            <hr className="zzz"></hr>
-            <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+            <hr style={{ width: "85%", marginTop: 30 }}></hr>
+            <div style={{ display: "flex" }} className = "interests__container">
+              <a href="#" className="intersts_prof" style = {{fontSize:'18px' , fontWeight:'600'}}>
                 Interests
               </a>
               <AiOutlineRight
@@ -104,7 +83,7 @@ const Profile = () => {
             </div>
             <hr  className="zzz"></hr>
             <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+              <a href="#" className="collection_prof" style = {{fontSize:'18px' , fontWeight:'600'}}>
                 Collections
               </a>
               <AiOutlineRight
@@ -114,7 +93,7 @@ const Profile = () => {
             </div>
             <hr className="zzz"></hr>
             <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+              <a href="#" className="likes_prof" style = {{fontSize:'18px' , fontWeight:'600'}}>
                 Likes
               </a>
               <AiOutlineRight
@@ -131,7 +110,7 @@ const Profile = () => {
             <hr className="zzz"></hr>
             <div className="follblk_prof">
             <div style={{ display: "flex", marginTop: 25 }}>
-              <p className="intersts_prof">Following</p>
+              <p className="intersts_prof" style = {{fontSize:'18px' , fontWeight:'600'}}>Following</p>
               <a href="#" className="events_prof">
                 See events
               </a>

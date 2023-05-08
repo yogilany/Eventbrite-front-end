@@ -16,7 +16,12 @@ const Dashboard = () => {
           <Container>
             <Row>
               <Col>
-                <h1 className="pubhead">Dashboard</h1>
+                <h1
+                  className="pubhead"
+                  style={{ fontSize: "52px", fontFamily: "Neue Plak Bold !important" , fontWeight:'bold' }}
+                >
+                  Dashboard
+                </h1>
               </Col>
             </Row>
           </Container>

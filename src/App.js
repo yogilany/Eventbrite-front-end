@@ -51,6 +51,8 @@ import EventsByCategory from "./Pages/AttendeesView/EventsByCategory/EventsByCat
 import SingleEvent from "./Pages/AttendeesView/SingleEvent/SingleEvent";
 import Profile from "./Pages/AttendeesView/Profile/Profile";
 import VerifyUser from "./Pages/AttendeesView/VerifyUser/VerifyUser";
+import Tickets from "./Pages/CreatorsView/TicketsPage/TicketsPage";
+import CreateEvent from "./Pages/CreatorsView/CreateEvent/CreateEvent";
 import ResetPassword from "./Pages/AttendeesView/Login/ResetPassword";
 
 function App() {
@@ -87,8 +89,9 @@ function App() {
               <Route path="/following" element={<FollowingOrgEvents />} />
               <Route path="/Publish" element={<Publish />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/basic-info" element={<Basicinfo />} />
+              <Route path="/create-event" element={<CreateEvent />} />
               <Route path="/Profile" element={<Profile />} />
+              <Route path="/tickets" element={<Tickets />} />
             </Route>
           </Routes>
         </BrowserRouter>

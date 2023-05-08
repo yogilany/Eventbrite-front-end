@@ -1,3 +1,7 @@
+*
+{
+    font-family: "Neue Plak" !important;
+}
 .details__opacity
 {
     opacity: .22;
@@ -75,7 +79,7 @@
         align-items: center;
         justify-content: space-between;
         margin-left: 70px;
-        margin-top: 70px;
+        margin-top: 100px;
     }
 }
 @media screen and (max-width: 959px) and (min-width: 792px)
@@ -86,6 +90,7 @@
         flex-direction: column;
         align-items: flex-start;
         margin-left: 0px;
+        
     }
     .Details__page
     {
