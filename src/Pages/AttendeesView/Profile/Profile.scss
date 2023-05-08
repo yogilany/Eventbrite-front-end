@@ -1,10 +1,18 @@
+*
+{
+  font-family: "Neue Plak" !important;
+}
 .form_prof {
   height: auto;
   background-color: rgb(255, 255, 255);
   border: 1px solid #eeedf2;
   box-shadow: 1px 1px #f4f4f5;
+  padding-bottom: 50px;
 }
-
+.info__dot
+{
+  margin-right: 2px;
+}
 .greyform_prof {
   display: flex;
   background-image: linear-gradient(rgb(248, 247, 247), rgb(255, 255, 255));
@@ -29,6 +37,26 @@
   color: black;
   font-size: 22px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-top: 10px;
+}
+.collection_prof
+{
+    color: black;
+    font-size: 22px;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    margin-top: 5px;
+}
+.likes_prof
+{
+    color: black;
+    font-size: 22px;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    margin-top: 5px;
+}
+.interests__container
+{
+  display: flex !important;
+  align-items: center !important;
 }
 .arr_prof:hover {
   transition: all 0.3s ease-in-out;
