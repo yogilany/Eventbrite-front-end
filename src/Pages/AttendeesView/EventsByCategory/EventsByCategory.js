@@ -32,9 +32,9 @@ const EventsByCategory = () => {
 
   const fetchEvents = () => {
     axios
-      .get(`${process.env.REACT_APP_BASE_API}/events/category/${category}`)
+      .get(`${process.env.REACT_APP_BASE_API}/events/search`,{ params: { city: "Sudan", category: "Health" } })
       .then(function (response) {
-        // console.log(response);
+        console.log("response", response.data);
 
         setEvents(response.data);
       })
@@ -95,6 +95,7 @@ const EventsByCategory = () => {
                         name={subcategory}
                         testimage={testimage}
                         key={index}
+                        
                       />
                     );
                   })}
@@ -122,7 +123,7 @@ const EventsByCategory = () => {
                           eventDate={event.date_and_time.start_date_time}
                           eventTime={event.date_and_time.start_date_time}
                           eventLocation={event.location.location}
-                          eventPrice={event.tickets[0].price}
+                          eventPrice="Free"
                           eventOrganizer={event.basic_info.organizer}
                           organizerFollowers="1000"
                           eventCover={event.image_link}
