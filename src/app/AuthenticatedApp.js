@@ -15,6 +15,7 @@ import Signup from "../Pages/AttendeesView/Signup/Signup";
 import Profile from "../Pages/AttendeesView/Profile/Profile";
 import Dashboard from "../Pages/CreatorsView/Dashboard/Dashboard";
 import EventsByCategory from "../Pages/AttendeesView/EventsByCategory/EventsByCategory";
+import CreateEvent from "../Pages/CreatorsView/CreateEvent/CreateEvent";
 
 function AuthenticatedApp() {
   const router = createBrowserRouter([
@@ -51,9 +52,10 @@ function AuthenticatedApp() {
       path: "/dashboard",
       element: <Dashboard />,
     },
-    {
-      path: "/basic-info",
-      element: <BasicInfo />,
+ 
+       {
+      path: "/create-event",
+      element: <CreateEvent />,
     },
     {
       path: "/search",
