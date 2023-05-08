@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./BasicInfo.scss";
 import Tag from "./Components/Tag-1.js";
 import Venue from "./Components/Venue-1.js";
 import Loctype from "./Components/Loctype-1.js";
 import Mapframe from "./Components/Mapframe-1.js";
 import Singleevent from "./Components/Singleevent-1.js";
-import Sidebar from "../Sidebar/Sidebar";
-import Headerpub from "../../Publishpage/Headerpub";
+import {  Alert, Row, Col } from "react-bootstrap";
 
 /**
  * @author Anas Sherif
@@ -15,7 +14,7 @@ import Headerpub from "../../Publishpage/Headerpub";
  * @returns {JSX.Element}
  */
 
-function Basicinfo() {
+function Basicinfo({event, setEvent}) {
   const [tags, setTags] = useState([]);
   const [tagscount, setTagsCount] = useState(0);
   const [tagscharcount, setTagsCharCount] = useState(0);
@@ -25,15 +24,68 @@ function Basicinfo() {
   const [showlocationcontent, setShowLocationContent] = useState(true);
   const [showmaps, setShowMaps] = useState(false);
   const [issingleevent, setIsSingleEvent] = useState(true);
-  function incrementhandler() {
-    setCount(document.getElementsByName("eventtitle")[0].value.length);
-    if (document.getElementsByName("eventtitle")[0].value.length === 0) {
-      setWarning(true);
-    } else {
-      setWarning(false);
+  const [title, setTitle] = useState("");
+  const [organizer, setOrganizer] = useState("");
+    const [ venue, setVenue] = useState("");
+    const [ startDate, setStartDate] = useState("");
+    const [ endDate, setEndDate] = useState("");
+    const [ timezone, setTimezone] = useState("");
+    const [ language, setLanguage] = useState("");
+    const [ isStartShown, setIsStartShown] = useState(null);
+    const [ isEndShown, setIsEndShown] = useState(null);
+    const [category, setCategory] = useState("");
+    const [success, setSuccess] = useState(false);
+
+
+
+    function saveData(){
+
+      setEvent( {...event,
+        "basic_info": {...event.basic_info,
+          "title": title,
+          "organizer": organizer,
+          "category": category
+        },
+        "date_and_time": {
+          "start_date_time": startDate,
+          "end_date_time": endDate,
+          "is_display_start_date": isStartShown,
+          "is_display_end_date": isEndShown,
+          "time_zone": timezone,
+          "event_page_language": language,
+        },
+        "location": {...event.location,
+          "location": venue,
+        },
+      })
+
+      setSuccess(true);
+        
     }
-    // console.log("Added !");
-  }
+
+    useEffect(() => {
+      setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setSuccess(false)
+    }, 3000)
+    }, [success])
+
+    
+
+
+
+
+  // function incrementhandler() {
+  //   setCount(document.getElementsByName("eventtitle")[0].value.length);
+  //   if (document.getElementsByName("eventtitle")[0].value.length === 0) {
+  //     setWarning(true);
+  //   } else {
+  //     setWarning(false);
+  //   }
+  //   // console.log("Added !");
+  // }
+
+
 
   function addtaghandler(event) {
     if (event.key === "Enter" && event.target.value !== "") {
@@ -91,14 +143,21 @@ function Basicinfo() {
     }
   }
 
+ 
+
   return (
     <>
-      <Headerpub data_testid="HDID" />
-      <Sidebar />
-      <div
-        className="BasicinfoPage_Container"
-        style={{ marginTop: "100px", marginLeft: "100px" }}
+  <Row>
+      
+        <Col >
+      
+        
+        <div
+        className="BasicinfoPage_Container mb-5 pb-5"
       >
+        {success ? <Alert variant="success" style={{width:"70%", position:"fixed", top:"70px", zIndex:"999"}}>
+        Data saved successfly.
+        </Alert> : null}
         <div className="Section_Container">
           <div className="Section_image">
             <svg
@@ -139,7 +198,8 @@ function Basicinfo() {
                   type="text"
                   name="eventtitle"
                   maxLength={75}
-                  onChange={incrementhandler}
+                  value={title}
+                  onChange={(event) => setTitle(event.target.value)}
                 />
               </div>
               <div className="counter" id="the-count">
@@ -162,6 +222,8 @@ function Basicinfo() {
                   type="text"
                   name="organizer"
                   maxLength={75}
+                  value={organizer}
+                  onChange={(event) => setOrganizer(event.target.value)}
                 />
               </div>
               <p className="organizer-helper-text">
@@ -245,14 +307,19 @@ function Basicinfo() {
                   </option>
                 </select>
                 <select
+
                   aria-invalid="false"
                   aria-labelledby="eventSubTopic-label"
                   className="input eds-field-styled__select"
                   role="listbox"
                   id="eventSubTopic"
                   name="eventTopic"
+                  value={category}
+                  onChange={(event) => {
+                    setCategory(event.target.options[event.target.selectedIndex].text)}}
+
                 >
-                  <option value="" data-spec="select-option">
+                  <option value="" data-spec="select-option" defaultChecked>
                     Category
                   </option>
                   <option value="118" data-spec="select-option">
@@ -431,7 +498,7 @@ function Basicinfo() {
               <Loctype onchoose={locationradiohandler} />
             ) : null}
             {locationparam === "option-1" && !showmaps ? (
-              <Venue keypress={keypresshandler} />
+              <Venue keypress={keypresshandler} venue={venue} setVenue={setVenue} />
             ) : null}
             {locationparam === "option-2" ? (
               <div>
@@ -501,7 +568,7 @@ function Basicinfo() {
               </label>
             </div>
             {issingleevent ? (
-              <Singleevent />
+              <Singleevent isStartShown={isStartShown} setIsStartShown={setIsStartShown} setEndDate={setEndDate} setStartDate={setStartDate} startDate={startDate} endDate={endDate} />
             ) : (
               <div className="rec-subtitle">
                 You’ll be able to set a schedule for your recurring event in the
@@ -513,7 +580,7 @@ function Basicinfo() {
               Display end time.
               <br />
               The end time of your event will be displayed to attendees.
-              <input type="checkbox" defaultChecked />
+              <input type="checkbox" defaultChecked value={isEndShown} onChange={(e) => {setIsEndShown(e.target.checked)}}/>
               <span className="checkmark"></span>
             </label>
             <div class="fulltime-input">
@@ -526,6 +593,9 @@ function Basicinfo() {
                 id="time-zone"
                 name="venueTimeZone"
                 defaultValue={"Africa/Cairo"}
+                value={timezone}
+                onChange={(e) => { setTimezone(e.target.value) }}
+
               >
                 <option value="America/Araguaina" data-spec="select-option">
                   (GMT-0300) Brazil (Araguaina) Time
@@ -803,6 +873,8 @@ function Basicinfo() {
                 role="listbox"
                 name="locale"
                 defaultValue={"en_US"}
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
               >
                 <option value="nl_NL" data-spec="select-option">
                   Dutch (Netherlands/Belgium)
@@ -866,6 +938,12 @@ function Basicinfo() {
           </div>
         </div>
       </div>
+      <div className="basic-info-footer">
+      <button className="savebtn" onClick={saveData}>Save</button>
+      </div>
+        </Col>
+      </Row>
+
     </>
   );
 }
