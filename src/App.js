@@ -51,7 +51,7 @@ import EventsByCategory from "./Pages/AttendeesView/EventsByCategory/EventsByCat
 import SingleEvent from "./Pages/AttendeesView/SingleEvent/SingleEvent";
 import Profile from "./Pages/AttendeesView/Profile/Profile";
 import VerifyUser from "./Pages/AttendeesView/VerifyUser/VerifyUser";
-import Tickets from "./Pages/CreatorsView/Tickets/Tickets";
+import Tickets from "./Pages/CreatorsView/TicketsPage/TicketsPage";
 function App() {
   const userToken = useSelector(selectUserToken);
 
