@@ -20,10 +20,10 @@ const LikeComp = (props) => {
       </div>
 
       <div style={{ marginTop: 25, paddingLeft: 10 }}>
-        <div className="desc_prof">
+        <div className="desc_prof" style = {{fontSize:'18px' , fontWeight:'600' , marginBottom:'5px'}}>
           Demo Day: Present Your Project to get your dream job - GoMyCode Egypt
         </div>
-        <div className="dat_prof">Thu,Mar 30,8:00 PM</div>
+        <div className="dat_prof" style = {{color: "#d1410c" , marginBottom:'5px'}}>Thu, Mar 30 ,8:00 PM</div>
         <div className="det_prof">GoMyCode Dokki ,Ad Doqi A</div>
       </div>
       <div style={{ display: "flex" }}>
