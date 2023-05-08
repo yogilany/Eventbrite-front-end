@@ -17,8 +17,8 @@ const Profile = () => {
   return (
     <div>
       <Header />
-      <div style={{ paddingLeft: 120, paddingRight: 135 }}>
-        <div className="form_prof">
+      <div className="full_body_prof">
+        <div className="form_proff">
           <div className="greyform-prof">
             <div style={{ marginTop: 50, marginLeft: 50, display: "flex" }}>
               <img
@@ -88,11 +88,11 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div style={{ marginTop: 65, marginLeft: 445 }}>
+          <div className="compon" >
             <h5>Orders</h5>
-            <OrderComp data_testid="Order-Form-id" />
+            <div className="orderecss"><OrderComp data_testid="Order-Form-id"  /></div>
             <button id="btn_prof_id" className="btn_prof"> See past Orders</button>
-            <hr style={{ width: "85%", marginTop: 30 }}></hr>
+            <hr className="zzz"></hr>
             <div style={{ display: "flex" }}>
               <a href="#" className="intersts_prof">
                 Interests
@@ -102,7 +102,7 @@ const Profile = () => {
                 className="arr_prof"
               />
             </div>
-            <hr style={{ width: "85%", marginTop: 80 }}></hr>
+            <hr  className="zzz"></hr>
             <div style={{ display: "flex" }}>
               <a href="#" className="intersts_prof">
                 Collections
@@ -112,7 +112,7 @@ const Profile = () => {
                 className="arr_prof"
               />
             </div>
-            <hr style={{ width: "85%", marginTop: 80 }}></hr>
+            <hr className="zzz"></hr>
             <div style={{ display: "flex" }}>
               <a href="#" className="intersts_prof">
                 Likes
@@ -128,8 +128,8 @@ const Profile = () => {
               <LikeComp data_testid="Like-Form-id" />
               <LikeComp data_testid="Like-Form-id" />
             </div>
-            <hr style={{ width: "85%", marginTop: 80 }}></hr>
-
+            <hr className="zzz"></hr>
+            <div className="follblk_prof">
             <div style={{ display: "flex", marginTop: 25 }}>
               <p className="intersts_prof">Following</p>
               <a href="#" className="events_prof">
@@ -140,10 +140,12 @@ const Profile = () => {
                 className="arr_prof"
               />
             </div>
-            <div className="likeblk_prof">
+            <div className="follblk_prof">
               <FollComp text="GoMyCode" data_testid="Follow-Form-id" />
               <FollComp text="Ezz event riders" />
             </div>
+            </div>
+            
           </div>
         </div>
       </div>

@@ -1,10 +1,11 @@
 .btnfol_prof {
   margin-left: 25px;
   margin-top: 12px;
-  width: 135px;
+  width: 40%;
   height: 40px;
-  border-radius: 5px;
+  border-radius: 4px;
   background-color: white;
   font-size: 16px;
   border-color: rgb(166, 168, 169);
+  font-size: small;
 }

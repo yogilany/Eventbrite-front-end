@@ -7,6 +7,7 @@
   padding-top: 15px;
   padding-right: 10px;
   transition: all 0.3s ease-in-out;
+  position: relative;
 }
 
 .MainComp_prof:hover {
@@ -42,4 +43,19 @@
   color: rgb(114, 112, 112);
   font-size: small;
   transition: all 0.3s ease-in-out;
+}
+@media screen and (max-width: 745px) 
+{
+  .MainComp_prof
+  {
+    width:120%;
+  }
+  .Full_Container_img_prof
+  {
+    width: 40%;
+  }
+  .eventdata_prof h3
+  {
+    font-size: small;
+  }
 }
