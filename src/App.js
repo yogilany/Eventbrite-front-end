@@ -51,7 +51,7 @@ import EventsByCategory from "./Pages/AttendeesView/EventsByCategory/EventsByCat
 import SingleEvent from "./Pages/AttendeesView/SingleEvent/SingleEvent";
 import Profile from "./Pages/AttendeesView/Profile/Profile";
 import VerifyUser from "./Pages/AttendeesView/VerifyUser/VerifyUser";
-
+import Tickets from "./Pages/CreatorsView/Tickets/Tickets";
 function App() {
   const userToken = useSelector(selectUserToken);
 
@@ -80,6 +80,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/basic-info" element={<Basicinfo />} />
               <Route path="/Profile" element={<Profile />} />
+              <Route path="/tickets" element={<Tickets />} />
             </Route>
           </Routes>
         </BrowserRouter>
