@@ -31,7 +31,7 @@ const SingleEvent = (props) => {
     axios
       .get(`${process.env.REACT_APP_BASE_API}/events/id/${id}`)
       .then(function (response) {
-        // console.log(response);
+        console.log("response",response);
 
         setEvent(response.data);
       })
@@ -42,6 +42,7 @@ const SingleEvent = (props) => {
   };
 
   useEffect(() => {
+    console.log("props", props);
     fetchEvent();
   }, []);
 
@@ -56,7 +57,7 @@ const SingleEvent = (props) => {
           <Row className="align-items-center ">
             <Col>
               <Container fluid className="pt-3">
-                <Col>
+                {event ? <Col>
                   <Row className="pb-5 ">
                     <Col md={12}>
                       <EventImage img_url={event.image_link} />
@@ -115,7 +116,7 @@ const SingleEvent = (props) => {
                     </Row>
                     <Row></Row>
                   </Row>
-                </Col>
+                </Col> : <div>loading</div>}
               </Container>
             </Col>
             <Col style={{ top: "105%", left: "25%", position: "absolute" }}>
