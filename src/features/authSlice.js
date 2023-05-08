@@ -8,7 +8,7 @@ import axios from "axios";
  *
  * @type {*}
  */
-const qs = require('qs')
+const qs = require("qs");
 
 /**
  * User token, fetched from local storage or null
@@ -17,10 +17,9 @@ const qs = require('qs')
  *
  * @type {*}
  */
-const userToken = localStorage.getItem('userToken')
-  ? localStorage.getItem('userToken')
-  : null
-
+const userToken = localStorage.getItem("userToken")
+  ? localStorage.getItem("userToken")
+  : null;
 
 /**
  * Authentication state object
@@ -37,7 +36,7 @@ const initialState = {
   userToken,
   isLoading: false,
   emailExists: false,
-}
+};
 
 /**
  * @description Login user
@@ -47,22 +46,23 @@ const initialState = {
  * @type {*}
  */
 export const authUser = createAsyncThunk(
-  "auth/login", async (userData, thunkAPI) => {
+  "auth/login",
+  async (userData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_API}/auth/login`,
-        qs.stringify(userData)
-        , {
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_API}/auth/login`,
+        qs.stringify(userData),
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
         }
       );
 
       if (response.data?.access_token !== null) {
-        console.log('heeelo')
+        console.log("heeelo");
         localStorage.setItem("userToken", response.data.access_token);
         return response.data;
-      }
-      else {
+      } else {
         throw rejectWithValue(response.data.detail);
       }
     } catch (error) {
@@ -83,15 +83,89 @@ export const registerUser = createAsyncThunk(
   "auth/signup",
   async (registerData, thunkAPI) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_API}/auth/signup`,
-        JSON.stringify(registerData)
-        , {
-          headers: { 'Content-Type': 'application/json' }
+      console.log(registerData);
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_API}/auth/signup`,
+        JSON.stringify(registerData),
+        {
+          headers: { "Content-Type": "application/json" },
         }
       );
+      console.log("Register user response : ", response);
       return { ...registerData, ...response };
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const authGoogleUser = createAsyncThunk(
+  "auth/login-with-google",
+  async (userData, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const x_www_form_data = {
+        username: userData.email,
+        password: "aaaaaaaaaaaaa",
+      };
+      console.log(x_www_form_data);
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_API}/auth/login-with-google`,
+        qs.stringify(x_www_form_data),
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      );
+      console.log("Auth google user response : ", response);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.response?.data?.detail);
+    }
+  }
+);
+
+export const registerGoogleUser = createAsyncThunk(
+  "auth/signup-google",
+  async (registerData, thunkAPI) => {
+    try {
+      console.log("Register data = ", registerData);
+      // Register user data
+      const response = await thunkAPI.dispatch(registerUser(registerData));
+
+      console.log("Register response", response);
+
+      // Login with google to obtain access token
+      const login_response = await thunkAPI.dispatch(
+        authGoogleUser({
+          email: registerData.email,
+          password: registerData.password,
+        })
+      );
+
+      console.log("Login with google response: ", login_response);
+
+      // Edit user data to save avatar URL
+      const edit_response = await axios({
+        method: "PUT",
+        url: `${process.env.REACT_APP_BASE_API}/users/me/edit`,
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${login_response.payload.access_token}`,
+        },
+        params: {
+          firstname: registerData.firstname,
+          lastname: registerData.lastname,
+          avatar_url: registerData.picture,
+        },
+      });
+
+      console.log("Edit with google response: ", edit_response);
+
+      return { ...registerData, ...edit_response };
+    } catch (error) {
+      console.log(error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -111,20 +185,17 @@ export const checkEmailExists = createAsyncThunk(
       const response = await axios({
         method: "GET",
         url: `${process.env.REACT_APP_BASE_API}/users/emails/check`,
-        params: { "email": email },
-        headers: { 'Content-Type': 'application/json' }
-      }
-      );
+        params: { email: email },
+        headers: { "Content-Type": "application/json" },
+      });
       console.log(checkEmailExists.name, " Response = ", response);
-      if (response.status !== 200)
-        throw new Error(response?.data);
-      return response.data
+      // if (response.status !== 200) throw new Error(response?.data);
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(false);
     }
   }
 );
-
 
 /**
  * @description Forgot password query, sends email to user to reset their password
@@ -140,15 +211,14 @@ export const forgotPassword = createAsyncThunk(
       const response = await axios({
         method: "POST",
         url: `${process.env.REACT_APP_BASE_API}/auth/forgot-password`,
-        params: { "email": email },
-        headers: { 'Content-Type': 'application/json' }
-      }
-      );
+        params: { email: email },
+        headers: { "Content-Type": "application/json" },
+      });
       console.log(checkEmailExists.name, " Response = ", response);
-      if (response.status !== 200)
-        throw new Error(response?.data);
-      return response.data
+      if (response.status !== 200) throw new Error(response?.data);
+      return response.data;
     } catch (error) {
+      console.log(error);
       return thunkAPI.rejectWithValue(false);
     }
   }
@@ -169,21 +239,29 @@ export const verifyUser = createAsyncThunk(
         method: "PUT",
         url: `${process.env.REACT_APP_BASE_API}/auth/verify-email`,
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        }
-      }
-      );
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(" Verify response = ", response);
-      if (response.status !== 200)
-        throw new Error(response?.data);
-      return response.data
+      return "Verified successfully";
     } catch (error) {
-      return thunkAPI.rejectWithValue(false);
+      console.log("Error = ", error);
+      switch (error.response.status) {
+        case 401:
+          return thunkAPI.rejectWithValue("Invalid or expired token");
+        case 422:
+          return thunkAPI.rejectWithValue("Validation error");
+        case 404:
+          return thunkAPI.rejectWithValue("Email not found");
+        case 500:
+          return thunkAPI.rejectWithValue("Can't verify email");
+        default:
+          return thunkAPI.rejectWithValue("Unknown error");
+      }
     }
   }
 );
-
 
 /**
  * @description Get user details using JWT token
@@ -196,26 +274,65 @@ export const getUserDetails = createAsyncThunk(
   "users/me/info",
   async (aa, thunkAPI) => {
     try {
-      console.log(' inside user details Token = ', localStorage.getItem('userToken'))
-      const response = await axios.get(`${process.env.REACT_APP_BASE_API}/users/me/info`,
+      console.log(
+        " inside user details Token = ",
+        localStorage.getItem("userToken")
+      );
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_API}/users/me/info`,
         {
           headers: {
-            ContentType: 'application/json',
-            Authorization: `Bearer ${thunkAPI.getState().auth.userToken}`
-          }
-        });
+            ContentType: "application/json",
+            Authorization: `Bearer ${thunkAPI.getState().auth.userToken}`,
+          },
+        }
+      );
       console.log(getUserDetails.name, " Response = ", response);
-      if (response.status !== 200)
-        throw new Error(response?.data);
-      return response.data
+      if (response.status !== 200) throw new Error(response?.data);
+      return response.data;
     } catch (error) {
       // Unauthenticated
-      console.log('Errorrrr: token = ', thunkAPI.getState().auth.userToken)
+      console.log("Error: token = ", thunkAPI.getState().auth.userToken);
       return thunkAPI.rejectWithValue(error);
     }
   }
-)
+);
 
+/**
+ * @description Change password for the user
+ * @date 5/8/2023 - 7:57:17 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+export const changePassword = createAsyncThunk(
+  "auth/change-password",
+  async (data, thunkAPI) => {
+    try {
+      const response = await axios({
+        method: "PUT",
+        url: `${process.env.REACT_APP_BASE_API}/auth/change-password`,
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${data.token}`,
+        },
+        data: data,
+      });
+      console.log("Change Password Response = ", response);
+      return response.data;
+    } catch (error) {
+      console.log("Error = ", error);
+      switch (error.response.status) {
+        case 401:
+          return thunkAPI.rejectWithValue("Invalid token");
+        case 422:
+          return thunkAPI.rejectWithValue("Validation error");
+        default:
+          return thunkAPI.rejectWithValue("Unknown error");
+      }
+    }
+  }
+);
 
 /**
  * @description Authenticate user via JWT
@@ -229,14 +346,14 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logOut: (state, action) => {
-      localStorage.removeItem('persist:root');
-      localStorage.removeItem('userToken');
+      localStorage.removeItem("persist:root");
+      localStorage.removeItem("userToken");
       state = initialState;
     },
-
   },
   extraReducers: (builder) => {
     builder
+      // Authenticate user
       .addCase(authUser.rejected, (state, action) => {
         state.userEmail = null;
         state.userToken = null;
@@ -247,23 +364,56 @@ export const authSlice = createSlice({
       })
       .addCase(authUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log('action.payload = ', action.payload);
+        console.log("action.payload = ", action.payload);
         state.userToken = action.payload.access_token;
-        console.log('state.userToken = ', state.userToken);
+        console.log("state.userToken = ", state.userToken);
       })
+      // Authenticate Google user
+      .addCase(authGoogleUser.rejected, (state, action) => {
+        state.userEmail = null;
+        state.userToken = null;
+        state.isLoading = false;
+      })
+      .addCase(authGoogleUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(authGoogleUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log("action.payload = ", action.payload);
+        state.userToken = action.payload.access_token;
+        console.log("state.userToken = ", state.userToken);
+      })
+      // Register user
       .addCase(registerUser.rejected, (state, action) => {
         state.userEmail = null;
         state.userToken = null;
         state.isLoading = false;
       })
+
       .addCase(registerUser.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.emailExists = (action.payload['exists'] ? true : false);
-      }).addCase(getUserDetails.rejected, (state, action) => {
-        console.log('rejected action.payload = ', action.payload);
+        state.emailExists = action.payload["exists"] ? true : false;
+      })
+      // Register Google user
+      .addCase(registerGoogleUser.rejected, (state, action) => {
+        state.userEmail = null;
+        state.userToken = null;
+        state.isLoading = false;
+      })
+
+      .addCase(registerGoogleUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(registerGoogleUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.emailExists = action.payload["exists"] ? true : false;
+      })
+      // Get user details
+      .addCase(getUserDetails.rejected, (state, action) => {
+        console.log("rejected action.payload = ", action.payload);
         state.isLoading = false;
         state.userToken = null;
         state.userEmail = null;
@@ -276,15 +426,17 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getUserDetails.fulfilled, (state, action) => {
-        console.log('fulfilled action.payload = ', action.payload);
+        console.log("fulfilled action.payload = ", action.payload);
 
         state.isLoading = false;
-        state.userEmail = action.payload.email
-        state.userFirstName = action.payload.firstname
-        state.userLastName = action.payload.lastname
-        state.userAvatarURL = action.payload.avatar_url
-      }).addCase(verifyUser.rejected, (state, action) => {
-        console.log('rejected action.payload = ', action.payload);
+        state.userEmail = action.payload.email;
+        state.userFirstName = action.payload.firstname;
+        state.userLastName = action.payload.lastname;
+        state.userAvatarURL = action.payload.avatar_url;
+      })
+      // Verify user
+      .addCase(verifyUser.rejected, (state, action) => {
+        console.log("rejected action.payload = ", action.payload);
         state.isLoading = false;
       })
       .addCase(verifyUser.pending, (state, action) => {
@@ -293,6 +445,16 @@ export const authSlice = createSlice({
       .addCase(verifyUser.fulfilled, (state, action) => {
         state.isLoading = false;
       })
+      // Change password
+      .addCase(changePassword.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(changePassword.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(changePassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+      });
   },
 });
 

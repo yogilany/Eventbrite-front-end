@@ -51,6 +51,7 @@ import EventsByCategory from "./Pages/AttendeesView/EventsByCategory/EventsByCat
 import SingleEvent from "./Pages/AttendeesView/SingleEvent/SingleEvent";
 import Profile from "./Pages/AttendeesView/Profile/Profile";
 import VerifyUser from "./Pages/AttendeesView/VerifyUser/VerifyUser";
+import ResetPassword from "./Pages/AttendeesView/Login/ResetPassword";
 
 function App() {
   const userToken = useSelector(selectUserToken);
@@ -62,13 +63,21 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="*" element={<Navigate to="/" replace />} />
-            <Route path="/" element={<HomePage />} errorElement={<ErrorPage />} />
+            <Route
+              path="/"
+              element={<HomePage />}
+              errorElement={<ErrorPage />}
+            />
             <Route path="/login" element={<Login />} />
+            <Route path="/login/resetpassword" element={<ResetPassword />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/organizer" element={<Organizer />} />
             <Route path="/verify" element={<VerifyUser />} />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/events/:category/:location" element={<EventsByCategory />} />
+            <Route
+              path="/events/:category/:location"
+              element={<EventsByCategory />}
+            />
             <Route path="/event/:id" element={<SingleEvent />} />
 
             <Route element={<ProtectedRoute />}>
@@ -84,7 +93,6 @@ function App() {
           </Routes>
         </BrowserRouter>
       </Layout>
-
     </>
   );
 }

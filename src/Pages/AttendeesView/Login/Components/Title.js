@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../../../assets/eventbrite-logo.svg";
 
 /**
@@ -14,14 +15,14 @@ export const LoginTitle = (props) => {
   };
 
   return (
-    <a
-      href="./"
+    <Link
+      to="/"
       style={TitleStyle}
       data-testid={props.data_testid}
       className={props.className}
     >
       <Logo />
-    </a>
+    </Link>
   );
 };
 
