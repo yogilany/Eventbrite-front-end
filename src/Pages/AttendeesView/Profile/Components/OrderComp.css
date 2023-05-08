@@ -1,16 +1,18 @@
 .MainComp_prof {
   width: 665px;
-  height: 280px;
+  min-height: 280px;
   margin-top: 30px;
   display: flex;
   padding-left: 20px;
   padding-top: 15px;
   padding-right: 10px;
   transition: all 0.3s ease-in-out;
+  padding-bottom: 20px !important;
+  cursor: pointer;
 }
 
 .MainComp_prof:hover {
-  box-shadow: 1px 1px 1px 1px rgba(134, 134, 134, 0.5);
+  box-shadow: 1px 1px 1px 1px rgba(218, 217, 217, 0.5);
 }
 
 .Datee_prof {
