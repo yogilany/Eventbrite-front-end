@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
  * @description This is the Categories component that contains the categories tiles. It takes the user to a new page that shows event in that category.
  * @returns {JSX.Element}
  */
-const CategoriesCards = ({ location }) => {
+const CategoriesCards = ({ location, setLocation }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
 
@@ -60,11 +60,11 @@ const CategoriesCards = ({ location }) => {
               <div className="tile-group">
                 {categories.map((category, index) => {
                   return (
-                    <Link to={`/events/${category.name}/${location}`}>
+                    <Link key={index} to={`/events/${category.name}/${location}`}>
                       <Tile
                         icon={categoriesIcons[index]}
                         name={category.name}
-                        key={index}
+                        
                         id="categoryTile"
                       />
                     </Link>

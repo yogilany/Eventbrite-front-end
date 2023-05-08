@@ -15,9 +15,11 @@
 }
 .greyform_prof {
   display: flex;
+  width: 100%;
   background-image: linear-gradient(rgb(248, 247, 247), rgb(255, 255, 255));
   height: 175px;
   background-color: rgb(255, 255, 255);
+  position: absolute;
 }
 
 .btn_prof {
@@ -29,10 +31,12 @@
   margin-left: 260px;
   color: blue;
 }
+
 .btn_prof:hover {
   box-shadow: 1px 1px 1px 1px rgba(236, 236, 236, 0.1);
   background-color: rgb(241, 241, 241);
 }
+
 .intersts_prof {
   color: black;
   font-size: 22px;
@@ -58,20 +62,57 @@
   display: flex !important;
   align-items: center !important;
 }
+
 .arr_prof:hover {
   transition: all 0.3s ease-in-out;
   transform: translateX(10px);
 }
+
 .likeblk_prof {
   display: flex;
   flex-wrap: wrap;
   height: auto;
   width: 700px;
 }
+
+.follblk_prof {
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  width: 700px;
+}
+
 .events_prof {
   color: black;
   font-size: 15px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin-left: 520px;
   margin-top: 8px;
+}
+@media screen and (max-width: 745px) 
+{
+  .likeblk_prof
+  {
+    width:75%;
+  }
+  .follblk_prof
+  {
+    width: 50%;
+  }
+  .events_prof
+  {
+    margin-left: 100px;
+  }
+  .orderecss
+  {
+    width:75%;
+  }
+}
+.form_proff {
+  height: auto;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #eeedf2;
+  box-shadow: 1px 1px #f4f4f5;
+  padding-right: 20px;
+  position: relative;
 }

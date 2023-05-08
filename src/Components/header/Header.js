@@ -25,7 +25,7 @@ const Header = () => {
   const [toggleSearch, setToggleSearch] = useState(false);
   const [isOrganizer, setIsOrganizer] = useState(false);
 
-  const [userFirstName] = useSelector(selectUserFirstName);
+  const userFirstName = useSelector(selectUserFirstName);
   const userLastName = useSelector(selectUserLastName);
 
   const userEmail = useSelector(selectUserEmail);
@@ -139,7 +139,7 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link to="/basic-info">
+              <Link to="/create-event">
                 <div
                   className="header-button"
                   style={{
@@ -215,7 +215,7 @@ const Header = () => {
               </button>
               <div className="dropdown-content">
                 <a href="#">Browse events</a>
-                <a href="/basic-info">Manage my events</a>
+                <a href="/create-event">Manage my events</a>
                 <a href="/profile">Account settings</a>
                 <a
                   href="/login"

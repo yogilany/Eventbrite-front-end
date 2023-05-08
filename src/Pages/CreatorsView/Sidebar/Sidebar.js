@@ -16,6 +16,7 @@ import { TbNumber1, TbNumber2, TbNumber3, TbNumber4 } from "react-icons/tb";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useContext, useEffect, useState, useRef } from "react";
 import { AppContext } from "../Details/Details";
+import { Nav } from "react-bootstrap";
 // console.log(window.innerWidth);
 /**
  * @author Mahmoud Khaled
@@ -155,22 +156,36 @@ const Sidebar = () => {
           ></div>
           {/* <hr className='line' /> */}
           <div className="routing__options">
-            <a href="/basic-info" className="EventOption">
-              <TbNumber1 className="number" />
-              Basic Info
-            </a>
-            <a href="/details" className="EventOption">
-              <TbNumber2 className="number" />
-              Details
-            </a>
-            <a href="#" className="EventOption">
-              <TbNumber3 className="number" />
-              Tickets
-            </a>
-            <a href="/publish" className="EventOption">
-              <TbNumber4 className="number" />
-              Publish
-            </a>
+            <Nav.Item>
+              <Nav.Link eventKey="first" className="EventOption">
+                <TbNumber1 className="number" />
+                Basic Info
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link eventKey="second" className="EventOption">
+                {" "}
+                <TbNumber2 className="number" />
+                Details
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link eventKey="third" className="EventOption">
+                {" "}
+                <TbNumber3 className="number" />
+                Tickets
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link eventKey="fourth" className="EventOption">
+                {" "}
+                <TbNumber4 className="number" />
+                Publish
+              </Nav.Link>
+            </Nav.Item>
           </div>
           <div
             className="div__line"
@@ -178,13 +193,21 @@ const Sidebar = () => {
           ></div>
           {/* <hr className='line' /> */}
           <div>
-            <a
-              href="/dashboard"
-              className="EventOption"
-              style={{ fontWeight: "500", fontSize: "14px", fontWeight: "600" }}
-            >
-              Dashboard
-            </a>
+            <Nav.Item>
+              <Nav.Link
+                eventKey="fifth"
+                className="EventOption"
+                style={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                }}
+              >
+                {" "}
+                Dashboard
+              </Nav.Link>
+            </Nav.Item>
+
             <Dropdown Name="Order Options" Links={orderOptions} />
             <Dropdown Name="Marketing" Links={Marketing} />
             <Dropdown Name="Manage Attendes" Links={ManageAttendees} />

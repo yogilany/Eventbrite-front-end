@@ -18,8 +18,8 @@ const Profile = () => {
   return (
     <div>
       <Header />
-      <div style={{ paddingLeft: 120, paddingRight: 135 }}>
-        <div className="form_prof">
+      <div className="full_body_prof">
+        <div className="form_proff">
           <div className="greyform-prof">
             <div style={{ marginTop: 50, marginLeft: 50, display: "flex" }}>
               <img
@@ -81,7 +81,7 @@ const Profile = () => {
                 className="arr_prof"
               />
             </div>
-            <hr style={{ width: "85%", marginTop: 80 }}></hr>
+            <hr  className="zzz"></hr>
             <div style={{ display: "flex" }}>
               <a href="#" className="collection_prof" style = {{fontSize:'18px' , fontWeight:'600'}}>
                 Collections
@@ -91,7 +91,7 @@ const Profile = () => {
                 className="arr_prof"
               />
             </div>
-            <hr style={{ width: "85%", marginTop: 80 }}></hr>
+            <hr className="zzz"></hr>
             <div style={{ display: "flex" }}>
               <a href="#" className="likes_prof" style = {{fontSize:'18px' , fontWeight:'600'}}>
                 Likes
@@ -107,8 +107,8 @@ const Profile = () => {
               <LikeComp data_testid="Like-Form-id" />
               <LikeComp data_testid="Like-Form-id" />
             </div>
-            <hr style={{ width: "85%", marginTop: 80 }}></hr>
-
+            <hr className="zzz"></hr>
+            <div className="follblk_prof">
             <div style={{ display: "flex", marginTop: 25 }}>
               <p className="intersts_prof" style = {{fontSize:'18px' , fontWeight:'600'}}>Following</p>
               <a href="#" className="events_prof">
@@ -119,10 +119,12 @@ const Profile = () => {
                 className="arr_prof"
               />
             </div>
-            <div className="likeblk_prof">
+            <div className="follblk_prof">
               <FollComp text="GoMyCode" data_testid="Follow-Form-id" />
               <FollComp text="Ezz event riders" />
             </div>
+            </div>
+            
           </div>
         </div>
       </div>

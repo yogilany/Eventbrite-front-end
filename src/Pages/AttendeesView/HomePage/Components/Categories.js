@@ -9,8 +9,9 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
  * @description This is the taps that a  user can use to filter events by category. It is used in the HomePage and the SearchPage.
  * @returns {JSX.Element}
  */
-export const CategoriesTaps = ({ categorySelector, location }) => {
+export const CategoriesTaps = ({ categorySelector, location, setLocation }) => {
   const [value, setValue] = useState(0);
+  const [newLocation, setNewLocation] = useState(location);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -70,6 +71,14 @@ export const CategoriesTaps = ({ categorySelector, location }) => {
     },
   }));
 
+  const handleEnter = (e) => {
+    // console.log(e.target.value)
+    setNewLocation(e.target.value)
+    if (e.key === "Enter") {
+setLocation(newLocation)
+    }
+}
+
   return (
     <Container className="mb-2">
       <Row className="justify-content-md-center">
@@ -94,8 +103,14 @@ export const CategoriesTaps = ({ categorySelector, location }) => {
                 },
               }} // font size of input text
               defaultValue={location ? location : "Loading..."}
+              // onKeyDown={handleEnter}
+              onChange={(e) => { 
+                setLocation(e.target.value);
+                setNewLocation(e.target.value);
+                console.log(e.target.value); }}
               id="location-input"
               variant="standard"
+              value={newLocation}
               style={{ borderBottom: "1px solid #e2e2e1" }}
             />
           </div>
