@@ -44,15 +44,15 @@ const Details = () => {
             <Summary />
             <Description />
             <AddEvents />
+            {showSubmit && (
+              <div className="submit__section" data-testid="submit__section">
+                <button className="discard__btn">Discard</button>
+                <button type="submit" className="submit__btn">
+                  Save
+                </button>
+              </div>
+            )}
           </div>
-          {showSubmit && (
-            <div className="submit__section" data-testid="submit__section">
-              <button className="discard__btn">Discard</button>
-              <button type="submit" className="submit__btn">
-                Save
-              </button>
-            </div>
-          )}
         </form>
       </div>
     </AppContext.Provider>
