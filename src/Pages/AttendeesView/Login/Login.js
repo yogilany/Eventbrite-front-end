@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Container, Col, Row, Stack } from "react-bootstrap";
+import { Container, Col, Row, Stack, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import test_image from "../../../assets/side_image.jpg";
 import imageLogin from "../../../assets/adelLogin.png";
 import AboutFooter from "../../../Components/AboutFooter/AboutFooter";
 import Footer from "../../../Components/footer/Footer";
-import { authUser, checkEmailExists } from "../../../features/authSlice";
-import { getUsers } from "../../../services/services";
+import { authUser, checkEmailExists, forgotPassword } from "../../../features/authSlice";
 import { HorizontalChip } from "./Components/HorizontalChip";
 import LoginForm from "./Components/LoginForm";
 import LoginImage from "./Components/LoginImage";
@@ -16,9 +14,9 @@ import { LoginTitle } from "./Components/Title";
 import "./Login.scss";
 import { unwrapResult } from "@reduxjs/toolkit";
 import FormMessage from "../../../Components/FormMessage/FormMessage";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
-
+import LoginForgotPasswordModal from "./Components/LoginForgotPasswordModal";
 /**
  *
  * @param {name: Name of this element after creation} props
@@ -47,48 +45,21 @@ export const Login = (props) => {
   const [emailInput, setEmailInput] = useState("");
   const [emailExist, setEmailExist] = useState(true);
   const [passwordIncorrect, setPasswordIncorrect] = useState(false);
+  const [forgotPasswordModalShow, setForgotPasswordModalShow] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const controls = useAnimation();
 
-  useEffect(() => {
-    userRef.current.focus();
-
-    async function fetchUsers() {
-      const res = await getUsers();
-      // console.log("res: ", res);
-      setUsers(res);
-    }
-    fetchUsers();
-    // console.log("users: ", users);
-  }, []);
-
-  useEffect(() => {
-    setErrMsg("");
-  }, [user, pwd]);
-
-  const handleSubmit = async (e) => {
+  const forgotPasswordHandler = () => {
     try {
-      e.preventDefault();
-      const data = {
-        email: user,
-        password: pwd,
-      };
-      // console.warn("User: ", user, " Pwd: ", pwd);
-      dispatch(authUser(data))
-        .unwrap()
-        .then(() => {
-          // console.log("SUCCESS::LOG IN");
-          navigate("/");
-          setSuccess(true);
-          window.location.reload();
+      dispatch(forgotPassword(emailInput))
+        .unwrap(unwrapResult)
+        .then((result) => {
+          console.log('success', result)
         })
-        .catch(() => {
-          console.log("ERROR::LOG IN");
-          setSuccess(false);
-          setPasswordIncorrect(true);
-          controls.start('start');
+        .catch((err) => {
+          console.log('error', err)
         });
 
     } catch (err) {
@@ -96,26 +67,79 @@ export const Login = (props) => {
     }
   };
 
+  const handleSubmit = (e) => {
+    try {
+      const data = {
+        username: e.email,
+        password: e.password,
+      };
+
+      // Save email for forget password modal
+      setEmailInput(e.email)
+
+      console.log(data);
+
+      dispatch(authUser(data))
+        .unwrap(unwrapResult)
+        .then((result) => {
+          setSuccess(true);
+        })
+        .catch((err) => {
+          setSuccess(false);
+          setPasswordIncorrect(emailExist === true);
+          setErrMsg(err);
+          setTimeout(() => {
+            controls.start('start');
+          }, 500);
+        });
+
+
+    } catch (err) {
+      console.log(err);
+    }
+
+
+  };
   useEffect(() => {
+    if (success) {
+      navigate("/", { replace: true });
+    }
+  }, [success])
+
+  useEffect(() => {
+
     const isValid = user.match(isValidEmail);
+
     if (!isValid)
-      setEmailExist(false)
-    if (user.length > 0 && isValid) {
+      setEmailExist(false);
+
+    if (user.length > 6 && isValidEmail) {
       dispatch(checkEmailExists(user))
         .unwrap(unwrapResult)
         .then((result) => {
-          setEmailExist(result);
-          controls.start('start');
+          setEmailExist(true);
+          setPasswordIncorrect(false);
+          setTimeout(() => {
+            controls.start('start');
+          }, 500);
         })
         .catch(() => {
           //Server error
+          setSuccess(false)
+          setEmailExist(false)
+          setPasswordIncorrect(false);
         });
     }
-
   }, [user]);
 
   return (
     <Container className={props.name} fluid style={{ height: "50px" }}>
+      <LoginForgotPasswordModal
+        show={forgotPasswordModalShow}
+        onHide={() => setForgotPasswordModalShow(false)
+        }
+        email={emailInput}
+      />
       <Row>
         <Col
           className="contact-content"
@@ -145,7 +169,7 @@ export const Login = (props) => {
               </Stack>
             </Row>
             <Row>
-              {!emailExist && user.length > 10 ? (
+              {!emailExist && user.length > 10 && !passwordIncorrect ? (
                 <motion.div
                   variants={{
                     start: () => ({
@@ -161,8 +185,10 @@ export const Login = (props) => {
                   }}
                 >
                   <FormMessage>
-                    There is no account associated with the email.{" "}
-                    <Link to="/signup">Create account.</Link>{" "}
+                    <p>
+                      There is no account associated with the email.{" "}
+                      <Link to="/signup">Create account.</Link>{" "}
+                    </p>
                   </FormMessage>
                 </motion.div>
               ) : null}
@@ -185,7 +211,7 @@ export const Login = (props) => {
                 >
                   <FormMessage>
                     <div></div>
-                    <p>Password is incorrect. </p>
+                    <p>{"Password is incorrect."}</p>
                   </FormMessage>
                 </motion.div>
               ) : null}
@@ -196,17 +222,31 @@ export const Login = (props) => {
                   minWidth: "100%",
                   width: "350px",
                 }}
-                user_ref={userRef}
-                User={user}
-                set_Pwd={setPwd}
-                set_User={setUser}
-                Pwd={pwd}
+                setUserHandler={setUser}
                 submitAction={handleSubmit}
-                Success={success}
                 data_testid="login-form"
                 name="login-form-div"
+                passwordIncorrect={passwordIncorrect}
               />
             </Row>
+            {passwordIncorrect ?
+              (
+                <Row
+                  className="g-0">
+                  <Button
+                    style={{ textDecoration: "none" }}
+                    onClick={() => {
+                      setForgotPasswordModalShow(true);
+                      forgotPasswordHandler();
+                      return;
+                    }}
+                    className={`d-flex w-auto p-0 `}
+                    variant="link" data-testid="login-forgot-password"
+                  >Forgot your password?</Button>
+                </Row>
+
+              ) : null
+            }
             <Row className="g-0">
               <HorizontalChip id='login-horizontalchip' data_testid="horizontal-chip" />
             </Row>

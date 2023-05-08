@@ -11,7 +11,7 @@ import { MdOutlineSearch } from "react-icons/md";
 import { Container, Row, Col } from "react-bootstrap";
 import SearchPage from "../../Pages/AttendeesView/HomePage/Components/SearchPage";
 import { useSelector } from "react-redux";
-import { logOut, selectUserState } from "../../features/authSlice";
+import { getUserDetails, logOut, selectUserAvatarURL, selectUserEmail, selectUserFirstName, selectUserLastName } from "../../features/authSlice";
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 import { VscAccount } from "react-icons/vsc";
@@ -25,10 +25,15 @@ const Header = () => {
   const [toggleSearch, setToggleSearch] = useState(false);
   const [isOrganizer, setIsOrganizer] = useState(false);
 
-  const USER = useSelector(selectUserState);
+  const [userFirstName] = useSelector(selectUserFirstName);
+  const userLastName = useSelector(selectUserLastName);
+
+  const userEmail = useSelector(selectUserEmail);
+  const userAvatarURL = useSelector(selectUserAvatarURL)
+  const [userFullName, setUserFullName] = useState(userFirstName + " " + userLastName)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // console.log(window.User);
 
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
@@ -51,7 +56,21 @@ const Header = () => {
     };
   }, [screenSize]);
 
+
   const [user, setUser] = useState(window.User);
+
+  // Update user details every 15 minutes
+  setInterval(() => {
+    dispatch(getUserDetails())
+  }, 15 * 60 * 1000)
+
+  // Update user details as soon as page loads:
+  useEffect(() => {
+    dispatch(getUserDetails('aaa')).then(() => {
+      console.log('User data: ', userFirstName, userLastName, userEmail, userAvatarURL)
+      setUserFullName(userFirstName + " " + userLastName)
+    })
+  }, [])
 
   return (
     <>
@@ -80,7 +99,7 @@ const Header = () => {
           ) : null}
         </div>
         <div className="header-container-links">
-          {!USER ? (
+          {!userEmail ? (
             <>
               <div className="dropdown">
                 <button className="dropbtn" id="organizeBtn">
@@ -166,7 +185,7 @@ const Header = () => {
           {isOrganizer ? (
             <div className="dropdown">
               <button className="dropbtn" id="userBtn">
-                Mahmoud Khaled <MdKeyboardArrowUp className="arrow" />
+                {userFullName} <MdKeyboardArrowUp className="arrow" />
               </button>
               <div className="dropdown-content">
                 <a href="#" style={{ fontWeight: "500" }}>
@@ -180,7 +199,8 @@ const Header = () => {
                   <span style={{ marginLeft: "10px" }}>Account Settings</span>
                 </a>
 
-                <a href="#" style={{ fontWeight: "500" }}>
+                <a href="#" style={{ fontWeight: "500" }}
+                >
                   <BiLogOut fontSize="25px" color="black" />{" "}
                   <span style={{ marginLeft: "10px" }}>Log out</span>
                 </a>
@@ -188,10 +208,10 @@ const Header = () => {
             </div>
           ) : null}
 
-          {USER ? (
+          {userEmail ? (
             <div className="dropdown">
               <button className="dropbtn">
-                {USER} <MdOutlineKeyboardArrowDown />
+                {userEmail} <MdOutlineKeyboardArrowDown />
               </button>
               <div className="dropdown-content">
                 <a href="#">Browse events</a>

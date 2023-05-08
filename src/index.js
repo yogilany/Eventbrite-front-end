@@ -1,16 +1,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./scss/theme.scss";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./scss/theme.scss";
 import { Provider } from "react-redux";
-import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import store, { persistor } from "./store";
 import App from "./App";
 import "./App.scss";
 import "./index.css";
-import store from "./store";
-
-let persistor = persistStore(store);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

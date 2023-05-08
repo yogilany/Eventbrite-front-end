@@ -1,0 +1,35 @@
+$error-text-color: #c5162e;
+$selected-text-color: #3659e3;
+$unselected-text-color: #6f7287;
+.a_link {
+  width: auto;
+  color: $selected-text-color;
+  font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 600;
+}
+
+.a_link:hover {
+  text-decoration: underline;
+}
+
+.form-floating {
+  font-family: Neue Plak, -apple-system, BlinkMacSystemFont, Roboto,
+    Helvetica Neue, Helvetica, Tahoma, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  line-height: 22px;
+  color: $unselected-text-color;
+
+  :invalid + label {
+    color: $error-text-color;
+  }
+  :invalid:focus + label {
+    color: $error-text-color;
+  }
+  // :valid:focus + label {
+  //   color: $selected-text-color;
+  // }
+
+}

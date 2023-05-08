@@ -1,26 +1,90 @@
-import "./App.css";
-import { Layout } from "./app/layout";
-import AuthenticatedApp from "./app/AuthenticatedApp";
-import UnauthenticatedApp from "./app/UnauthenticatedApp";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { selectUserState } from "./features/authSlice";
-function App() {
-  const user = useSelector(selectUserState);
-  console.log("USER = ", user);
+// import "./App.css";
+// import { Layout } from "./app/layout";
+// import AuthenticatedApp from "./app/AuthenticatedApp";
+// import UnauthenticatedApp from "./app/UnauthenticatedApp";
+// import { useSelector } from "react-redux";
+// import { selectUserToken } from "./features/authSlice";
+// function App() {
+//   const token = useSelector(selectUserToken);
+//   console.log("Token = ", token);
 
+//   return (
+//     <>
+//       {token ? (
+//         <Layout>
+//           <AuthenticatedApp />
+//         </Layout>
+//       ) : (
+//         <Layout>
+//           <UnauthenticatedApp />
+//         </Layout>
+
+//       )}
+//     </>
+//   );
+// }
+
+// export default App;
+
+// Alternate App.js for route protection
+import "./App.css";
+import { useSelector } from "react-redux";
+import { selectUserToken } from "./features/authSlice";
+import { Navigate, Route, Routes, useRoutes } from "react-router";
+import { HomePage } from "./Pages/AttendeesView/HomePage/HomePage";
+import Signup from "./Pages/AttendeesView/Signup/Signup";
+import { ProtectedRoute } from "./app/ProtectedRoute";
+import Likes from "./Pages/AttendeesView/Likes/Likes";
+import FollowingOrgEvents from "./Pages/AttendeesView/FollowingOrganizersEvents/Following";
+import { BrowserRouter } from "react-router-dom";
+import Login from "./Pages/AttendeesView/Login/Login";
+import { Layout } from "./app/layout";
+import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+import AllEvents from "./Pages/AttendeesView/BrowseEvents/AllEvents";
+import Organizer from "./Pages/AttendeesView/Organizer/Organizer";
+import Details from "./Pages/CreatorsView/Details/Details";
+import Publish from "./Pages/Publishpage/Publish";
+import Dashboard from "./Pages/CreatorsView/Dashboard/Dashboard";
+import Basicinfo from "./Pages/CreatorsView/Basicinfo/BasicInfo";
+import SearchPage from "./Pages/AttendeesView/HomePage/Components/SearchPage";
+import EventsByCategory from "./Pages/AttendeesView/EventsByCategory/EventsByCategory";
+import SingleEvent from "./Pages/AttendeesView/SingleEvent/SingleEvent";
+import Profile from "./Pages/AttendeesView/Profile/Profile";
+import VerifyUser from "./Pages/AttendeesView/VerifyUser/VerifyUser";
+
+function App() {
+  const userToken = useSelector(selectUserToken);
+
+  console.log("Token = ", userToken);
   return (
     <>
-      {user ? (
-        <Layout>
-          <AuthenticatedApp />
-        </Layout>
-      ) : (
-        <Layout>
-          <UnauthenticatedApp />
-        </Layout>
+      <Layout>
+        <BrowserRouter>
+          <Routes>
+            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/" element={<HomePage />} errorElement={<ErrorPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/organizer" element={<Organizer />} />
+            <Route path="/verify" element={<VerifyUser />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/events/:category/:location" element={<EventsByCategory />} />
+            <Route path="/event/:id" element={<SingleEvent />} />
 
-      )}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/likes" element={<Likes />} />
+              <Route path="/all-events" element={<AllEvents />} />
+              <Route path="/details" element={<Details />} />
+              <Route path="/following" element={<FollowingOrgEvents />} />
+              <Route path="/Publish" element={<Publish />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/basic-info" element={<Basicinfo />} />
+              <Route path="/Profile" element={<Profile />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </Layout>
+
     </>
   );
 }

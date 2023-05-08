@@ -86,11 +86,10 @@ export const SignupForm = (props) => {
 
   const registerUserHandler = () => {
     const data = {
-      firstname: getValues("firstName"),
-      lastname: getValues("lastName"),
       email: getValues("email"),
       password: getValues("password"),
-      is_verified: false,
+      firstname: getValues("firstName"),
+      lastname: getValues("lastName"),
     };
     dispatch(registerUser(data))
       .unwrap()
@@ -132,6 +131,7 @@ export const SignupForm = (props) => {
         })
         .catch(() => {
           //Server error
+          setEmailExists(false);
         });
     }
   }, [watchEmail, dispatch, getValues]);
@@ -152,7 +152,8 @@ export const SignupForm = (props) => {
         data-testid={props.data_testid}
         onSubmit={handleSubmit(onSubmit, onError)}
       >
-        <Container>
+        <Container
+        >
           <Col className="g-0">
             <Row className="mb-2">
               {emailExists ? (
@@ -171,32 +172,29 @@ export const SignupForm = (props) => {
                   }}
                 >
                   <FormMessage>
-
                     <BiIcons.BiInfoCircle size={24} style={{
-                      transform: "rotate(180deg) scaleX(-1)",
-                      // display: "inline"
-                      flexDirection: "row",
-                      display: "flex"
+                      transform: "rotate(180deg) scaleX(-1)", marginRight: "5px"
                     }} />
-                    <p style={{
-                      display: "flex",
-                      flexDirection: "row",
-                    }}>There is an account associated with the email. <Link to="/login">Log in</Link></p>
+                    <p><strong>{"There is an account associated with the email. "} </strong><Link to="/login">Log in</Link></p>
 
                   </FormMessage>
                 </motion.div>
               ) : null}
               <InputGroup className="p-0">
-                <Form.Group style={{ width: "100%" }}>
-                  <FloatingLabel label="Email address">
+                <Form.Group
+                  className="p-0"
+                  style={{ width: "100%" }}>
+                  <Form.Floating >
                     <TextInputStyled
+                      isInvalid={errors.email}
                       disabled={showSignUpInfo}
                       type="email"
                       data-testid="email-input"
                       id="email-input"
                       {...register("email", { required: "Field required" })}
                     />
-                  </FloatingLabel>
+                    <label >Email Address</label>
+                  </Form.Floating>
                   {errors.email && (
                     <Form.Text className="text-danger">
                       {errors.email.message}
@@ -332,7 +330,7 @@ export const SignupForm = (props) => {
                 }
               }
             >
-              <motion.div
+              {/* <motion.div
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(2, 1fr)",
@@ -340,7 +338,7 @@ export const SignupForm = (props) => {
                   gridColumnGap: "0",
                   gridRowGap: "0"
                 }}
-                animate={controls}
+                // animate={emailExists ?  () => { }:controls}
 
                 initial={{ x: 0 }}
               >
@@ -385,7 +383,13 @@ export const SignupForm = (props) => {
 
                 >
                 </div>
-              </motion.div>
+              </motion.div> */}
+              <ButtonOrangeStyled
+                // style={{ minWidth: "100%" }}
+                data-testid="submit-button" id="submit-button" as="button"
+                className="mt-4 mb-4" type="submit" variant="flat btn-flat">
+                {showSignUpInfo ? "Create account" : "Continue"}
+              </ButtonOrangeStyled>
             </Row>
             <Row>
               {showSignUpInfo ? null : (

@@ -3,7 +3,7 @@ import { ButtonGroup, Col, Row, Button, Container } from "react-bootstrap";
 import * as FcIcons from "react-icons/fc";
 import * as TiIcons from "react-icons/ti";
 import "../Login.scss";
-import LoginMethodsCSS from './LoginMethods.module.css'
+import LoginMethodsCSS from './LoginMethods.module.scss'
 import ButtonWhiteStyled from "../../../../Components/Buttons/WhiteButton";
 /**
  *
@@ -17,21 +17,18 @@ export const LoginMethods = (props) => {
       data-testid={props.data_testid}
       name={props.name}>
       <Row>
-
         <ButtonWhiteStyled as="button" variant="secondary" >
           {" "}
           Email me a login link
         </ButtonWhiteStyled>
       </Row>
       <Row>
-
-        <ButtonWhiteStyled as="button" variant="secondary" >
-          <FcIcons.FcGoogle size="1.5em" />
+        <ButtonWhiteStyled as="button" variant="secondary">
+          <FcIcons.FcGoogle size="1.75em" />
           {" Sign in with Google"}
         </ButtonWhiteStyled>
       </Row>
       <Row>
-
         <div style={{ margin: "1.5rem 0" }}>Other login methods</div>
       </Row>
       <Container style={{ margin: "1rem 0" }}>
@@ -41,14 +38,13 @@ export const LoginMethods = (props) => {
               <TiIcons.TiSocialFacebook role="button" color="white" size="30px" />
             </div>
           </Col>
-          <Col>
+          <Col  >
             <div id='login-apple' className="circular-icon" style={{ backgroundColor: "#4b4d63" }}>
               <TiIcons.TiVendorApple role="button" color="white" size="30px" />
             </div>
           </Col>
         </Row>
         <Row className="pt-5 pb-0" >
-
           <Link to={"/signup"} className={LoginMethodsCSS.a_link} >Sign up</Link>
         </Row>
       </Container>
