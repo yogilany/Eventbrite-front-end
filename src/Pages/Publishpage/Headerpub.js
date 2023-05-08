@@ -9,8 +9,9 @@ import { VscAccount } from "react-icons/vsc";
 import { BiLogOut } from "react-icons/bi";
 import { MdOutlineKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { AiFillEye } from "react-icons/ai";
+import { MdApps } from 'react-icons/md'
+import { RiMore2Fill } from 'react-icons/ri'
 /**
  * @author Ziad Ezzat
  * @param {string} props.data_testid
@@ -26,6 +27,11 @@ const Headerpub = (props) => {
       <div className="header_container-left">
         <img src={Logo} alt="headerLogo" />
       </div>
+      <div  className="header__responsive-links">
+          <button className="event__details" style = {{marginRight:'10px'}} ><AiFillEye /></button>
+          <button className="sidebar__details" style = {{marginRight:'10px'}}><MdApps /></button>
+          <button className="header__more-btn" style={{ marginRight: '45px'}}><RiMore2Fill className="more-logo" /> <span style = {{fontSize:'14px'}}>More</span></button>
+        </div>
       <div
         className="header__container-right"
         style={{ marginLeft: "-15px" }}

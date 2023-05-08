@@ -35,7 +35,8 @@ const Radpub = (props) => {
                 </div>
             )
             }
-            {val === "private" && (<div className="audbox" >
+            {val === "private" && (
+            <div className="audbox" >
                 <h5>Choose your Audience</h5>
                 <select name="verifcation" className="ver">
                     <option value="anyone" >Anyone with The link</option>
@@ -44,7 +45,8 @@ const Radpub = (props) => {
                 <div className='dtt'>
                     <DateTime data_testid="DTID" title="Will this event ever be public?" c1="No, keep it private" c2="Yes, schedule to share publicly" />
                 </div>
-            </div>)
+            </div>
+            )
             }
         </div>
     )

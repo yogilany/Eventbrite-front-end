@@ -1,6 +1,6 @@
 .box_prof {
   margin-left: 20px;
-  width: 330px;
+  width: 47%;
   height: 360px;
   margin-top: 25px;
 }
@@ -10,7 +10,7 @@
 }
 
 .img_prof {
-  width: 330px;
+  width: 100%;
   border: 1px solid rgb(185, 184, 184);
 }
 
@@ -46,22 +46,41 @@
     "Lucida Sans", Arial, sans-serif;
   font-weight: 600px;
 }
+
 .dat_prof {
   color: rgb(255, 115, 0);
   font-size: 16px;
 }
+
 .det_prof {
   color: rgb(135, 134, 134);
   font-size: 16px;
 }
+
 .dfrt_prof {
   color: rgb(135, 134, 134);
   font-size: 16px;
   margin-left: 10px;
 }
+
 .shr_prof {
   margin-left: 250px;
-  width: 22px;
-  height: 22px;
+  width: 7%;
+  height: 7%;
   cursor: pointer;
+}
+@media screen and (max-width: 745px) 
+{
+  .box_prof
+  {
+    width:60%;
+  }
+  .shr_prof
+  {
+    margin-left:70%;
+    width: 8%;
+    height: 8%;
+    margin-top: 5px;
+  }
+
 }

@@ -17,7 +17,7 @@ const Publish = () => {
             <Headerpub data_testid="HDID" />
             <Sidebar />
 
-            <div style={{ marginLeft: 450, marginTop: 20 }}>
+            <div  className='ppt'>
                 <h1 className='pubhead'>Publish Your Event</h1>
                 <Containerpub data_testid="CDID" />
                     <div className='radtipp'>
