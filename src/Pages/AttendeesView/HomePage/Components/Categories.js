@@ -76,7 +76,10 @@ export const CategoriesTaps = ({ categorySelector, location }) => {
         <Col md={12}>
           <div className="location-container">
             <div className="location-popular ">
-              Popular in <MdOutlineKeyboardArrowDown color="#3659e3" />
+              <span style={{ fontSize: "32px", fontFamily: "Neue Plak Bold !important" ,lineHeight: "40px"}}>
+                Popular in
+              </span>{" "}
+              <MdOutlineKeyboardArrowDown color="#3659e3" />
             </div>
             <LocationTextField
               //   label="Location"
