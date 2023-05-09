@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
  * @todo Get data from API and show it.
  * @todo Styling headings
  */
-const Events = ({ location }) => {
+const Events = ({ location, events }) => {
   const [events] = useState([]);
   const [moreEvents] = useState([]);
 
