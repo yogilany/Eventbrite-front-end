@@ -35,8 +35,10 @@ function Basicinfo({ event, setEvent }) {
   const [isEndShown, setIsEndShown] = useState(null);
   const [category, setCategory] = useState("");
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState([]);
 
   function saveData() {
+    if (error.length !== 0) return;
     setEvent({
       ...event,
       basic_info: {
@@ -90,8 +92,13 @@ function Basicinfo({ event, setEvent }) {
 
   function addtaghandlerbtn(event) {
     if (document.getElementsByName("tags")[0].value !== "") {
+      // Check if tag already exists
       // if number of tags is less than 10
-      if (tags.length < 10) {
+
+      if (
+        tags.length < 10 &&
+        !tags.includes(document.getElementsByName("tags")[0].value)
+      ) {
         setTags([...tags, document.getElementsByName("tags")[0].value]);
         document.getElementsByName("tags")[0].value = "";
         setTagsCharCount(0);
@@ -137,7 +144,7 @@ function Basicinfo({ event, setEvent }) {
       <Row>
         <Col>
           <div className="BasicinfoPage_Container mb-5 pb-5">
-            {success ? (
+            {success && error.length === 0 ? (
               <Alert
                 variant="success"
                 style={{
@@ -147,7 +154,20 @@ function Basicinfo({ event, setEvent }) {
                   zIndex: "999",
                 }}
               >
-                Data saved successfly.
+                Data saved successfully.
+              </Alert>
+            ) : null}
+            {error.length > 0 ? (
+              <Alert
+                variant="danger"
+                style={{
+                  width: "70%",
+                  position: "fixed",
+                  top: "70px",
+                  zIndex: "999",
+                }}
+              >
+                Please fill out all of the required fields correctly
               </Alert>
             ) : null}
             <div className="Section_Container">
@@ -191,7 +211,10 @@ function Basicinfo({ event, setEvent }) {
                       name="eventtitle"
                       maxLength={75}
                       value={title}
-                      onChange={(event) => setTitle(event.target.value)}
+                      onChange={(event) => {
+                        setTitle(event.target.value);
+                        setCount(event.target.value.length);
+                      }}
                     />
                   </div>
                   <div className="counter" id="the-count">
@@ -230,7 +253,6 @@ function Basicinfo({ event, setEvent }) {
                       aria-invalid="false"
                       aria-labelledby="eventType-label"
                       className="input eds-field-styled__select"
-                      role="listbox"
                       id="eventType"
                       name="eventType"
                     >
@@ -302,7 +324,6 @@ function Basicinfo({ event, setEvent }) {
                       aria-invalid="false"
                       aria-labelledby="eventSubTopic-label"
                       className="input eds-field-styled__select"
-                      role="listbox"
                       id="eventSubTopic"
                       name="eventTopic"
                       value={category}
@@ -574,6 +595,8 @@ function Basicinfo({ event, setEvent }) {
                     setStartDate={setStartDate}
                     startDate={startDate}
                     endDate={endDate}
+                    setError={setError}
+                    error={error}
                   />
                 ) : (
                   <div className="rec-subtitle">
@@ -602,7 +625,6 @@ function Basicinfo({ event, setEvent }) {
                     aria-invalid="false"
                     aria-labelledby="time-zone-label"
                     className="inputregular"
-                    role="listbox"
                     id="time-zone"
                     name="venueTimeZone"
                     defaultValue={"Africa/Cairo"}
@@ -917,7 +939,6 @@ function Basicinfo({ event, setEvent }) {
                     aria-invalid="false"
                     aria-labelledby="undefined-label"
                     className="inputregular"
-                    role="listbox"
                     name="locale"
                     defaultValue={"en_US"}
                     value={language}
