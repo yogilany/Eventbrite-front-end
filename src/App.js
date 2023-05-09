@@ -54,6 +54,7 @@ import VerifyUser from "./Pages/AttendeesView/VerifyUser/VerifyUser";
 import Tickets from "./Pages/CreatorsView/TicketsPage/TicketsPage";
 import CreateEvent from "./Pages/CreatorsView/CreateEvent/CreateEvent";
 import ResetPassword from "./Pages/AttendeesView/Login/ResetPassword";
+import AddAttendees from "./Pages/CreatorsView/AddAttendees/AddAttendees";
 
 function App() {
   const userToken = useSelector(selectUserToken);
