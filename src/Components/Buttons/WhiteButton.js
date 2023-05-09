@@ -46,10 +46,20 @@ export const WhiteButton = (props) => {
         isLoading ? (
           <Spinner size="sm" animation="border" variant="light" />
         ) : (
-          props.children
+          <div class="flex flex-col items-center">
+                      <div class="flex flex-row items-center">
+
+            {props.children}
+          </div>
+          </div>
+
         )
       ) : (
-        props.children
+        <div class="flex flex-col items-center">
+          <div class="flex flex-row items-center">
+        {props.children}
+        </div>
+      </div>
       )}
     </ButtonWhiteStyled>
   );

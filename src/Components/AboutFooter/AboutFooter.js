@@ -19,7 +19,10 @@ export const AboutFooter = (props) => {
         backgroundColor: "#1e0a3c",
         color: "white",
         fontSize: "0.9rem",
-        paddingTop: "5rem 0"
+        paddingTop: "5rem 0",
+        width: "100%",
+    
+        
     }
 
     const StackStyle = {
@@ -27,8 +30,8 @@ export const AboutFooter = (props) => {
     }
     return (
 
-        <Container style={ContainerStyle} data-testid={props.data_testid}>
-            <Row className="pt-4">
+        <Container style={ContainerStyle} data-testid={props.data_testid} className=" ">
+            <Row className="pt-4 w-full">
                 <Col>
                     <Container >
                         <strong>Use Eventbrite</strong>
