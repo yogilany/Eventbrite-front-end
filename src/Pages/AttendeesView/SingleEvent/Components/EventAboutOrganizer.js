@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col, Button, Stack } from "react-bootstrap";
 import { Avatar, Link } from "@mui/material";
 import * as HIIcons from "react-icons/hi";
-
+import "../SingleEvent.scss";
 const EventAboutOrganizer = (props) => {
   const AvatarStyle = {
     border: "1px solid #eeedf2",
@@ -19,7 +19,7 @@ const EventAboutOrganizer = (props) => {
   };
   return (
     <>
-      <h3 style={MainHeaderStyle}>About the organizer</h3>
+      <h3 className="header-text">About the organizer</h3>
       <Container className="p-5 m-0 d-flex" style={ContainerStyle}>
         <Col>
           <Row className="d-flex justify-content-center mb-4">

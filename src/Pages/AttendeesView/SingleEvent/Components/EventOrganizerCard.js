@@ -1,6 +1,7 @@
 import { Col, Row, Container, Stack } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Avatar } from "@mui/material";
+import BlueButton from "src/Components/Buttons/BlueButton";
 export const EventOrganizerCard = (props) => {
   const ContainerCardStyle = {
     backgroundColor: "#f8f7fa",
@@ -12,7 +13,7 @@ export const EventOrganizerCard = (props) => {
   };
 
   return (
-    <Container fluid className="p-3" style={ContainerCardStyle}>
+    <Container fluid className="p-4" style={ContainerCardStyle}>
       <Row>
         <Col>
           <Stack direction="horizontal" gap={3}>
@@ -28,21 +29,22 @@ export const EventOrganizerCard = (props) => {
               src={props.avatar}
               style={AvatarStyle}
             />
-            <div>
-              <h5>
-                By <strong>{props.name}</strong>{" "}
-              </h5>
-              <h6>
-                <em>{props.follower_count} Followers</em>
-              </h6>
+            <div className="organizer-info-text">
+              By <strong className="organizer-name-em">{props.name}</strong>{" "}
+              <br></br>
+              <p>{props.follower_count} followers</p>
             </div>
           </Stack>
         </Col>
 
         <Col className="d-flex justify-content-end align-items-center">
-          <Button size="md" variant="primary">
+          <BlueButton
+            style={{
+              width: "50%",
+            }}
+          >
             Follow
-          </Button>
+          </BlueButton>
         </Col>
       </Row>
     </Container>

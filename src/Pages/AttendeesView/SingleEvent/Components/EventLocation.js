@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap/";
 import * as Ricons from "react-icons/md/";
 import * as MUIcons from "@mui/icons-material";
-
+import "../SingleEvent.scss";
 export const EventLocation = ({ location, date_and_time }) => {
   const MainHeaderStyle = {
     color: "#1e0a3c",
@@ -19,7 +19,7 @@ export const EventLocation = ({ location, date_and_time }) => {
 
   return (
     <Container>
-      <h3 style={MainHeaderStyle}>When and where</h3>
+      <h3 className="header-text">When and where</h3>
       <Row>
         <Col>
           <Row>
@@ -61,7 +61,7 @@ export const EventLocation = ({ location, date_and_time }) => {
                     navigator.language,
                     { hour: "2-digit", minute: "2-digit" }
                   )}
-                <br></br> 
+                <br></br>
               </p>
             </Col>
             <Col md={1} style={{ borderLeft: "1px solid #dbdae3" }}>
