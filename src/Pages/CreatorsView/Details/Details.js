@@ -61,7 +61,7 @@ const Details = ({ event, setEvent }) => {
     <AppContext.Provider
       value={{ toggleSidebar, setToggleSidebar, showSubmit, setShowSubmit }}
     >
-      <div className="Details__page">
+      <div className="Details__page mt-32">
         <form onSubmit={handleForm}>
           <div
             className={`Details__container ${
