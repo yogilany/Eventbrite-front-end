@@ -10,6 +10,7 @@ import { useState } from "react";
 import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
 import TicketsPage from "../../../Pages/CreatorsView/TicketsPage/TicketsPage";
 const CreateEvent = () => {
+  const [ eventTitle, setEventTitle ] = useState("");
   const [event, setEvent] = useState({
     basic_info: {
       title: "",
@@ -62,10 +63,10 @@ const CreateEvent = () => {
       onSelect={() => window.scrollTo(0, 0)}
     >
       <Container fluid className="p-0" style={{ overflow: "hidden" }}>
-        <Sidebar />
+        <Sidebar eventTitle={eventTitle} />
         <Tab.Content>
           <Tab.Pane eventKey="first">
-            <Basicinfo event={event} setEvent={setEvent} />
+            <Basicinfo event={event} setEvent={setEvent} setEventTitle={setEventTitle} />
           </Tab.Pane>
 
           <Tab.Pane eventKey="second">

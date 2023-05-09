@@ -18,8 +18,7 @@ import axios from "axios";
  * @todo Get data from API and show it.
  * @todo Styling headings
  */
-const Events = ({location}) => {
-  const [events, setEvents] = useState([]);
+const Events = ({location,events}) => {
   const [moreEvents, setMoreEvents] = useState([]);
 
   const [category, setCategory] = useState("All");
@@ -35,22 +34,6 @@ const Events = ({location}) => {
     cards.push(i);
   }
 
-  // async function fetchEvents() {
-  //   const response = await getEvents({ category: category });
-  //   const filteredEvents = response.filter((event) => {
-  //     if (category != "All") {
-  //       setIsCategoriesShown(false);
-  //       return event.eventCategory == category;
-  //     } else {
-  //       setIsCategoriesShown(true);
-
-  //       return response;
-  //     }
-  //   });
-  //   // console.log("filteredEvents: ", filteredEvents);
-  //   setEvents(filteredEvents.slice(0, 8));
-  //   setMoreEvents(filteredEvents.slice(8, 24));
-  // }
 
   useEffect(() => {
     setLoading(true);
@@ -87,13 +70,15 @@ const Events = ({location}) => {
               ? events.map((event, index) => (
                 <EventCard
                   key={index}
-                  eventTitle={event.eventName}
-                  eventDate={event.eventDate}
-                  eventTime={event.eventTime}
-                  eventLocation={event.eventLocation}
-                  eventPrice={event.eventPrice}
-                  eventOrganizer={event.eventOrganizer}
+                  eventTitle={event.basic_info.title}
+                  eventDate={event.date_and_time.start_date_time}
+                  // eventTime={event.eventTime}
+                  eventLocation={event.location.city}
+                  eventPrice={event.price}
+                  eventOrganizer={event.basic_info.organizer}
                   organizerFollowers={event.organizerFollowers}
+                  eventCover={event.image_link}
+                  eventID={event.id}
                 />
               ))
               : "Loading..."}

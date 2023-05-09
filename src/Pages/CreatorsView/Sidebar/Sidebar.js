@@ -24,7 +24,7 @@ import { Nav } from "react-bootstrap";
  * @description This is sidebar which displayed in Creator Pages (Publish , Details , Basic Info)
  * @returns {JSX.Element}
  */
-const Sidebar = ({ HideMenu }) => {
+const Sidebar = ({ HideMenu, eventTitle }) => {
   const orderOptions = ["Order Form", "Order Confirmation", "Waitlist"];
   const Marketing = [
     "Add to Facebook",
@@ -125,7 +125,7 @@ const Sidebar = ({ HideMenu }) => {
                 fontWeight: "700",
               }}
             >
-              mm
+              {eventTitle}
             </h2>
           </a>
           <p
@@ -137,7 +137,7 @@ const Sidebar = ({ HideMenu }) => {
               fontWeight: "600",
             }}
           >
-            Sun, Apr 16, 2023 7:00 PM
+           
           </p>
           <a
             href="#"

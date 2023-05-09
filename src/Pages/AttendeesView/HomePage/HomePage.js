@@ -64,11 +64,11 @@ export const HomePage = () => {
   }));
 
   const fetchEvents = () => {
+    console.log("baseee", location);
     axios
-      .get(`${process.env.REACT_APP_BASE_API}/events/search`,{ params: { city: "Canada" } })
+      .get(`${process.env.REACT_APP_BASE_API}/events/search`,{ params: { city: location ? location : "Cairo" } })
       .then(function (response) {
         console.log("response", response.data);
-
         setEvents(response.data);
       })
       .catch(function (error) {
@@ -86,7 +86,9 @@ export const HomePage = () => {
       console.log("locaation", data);
       setLocation(data.city);
     }
+
     fetchLocation();
+
     const testLocation = {
       hostname: "host-156.215.249.101-static.tedata.net",
       city: "Cairo",
@@ -96,6 +98,7 @@ export const HomePage = () => {
       org: "AS8452 TE-AS",
       timezone: "Africa/Cairo",
     };
+
     setLocation(testLocation.city);
     fetchEvents();
   }, []);
@@ -105,7 +108,13 @@ export const HomePage = () => {
 
 
     }
+
+   
   };
+
+  useEffect(() => {    fetchEvents();
+  }, []);
+
   // console.log(selectCurrentUser);
   return (
     <>
@@ -134,14 +143,16 @@ export const HomePage = () => {
                       value={location}
                       onChange={(e) => {
                         setLocation(e.target.value);
+
                       }}
                       onKeyPress={handleEnter}
                       type="search"
                       id="default-search"
-                      className="  p-2 w-min text-3xl font-bold text-blue-700 border-b border-b-gray-300  focus:ring-0 focus:outline-none "
+                      className="  p-2 w-min text-3xl font-bold text-blue-700 border-b border-b-gray-300 focus-visible: focus:ring-0 focus:outline-none "
                       placeholder="Location"
                     />
                     <MdOutlineKeyboardArrowDown
+                    onClick={fetchEvents}
                       color="#3659e3"
                       className="w-12 h-12"
                     />
@@ -175,7 +186,7 @@ export const HomePage = () => {
               </Row>
             </Container>
 
-            <Events location={location}/>
+            <Events location={location} events={events}/>
             {/* <MoreEvents /> */}
           </Col>
         </Row>
