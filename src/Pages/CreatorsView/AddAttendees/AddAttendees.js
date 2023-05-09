@@ -17,27 +17,27 @@ function AddAttendees({ event, setEvent }) {
         <Col>
           <div className="Add_Attendees_Container">
             <div className="Add_Attendees_Content_Container">
-              <header class="page-heading eds-l-mar-bot-3 eds-l-mar-top-6 eds-show-up-md">
-                <div class="l-pad-hor-3 eds-l-mar-bot-6">
-                  <h1 class="eds-text-hm">Add Attendees</h1>
-                  <p class="eds-text-bm eds-l-mar-top-2">
+              <header className="page-heading eds-l-mar-bot-3 eds-l-mar-top-6 eds-show-up-md">
+                <div className="l-pad-hor-3 eds-l-mar-bot-6">
+                  <h1 className="eds-text-hm">Add Attendees</h1>
+                  <p className="eds-text-bm eds-l-mar-top-2">
                     Manually add attendees info for complimentary tickets or
                     offline payments
                   </p>
                 </div>
               </header>
             </div>
-            <div class="l-mar-vert-6 g-group">
-              <div class="g-cell g-cell-9-9">
-                <label class="label-primary" for="pp_payment_status">
+            <div className="l-mar-vert-6 g-group">
+              <div className="g-cell g-cell-9-9">
+                <label className="label-primary" for="pp_payment_status">
                   Order Type:
                 </label>
               </div>
-              <div class="g-cell g-cell-9-9 g-cell-md-4-9">
+              <div className="g-cell g-cell-9-9 g-cell-md-4-9">
                 <select
                   id="pp_payment_status"
                   name="pp_payment_status"
-                  class="js-d-select-box"
+                  className="js-d-select-box"
                 >
                   <option value="check">Paid with check</option>
                   <option value="cash">Paid with cash</option>
@@ -53,7 +53,7 @@ function AddAttendees({ event, setEvent }) {
                   <option value="other">Other</option>
                 </select>
               </div>
-              <p class="disclaimer l-mar-top-3 g-cell g-cell-9-9">
+              <p className="disclaimer l-mar-top-3 g-cell g-cell-9-9">
                 * Eventbrite does not charge any fees for manual orders.
               </p>
             </div>

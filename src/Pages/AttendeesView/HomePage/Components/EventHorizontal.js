@@ -32,7 +32,7 @@ const EventHorizontal = ({ Title, Date, Organizer,Id }) => {
           }}>Location</h2>
       </div>
       <div className="col-span-1">
-        <img class=" object-cover w-48 h-24" src="https://images.pexels.com/photos/15332188/pexels-photo-15332188.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="event" />
+        <img className=" object-cover w-48 h-24" src="https://images.pexels.com/photos/15332188/pexels-photo-15332188.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="event" />
       </div>
     </div>
     </Link>
