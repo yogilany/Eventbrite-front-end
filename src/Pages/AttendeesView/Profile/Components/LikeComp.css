@@ -3,11 +3,17 @@
   width: 47%;
   height: 360px;
   margin-top: 25px;
+<<<<<<< HEAD
   cursor: pointer;
+=======
+  transition: all ease-in-out 0.3s;
+  cursor: pointer;
+  border-radius: 10px;
+>>>>>>> 5ba8c3703c1b5a44f87ebdec9b4170c009b1be2e
 }
 
 .box_prof:hover {
-  box-shadow: 1px 1px 1px 1px rgba(134, 134, 134, 0.5);
+  box-shadow: 1px 1px 1px 1px rgba(187, 187, 187, 0.5);
 }
 
 .img_prof {

@@ -22,19 +22,13 @@ const Hero = ({ category, location }) => {
       <Row>
         <Col className="p-5">
           <h1
-            className="heading1 mt-4 ml-5 mb-0"
-            style={{ color: `${HeroStyle[0].color}` }}
+            className="heading1 mt-4 ml-5 mb-0 font-bold text-yellow-400"
           >
             {category} Events
           </h1>
           <h3
-            style={{
-              color: `${HeroStyle[0].subColor}`,
-              fontSize: "1.125rem",
-              fontWeight: "bold",
-              margin: "0",
-              Padding: "0",
-            }}
+                      className="heading1 mt-2 ml-5 mb-0 font-medium text-cyan-400 text-lg"
+
           >
             In {location}
           </h3>
@@ -50,9 +44,8 @@ const Hero = ({ category, location }) => {
             <img
               alt="category-background"
               src={MusicBack}
-              height="300px"
               width="450px"
-              style={{ objectFit: "cover", marginRight: "100px" }}
+              style={{ objectFit: "cover", marginRight: "100px", height:"300px" }}
             />
           </div>
         </Col>

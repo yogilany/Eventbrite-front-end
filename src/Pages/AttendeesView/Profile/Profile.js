@@ -7,12 +7,16 @@ import OrderComp from "./Components/OrderComp";
 import LikeComp from "./Components/LikeComp";
 import FollComp from "./Components/FollComp";
 import { AiOutlineRight } from "react-icons/ai";
+<<<<<<< HEAD
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { getUserDetails, logOut, selectUserAvatarURL, selectUserEmail, selectUserFirstName, selectUserLastName, selectUserToken } from "../../../features/authSlice";
 import { getLikedEvents, getfollwingpeople } from "../../../features/userprofSlice"
 import { useDispatch } from "react-redux";
 import eventphoto from "../../../assets/adelEv1.png";
+=======
+import {RxDotFilled} from 'react-icons/rx'
+>>>>>>> 5ba8c3703c1b5a44f87ebdec9b4170c009b1be2e
 /**
  * @author Ziad Ezzat
  * @param {}
@@ -126,19 +130,9 @@ const Profile = () => {
                     href="#"
                     style={{ marginLeft: 15, color: "grey", fontSize: 15 }}
                   >
-                    1 order
+                    1 order <RxDotFilled className = "info__dot" />
                   </a>
-                  <a
-                    href="#"
-                    style={{
-                      marginLeft: 8,
-                      color: "grey",
-                      width: 15,
-                      fontWeight: 600,
-                    }}
-                  >
-                    .
-                  </a>
+<<<<<<< HEAD
                   <div style={{ display: "flex" }}>
                     <a href="#" style={{ color: "grey", fontSize: 15 }}>
                       {LikedEventscount}
@@ -162,17 +156,31 @@ const Profile = () => {
                     </a>
                     <p style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}>Following</p>
                   </div>
+=======
+                  <a href="#" style={{ color: "grey", fontSize: 15 }}>
+                    2 likes <RxDotFilled className = "info__dot" />
+                  </a>
+                  <a href="#" style={{ color: "grey", fontSize: 15 }}>
+                    2 following <RxDotFilled className = "info__dot" />
+                  </a>
+>>>>>>> 5ba8c3703c1b5a44f87ebdec9b4170c009b1be2e
                 </div>
               </div>
             </div>
           </div>
+<<<<<<< HEAD
           <div className="compon" >
             <h5>Orders</h5>
             <div className="orderecss"><OrderComp data_testid="Order-Form-id" /></div>
+=======
+          <div style={{ marginTop: 65, marginLeft: 445 }}>
+            <span style = {{fontSize:'18px' , fontWeight:'600'}}>Orders</span>
+            <OrderComp data_testid="Order-Form-id" />
+>>>>>>> 5ba8c3703c1b5a44f87ebdec9b4170c009b1be2e
             <button id="btn_prof_id" className="btn_prof"> See past Orders</button>
-            <hr className="zzz"></hr>
-            <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+            <hr style={{ width: "85%", marginTop: 30 }}></hr>
+            <div style={{ display: "flex" }} className = "interests__container">
+              <a href="#" className="intersts_prof" style = {{fontSize:'18px' , fontWeight:'600'}}>
                 Interests
               </a>
               <AiOutlineRight
@@ -182,7 +190,7 @@ const Profile = () => {
             </div>
             <hr className="zzz"></hr>
             <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+              <a href="#" className="collection_prof" style = {{fontSize:'18px' , fontWeight:'600'}}>
                 Collections
               </a>
               <AiOutlineRight
@@ -192,7 +200,7 @@ const Profile = () => {
             </div>
             <hr className="zzz"></hr>
             <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+              <a href="#" className="likes_prof" style = {{fontSize:'18px' , fontWeight:'600'}}>
                 Likes
               </a>
               <AiOutlineRight
@@ -211,6 +219,7 @@ const Profile = () => {
             </div>
             <hr className="zzz"></hr>
             <div className="follblk_prof">
+<<<<<<< HEAD
               <div style={{ display: "flex", marginTop: 25 }}>
                 <p className="intersts_prof">Following</p>
                 <a href="#" className="events_prof">
@@ -228,6 +237,17 @@ const Profile = () => {
                 {/* <FollComp text="GoMyCode" data_testid="Follow-Form-id" />
                 <FollComp text="Ezz event riders" /> */}
               </div>
+=======
+            <div style={{ display: "flex", marginTop: 25 }}>
+              <p className="intersts_prof" style = {{fontSize:'18px' , fontWeight:'600'}}>Following</p>
+              <a href="#" className="events_prof">
+                See events
+              </a>
+              <AiOutlineRight
+                style={{ marginLeft: 10, marginTop: 10 }}
+                className="arr_prof"
+              />
+>>>>>>> 5ba8c3703c1b5a44f87ebdec9b4170c009b1be2e
             </div>
 
           </div>

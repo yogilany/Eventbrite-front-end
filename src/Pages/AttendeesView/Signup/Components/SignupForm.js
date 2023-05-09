@@ -8,15 +8,11 @@ import {
   Container,
   Row,
   FloatingLabel,
-  Stack
+  Stack,
 } from "react-bootstrap";
 import * as TiIcons from "react-icons/ti";
 import HorizontalChip from "../../Login/Components/HorizontalChip";
 import SignupMethods from "./SignupMethods";
-import {
-  checkEmailExists,
-  registerUser,
-} from "../../../../features/authSlice";
 import { useNavigate } from "react-router";
 import SignupFormCSS from "./SignupForm.module.css";
 import "../Signup.scss";
@@ -24,16 +20,21 @@ import "./SignupMethods";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import TextInputStyled from "../../../../Components/TextInput/TextInput";
-import ButtonOrangeStyled from "../../../../Components/Buttons/OrangeButton";
+import OrangeButton from "../../../../Components/Buttons/OrangeButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SignupVerifyModal from "./SignupVerifyModal";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { motion, useAnimation } from "framer-motion";
-import * as BiIcons from 'react-icons/bi'
+import * as BiIcons from "react-icons/bi";
 import LinearProgressWithLabel from "../../../../Components/LinearProgressWithLabel/LinearProgressWithLabel";
 import { SignupSchema, getPasswordState, isValidEmail } from "./Signup-utils";
 import FormMessage from "../../../../Components/FormMessage/FormMessage";
-
+import {
+  authGoogleUser,
+  checkEmailExists,
+  registerGoogleUser,
+  registerUser,
+} from "../../../../features/authSlice";
 /**
  * The signup form which contains the information needed to create a new account.
  * This form validates all inputs before submission.
@@ -51,7 +52,9 @@ export const SignupForm = (props) => {
   const [emailExists, setEmailExists] = useState(false);
   const [submitPosition, setSubmitPosition] = useState("");
   const [oldSubmitPosition, setOldSubmitPosition] = useState("");
-  const rowRef = useRef()
+  const [GoogleProfile, setGoogleProfile] = useState(null);
+
+  const rowRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const controls = useAnimation();
@@ -68,7 +71,7 @@ export const SignupForm = (props) => {
     setValue,
     formState: { errors },
   } = useForm({
-    mode: "onTouched",
+    mode: "onChange",
     reValidateMode: "onChange",
     resolver: yupResolver(SignupSchema),
   });
@@ -85,33 +88,87 @@ export const SignupForm = (props) => {
   };
 
   const registerUserHandler = () => {
-    const data = {
-      email: getValues("email"),
-      password: getValues("password"),
-      firstname: getValues("firstName"),
-      lastname: getValues("lastName"),
-    };
-    dispatch(registerUser(data))
-      .unwrap()
-      .then(() => {
-        navigate("/login");
-        setSuccess(true);
-        // window.location.reload();
-      })
-      .catch(() => {
-        console.log("Error");
-        setSuccess(false);
-        setError("email");
-        setFocus("email");
-      });
-  }
+    if (GoogleProfile) {
+      if (GoogleProfile) {
+        if (!GoogleProfile.email_verified) {
+          setSuccess(false);
+          setTimeout(() => {
+            controls.start("start");
+          }, 500);
+        } else {
+          dispatch(checkEmailExists(GoogleProfile.email))
+            .unwrap(unwrapResult)
+            .catch((err) => {
+              //Email does not exist, create account for user
+              dispatch(
+                registerGoogleUser({
+                  email: GoogleProfile.email,
+                  password: crypto
+                    .getRandomValues(new Uint8Array(64))
+                    .toString(),
+                  firstname: GoogleProfile.given_name,
+                  lastname: GoogleProfile.family_name ?? "",
+                  picture: GoogleProfile.picture,
+                })
+              ).catch((err) => {
+                setSuccess(false);
+                setTimeout(() => {
+                  controls.start("start");
+                }, 500);
+                return;
+              });
+            });
+
+          dispatch(
+            authGoogleUser({
+              email: GoogleProfile.email,
+            })
+          )
+            .then((result) => {
+              setSuccess(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+            });
+        }
+      }
+    } else {
+      const data = {
+        email: getValues("email"),
+        password: getValues("password"),
+        firstname: getValues("firstName"),
+        lastname: getValues("lastName"),
+      };
+
+      dispatch(registerUser(data))
+        .unwrap()
+        .then(() => {
+          navigate("/login");
+          setSuccess(true);
+          // window.location.reload();
+        })
+        .catch(() => {
+          console.log("Error");
+          setSuccess(false);
+          setError("email");
+          setFocus("email");
+        });
+    }
+  };
   const onError = (error) => {
     console.log("ERROR:::", error);
     if (emailExists) {
-      controls.start('start');
-      return
+      controls.start("start");
+      return;
     }
-    if (!emailExists && getValues("email").match(isValidEmail) && !showSignUpInfo) {
+    if (
+      !emailExists &&
+      getValues("email").match(isValidEmail) &&
+      !showSignUpInfo
+    ) {
       setShowSignUpInfo(true);
       clearErrors();
       setFocus("confirmEmail");
@@ -120,11 +177,10 @@ export const SignupForm = (props) => {
   };
 
   useEffect(() => {
-    const isValid = getValues('email').match(isValidEmail);
-    if (!isValid)
-      setEmailExists(false)
-    if (getValues('email').length > 0 && isValid) {
-      dispatch(checkEmailExists(getValues('email')))
+    const isValid = getValues("email").match(isValidEmail);
+    if (!isValid) setEmailExists(false);
+    if (getValues("email").length > 0 && isValid) {
+      dispatch(checkEmailExists(getValues("email")))
         .unwrap(unwrapResult)
         .then((result) => {
           setEmailExists(result);
@@ -135,6 +191,11 @@ export const SignupForm = (props) => {
         });
     }
   }, [watchEmail, dispatch, getValues]);
+
+  useEffect(() => {
+    if (GoogleProfile) setPrivacyPolicyModalShow(true);
+  }, [GoogleProfile]);
+
   return (
     <>
       <SignupVerifyModal
@@ -145,15 +206,14 @@ export const SignupForm = (props) => {
           registerUserHandler();
         }}
         onCancel={() => {
-          setPrivacyPolicyModalShow(false)
+          setPrivacyPolicyModalShow(false);
         }}
       />
       <Form
         data-testid={props.data_testid}
         onSubmit={handleSubmit(onSubmit, onError)}
       >
-        <Container
-        >
+        <Container>
           <Col className="g-0">
             <Row className="mb-2">
               {emailExists ? (
@@ -163,28 +223,34 @@ export const SignupForm = (props) => {
                       x: [-30, 30, -30, 30, 0],
                       transition: {
                         duration: 0.5,
-                      }
-                    })
+                      },
+                    }),
                   }}
                   animate={controls}
                   initial={{
-                    x: "0px"
+                    x: "0px",
                   }}
                 >
                   <FormMessage>
-                    <BiIcons.BiInfoCircle size={24} style={{
-                      transform: "rotate(180deg) scaleX(-1)", marginRight: "5px"
-                    }} />
-                    <p><strong>{"There is an account associated with the email. "} </strong><Link to="/login">Log in</Link></p>
-
+                    <BiIcons.BiInfoCircle
+                      size={24}
+                      style={{
+                        transform: "rotate(180deg) scaleX(-1)",
+                        marginRight: "5px",
+                      }}
+                    />
+                    <p>
+                      <strong>
+                        {"There is an account associated with the email. "}{" "}
+                      </strong>
+                      <Link to="/login">Log in</Link>
+                    </p>
                   </FormMessage>
                 </motion.div>
               ) : null}
               <InputGroup className="p-0">
-                <Form.Group
-                  className="p-0"
-                  style={{ width: "100%" }}>
-                  <Form.Floating >
+                <Form.Group className="p-0" style={{ width: "100%" }}>
+                  <Form.Floating>
                     <TextInputStyled
                       isInvalid={errors.email}
                       disabled={showSignUpInfo}
@@ -193,7 +259,7 @@ export const SignupForm = (props) => {
                       id="email-input"
                       {...register("email", { required: "Field required" })}
                     />
-                    <label >Email Address</label>
+                    <label>Email Address</label>
                   </Form.Floating>
                   {errors.email && (
                     <Form.Text className="text-danger">
@@ -213,8 +279,8 @@ export const SignupForm = (props) => {
                   onClick={() => {
                     setShowSignUpInfo(false);
                     reset();
-                    setValue('password', null)
-                    setFocus('email')
+                    setValue("password", null);
+                    setFocus("email");
                   }}
                   type="reset"
                 >
@@ -257,7 +323,8 @@ export const SignupForm = (props) => {
                 <Col>
                   <FloatingLabel
                     className={SignupFormCSS["floating-label"]}
-                    label="First name">
+                    label="First name"
+                  >
                     <TextInputStyled
                       data-testid="firstname-input"
                       id="firstName-input"
@@ -268,15 +335,20 @@ export const SignupForm = (props) => {
                       })}
                     />
                   </FloatingLabel>
-                  <Form.Text className="text-danger"
-                    style={{ visibility: (`${errors.firstName}` ? "visible" : "hidden") }}>
+                  <Form.Text
+                    className="text-danger"
+                    style={{
+                      visibility: `${errors.firstName}` ? "visible" : "hidden",
+                    }}
+                  >
                     {errors.firstName?.message}
                   </Form.Text>
                 </Col>
                 <Col>
                   <FloatingLabel
                     className={SignupFormCSS["floating-label"]}
-                    label="Last name">
+                    label="Last name"
+                  >
                     <TextInputStyled
                       data-testid="lastname-input"
                       type="text"
@@ -288,8 +360,12 @@ export const SignupForm = (props) => {
                       })}
                     />
                   </FloatingLabel>
-                  <Form.Text className="text-danger"
-                    style={{ visibility: (`${errors.lastName}` ? "visible" : "hidden") }}>
+                  <Form.Text
+                    className="text-danger"
+                    style={{
+                      visibility: `${errors.lastName}` ? "visible" : "hidden",
+                    }}
+                  >
                     {errors.lastName?.message}
                   </Form.Text>
                 </Col>
@@ -298,8 +374,9 @@ export const SignupForm = (props) => {
             <Row
               className="mb-2"
               style={{
-                display: showSignUpInfo ? "block" : "none"
-              }}>
+                display: showSignUpInfo ? "block" : "none",
+              }}
+            >
               <Form.Group className="mb-3 p-0">
                 <FloatingLabel label="Password">
                   <TextInputStyled
@@ -317,18 +394,20 @@ export const SignupForm = (props) => {
                   )}
                 </FloatingLabel>
               </Form.Group>
-              <LinearProgressWithLabel defaultLabel="Your password must be at least 8 characters"
-                defaultColor="#1a90ff" progressFunction={getPasswordState} value={watchPassword} />
+              <LinearProgressWithLabel
+                defaultLabel="Your password must be at least 8 characters"
+                defaultColor="#1a90ff"
+                progressFunction={getPasswordState}
+                value={watchPassword}
+              />
             </Row>
             <Row
               ref={rowRef}
               id={rowRef}
-              onMouseLeave={
-                () => {
-                  controls.start({ x: 0, transition: { duration: 0.3 } })
-                  return;
-                }
-              }
+              onMouseLeave={() => {
+                controls.start({ x: 0, transition: { duration: 0.3 } });
+                return;
+              }}
             >
               {/* <motion.div
                 style={{
@@ -358,12 +437,12 @@ export const SignupForm = (props) => {
                     setSubmitPosition("go-right")
                   }}
                 >
-                  <ButtonOrangeStyled
+                  <OrangeButton
                     style={{ minWidth: "200%" }}
                     data-testid="submit-button" id="submit-button" as="button"
                     className="mt-4 mb-4" type="submit" variant="flat btn-flat">
                     {showSignUpInfo ? "Create account" : "Continue"}
-                  </ButtonOrangeStyled>
+                  </OrangeButton>
                 </div>
                 <div
                   onMouseEnter={() => {
@@ -384,31 +463,42 @@ export const SignupForm = (props) => {
                 >
                 </div>
               </motion.div> */}
-              <ButtonOrangeStyled
-                // style={{ minWidth: "100%" }}
-                data-testid="submit-button" id="submit-button" as="button"
-                className="mt-4 mb-4" type="submit" variant="flat btn-flat">
+              <OrangeButton
+                data-testid="submit-button"
+                id="submit-button"
+                as="button"
+                className="mt-4 mb-4"
+                type="submit"
+                variant="flat btn-flat"
+                spinner
+              >
                 {showSignUpInfo ? "Create account" : "Continue"}
-              </ButtonOrangeStyled>
+              </OrangeButton>
             </Row>
             <Row>
               {showSignUpInfo ? null : (
                 <>
-                  <HorizontalChip data-testid="HorizontalChip" id="HorizontalChip" />
-                  <SignupMethods />
+                  <HorizontalChip
+                    data-testid="HorizontalChip"
+                    id="HorizontalChip"
+                  />
+                  <SignupMethods setGoogleProfile={setGoogleProfile} />
                 </>
               )}
-
-
             </Row>
             <Row>
-              <Link data-testid="login-link" id="login-link" to={"/login"} className={SignupFormCSS.a_link}>
+              <Link
+                data-testid="login-link"
+                id="login-link"
+                to={"/login"}
+                className={SignupFormCSS.a_link}
+              >
                 Login
               </Link>
             </Row>
           </Col>
-        </Container >
-      </Form >
+        </Container>
+      </Form>
     </>
   );
 };

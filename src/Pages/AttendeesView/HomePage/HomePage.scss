@@ -6,6 +6,10 @@
   min-height: 500px;
   background-size: cover;
 }
+*
+{
+  font-family: "Neue Plak" !important;
+}
 
 .primaryBtn {
   background-color: #d1410c;
@@ -200,7 +204,7 @@ h3 {
 .search-page {
   width: vw;
   height: vh;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
 
   position: fixed;
   left: 0;
@@ -209,3 +213,4 @@ h3 {
   bottom: 0;
   z-index: 999;
 }
+

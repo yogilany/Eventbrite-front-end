@@ -24,7 +24,7 @@ import { Nav } from "react-bootstrap";
  * @description This is sidebar which displayed in Creator Pages (Publish , Details , Basic Info)
  * @returns {JSX.Element}
  */
-const Sidebar = () => {
+const Sidebar = ({ HideMenu }) => {
   const orderOptions = ["Order Form", "Order Confirmation", "Waitlist"];
   const Marketing = [
     "Add to Facebook",
@@ -95,7 +95,7 @@ const Sidebar = () => {
           </a>
         </div>
       </div>
-      {windowWidth > 792 && !toggleSidebar ? (
+      {(windowWidth > 792 && !toggleSidebar) || !HideMenu ? (
         <div className="sidebar__Event-options">
           <a
             className="events__link"

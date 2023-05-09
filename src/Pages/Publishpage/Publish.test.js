@@ -1,35 +1,33 @@
 import Publish from "../Publishpage/Publish";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { renderWithProviders } from "../../test_utils";
+test("renderWithProviders Header Component", () => {
+  renderWithProviders(<Publish />);
 
-test("Render Header Component", () => {
-    render(<Publish />);
-
-    const hderid = screen.getByTestId("HDID");
-    expect(hderid).toBeInTheDocument();
+  const hderid = screen.getByTestId("HDID");
+  expect(hderid).toBeInTheDocument();
 });
-test("Render Radio box", () => {
-    render(<Publish />);
+test("renderWithProviders Radio box", () => {
+  renderWithProviders(<Publish />);
 
-    const radid = screen.getByTestId("RADID");
-    expect(radid).toBeInTheDocument();
+  const radid = screen.getByTestId("RADID");
+  expect(radid).toBeInTheDocument();
 });
-test("Render container of event", () => {
-    render(<Publish />);
+test("renderWithProviders container of event", () => {
+  renderWithProviders(<Publish />);
 
-    const cd = screen.getByTestId("CDID");
-    expect(cd).toBeInTheDocument();
+  const cd = screen.getByTestId("CDID");
+  expect(cd).toBeInTheDocument();
 });
-test("Render container of Tipsbox", () => {
-    render(<Publish />);
+test("renderWithProviders container of Tipsbox", () => {
+  renderWithProviders(<Publish />);
 
-    const tp = screen.getByTestId("TBID");
-    expect(tp).toBeInTheDocument();
+  const tp = screen.getByTestId("TBID");
+  expect(tp).toBeInTheDocument();
 });
-test("Render container of DateTime", () => {
-    render(<Publish />);
+test("renderWithProviders container of DateTime", () => {
+  renderWithProviders(<Publish />);
 
-    const dt = screen.getByTestId("DTID");
-    expect(dt).toBeInTheDocument();
+  const dt = screen.getByTestId("DTID");
+  expect(dt).toBeInTheDocument();
 });
-
-

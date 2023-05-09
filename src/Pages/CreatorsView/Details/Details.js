@@ -19,7 +19,7 @@ export const AppContext = createContext({});
  * @description This is Container of Detials Page that Contains Main Event Image , Summary , Description and Add Event Sections
  * @returns {JSX.Element}
  */
-const Details = ({event,setEvent}) => {
+const Details = ({ event, setEvent }) => {
   const handleForm = (e) => {
     e.preventDefault();
   };
@@ -31,50 +31,38 @@ const Details = ({event,setEvent}) => {
   const [description, setDescription] = useState("");
   const [inputsChanged, setInputsChanged] = useState(false);
 
+  function saveData() {
+    setEvent({
+      ...event,
 
-
-  function saveData(){
-
-    setEvent( {...event,
-
-      "image_link": imageLink,
-      "summary":  summary,
-      "description": description,
-    })
+      image_link: imageLink,
+      summary: summary,
+      description: description,
+    });
 
     setSuccess(true);
-      
   }
-
 
   useEffect(() => {
     setTimeout(() => {
-    // After 3 seconds set the show value to false
-    setSuccess(false)
-  }, 3000)
-  }, [success])
+      // After 3 seconds set the show value to false
+      setSuccess(false);
+    }, 3000);
+  }, [success]);
 
   useEffect(() => {
-    if(summary === "" && description === "" && imageLink === ""){
+    if (summary === "" && description === "" && imageLink === "") {
       setInputsChanged(false);
-
-    }
-    else{
+    } else {
       setInputsChanged(true);
     }
   }, [imageLink, summary, description]);
-
-  
 
   return (
     <AppContext.Provider
       value={{ toggleSidebar, setToggleSidebar, showSubmit, setShowSubmit }}
     >
-     
-
       <div className="Details__page">
-   
-      
         <form onSubmit={handleForm}>
           <div
             className={`Details__container ${
@@ -82,10 +70,12 @@ const Details = ({event,setEvent}) => {
             }`}
             data-testid="Details__contianer"
           >
-            
-            <EventImage imageLink={imageLink} setImageLink={setImageLink}/>
-            <Summary summary={summary} setSummary={setSummary}/>
-            <Description description={description} setDescription={setDescription}/>
+            <EventImage imageLink={imageLink} setImageLink={setImageLink} />
+            <Summary summary={summary} setSummary={setSummary} />
+            <Description
+              description={description}
+              setDescription={setDescription}
+            />
             <AddEvents />
             {showSubmit && (
               <div className="submit__section" data-testid="submit__section">
@@ -97,13 +87,29 @@ const Details = ({event,setEvent}) => {
             )}
           </div>
         </form>
-       
       </div>
       <div className="basic-info-footer">
-      {success ? <Alert variant="success" style={{width:"70%", position:"fixed", top:"70px", zIndex:"999"}}>
-        Data saved successfly.
-        </Alert> : null}
-      <button className="savebtn" onClick={saveData} disabled={!inputsChanged}>Save</button>
+        {success ? (
+          <Alert
+            variant="success"
+            style={{
+              width: "70%",
+              position: "fixed",
+              top: "70px",
+              zIndex: "999",
+            }}
+          >
+            Data saved successfully.
+          </Alert>
+        ) : null}
+
+        <button
+          className="savebtn"
+          onClick={saveData}
+          disabled={!inputsChanged}
+        >
+          Save
+        </button>
       </div>
     </AppContext.Provider>
   );
