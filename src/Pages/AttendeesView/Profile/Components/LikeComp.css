@@ -1,7 +1,7 @@
 .box_prof {
   margin-left: 20px;
   width: 47%;
-  height: 360px;
+  min-height: 360px;
   margin-top: 25px;
   cursor: pointer;
   transition: all ease-in-out 0.3s;

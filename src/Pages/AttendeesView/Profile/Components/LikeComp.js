@@ -15,9 +15,10 @@ import {
   selectUserLastName,
   selectUserToken,
 } from "../../../../features/authSlice";
+import { useNavigate } from "react-router-dom";
 /**
  * @author Ziad Ezzat
- * @param {string} props.data_testid
+ * @param {string : data_test_id} props
  * @description This container shows the like component used in profile page showing The liked event with some information of this event like date and location.
  * @returns {JSX.Element of like component found in profile page}
  */
@@ -25,6 +26,7 @@ const LikeComp = (props) => {
   const [imgSrc, setImgSrc] = React.useState(props.image_link);
   const token = useSelector(selectUserToken);
   const [isClicked, setIsClicked] = React.useState(false);
+  const navigate = useNavigate();
   const handleClick = () => {
     setIsClicked(!isClicked);
     if (isClicked) {
@@ -40,11 +42,16 @@ const LikeComp = (props) => {
   const handleImgError = () => {
     setImgSrc(eventphoto);
   };
+  const hhh = () => {
+    //const navigate = useNavigate();
+    navigate(`/event/${props.id}`, { replace: true });
+  };
   const ht_proff = {
     color: isClicked ? "grey" : "#d10000",
   };
+
   return (
-    <div className="box_prof" data-testid={props.data_testid}>
+    <div onClick={hhh} className="box_prof" data-testid={props.data_testid}>
       <div className="cont_prof">
         <img className="img_prof" src={imgSrc} onError={handleImgError} />
         <div className="circle_prof">
