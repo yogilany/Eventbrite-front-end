@@ -109,7 +109,7 @@ export const HomePage = () => {
   // console.log(selectCurrentUser);
   return (
     <>
-      <Header screenSize={screenSize} />
+      <Header screenSize={screenSize} location={location}/>
       <Container fluid id="homePageContainer">
         <Row>
           <Col className="p-0">
@@ -138,7 +138,7 @@ export const HomePage = () => {
                       onKeyPress={handleEnter}
                       type="search"
                       id="default-search"
-                      className="  p-2 w-min   text-3xl font-bold text-blue-700 border-b border-b-gray-300 ring-0 focus:ring-0 focus:outline-non "
+                      className="  p-2 w-min text-3xl font-bold text-blue-700 border-b border-b-gray-300  focus:ring-0 focus:outline-none "
                       placeholder="Location"
                     />
                     <MdOutlineKeyboardArrowDown

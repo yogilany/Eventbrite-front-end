@@ -21,7 +21,7 @@ import { useDispatch } from "react-redux";
 import { authUser } from "../../features/authSlice";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { HiOutlinePlus } from "react-icons/hi";
-const Header = () => {
+const Header = ({location}) => {
   const [toggleSearch, setToggleSearch] = useState(false);
   const [isOrganizer, setIsOrganizer] = useState(false);
 
@@ -222,7 +222,7 @@ const Header = () => {
           ) : null}
         </div>
       </div>
-      {toggleSearch && <SearchPage toggle={setToggleSearch} />}
+      {toggleSearch && <SearchPage toggle={setToggleSearch} location={location} />}
     </>
   );
 };
