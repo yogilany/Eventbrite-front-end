@@ -409,6 +409,7 @@ const Tickets = () => {
               <input
                 type="text"
                 defaultValue=""
+                value = {/^\d+$/.test(discountAmount) ? discountAmount : ""}
                 className="discount__input"
                 placeholder="$"
                 onChange={(e) => {
@@ -422,6 +423,7 @@ const Tickets = () => {
               <input
                 type="text"
                 defaultValue=""
+                value = {/^\d+$/.test(percentageAmount) ? percentageAmount : ""}
                 className="discount__input"
                 placeholder="%"
                 style={{ marginLeft: "0px" }}
@@ -430,6 +432,7 @@ const Tickets = () => {
                     ? setIsPercentage(false)
                     : setIsPercentage(true);
                   setPercentageAmount(e.target.value);
+                  /^\d+$/.test(e.target.value) ? setPercentageAmount(e.target.value) : setPercentageAmount("");
                 }}
                 disabled = {discountAmount !== "" ? true : false}
               />
