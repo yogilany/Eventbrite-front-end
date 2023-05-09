@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import store, { persistor } from "./store.ts";
+import store, { persistor } from "./store.js";
 import App from "./App";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./App.scss";
