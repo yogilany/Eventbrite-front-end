@@ -3,6 +3,10 @@ import "./LikeComp.css";
 import eventphoto from "../../../../assets/like3.jpeg";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import { FiShare } from "react-icons/fi";
+import { BorderColor } from "@mui/icons-material";
+import {likeEvent,unlikeEvent} from "../../../../features/userprofSlice";
+import { useSelector } from "react-redux";
+import { getUserDetails, logOut, selectUserAvatarURL, selectUserEmail, selectUserFirstName, selectUserLastName, selectUserToken } from "../../../../features/authSlice";
 /**
  * @author Ziad Ezzat
  * @param {string} props.data_testid
@@ -10,20 +14,47 @@ import { FiShare } from "react-icons/fi";
  * @returns {JSX.Element of like component found in profile page}
  */
 const LikeComp = (props) => {
+  const [imgSrc, setImgSrc] = React.useState(props.image_link);
+  const token = useSelector(selectUserToken);
+  const [isClicked, setIsClicked] = React.useState(false);
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+    if (!isClicked)
+    {
+      likeEvent(token,props.id);
+    }
+    else{
+      unlikeEvent(token,props.id);
+    }
+  };
+  const handleImgError = () => {
+    setImgSrc(eventphoto);
+  };
+  const ht_proff =  {
+    color: isClicked ? 'grey' : '#d10000',
+
+  }
   return (
     <div className="box_prof" data-testid={props.data_testid}>
       <div className="cont_prof">
-        <img className="img_prof" src={eventphoto} />
+        <img className="img_prof" src={imgSrc} onError={handleImgError} />
         <div className="circle_prof">
-          <BsFillSuitHeartFill className="ht_prof" />
+          <BsFillSuitHeartFill className="ht_prof" style={ht_proff} onClick={handleClick} />
         </div>
       </div>
 
       <div style={{ marginTop: 25, paddingLeft: 10 }}>
+<<<<<<< HEAD
+        <div className="desc_prof">
+          {props.title}
+        </div>
+        <div className="dat_prof">{props.start_date_time}</div>
+=======
         <div className="desc_prof" style = {{fontSize:'18px' , fontWeight:'600' , marginBottom:'5px'}}>
           Demo Day: Present Your Project to get your dream job - GoMyCode Egypt
         </div>
         <div className="dat_prof" style = {{color: "#d1410c" , marginBottom:'5px'}}>Thu, Mar 30 ,8:00 PM</div>
+>>>>>>> 5ba8c3703c1b5a44f87ebdec9b4170c009b1be2e
         <div className="det_prof">GoMyCode Dokki ,Ad Doqi A</div>
       </div>
       <div style={{ display: "flex" }}>

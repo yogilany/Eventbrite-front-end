@@ -31,9 +31,7 @@ import { SignupSchema, getPasswordState, isValidEmail } from "./Signup-utils";
 import FormMessage from "../../../../Components/FormMessage/FormMessage";
 import {
   authGoogleUser,
-  authUser,
   checkEmailExists,
-  forgotPassword,
   registerGoogleUser,
   registerUser,
 } from "../../../../features/authSlice";
@@ -90,25 +88,75 @@ export const SignupForm = (props) => {
   };
 
   const registerUserHandler = () => {
-    const data = {
-      email: getValues("email"),
-      password: getValues("password"),
-      firstname: getValues("firstName"),
-      lastname: getValues("lastName"),
-    };
-    dispatch(registerUser(data))
-      .unwrap()
-      .then(() => {
-        navigate("/login");
-        setSuccess(true);
-        // window.location.reload();
-      })
-      .catch(() => {
-        console.log("Error");
-        setSuccess(false);
-        setError("email");
-        setFocus("email");
-      });
+    if (GoogleProfile) {
+      if (GoogleProfile) {
+        if (!GoogleProfile.email_verified) {
+          setSuccess(false);
+          setTimeout(() => {
+            controls.start("start");
+          }, 500);
+        } else {
+          dispatch(checkEmailExists(GoogleProfile.email))
+            .unwrap(unwrapResult)
+            .catch((err) => {
+              //Email does not exist, create account for user
+              dispatch(
+                registerGoogleUser({
+                  email: GoogleProfile.email,
+                  password: crypto
+                    .getRandomValues(new Uint8Array(64))
+                    .toString(),
+                  firstname: GoogleProfile.given_name,
+                  lastname: GoogleProfile.family_name ?? "",
+                  picture: GoogleProfile.picture,
+                })
+              ).catch((err) => {
+                setSuccess(false);
+                setTimeout(() => {
+                  controls.start("start");
+                }, 500);
+                return;
+              });
+            });
+
+          dispatch(
+            authGoogleUser({
+              email: GoogleProfile.email,
+            })
+          )
+            .then((result) => {
+              setSuccess(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+            });
+        }
+      }
+    } else {
+      const data = {
+        email: getValues("email"),
+        password: getValues("password"),
+        firstname: getValues("firstName"),
+        lastname: getValues("lastName"),
+      };
+
+      dispatch(registerUser(data))
+        .unwrap()
+        .then(() => {
+          navigate("/login");
+          setSuccess(true);
+          // window.location.reload();
+        })
+        .catch(() => {
+          console.log("Error");
+          setSuccess(false);
+          setError("email");
+          setFocus("email");
+        });
+    }
   };
   const onError = (error) => {
     console.log("ERROR:::", error);
@@ -145,50 +193,7 @@ export const SignupForm = (props) => {
   }, [watchEmail, dispatch, getValues]);
 
   useEffect(() => {
-    if (GoogleProfile) {
-      if (!GoogleProfile.email_verified) {
-        setSuccess(false);
-        setTimeout(() => {
-          controls.start("start");
-        }, 500);
-      } else {
-        dispatch(checkEmailExists(GoogleProfile.email))
-          .unwrap(unwrapResult)
-          .catch((err) => {
-            //Email does not exist, create account for user
-            dispatch(
-              registerGoogleUser({
-                email: GoogleProfile.email,
-                password: crypto.getRandomValues(new Uint8Array(64)).toString(),
-                firstname: GoogleProfile.given_name,
-                lastname: GoogleProfile.family_name ?? "",
-                picture: GoogleProfile.picture,
-              })
-            ).catch((err) => {
-              setSuccess(false);
-              setTimeout(() => {
-                controls.start("start");
-              }, 500);
-              return;
-            });
-          });
-
-        dispatch(
-          authGoogleUser({
-            email: GoogleProfile.email,
-          })
-        )
-          .then((result) => {
-            setSuccess(true);
-          })
-          .catch((err) => {
-            setSuccess(false);
-            setTimeout(() => {
-              controls.start("start");
-            }, 500);
-          });
-      }
-    }
+    if (GoogleProfile) setPrivacyPolicyModalShow(true);
   }, [GoogleProfile]);
 
   return (

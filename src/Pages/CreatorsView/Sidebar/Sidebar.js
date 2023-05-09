@@ -24,7 +24,7 @@ import { Nav } from "react-bootstrap";
  * @description This is sidebar which displayed in Creator Pages (Publish , Details , Basic Info)
  * @returns {JSX.Element}
  */
-const Sidebar = ({HideMenu}) => {
+const Sidebar = ({ HideMenu }) => {
   const orderOptions = ["Order Form", "Order Confirmation", "Waitlist"];
   const Marketing = [
     "Add to Facebook",

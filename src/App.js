@@ -87,7 +87,6 @@ function App() {
             <Route path="/sales-report" element={<SalesReport />} />
             <Route path="/tickets-report" element={<TicketsReport />} />
 
-
             <Route element={<ProtectedRoute />} errorElement={<ErrorPage />}>
               <Route path="/likes" element={<Likes />} />
               <Route path="/all-events" element={<AllEvents />} />
@@ -98,7 +97,6 @@ function App() {
               <Route path="/create-event" element={<CreateEvent />} />
               <Route path="/Profile" element={<Profile />} />
               <Route path="/tickets" element={<Tickets />} />
-
             </Route>
           </Routes>
         </BrowserRouter>
