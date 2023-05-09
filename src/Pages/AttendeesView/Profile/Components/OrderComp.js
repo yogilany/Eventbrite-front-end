@@ -11,12 +11,12 @@ const OrderComp = (props) => {
   return (
     <div className="MainComp_prof" data-testid={props.data_testid}>
       <div className="Datee_prof">
-        <p style={{ color: "red" }}>Mar</p>
-        <p style={{ color: "grey" }}>30</p>
+        <p class="" style={{ color: "red" }}>Mar</p>
+        <p  style={{ color: "grey" }}>30</p>
       </div>
       <img src={eventphoto} className="Full_Container_img_prof" />
       <div className="eventdata_prof">
-        <h3 style={{ paddingBottom: 0 }}>
+        <h3 class=" font-bold text-lg" style={{ paddingBottom: 0 }}>
           Demo Day: Present Your Project to get your dream job - GoMyCode Egypt
         </h3>
         <div className="detaileddate_prof">Thu,Mar 30,8:00pm EET </div>
