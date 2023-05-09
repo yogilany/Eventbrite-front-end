@@ -200,7 +200,7 @@ function Basicinfo({ event, setEvent }) {
                     Name your event and tell event-goers why they should come.
                     Add details that highlight what makes it unique.
                   </div>
-                  <div class="full-input">
+                  <div className="full-input">
                     <label for="eventtitle">
                       Event Title<sup className="suplol"> *</sup>
                     </label>
@@ -229,7 +229,7 @@ function Basicinfo({ event, setEvent }) {
                       <span id="maximum">/75</span>
                     </div>
                   </div>
-                  <div class="full-input">
+                  <div className="full-input">
                     <label for="organizer">Organizer</label>
                     <input
                       className="inputregular"
@@ -401,14 +401,14 @@ function Basicinfo({ event, setEvent }) {
                       </option>
                     </select>
                   </div>
-                  <div class="eds-text-bl">Tags</div>
-                  <div class="eds-text-bm">
+                  <div className="eds-text-bl">Tags</div>
+                  <div className="eds-text-bm">
                     Improve discoverability of your event by adding tags
                     relevant to the subject matter.
                   </div>
                   <div className="big-tag-container">
                     <div className="textarea-container">
-                      <div class="full-input">
+                      <div className="full-input">
                         <label for="tags">Press Enter to add a tag</label>
                         <input
                           className={
@@ -455,7 +455,7 @@ function Basicinfo({ event, setEvent }) {
               </div>
             </div>
             <hr
-              class="eds-divider__hr eds-bg-color--ui-200 eds-divider--horizontal"
+              className="eds-divider__hr eds-bg-color--ui-200 eds-divider--horizontal"
               data-spec="divider-hr"
               aria-hidden="true"
             ></hr>
@@ -531,7 +531,7 @@ function Basicinfo({ event, setEvent }) {
               </div>
             </div>
             <hr
-              class="eds-divider__hr eds-bg-color--ui-200 eds-divider--horizontal"
+              className="eds-divider__hr eds-bg-color--ui-200 eds-divider--horizontal"
               data-spec="divider-hr"
               aria-hidden="true"
             ></hr>
@@ -566,7 +566,7 @@ function Basicinfo({ event, setEvent }) {
                     make plans to attend.
                   </div>
                 </div>
-                <div class="wrapper">
+                <div className="wrapper">
                   <input
                     type="radio"
                     name="selectdatetype"
@@ -580,10 +580,10 @@ function Basicinfo({ event, setEvent }) {
                     id="dateoption-2"
                     onClick={singleeventhandler}
                   />
-                  <label for="dateoption-1" class="dateoption dateoption-1">
+                  <label for="dateoption-1" className="dateoption dateoption-1">
                     <span>Single Event</span>
                   </label>
-                  <label for="dateoption-2" class="dateoption dateoption-2">
+                  <label for="dateoption-2" className="dateoption dateoption-2">
                     <span>Recurring Event</span>
                   </label>
                 </div>
@@ -619,7 +619,7 @@ function Basicinfo({ event, setEvent }) {
                   />
                   <span className="checkmark"></span>
                 </label>
-                <div class="fulltime-input">
+                <div className="fulltime-input">
                   <label for="time-zone">Time zone</label>
                   <select
                     aria-invalid="false"
@@ -933,7 +933,7 @@ function Basicinfo({ event, setEvent }) {
                   </select>
                 </div>
                 <br />
-                <div class="fulltime-input">
+                <div className="fulltime-input">
                   <label for="time-zone">Event page language</label>
                   <select
                     aria-invalid="false"
