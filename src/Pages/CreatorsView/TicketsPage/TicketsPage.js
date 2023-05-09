@@ -2,7 +2,6 @@ import React from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
 import "./ticketsPage.css";
-import { RiPagesLine } from "react-icons/ri";
 import { AiOutlineArrowDown } from "react-icons/ai";
 import { useState } from "react";
 import Check from "./Components/Check";
@@ -32,7 +31,8 @@ const Tickets = () => {
   const [ticketIsLimited, setTicketIsLimited] = useState("");
   const [promoCodeName, setPromoCodeName] = useState("");
   const [LimitedAmount, setLimitedAmount] = useState(0);
-  const [discountAmount, setDiscountAmount] = useState(0);
+  const [percentageAmount, setPercentageAmount] = useState("");
+  const [discountAmount, setDiscountAmount] = useState("");
   const [promoStartDate, setPromoStartDate] = useState(
     new Date().toISOString().slice(0, -5)
   );
@@ -44,6 +44,7 @@ const Tickets = () => {
   const [promoEndTime, setPromoEndTime] = useState();
   const [isPercentage, setIsPercentage] = useState("");
   const [isSavedSuccessfully, setIsSavedSuccessfully] = useState(false);
+  const [isPastDate, setIsPastDate] = useState(false);
   const promoCodeData = {
     name: promoCodeName,
     is_limited: isLimited,
@@ -63,10 +64,19 @@ const Tickets = () => {
   };
   const handleSubmit = () => {
     console.log(data);
+    setIsSavedSuccessfully(true);
   };
   const handleSubmitPromoCode = () => {
     console.log(promoCodeData);
+    setIsSavedSuccessfully(true);
   };
+  // const checkPastDate = () => {
+  //   const currentDate = new Date().toISOString().slice(0, -5);
+  //   if (currentDate >= endTicketDate)
+  //     setIsPastDate(true);
+  //   else
+  //     setIsPastDate(false);
+  // }
   return (
     <div className="tickets__page-container">
       <CreatorHeader />
@@ -254,8 +264,8 @@ const Tickets = () => {
               <Check labelVal="Absorb fees: Ticketing fees are deducted from your donation amount" />
             )}
             <div className="tickets__inputs-label-start">
-              <label for="start_date-field">Sales start:</label>
-              <label for="start_time-field" style={{ marginRight: "90px" }}>
+              <label htmlFor="start_date-field">Sales start:</label>
+              <label htmlFor="start_time-field" style={{ marginRight: "90px" }}>
                 Start time:
               </label>
             </div>
@@ -280,8 +290,8 @@ const Tickets = () => {
               />
             </div>
             <div className="tickets__inputs-label-end">
-              <label for="end_date-field">Sales end:</label>
-              <label for="end_time-field" style={{ marginRight: "99px" }}>
+              <label htmlFor="end_date-field">Sales end:</label>
+              <label htmlFor="end_time-field" style={{ marginRight: "99px" }}>
                 End time:
               </label>
             </div>
@@ -341,14 +351,14 @@ const Tickets = () => {
             <input
               type="text"
               placeholder="Code name"
-              className="input__codeName"
+              className={promoCodeName === "" ? "input__codeName-error" :"input__codeName"}
               onChange={(e) => {
                 setPromoCodeName(e.target.value);
               }}
             />
-            <p className="description__codeName">
+            {promoCodeName === "" ? <p className="required__promoName">Provide a code name</p> : <p className="description__codeName">
               Customers can also access this code via custom URL
-            </p>
+            </p>}
             <div className="Limited__section">
               <Box sx={{ width: "40%", marginLeft: "30px" }}>
                 <FormControl fullWidth>
@@ -398,17 +408,20 @@ const Tickets = () => {
               </label>
               <input
                 type="text"
+                defaultValue=""
                 className="discount__input"
                 placeholder="$"
                 onChange={(e) => {
-                  setDiscountAmount(e.target.value);
+                  /^\d+$/.test(e.target.value) ? setDiscountAmount(e.target.value) : setDiscountAmount("");
                 }}
+                disabled = {percentageAmount !== "" ? true : false}
               />
               <span style={{ marginLeft: "20px", marginRight: "20px" }}>
                 or
               </span>
               <input
                 type="text"
+                defaultValue=""
                 className="discount__input"
                 placeholder="%"
                 style={{ marginLeft: "0px" }}
@@ -416,15 +429,18 @@ const Tickets = () => {
                   e.target.value === ""
                     ? setIsPercentage(false)
                     : setIsPercentage(true);
+                  setPercentageAmount(e.target.value);
                 }}
+                disabled = {discountAmount !== "" ? true : false}
               />
             </div>
+            {discountAmount === "" && percentageAmount === "" && <p className="discount__required-error">Discount amount is required</p>}
             <div
               className="promocode__inputs-label-start"
               style={{ marginTop: "15px" }}
             >
               <label
-                for="promocode_start_date-field"
+                htmlFor="promocode_start_date-field"
                 style={{
                   fontWeight: "600",
                   fontSize: "14px",
@@ -441,7 +457,7 @@ const Tickets = () => {
                 style={{ width: "166px", height: "48px", padding: "10px" }}
                 defaultValue="2023-03-04"
                 onChange={(e) => {
-                  setPromoStartDate(e.target.value);
+                  setPromoStartDate(new Date(e.target.value));
                 }}
               />
               <input
@@ -459,7 +475,7 @@ const Tickets = () => {
               style={{ marginTop: "15px" }}
             >
               <label
-                for="promocode_end_date-field"
+                htmlFor="promocode_end_date-field"
                 style={{
                   fontWeight: "600",
                   fontSize: "14px",
@@ -480,6 +496,7 @@ const Tickets = () => {
                 defaultValue="2023-03-04"
                 onChange={(e) => {
                   setPromoEndDate(e.target.value);
+                  // checkPastDate();
                 }}
               />
               <input
@@ -492,6 +509,7 @@ const Tickets = () => {
                 }}
               />
             </div>
+            {isPastDate && <p>Error Date</p>}
             <div className="submition__section">
               <button
                 className="submition-cancelBtn"

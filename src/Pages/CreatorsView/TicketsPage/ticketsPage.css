@@ -356,6 +356,17 @@
     margin-top: 25px;
     margin-bottom: 2px;
 }
+.input__codeName-error
+{
+    margin-left: 30px;
+    margin-right: 30px;
+    height:46px;
+    padding-left: 15px;
+    width:348px;
+    margin-top: 25px;
+    margin-bottom: 2px;
+    border:1px solid #c5162e;
+}
 .description__codeName
 {
     margin-left: 30px;
@@ -390,4 +401,16 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 5px;
+}
+.required__promoName
+{
+    margin-left: 30px;
+    font-size: 12px;
+    color:#c5162e;
+}
+.discount__required-error
+{
+    margin-left: 30px;
+    font-size: 12px;
+    color:#c5162e;
 }
