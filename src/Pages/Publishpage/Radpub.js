@@ -34,7 +34,7 @@ const Radpub = (props) => {
           checked={val === "public"}
           style={{ cursor: "pointer" }}
         ></input>
-        <div style={{ display: "block", lineHeight: 0 }}>
+        <div class="mb-3" style={{ display: "block", lineHeight: 0 }}>
           <p style={{ marginLeft: 20, marginTop: 10, color: "#39364f" }}>
             Public
           </p>

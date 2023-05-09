@@ -18,7 +18,7 @@ const Containerpub = (props) => {
             <div className='rtpart'>
                 <h1 style={{ marginTop: 28, marginLeft: 10, fontSize: 20 }}>Food Truck Festival</h1>
                 <div style={{ lineHeight: 0, marginTop: 12 }}>
-                    <p style={{ marginLeft: 10, fontSize: 12,width:"150%" }}>Tuesday, April 18, 2023 at 7:00 PM EET</p>
+                    <p class="mb-3" style={{ marginLeft: 10, fontSize: 12,width:"150%" }}>Tuesday, April 18, 2023 at 7:00 PM EET</p>
                     <p style={{ marginLeft: 10, fontSize: 12,width:"150%" }}>Egypt, Cairo, Cairo Governorate 12212</p>
                     <div style={{ marginTop: 25, marginRight: 10, display: 'flex' }}>
                         <TfiTicket style={{ width: 45, height: 20 }} />

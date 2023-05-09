@@ -58,6 +58,7 @@ import AddAttendees from "./Pages/CreatorsView/AddAttendees/AddAttendees";
 
 import SalesReport from "./Pages/CreatorsView/Dashboard/Components/SalesReport";
 import TicketsReport from "./Pages/CreatorsView/Dashboard/Components/TicketsReport";
+import ManageEvents from "./Pages/CreatorsView/ManageEvents/ManageEvents";
 function App() {
   const userToken = useSelector(selectUserToken);
 
@@ -97,6 +98,8 @@ function App() {
               <Route path="/create-event" element={<CreateEvent />} />
               <Route path="/Profile" element={<Profile />} />
               <Route path="/tickets" element={<Tickets />} />
+              <Route path="/manage-events" element={<ManageEvents />} />
+
             </Route>
           </Routes>
         </BrowserRouter>

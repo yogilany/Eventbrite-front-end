@@ -32,7 +32,7 @@
 }
 
 .l-mar-vert-6 {
-  margin-top: 30px;
+  margin-top: 60px;
   margin-bottom: 30px;
 }
 
@@ -175,7 +175,6 @@ table {
 .responsive-form__input--currency {
   position: relative;
   width: 100%;
-  margin-top: 10px;
   input[type="text"]:disabled {
     background-color: #dfdfdf;
     border-color: #dbdae3;
@@ -259,11 +258,9 @@ label.label-primary {
   margin-right: 10px;
 }
 
-.eds-continue-button {
-    background: #D1410C;
+.eds-addattendees-continue-button {
+    background-color: #D1410C;
     color: #ffffff;
-    border-color: #a9a8b3;
-    box-sizing: border-box;
     text-align: center;
     text-decoration: none;
     line-height: 24px;

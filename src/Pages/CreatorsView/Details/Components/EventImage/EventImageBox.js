@@ -22,7 +22,12 @@ const EventImageBox = () => {
                 <h5 style = {{marginBottom:'15px'}}>Drag and drop an Image or</h5>
                 <div className='buttons__container' data-testid = "btsContainer">
                   <UploadButton />
-                  <button className='canvas-btn'>< SiCanva className='canvas__logo' /> Design With Canvas</button>
+                  <button className='canvas-btn'>
+                  <div className='flex flex-row '> 
+                  < SiCanva className='canvas__logo' /> 
+<div className='ml-2'>Design With Canvas</div>
+                  </div>
+                  </button>
                 </div>
                 {/* <button className='upload-btn'>Upload Image</button> */}
                 {/* <UploadButton />
