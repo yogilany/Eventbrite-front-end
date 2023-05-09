@@ -8,7 +8,7 @@ import Text from "../../../../../Components/Text/Text";
  * @description This is Summary Section that contains textBox used to write summary about Event
  * @returns {JSX.Element}
  */
-const Summary = () => {
+const Summary = ({summary,setSummary}) => {
   return (
     <div className="summary__container" data-testid = "summaryContainer">
       <RxText className="text__logo" />
@@ -24,7 +24,7 @@ const Summary = () => {
           See Examples
         </a>
       </p>
-      <Text className="text" data-testid = "textBox" Label = "Summary" PlaceHolder = "Write a short event summary to get attended excited."/>
+      <Text summary = {summary} setSummary = {setSummary} className="text" data-testid = "textBox" Label = "Summary" PlaceHolder = "Write a short event summary to get attended excited."/>
     </div>
   );
 };

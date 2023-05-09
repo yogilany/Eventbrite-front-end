@@ -9,8 +9,16 @@ import DateTime from "./DateTime";
  */
 const Radpub = (props) => {
   const [val, setval] = useState("public");
+  const [isPublic, setIsPublic] = useState(true);
+  const [eventDate, setEventDate] = useState(props.date);
+  const [eventTime, setEventTime] = useState(props.time);
+  
   const renderaudience = (event) => {
     setval(event.target.value);
+    if (val === "public")
+      setIsPublic(true);
+    else
+      setIsPublic(false);
   };
   return (
     <div data-testid={props.data_testid} className={props.className}>
@@ -62,6 +70,9 @@ const Radpub = (props) => {
             title="When should we publish your event?"
             c1="Publish Now"
             c2="Schedule for later"
+            event={props.event}
+            setEvent={props.setEvent}
+            public={isPublic}
           />
         </div>
       )}
@@ -78,6 +89,9 @@ const Radpub = (props) => {
               title="Will this event ever be public?"
               c1="No, keep it private"
               c2="Yes, schedule to share publicly"
+              event={props.event}
+              setEvent={props.setEvent}
+              public={isPublic}
             />
           </div>
         </div>

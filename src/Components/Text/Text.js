@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import styled from "@emotion/styled";
 import { useRef, useState , useContext } from "react";
 import { AppContext } from "../../Pages/CreatorsView/Details/Details";
-export default function ValidationTextFields({data_testid , Label , PlaceHolder , width}) {
+export default function ValidationTextFields({data_testid , Label , PlaceHolder , width , summary , setSummary}) {
     const MyText = styled(TextField)({
         width:'400px '
     });
@@ -30,7 +30,7 @@ export default function ValidationTextFields({data_testid , Label , PlaceHolder 
           className="text"
           data-testid={data_testid}
           ref={textRef}
-          onChange={(e) => { setTextValue(e.target.value); e.target.value === "" ? setShowSubmit(false) : setShowSubmit(true)}}
+          onChange={(e) => { setSummary(e.target.value); setTextValue(e.target.value); e.target.value === "" ? setShowSubmit(false) : setShowSubmit(true)}}
         />
       </div>
     </Box>

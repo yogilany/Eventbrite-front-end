@@ -11,14 +11,16 @@ import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import PromoCodesInfo from "./Components/PromoCodes/PromoCodesInfo";
 import TicketInfo from "./Components/TicketsInfo/TicketInfo";
+import { useEffect } from "react";
 /**
  * @author Mahmoud Khaled
  * @param {}
  * @description This is Tickets Page contains Add tickets and Add Promo-codes
  * @returns {JSX.Element}
  */
-const Tickets = () => {
+const Tickets = ({event , setEvent}) => {
   const [ticketName, setTicketName] = useState("");
+  const [success, setSuccess] = useState(false);
   const [ticketStartTime, setTiccketStartTime] = useState("");
   const [ticketEndTime, setTicketEndTime] = useState("");
   const [ticketPrice, setTicketPrices] = useState("");
@@ -88,6 +90,29 @@ const Tickets = () => {
       setIsPromoCodeSavedSuccessfully(false);
     console.log(isPromoCodeSavedSuccessfully);
   };
+  function saveData()
+  {
+    setEvent({
+      ...event, 
+      tickets: [{
+        type: "vip",
+        name: ticketName,
+        quantity: ticketQuantity,
+        price: ticketPrice,
+        sales_end_date_time: endTicketDate,
+        sales_start_date_time: startTicketDate
+      }
+      ]
+    })
+    setSuccess(true);
+    alert("Saved");
+  }
+    useEffect(() => {
+      setTimeout(() => {
+        // After 3 seconds set the show value to false
+        setSuccess(false);
+      }, 3000);
+    }, [success]);
   // const checkPastDate = () => {
   //   const currentDate = new Date().toISOString().slice(0, -5);
   //   if (currentDate >= endTicketDate)
@@ -346,7 +371,7 @@ const Tickets = () => {
               >
                 Cancel
               </button>
-              <button className="submition-saveBtn" onClick={handleSubmit}>
+              <button className="submition-saveBtn" onClick={saveData}>
                 Save
               </button>
             </div>
@@ -563,9 +588,9 @@ const Tickets = () => {
             </div>
           </div>
         )}
-        {isPromoCodeSavedSuccessfully && <div>
+        {/* {isPromoCodeSavedSuccessfully && <div>
           {promoCodeName} , {discountAmount} 
-        </div>}
+        </div>} */}
         <div style={{ marginTop: '100px' }}>
           {addmissionBtn && <TicketInfo ticketName = "General admission" ticketDate = "On sale Ends Jul 16,2023 at 7:00PM" amount = "0 / 10" Price = "$90" />}
           {promoCodeBtn && <PromoCodesInfo name = "Mahmoud Khaled" codeType = "Applies discount" disacount = "$20" Uses = "0 / Unlimites" Status = "Ended" />}

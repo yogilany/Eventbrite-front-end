@@ -44,17 +44,10 @@ const LikeComp = (props) => {
       </div>
 
       <div style={{ marginTop: 25, paddingLeft: 10 }}>
-<<<<<<< HEAD
         <div className="desc_prof">
           {props.title}
         </div>
         <div className="dat_prof">{props.start_date_time}</div>
-=======
-        <div className="desc_prof" style = {{fontSize:'18px' , fontWeight:'600' , marginBottom:'5px'}}>
-          Demo Day: Present Your Project to get your dream job - GoMyCode Egypt
-        </div>
-        <div className="dat_prof" style = {{color: "#d1410c" , marginBottom:'5px'}}>Thu, Mar 30 ,8:00 PM</div>
->>>>>>> 5ba8c3703c1b5a44f87ebdec9b4170c009b1be2e
         <div className="det_prof">GoMyCode Dokki ,Ad Doqi A</div>
       </div>
       <div style={{ display: "flex" }}>
