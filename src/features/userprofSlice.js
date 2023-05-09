@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getLikedEvents =
+export const getLikedEvents = 
     async (token) => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_BASE_API}/users/me/event/liked`,
@@ -122,3 +122,5 @@ export const likeEvent =
             console.error('Error unliking event:', error);
         }
     }
+
+    
