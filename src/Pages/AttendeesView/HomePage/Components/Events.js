@@ -16,8 +16,7 @@ import { Link } from "react-router-dom";
  * @todo Get data from API and show it.
  * @todo Styling headings
  */
-const Events = ({ location }) => {
-  const [events] = useState([]);
+const Events = ({ location, events }) => {
   const [moreEvents] = useState([]);
 
   const [category, setCategory] = useState("All");
@@ -38,13 +37,9 @@ const Events = ({ location }) => {
   }, []);
 
   useEffect(() => {
-    // console.log("events: ", events);
+    console.log("events: ", events);
   }, [events]);
 
-  useEffect(() => {
-    // console.log("category: ", category);
-    // fetchEvents();
-  }, [category]);
 
   return (
     <>
