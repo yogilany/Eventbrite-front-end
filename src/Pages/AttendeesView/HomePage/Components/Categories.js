@@ -9,9 +9,8 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
  * @description This is the taps that a  user can use to filter events by category. It is used in the HomePage and the SearchPage.
  * @returns {JSX.Element}
  */
-export const CategoriesTaps = ({ categorySelector, location, setLocation }) => {
+export const CategoriesTaps = ({ categorySelector, location }) => {
   const [value, setValue] = useState(0);
-  const [newLocation, setNewLocation] = useState(location);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -52,68 +51,13 @@ export const CategoriesTaps = ({ categorySelector, location, setLocation }) => {
     })
   );
 
-  const LocationTextField = styled((props) => (
-    <TextField InputProps={{ disableUnderline: true }} {...props} />
-  ))(({ theme }) => ({
-    "& .MuiFilledInput-root": {
-      overflow: "hidden",
-      borderRadius: 4,
-      fontSize: "1rem",
-      width: "100px",
-      transition: theme.transitions.create(["border-color", "box-shadow"]),
-      "&:hover": {
-        backgroundColor: "transparent",
-      },
-      "&.Mui-focused": {
-        backgroundColor: "transparent",
-        borderColor: theme.palette.primary.main,
-      },
-    },
-  }));
 
-  const handleEnter = (e) => {
-    // console.log(e.target.value)
-    setNewLocation(e.target.value)
-    if (e.key === "Enter") {
-setLocation(newLocation)
-    }
-}
 
   return (
     <Container className="mb-2">
       <Row className="justify-content-md-center">
         <Col md={12}>
-          <div className="location-container">
-            <div className="location-popular ">
-              <span style={{ fontSize: "32px", fontFamily: "Neue Plak Bold !important" ,lineHeight: "40px"}}>
-                Popular in
-              </span>{" "}
-              <MdOutlineKeyboardArrowDown color="#3659e3" />
-            </div>
-            <LocationTextField
-              //   label="Location"
-              inputProps={{
-                style: {
-                  fontSize: "30px",
-                  fontWeight: "900",
-                  letterSpacing: "0.5px",
-                  lineHeight: "40px",
-                  color: "#3659e3",
-                  marginRight: "1rem",
-                },
-              }} // font size of input text
-              defaultValue={location ? location : "Loading..."}
-              // onKeyDown={handleEnter}
-              onChange={(e) => { 
-                setLocation(e.target.value);
-                setNewLocation(e.target.value);
-                console.log(e.target.value); }}
-              id="location-input"
-              variant="standard"
-              value={newLocation}
-              style={{ borderBottom: "1px solid #e2e2e1" }}
-            />
-          </div>
+      
 
           <Box sx={{ width: "100%" }}>
             <Box sx={{ bgcolor: "#fff" }}>

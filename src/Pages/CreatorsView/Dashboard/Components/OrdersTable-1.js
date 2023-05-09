@@ -44,6 +44,8 @@ const OrdersTable = () => {
               </tr>
             </tbody>
           </Table>
+          <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Go to all orders</a>
+
         </Col>
       </Row>
     </Container>

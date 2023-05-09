@@ -5,7 +5,7 @@ import FooterLink from "../footerLink/FooterLink";
 import "./footer.css";
 const Footer = () => {
   return (
-    <div className="footer__container">
+    <div className="footer__container ">
       <div className="footer__container-left">
         <RiCopyrightLine className="copyright" />
         <p>2023 Eventbrite</p>

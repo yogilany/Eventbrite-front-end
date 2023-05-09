@@ -133,9 +133,9 @@ const EventsByCategory = () => {
                 </Row>
               </Container>
             ) : (
-              <Container className="pt-5">
+              <Container className="pt-5 pb-20">
                 <Row className="justify-content-md-center">
-                  <Col md={12} style={{ textAlign: "center" }}>
+                  <Col md={12} className="flex flex-col items-center">
                     <MdCalendarMonth size={50} color="#39364f" />
                     <h3 className="heading3 mb-0">
                       No events in your location

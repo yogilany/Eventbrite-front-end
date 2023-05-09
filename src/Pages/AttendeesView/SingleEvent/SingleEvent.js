@@ -20,7 +20,7 @@ import axios from "axios";
 
 const SingleEvent = (props) => {
   const { id } = useParams();
-  const [event, setEvent] = useState({});
+  const [event, setEvent] = useState(null);
   const EventNameHeaderStyle = {
     color: "#1e0a3c",
     fontWeight: "bold",
@@ -47,14 +47,14 @@ const SingleEvent = (props) => {
   }, []);
 
   return (
-    <>
+    <div className="overflow-hidden">
       <Header />
       <div style={{ display: "flow" }}>
-        <Container>
+        <Container >
           <Row>
-            <Layout />
+            {/* <Layout /> */}
           </Row>
-          <Row className="align-items-center ">
+          <Row className="align-items-center overflow-hidden">
             <Col>
               <Container fluid className="pt-3">
                 {event ? <Col>
@@ -70,9 +70,9 @@ const SingleEvent = (props) => {
                           <Container>
                             <Row>
                               <Col>
-                                <h3>
-                                  {props.event_date}{" "}
-                                  {event.date_and_time.start_date_time}
+                                <h3 style={{ fontSize: "1rem", fontWeight:"600"}}>
+                                  {/* {props.event_date}{" "} */}
+                                  {new Date(event.date_and_time.start_date_time).toLocaleString('default', { month: 'long' }) +" "+ new Date(event.date_and_time.start_date_time).getDay()}
                                 </h3>
                               </Col>
                               <Col md={{ offset: 9, span: 1 }}>
@@ -99,10 +99,10 @@ const SingleEvent = (props) => {
                       </Col>
                     </Row>
                     <Row className="mb-5">
-                      <EventLocation />
+                      <EventLocation location={event.location} date_and_time={event.date_and_time}/>
                     </Row>
                     <Row>
-                      <EventAbout />
+                      <EventAbout summary={event.summary}/>
                     </Row>
                     <Row className="mb-5 mt-5">
                       <EventShare />
@@ -120,13 +120,13 @@ const SingleEvent = (props) => {
               </Container>
             </Col>
             <Col style={{ top: "105%", left: "25%", position: "absolute" }}>
-              <EventTicketCard />
+              {event ? <EventTicketCard img_url={event ? event.image_link : null} event={event}/> : null}
             </Col>
           </Row>
         </Container>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

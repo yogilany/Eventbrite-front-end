@@ -12,6 +12,7 @@ import { useState } from "react";
 import { AiFillEye } from "react-icons/ai";
 import { MdApps } from 'react-icons/md'
 import { RiMore2Fill } from 'react-icons/ri'
+import { Link } from "react-router-dom";
 /**
  * @author Ziad Ezzat
  * @param {string} props.data_testid
@@ -25,7 +26,9 @@ const Headerpub = (props) => {
   return (
     <div className="header_container" data-testid={props.data_testid}>
       <div className="header_container-left">
+        <Link to="/" style={{ textDecoration: "none" }}>
         <img src={Logo} alt="headerLogo" />
+        </Link>
       </div>
       <div  className="header__responsive-links">
           <button className="event__details" style = {{marginRight:'10px'}} ><AiFillEye /></button>

@@ -54,7 +54,10 @@ import VerifyUser from "./Pages/AttendeesView/VerifyUser/VerifyUser";
 import Tickets from "./Pages/CreatorsView/TicketsPage/TicketsPage";
 import CreateEvent from "./Pages/CreatorsView/CreateEvent/CreateEvent";
 import ResetPassword from "./Pages/AttendeesView/Login/ResetPassword";
+import AddAttendees from "./Pages/CreatorsView/AddAttendees/AddAttendees";
 
+import SalesReport from "./Pages/CreatorsView/Dashboard/Components/SalesReport";
+import TicketsReport from "./Pages/CreatorsView/Dashboard/Components/TicketsReport";
 function App() {
   const userToken = useSelector(selectUserToken);
 
@@ -81,6 +84,8 @@ function App() {
               element={<EventsByCategory />}
             />
             <Route path="/event/:id" element={<SingleEvent />} />
+            <Route path="/sales-report" element={<SalesReport />} />
+            <Route path="/tickets-report" element={<TicketsReport />} />
 
             <Route element={<ProtectedRoute />} errorElement={<ErrorPage />}>
               <Route path="/likes" element={<Likes />} />

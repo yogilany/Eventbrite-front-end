@@ -60,6 +60,7 @@ export const LoginMethods = (props) => {
         </WhiteButton>
       </Row>
       <Row>
+   
         <WhiteButton
           id="login-with-google"
           data-testid="login-with-google"
@@ -68,8 +69,9 @@ export const LoginMethods = (props) => {
           type="button"
           variant="secondary"
           onClick={() => login()}
+          
         >
-          <FcIcons.FcGoogle size="1.75em" />
+          <FcIcons.FcGoogle size="1.75em" className="mr-2"/>
           {" Sign in with Google"}
         </WhiteButton>
       </Row>

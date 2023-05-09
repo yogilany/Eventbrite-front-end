@@ -369,14 +369,22 @@ const Tickets = () => {
             <input
               type="text"
               placeholder="Code name"
-              className={promoCodeName === "" ? "input__codeName-error" :"input__codeName"}
+              className={
+                promoCodeName === ""
+                  ? "input__codeName-error"
+                  : "input__codeName"
+              }
               onChange={(e) => {
                 setPromoCodeName(e.target.value);
               }}
             />
-            {promoCodeName === "" ? <p className="required__promoName">Provide a code name</p> : <p className="description__codeName">
-              Customers can also access this code via custom URL
-            </p>}
+            {promoCodeName === "" ? (
+              <p className="required__promoName">Provide a code name</p>
+            ) : (
+              <p className="description__codeName">
+                Customers can also access this code via custom URL
+              </p>
+            )}
             <div className="Limited__section">
               <Box sx={{ width: "40%", marginLeft: "30px" }}>
                 <FormControl fullWidth>
@@ -427,13 +435,15 @@ const Tickets = () => {
               <input
                 type="text"
                 defaultValue=""
-                value = {/^\d+$/.test(discountAmount) ? discountAmount : ""}
+                value={/^\d+$/.test(discountAmount) ? discountAmount : ""}
                 className="discount__input"
                 placeholder="$"
                 onChange={(e) => {
-                  /^\d+$/.test(e.target.value) ? setDiscountAmount(e.target.value) : setDiscountAmount("");
+                  /^\d+$/.test(e.target.value)
+                    ? setDiscountAmount(e.target.value)
+                    : setDiscountAmount("");
                 }}
-                disabled = {percentageAmount !== "" ? true : false}
+                disabled={percentageAmount !== "" ? true : false}
               />
               <span style={{ marginLeft: "20px", marginRight: "20px" }}>
                 or
@@ -441,7 +451,7 @@ const Tickets = () => {
               <input
                 type="text"
                 defaultValue=""
-                value = {/^\d+$/.test(percentageAmount) ? percentageAmount : ""}
+                value={/^\d+$/.test(percentageAmount) ? percentageAmount : ""}
                 className="discount__input"
                 placeholder="%"
                 style={{ marginLeft: "0px" }}
@@ -450,12 +460,18 @@ const Tickets = () => {
                     ? setIsPercentage(false)
                     : setIsPercentage(true);
                   setPercentageAmount(e.target.value);
-                  /^\d+$/.test(e.target.value) ? setPercentageAmount(e.target.value) : setPercentageAmount("");
+                  /^\d+$/.test(e.target.value)
+                    ? setPercentageAmount(e.target.value)
+                    : setPercentageAmount("");
                 }}
-                disabled = {discountAmount !== "" ? true : false}
+                disabled={discountAmount !== "" ? true : false}
               />
             </div>
-            {discountAmount === "" && percentageAmount === "" && <p className="discount__required-error">Discount amount is required</p>}
+            {discountAmount === "" && percentageAmount === "" && (
+              <p className="discount__required-error">
+                Discount amount is required
+              </p>
+            )}
             <div
               className="promocode__inputs-label-start"
               style={{ marginTop: "15px" }}
