@@ -10,7 +10,7 @@ import Containerpub from "./Containerpub";
  * @description This is container of Publish Page which shows the events publised with some data related to this data,Choosing if it can be public or private and if you want to publish now or wait for scheduling it.
  * @returns {JSX.Element of Publish Page}
  */
-const Publish = () => {
+const Publish = ({event , setEvent}) => {
   return (
     <div>
       <Headerpub data_testid="HDID" />
@@ -20,7 +20,7 @@ const Publish = () => {
         <h1 className="pubhead">Publish Your Event</h1>
         <Containerpub data_testid="CDID" />
         <div className="radtipp">
-          <Radpub className="radd" data_testid="RADID" />
+          <Radpub className="radd" data_testid="RADID" event = {event} setEvent = {setEvent} />
           <Tipsbox className="tipp" data_testid="TBID" />
         </div>
       </div>

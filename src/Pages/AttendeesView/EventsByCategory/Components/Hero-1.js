@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import MusicBack from "../../../../assets/cat1.png";
 import { Padding } from "@mui/icons-material";
+
 const Hero = ({ category, location }) => {
   const HeroStyle = [
     { background: "#0B4F60", color: "#FFDC00", subColor: "#8FF2F7" },
@@ -17,12 +18,12 @@ const Hero = ({ category, location }) => {
     <Container
       fluid
       className=""
-      style={{ backgroundColor: `${HeroStyle[1].background}`, height: "300px" }}
+      style={{ backgroundColor: `${HeroStyle[0].background}`, height: "300px" }}
     >
       <Row>
         <Col className="p-5">
           <h1
-            className="heading1 mt-4 ml-5 mb-0 font-bold text-yellow-400"
+            className=" text-yellow-400 heading1 mt-4 ml-5 mb-0 font-bold text-yellow-400"
           >
             {category} Events
           </h1>

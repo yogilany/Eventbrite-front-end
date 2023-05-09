@@ -9,10 +9,22 @@ import FollComp from "./Components/FollComp";
 import { AiOutlineRight } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { getUserDetails, logOut, selectUserAvatarURL, selectUserEmail, selectUserFirstName, selectUserLastName, selectUserToken } from "../../../features/authSlice";
-import { getLikedEvents, getfollwingpeople } from "../../../features/userprofSlice"
+import {
+  getUserDetails,
+  logOut,
+  selectUserAvatarURL,
+  selectUserEmail,
+  selectUserFirstName,
+  selectUserLastName,
+  selectUserToken,
+} from "../../../features/authSlice";
+import {
+  getLikedEvents,
+  getfollwingpeople,
+} from "../../../features/userprofSlice";
 import { useDispatch } from "react-redux";
 import eventphoto from "../../../assets/adelEv1.png";
+import { RxDotFilled } from "react-icons/rx";
 /**
  * @author Ziad Ezzat
  * @param {}
@@ -20,35 +32,37 @@ import eventphoto from "../../../assets/adelEv1.png";
  * @returns {JSX.Element of Profile Page}
  */
 const Profile = () => {
-  const dummtdata =
-    [
-      {
-        id: 1,
-        title: "7oda Algin?",
-        start_date_time: "2:00 pm Thursday",
-        image_link: "",
-        is_online: true,
-      },
-      {
-        id: 2,
-        title: "Mr hazem",
-        start_date_time: "2:00 pm sunday",
-        image_link: eventphoto,
-        is_online: true,
-      },
-      {
-        id: 2,
-        title: "Gilany",
-        start_date_time: "2:00 pm friday",
-        image_link: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200",
-        is_online: true,
-      }
-    ]
+  const dummtdata = [
+    {
+      id: 1,
+      title: "7oda Algin?",
+      start_date_time: "2:00 pm Thursday",
+      image_link: "",
+      is_online: true,
+    },
+    {
+      id: 2,
+      title: "Mr hazem",
+      start_date_time: "2:00 pm sunday",
+      image_link: eventphoto,
+      is_online: true,
+    },
+    {
+      id: 2,
+      title: "Gilany",
+      start_date_time: "2:00 pm friday",
+      image_link:
+        "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200",
+      is_online: true,
+    },
+  ];
   const dispatch = useDispatch();
   const UserAvatar = useSelector(selectUserAvatarURL);
   const userFirstName = useSelector(selectUserFirstName);
   const userLastName = useSelector(selectUserLastName);
-  const [userFullName, setUserFullName] = useState(userFirstName + " " + userLastName)
+  const [userFullName, setUserFullName] = useState(
+    userFirstName + " " + userLastName
+  );
   const [LikedEvents, setLikedEvents] = useState([]);
   const [followedpeople, setfollowedpeople] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -63,8 +77,7 @@ const Profile = () => {
       try {
         const response = await getLikedEvents(token);
         setLikedEvents(response);
-      }
-      catch (error) {
+      } catch (error) {
         setError(error);
         setIsLoading(false);
       }
@@ -76,15 +89,14 @@ const Profile = () => {
       try {
         const response = await getfollwingpeople(token);
         setfollowedpeople(response);
-      }
-      catch (error) {
+      } catch (error) {
         setError(error);
         setIsLoading(false);
       }
     };
     getfoll();
   }, []);
-  console.log("data is", LikedEvents)
+  console.log("data is", LikedEvents);
   const LikedEventscount = LikedEvents.length;
   const follwedpeoplecount = followedpeople.length;
   return (
@@ -146,7 +158,11 @@ const Profile = () => {
                     <a href="#" style={{ color: "grey", fontSize: 15 }}>
                       {LikedEventscount}
                     </a>
-                    <p style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}>Likes</p>
+                    <p
+                      style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
+                    >
+                      Likes
+                    </p>
                   </div>
                   <a
                     href="#"
@@ -163,7 +179,11 @@ const Profile = () => {
                     <a href="#" style={{ color: "grey", fontSize: 15 }}>
                       {follwedpeoplecount}
                     </a>
-                    <p style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}>Following</p>
+                    <p
+                      style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
+                    >
+                      Following
+                    </p>
                   </div>
                 </div>
               </div>
@@ -205,7 +225,12 @@ const Profile = () => {
             </div>
             <div className="likeblk_prof">
               {LikedEvents.map((event) => (
-                <LikeComp id={event.id} title={event.title} start_date_time={event.start_date_time} image_link={event.image_link} />
+                <LikeComp
+                  id={event.id}
+                  title={event.title}
+                  start_date_time={event.start_date_time}
+                  image_link={event.image_link}
+                />
               ))}
               {/* <LikeComp data_testid="Like-Form-id" />
               <LikeComp data_testid="Like-Form-id" />
@@ -226,13 +251,17 @@ const Profile = () => {
               </div>
               <div className="follblk_prof">
                 {followedpeople.map((person) => (
-                  <FollComp id={person.id} email={person.email} firstname={person.firstname} lastname={person.lastname} avatar={person.avatar_url} />
+                  <FollComp
+                    email={person.email}
+                    firstname={person.firstname}
+                    lastname={person.lastname}
+                    avatar={person.avatar}
+                  />
                 ))}
                 {/* <FollComp text="GoMyCode" data_testid="Follow-Form-id" />
                 <FollComp text="Ezz event riders" /> */}
               </div>
             </div>
-
           </div>
         </div>
       </div>

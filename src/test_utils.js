@@ -35,7 +35,7 @@ export function renderWithProviders(
   }
   return render(ui, { wrapper: Wrapper, ...renderOptions });
 }
-
+export default renderWithProviders;
 // export function renderWithProviders(element: React.ReactElement, state?: any) {
 //   const store = getStoreWithState(state);
 //   const utils = render(

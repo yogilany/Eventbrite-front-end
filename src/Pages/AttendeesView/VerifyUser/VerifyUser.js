@@ -77,18 +77,24 @@ const VerifyUser = () => {
       <Container>
         <Col className="  justify-content-center align-items-center text-center">
           <Row style={{ fontSize: "40px" }}>
-            <p>{verificationState}</p>
+            <p id="verification-message" data-testid="verification-message">
+              {verificationState}
+            </p>
           </Row>
           <Row>
-            <p>{isLoading ? <Spinner size="lg" animation="border" /> : null}</p>
+            <p id="spinner-message" data-testid="spinner-message">
+              {isLoading ? <Spinner size="lg" animation="border" /> : null}
+            </p>
           </Row>
           {requestFulfilled ? (
             <>
               <Row>
-                <p>Redirecting to login...</p>
+                <p id="redirect-message" data-testid="redirect-message">
+                  Redirecting to login...
+                </p>
               </Row>
               <Row>
-                <Link to="/login">
+                <Link id="login-link" data-testid="login-link" to="/login">
                   If you were not redirected within {secondsBeforeRedirect}{" "}
                   seconds, click here
                 </Link>

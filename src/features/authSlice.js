@@ -34,8 +34,10 @@ const initialState = {
   userLastName: "",
   userAvatarURL: "",
   userToken,
+  userID: "",
   isLoading: false,
   emailExists: false,
+  isLoggedIn: false,
 };
 
 /**
@@ -367,6 +369,7 @@ export const authSlice = createSlice({
         console.log("action.payload = ", action.payload);
         state.userToken = action.payload.access_token;
         console.log("state.userToken = ", state.userToken);
+        state.isLoggedIn = true;
       })
       // Authenticate Google user
       .addCase(authGoogleUser.rejected, (state, action) => {
@@ -382,6 +385,7 @@ export const authSlice = createSlice({
         console.log("action.payload = ", action.payload);
         state.userToken = action.payload.access_token;
         console.log("state.userToken = ", state.userToken);
+        state.isLoggedIn = true;
       })
       // Register user
       .addCase(registerUser.rejected, (state, action) => {
@@ -433,6 +437,7 @@ export const authSlice = createSlice({
         state.userFirstName = action.payload.firstname;
         state.userLastName = action.payload.lastname;
         state.userAvatarURL = action.payload.avatar_url;
+        state.userID = action.payload.id;
       })
       // Verify user
       .addCase(verifyUser.rejected, (state, action) => {
@@ -466,4 +471,5 @@ export const selectUserEmail = (state) => state.auth.userEmail;
 export const selectUserFirstName = (state) => state.auth.userFirstName;
 export const selectUserLastName = (state) => state.auth.userLastName;
 export const selectUserAvatarURL = (state) => state.auth.userAvatarURL;
+export const selectLoggedIn = (state) => state.auth.isLoggedIn;
 export default authSlice.reducer;

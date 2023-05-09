@@ -57,39 +57,41 @@ const CreateEvent = () => {
   }, []);
 
   return (
-    <Tab.Container
-      defaultActiveKey={"first"}
-      onSelect={() => window.scrollTo(0, 0)}
-    >
-      <Container fluid className="p-0" style={{ overflow: "hidden" }}>
-        <Sidebar />
-        <Tab.Content>
-          <Tab.Pane eventKey="first">
-            <Basicinfo event={event} setEvent={setEvent} />
-          </Tab.Pane>
+   <Tab.Container defaultActiveKey={"first"} onSelect={() =>   window.scrollTo(0, 0)}>
 
-          <Tab.Pane eventKey="second">
-            <Details event={event} setEvent={setEvent} />
-          </Tab.Pane>
+<Container fluid className="p-0" style={{overflow: "hidden"}}>
+<Sidebar />
+<Tab.Content >
+    <Tab.Pane eventKey="first">
+    <Basicinfo event={event} setEvent={setEvent} />
+    </Tab.Pane>
 
-          <Tab.Pane eventKey="third">
-            <TicketsPage />
-          </Tab.Pane>
+    <Tab.Pane eventKey="second">
+      <Details event={event} setEvent={setEvent} />
+    </Tab.Pane>
 
-          <Tab.Pane eventKey="fourth">
-            <Publish event={event} setEvent={setEvent} />
-          </Tab.Pane>
+    <Tab.Pane eventKey="third">
+      <TicketsPage event={event} setEvent={setEvent} />
+    </Tab.Pane>
 
-          <Tab.Pane eventKey="fifth">
-            <Dashboard />
-          </Tab.Pane>
-        </Tab.Content>
-      </Container>
+    <Tab.Pane eventKey="fourth">
+      <Publish event={event} setEvent={setEvent}/>
+    </Tab.Pane>
 
-      {/* <Headerpub data_testid="HDID" /> */}
-      <CreatorHeader />
-    </Tab.Container>
-  );
-};
+    <Tab.Pane eventKey="fifth">
+      <Dashboard />
+    </Tab.Pane>
 
-export default CreateEvent;
+
+
+    </Tab.Content>
+
+</Container>
+
+{/* <Headerpub data_testid="HDID" /> */}
+<CreatorHeader />
+   </Tab.Container>
+  )
+}
+
+export default CreateEvent
