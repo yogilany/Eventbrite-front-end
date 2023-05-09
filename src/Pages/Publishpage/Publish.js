@@ -13,7 +13,7 @@ import "./Publish.css";
  */
 const Publish = ({event , setEvent}) => {
   return (
-    <div>
+    <div class="pb-12">
       <Headerpub data_testid="HDID" />
       {/* <Sidebar /> */}
 
