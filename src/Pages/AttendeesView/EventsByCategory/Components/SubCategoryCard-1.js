@@ -15,10 +15,10 @@ const SubCategoryCard = ({ testimage, name }) => {
       <Row>
         <Col>
           <img
+          className="w-32 h-32"
             alt="Remy Sharp"
             src={testimage}
-            width="130px"
-            height="130px"
+         
             style={{ borderRadius: "50%", objectFit: "cover" }}
           />
         </Col>

@@ -53,7 +53,7 @@ function Singleevent(props) {
     <div>
       <p>Single event happens once and can last multiple days</p>
       <div className="chooseeventdate">
-        <div class="fulldate-input">
+        <div className="fulldate-input">
           <svg
             id="calendar-chunky_svg__eds-icon--calendar-chunky_svg"
             className="datesvgicon"
@@ -78,7 +78,7 @@ function Singleevent(props) {
             onChange={changehandler}
           />
         </div>
-        <div class="fulltime-input">
+        <div className="fulltime-input">
           <label for="starttime">Start time</label>
           <select
             ref={startTimeRef}
@@ -125,7 +125,7 @@ function Singleevent(props) {
         </div>
       </div>
       <div className="chooseeventdate">
-        <div class="fulldate-input">
+        <div className="fulldate-input">
           <svg
             id="calendar-chunky_svg__eds-icon--calendar-chunky_svg"
             className="datesvgicon"
@@ -150,7 +150,7 @@ function Singleevent(props) {
             onChange={changehandler}
           />
         </div>
-        <div class="fulltime-input">
+        <div className="fulltime-input">
           <label for="starttime">End time</label>
           <select
             ref={endTimeRef}

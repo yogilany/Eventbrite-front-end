@@ -21,7 +21,7 @@ import { useDispatch } from "react-redux";
 import { authUser } from "../../features/authSlice";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { HiOutlinePlus } from "react-icons/hi";
-const Header = () => {
+const Header = ({location}) => {
   const [toggleSearch, setToggleSearch] = useState(false);
   const [isOrganizer, setIsOrganizer] = useState(false);
 
@@ -141,12 +141,8 @@ const Header = () => {
             <>
               <Link to="/create-event">
                 <div
-                  className="header-button"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    textAlign: "center",
-                  }}
+                  className="header-button flex flex-col items-center"
+                  
                 >
                   {" "}
                   <div
@@ -161,12 +157,8 @@ const Header = () => {
               </Link>
               <Link to="/likes">
                 <div
-                  className="header-button"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    textAlign: "center",
-                  }}
+                  className="header-button flex flex-col items-center"
+                  
                 >
                   {" "}
                   <div
@@ -209,7 +201,7 @@ const Header = () => {
           ) : null}
 
           {userEmail ? (
-            <div className="dropdown">
+            <div className="dropdown flex flex-col items-center">
               <button className="dropbtn">
                 {userEmail} <MdOutlineKeyboardArrowDown />
               </button>
@@ -230,7 +222,7 @@ const Header = () => {
           ) : null}
         </div>
       </div>
-      {toggleSearch && <SearchPage toggle={setToggleSearch} />}
+      {toggleSearch && <SearchPage toggle={setToggleSearch} location={location} />}
     </>
   );
 };

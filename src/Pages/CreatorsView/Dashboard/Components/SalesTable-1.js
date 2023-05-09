@@ -33,6 +33,9 @@ const SalesTable = () => {
               </tr>
             </tbody>
           </Table>
+          
+<a href="/sales-report" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Go to all sales</a>
+
         </Col>
       </Row>
     </Container>

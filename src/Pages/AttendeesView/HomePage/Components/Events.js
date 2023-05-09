@@ -18,63 +18,43 @@ import axios from "axios";
  * @todo Get data from API and show it.
  * @todo Styling headings
  */
-const Events = () => {
+const Events = ({location}) => {
   const [events, setEvents] = useState([]);
   const [moreEvents, setMoreEvents] = useState([]);
 
   const [category, setCategory] = useState("All");
   const [isCategoriesShown, setIsCategoriesShown] = useState(true);
-  const [location, setLocation] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  function fetchEvents() {
-    axios
-      .get(`${process.env.REACT_APP_BASE_API}/categories`)
-      .then(function (response) {
-        // console.log(response);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      });
-  }
 
-  useEffect(() => {
-    async function fetchLocation() {
-      let url = "https://ipinfo.io/json?token=89085807858d6e";
-      let response = await fetch(url);
-      let data = await response.json();
-      console.log(data);
-      setLocation(data.city);
-    }
-    fetchLocation();
-  },[]);
+
+
   var cards = [];
 
   for (var i = 1; i <= 8; i++) {
     cards.push(i);
   }
 
-  async function fetchEvents() {
-    const response = await getEvents({ category: category });
-    const filteredEvents = response.filter((event) => {
-      if (category != "All") {
-        setIsCategoriesShown(false);
-        return event.eventCategory == category;
-      } else {
-        setIsCategoriesShown(true);
+  // async function fetchEvents() {
+  //   const response = await getEvents({ category: category });
+  //   const filteredEvents = response.filter((event) => {
+  //     if (category != "All") {
+  //       setIsCategoriesShown(false);
+  //       return event.eventCategory == category;
+  //     } else {
+  //       setIsCategoriesShown(true);
 
-        return response;
-      }
-    });
-    // console.log("filteredEvents: ", filteredEvents);
-    setEvents(filteredEvents.slice(0, 8));
-    setMoreEvents(filteredEvents.slice(8, 24));
-  }
+  //       return response;
+  //     }
+  //   });
+  //   // console.log("filteredEvents: ", filteredEvents);
+  //   setEvents(filteredEvents.slice(0, 8));
+  //   setMoreEvents(filteredEvents.slice(8, 24));
+  // }
 
   useEffect(() => {
     setLoading(true);
-    fetchEvents();
+    // fetchEvents();
     setLoading(false);
   }, []);
 
@@ -84,7 +64,7 @@ const Events = () => {
 
   useEffect(() => {
     // console.log("category: ", category);
-    fetchEvents();
+    // fetchEvents();
   }, [category]);
 
   return (
@@ -93,11 +73,10 @@ const Events = () => {
         categorySelector={setCategory}
         location={location}
         id="categoriesTaps"
-        setLocation={setLocation}
       />
       {/* {isCategoriesShown ? (
       ): null} */}
-      <CategoriesCards location={location} id="categoriesCards" setLocation={setLocation} />
+      <CategoriesCards location={location} id="categoriesCards"  />
 
       {events.length != 0 ? (
         <Container className=" pl-5 pr-5 mb-5" id="eventsByLocationSection">
@@ -123,7 +102,7 @@ const Events = () => {
       ) : (
         <Container className="pt-5">
           <Row className="justify-content-md-center">
-            <Col md={12} style={{ textAlign: "center" }}>
+          <Col md={12} className="flex flex-col items-center pb-20">
               <MdCalendarMonth size={50} color="#39364f" />
               <h3 className="heading3 mb-0">No events in your location</h3>
               <h6 className="heading6">Try another location</h6>
