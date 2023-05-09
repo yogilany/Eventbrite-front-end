@@ -10,7 +10,7 @@ import { useState } from "react";
 import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
 import TicketsPage from "../../../Pages/CreatorsView/TicketsPage/TicketsPage";
 const CreateEvent = () => {
-  const [ eventTitle, setEventTitle ] = useState("");
+  const [eventTitle, setEventTitle] = useState("");
   const [event, setEvent] = useState({
     basic_info: {
       title: "",
@@ -26,27 +26,19 @@ const CreateEvent = () => {
       publish_date_time: "",
     },
     date_and_time: {
-      start_date_time: "",
-      end_date_time: "",
+      start_date_time: new Date(),
+      end_date_time: new Date() + 24 * 60 * 60 * 1000,
       is_display_start_date: null,
       is_display_end_date: null,
       time_zone: "",
       event_page_language: "",
     },
     location: {
-      type: "venue",
-      location: "",
+      city: "",
+      is_online: false,
     },
-    tickets: [
-      {
-        type: "vip",
-        name: "vip",
-        quantity: 20,
-        price: 30,
-        sales_start_date_time: "2023-05-01T00:00:00",
-        sales_end_date_time: "2023-05-01T00:00:00",
-      },
-    ],
+    tickets: [],
+    promocodes: [],
   });
 
   useEffect(() => {
@@ -66,35 +58,35 @@ const CreateEvent = () => {
         <Sidebar eventTitle={eventTitle} />
         <Tab.Content>
           <Tab.Pane eventKey="first">
-            <Basicinfo event={event} setEvent={setEvent} setEventTitle={setEventTitle} />
+            <Basicinfo
+              event={event}
+              setEvent={setEvent}
+              setEventTitle={setEventTitle}
+            />
           </Tab.Pane>
 
-    <Tab.Pane eventKey="second">
-      <Details event={event} setEvent={setEvent} />
-    </Tab.Pane>
+          <Tab.Pane eventKey="second">
+            <Details event={event} setEvent={setEvent} />
+          </Tab.Pane>
 
-    <Tab.Pane eventKey="third">
-      <TicketsPage event={event} setEvent={setEvent} />
-    </Tab.Pane>
+          <Tab.Pane eventKey="third">
+            <TicketsPage event={event} setEvent={setEvent} />
+          </Tab.Pane>
 
-    <Tab.Pane eventKey="fourth">
-      <Publish event={event} setEvent={setEvent}/>
-    </Tab.Pane>
+          <Tab.Pane eventKey="fourth">
+            <Publish event={event} setEvent={setEvent} />
+          </Tab.Pane>
 
-    <Tab.Pane eventKey="fifth">
-      <Dashboard />
-    </Tab.Pane>
+          <Tab.Pane eventKey="fifth">
+            <Dashboard />
+          </Tab.Pane>
+        </Tab.Content>
+      </Container>
 
+      {/* <Headerpub data_testid="HDID" /> */}
+      <CreatorHeader />
+    </Tab.Container>
+  );
+};
 
-
-    </Tab.Content>
-
-</Container>
-
-{/* <Headerpub data_testid="HDID" /> */}
-<CreatorHeader />
-   </Tab.Container>
-  )
-}
-
-export default CreateEvent
+export default CreateEvent;

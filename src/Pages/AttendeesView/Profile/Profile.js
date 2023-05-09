@@ -189,10 +189,15 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="compon" >
+          <div className="compon">
             <h5>Orders</h5>
-            <div className="orderecss"><OrderComp data_testid="Order-Form-id" /></div>
-            <button id="btn_prof_id" className="btn_prof"> See past Orders</button>
+            <div className="orderecss">
+              <OrderComp data_testid="Order-Form-id" />
+            </div>
+            <button id="btn_prof_id" className="btn_prof">
+              {" "}
+              See past Orders
+            </button>
             <hr className="zzz"></hr>
             <div style={{ display: "flex" }}>
               <a href="#" className="intersts_prof">
@@ -269,4 +274,4 @@ const Profile = () => {
   );
 };
 
-// export default Profile;
+export default Profile;

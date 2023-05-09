@@ -15,6 +15,7 @@ function Singleevent(props) {
       props.setStartDate(null);
       props.setEndDate(null);
       setshowwarning(true);
+      console.log("empty");
       const e = props.error.slice();
       props.setError([...props.error, "1"]);
     } else {
@@ -29,6 +30,8 @@ function Singleevent(props) {
       console.log("full_end_date: ", full_end_date);
       // Check end date is after start date
       if (full_end_date < full_start_date) {
+        console.log("after");
+
         setshowwarning(true);
         props.setStartDate(null);
         props.setEndDate(null);
@@ -36,6 +39,8 @@ function Singleevent(props) {
         const e = props.error.slice();
         props.setError([...props.error, "1"]);
       } else {
+        console.log("correct");
+
         props.setStartDate(full_start_date);
         props.setEndDate(full_end_date);
         if (props.error.length !== 0) {

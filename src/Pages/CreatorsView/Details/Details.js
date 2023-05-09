@@ -102,7 +102,11 @@ const Details = ({ event, setEvent }) => {
           </Alert>
         ) : null}
 
-        <button className="savebtn" onClick={saveData} disabled={inputsChanged}>
+        <button
+          className="savebtn"
+          onClick={saveData}
+          disabled={!inputsChanged}
+        >
           Save
         </button>
       </div>
