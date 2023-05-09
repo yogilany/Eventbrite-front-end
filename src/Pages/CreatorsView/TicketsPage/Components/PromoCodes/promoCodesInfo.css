@@ -1,0 +1,34 @@
+.table__header
+{
+    background-color: rgb(230, 227, 227);
+    padding-top: 20px !important;
+}
+.table__header th 
+{
+    padding: 10px 5px ;
+}
+.delete__edit__cancel
+{
+    outline: none;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+}
+.PromoCode-edit__delete-ticket
+{
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 17px 0 rgba(40,44,53,.1), 0 2px 4px 0 rgba(40,44,53,.1);
+    box-shadow: 0 1px 17px 0 rgba(40,44,53,.1), 0 2px 4px 0 rgba(40,44,53,.1);
+    width: 230px;
+    height: 170px;
+    position: absolute;
+    top:10%;
+    right:10%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 5px;
+}

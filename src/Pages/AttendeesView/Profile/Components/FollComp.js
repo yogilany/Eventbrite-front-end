@@ -9,17 +9,18 @@ import emptyprofile from "../../../../assets/emptyprofile.png";
  * @returns {JSX.Element of following component used in Profile Page}
  */
 const FollComp = (props) => {
+  const [userFullName, setUserFullName] = React.useState(props.firstname + " " + props.lastname)
   return (
     <div
       style={{ display: "flex", marginTop: 10}}
       data-testid={props.data_testid}
     >
       <img
-        src={emptyprofile}
+        src={props.avatar}
         alt="profilelogo"
         style={{ width: 65, height: 65 }}
       />
-      <h5 style={{ marginTop: 20, fontSize: 17 , width:'200px' }}>{props.text}</h5>
+      <h5 style={{ marginTop: 20, fontSize: 17 , width:'200px' }}>{userFullName}</h5>
       <button id="btnfol_prof_id" className="btnfol_prof">Following</button>
     </div>
   );
