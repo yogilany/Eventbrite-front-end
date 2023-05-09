@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Container, Col, Row, Stack, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router";
 import imageLogin from "../../../assets/adelLogin.png";
 import AboutFooter from "../../../Components/AboutFooter/AboutFooter";
 import Footer from "../../../Components/footer/Footer";
@@ -12,6 +12,7 @@ import {
   forgotPassword,
   registerGoogleUser,
   registerUser,
+  selectLoggedIn,
 } from "../../../features/authSlice";
 import { HorizontalChip } from "./Components/HorizontalChip";
 import LoginForm from "./Components/LoginForm";
@@ -54,6 +55,7 @@ export const Login = (props) => {
   const [passwordIncorrect, setPasswordIncorrect] = useState(false);
   const [forgotPasswordModalShow, setForgotPasswordModalShow] = useState(false);
   const [GoogleProfile, setGoogleProfile] = useState(null);
+  const isLoggedIn = useSelector(selectLoggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const controls = useAnimation();
@@ -186,6 +188,8 @@ export const Login = (props) => {
 
     return () => {};
   }, [GoogleProfile]);
+
+  if (isLoggedIn) return <Navigate to="/" />;
 
   return (
     <Container className={props.name} fluid style={{ height: "50px" }}>

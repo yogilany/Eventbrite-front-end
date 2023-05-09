@@ -89,51 +89,47 @@ export const SignupForm = (props) => {
 
   const registerUserHandler = () => {
     if (GoogleProfile) {
-      if (GoogleProfile) {
-        if (!GoogleProfile.email_verified) {
-          setSuccess(false);
-          setTimeout(() => {
-            controls.start("start");
-          }, 500);
-        } else {
-          dispatch(checkEmailExists(GoogleProfile.email))
-            .unwrap(unwrapResult)
-            .catch((err) => {
-              //Email does not exist, create account for user
-              dispatch(
-                registerGoogleUser({
-                  email: GoogleProfile.email,
-                  password: crypto
-                    .getRandomValues(new Uint8Array(64))
-                    .toString(),
-                  firstname: GoogleProfile.given_name,
-                  lastname: GoogleProfile.family_name ?? "",
-                  picture: GoogleProfile.picture,
-                })
-              ).catch((err) => {
-                setSuccess(false);
-                setTimeout(() => {
-                  controls.start("start");
-                }, 500);
-                return;
-              });
-            });
-
-          dispatch(
-            authGoogleUser({
-              email: GoogleProfile.email,
-            })
-          )
-            .then((result) => {
-              setSuccess(true);
-            })
-            .catch((err) => {
+      if (!GoogleProfile.email_verified) {
+        setSuccess(false);
+        setTimeout(() => {
+          controls.start("start");
+        }, 500);
+      } else {
+        dispatch(checkEmailExists(GoogleProfile.email))
+          .unwrap(unwrapResult)
+          .catch((err) => {
+            //Email does not exist, create account for user
+            dispatch(
+              registerGoogleUser({
+                email: GoogleProfile.email,
+                password: crypto.getRandomValues(new Uint8Array(64)).toString(),
+                firstname: GoogleProfile.given_name,
+                lastname: GoogleProfile.family_name ?? "",
+                picture: GoogleProfile.picture,
+              })
+            ).catch((err) => {
               setSuccess(false);
               setTimeout(() => {
                 controls.start("start");
               }, 500);
+              return;
             });
-        }
+          });
+
+        dispatch(
+          authGoogleUser({
+            email: GoogleProfile.email,
+          })
+        )
+          .then((result) => {
+            setSuccess(true);
+          })
+          .catch((err) => {
+            setSuccess(false);
+            setTimeout(() => {
+              controls.start("start");
+            }, 500);
+          });
       }
     } else {
       const data = {

@@ -81,7 +81,7 @@ export const LoginForm = (props) => {
                 type="email"
                 isInvalid={errors?.email}
               />
-              <label>Email Address</label>
+              <label htmlFor="login-email-input">Email Address</label>
             </Form.Floating>
             <Form.Text
               className="text-danger"
@@ -103,7 +103,7 @@ export const LoginForm = (props) => {
                 type="password"
                 isInvalid={errors?.password || props.passwordIncorrect}
               />
-              <label>Password</label>
+              <label htmlFor="login-password-input">Password</label>
             </Form.Floating>
             <Form.Text
               className="text-danger"

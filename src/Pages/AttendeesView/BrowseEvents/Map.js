@@ -3,6 +3,14 @@ import GoogleMapReact from "google-map-react";
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
+/**
+ * @description This is the Map component of the HomePage.
+ * @date 5/9/2023 - 8:11:34 PM
+ * @author Yousef Gilany
+ *
+ * @export
+ * @returns {*}
+ */
 export default function SimpleMap() {
   const defaultProps = {
     center: {
@@ -14,7 +22,11 @@ export default function SimpleMap() {
 
   return (
     // Important! Always set the container height explicitly
-    <div style={{ height: "100vh", width: "100%" }}>
+    <div
+      id="google-maps"
+      data-testid="google-maps"
+      style={{ height: "100vh", width: "100%" }}
+    >
       <GoogleMapReact
         bootstrapURLKeys={{ key: "" }}
         defaultCenter={defaultProps.center}

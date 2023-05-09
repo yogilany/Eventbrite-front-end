@@ -12,16 +12,14 @@ test("Render header", () => {
 test("Render login form", () => {
   renderWithProviders(<Login />);
   <Login />;
-
   const loginForm = screen.getAllByRole("button");
-  expect(loginForm).toHaveLength(3);
+  expect(loginForm).toHaveLength(5);
 });
 
 test("Render email placeholder text", () => {
   renderWithProviders(<Login />);
   <Login />;
-
-  const loginFormEmail = screen.getByPlaceholderText("Email address");
+  const loginFormEmail = screen.getByLabelText("Email Address");
   expect(loginFormEmail).toBeInTheDocument();
 });
 
@@ -29,7 +27,7 @@ test("Render password placeholder text", () => {
   renderWithProviders(<Login />);
   <Login />;
 
-  const loginFormPassword = screen.getByPlaceholderText("Password");
+  const loginFormPassword = screen.getByLabelText("Password");
   expect(loginFormPassword).toBeInTheDocument();
 });
 
@@ -37,7 +35,7 @@ test("Email input should be empty", () => {
   renderWithProviders(<Login />);
   <Login />;
 
-  const loginFormEmail = screen.getByPlaceholderText("Email address");
+  const loginFormEmail = screen.getByLabelText("Email Address");
   expect(loginFormEmail.value).toBe("");
 });
 
@@ -45,7 +43,7 @@ test("Password input should be empty", () => {
   renderWithProviders(<Login />);
   <Login />;
 
-  const loginFormPassword = screen.getByPlaceholderText("Password");
+  const loginFormPassword = screen.getByLabelText("Password");
   expect(loginFormPassword.value).toBe("");
 });
 

@@ -11,7 +11,15 @@ import { MdOutlineSearch } from "react-icons/md";
 import { Container, Row, Col } from "react-bootstrap";
 import SearchPage from "../../Pages/AttendeesView/HomePage/Components/SearchPage";
 import { useSelector } from "react-redux";
-import { getUserDetails, logOut, selectUserAvatarURL, selectUserEmail, selectUserFirstName, selectUserLastName } from "../../features/authSlice";
+import {
+  getUserDetails,
+  logOut,
+  selectLoggedIn,
+  selectUserAvatarURL,
+  selectUserEmail,
+  selectUserFirstName,
+  selectUserLastName,
+} from "../../features/authSlice";
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 import { VscAccount } from "react-icons/vsc";
@@ -21,16 +29,18 @@ import { useDispatch } from "react-redux";
 import { authUser } from "../../features/authSlice";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { HiOutlinePlus } from "react-icons/hi";
-const Header = ({location}) => {
+const Header = ({ location }) => {
   const [toggleSearch, setToggleSearch] = useState(false);
   const [isOrganizer, setIsOrganizer] = useState(false);
 
   const userFirstName = useSelector(selectUserFirstName);
   const userLastName = useSelector(selectUserLastName);
-
+  const userIsLoggedIn = useSelector(selectLoggedIn);
   const userEmail = useSelector(selectUserEmail);
-  const userAvatarURL = useSelector(selectUserAvatarURL)
-  const [userFullName, setUserFullName] = useState(userFirstName + " " + userLastName)
+  const userAvatarURL = useSelector(selectUserAvatarURL);
+  const [userFullName, setUserFullName] = useState(
+    userFirstName + " " + userLastName
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,21 +66,32 @@ const Header = ({location}) => {
     };
   }, [screenSize]);
 
-
   const [user, setUser] = useState(window.User);
 
   // Update user details every 15 minutes
   setInterval(() => {
-    dispatch(getUserDetails())
-  }, 15 * 60 * 1000)
+    dispatch(getUserDetails());
+  }, 15 * 60 * 1000);
 
   // Update user details as soon as page loads:
   useEffect(() => {
-    dispatch(getUserDetails('aaa')).then(() => {
-      console.log('User data: ', userFirstName, userLastName, userEmail, userAvatarURL)
-      setUserFullName(userFirstName + " " + userLastName)
-    })
-  }, [])
+    if (!userIsLoggedIn) {
+      return;
+    }
+    dispatch(getUserDetails("aaa")).then(() => {
+      console.log(
+        "User data: ",
+        userFirstName,
+        userLastName,
+        userEmail,
+        userAvatarURL
+      );
+      setUserFullName(userFirstName + " " + userLastName);
+    });
+
+    // cleanup
+    return () => {};
+  }, []);
 
   return (
     <>
@@ -103,15 +124,12 @@ const Header = ({location}) => {
             <>
               <div className="dropdown">
                 <button className="dropbtn" id="organizeBtn">
-                <div className="flex flex-row">
-                <div className="font-bold">
-                  Organize 
+                  <div className="flex flex-row">
+                    <div className="font-bold">Organize</div>
+                    <div>
+                      <MdOutlineKeyboardArrowDown className="arrow" />
+                    </div>
                   </div>
-                  <div>
-                  <MdOutlineKeyboardArrowDown className="arrow" />
-                  </div>
-                </div>
-
                 </button>
                 <div className="dropdown-content">
                   <a href="#">Create events</a>
@@ -122,14 +140,12 @@ const Header = ({location}) => {
               </div>
               <div className="dropdown">
                 <button className="dropbtn" id="helpBtn">
-                <div className="flex flex-row">
-                  <div className="font-bold">
-                  Help 
+                  <div className="flex flex-row">
+                    <div className="font-bold">Help</div>
+                    <div>
+                      <MdOutlineKeyboardArrowDown className="arrow" />
+                    </div>
                   </div>
-                  <div>
-                  <MdOutlineKeyboardArrowDown className="arrow" />
-                  </div>
-                </div>
                 </button>
                 <div className="dropdown-content">
                   <a href="#">Find your tickets</a>
@@ -146,7 +162,10 @@ const Header = ({location}) => {
               </div>
               <div className="button">
                 <Link to="/signup">
-                  <button className="header-button font-semibold" id="signupBtn">
+                  <button
+                    className="header-button font-semibold"
+                    id="signupBtn"
+                  >
                     Sign Up
                   </button>
                 </Link>
@@ -155,10 +174,7 @@ const Header = ({location}) => {
           ) : (
             <>
               <Link to="/create-event">
-                <div
-                  className="header-button flex flex-col items-center"
-                  
-                >
+                <div className="header-button flex flex-col items-center">
                   {" "}
                   <div
                     style={{
@@ -171,10 +187,7 @@ const Header = ({location}) => {
                 </div>
               </Link>
               <Link to="/likes">
-                <div
-                  className="header-button flex flex-col items-center"
-                  
-                >
+                <div className="header-button flex flex-col items-center">
                   {" "}
                   <div
                     style={{
@@ -187,19 +200,28 @@ const Header = ({location}) => {
                 </div>
               </Link>
               <Link to="/likes">
-                <div
-                  className="header-button flex flex-col items-center"
-                  
-                >
+                <div className="header-button flex flex-col items-center">
                   {" "}
                   <div
                     style={{
                       textAlign: "center",
                     }}
                   >
-                    <svg className="w-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
-</svg>
+                    <svg
+                      className="w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={1.5}
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
+                      />
+                    </svg>
                   </div>{" "}
                   Tickets
                 </div>
@@ -224,8 +246,7 @@ const Header = ({location}) => {
                   <span style={{ marginLeft: "10px" }}>Account Settings</span>
                 </a>
 
-                <a href="#" style={{ fontWeight: "500" }}
-                >
+                <a href="#" style={{ fontWeight: "500" }}>
                   <BiLogOut fontSize="25px" color="black" />{" "}
                   <span style={{ marginLeft: "10px" }}>Log out</span>
                 </a>
@@ -236,12 +257,10 @@ const Header = ({location}) => {
           {userEmail ? (
             <div className="dropdown flex flex-col items-center">
               <button className="dropbtn">
-              <div className="flex flex-row">
+                <div className="flex flex-row">
+                  <div>{userEmail}</div>
                   <div>
-                  {userEmail} 
-                  </div>
-                  <div>
-                  <MdOutlineKeyboardArrowDown className="arrow" />
+                    <MdOutlineKeyboardArrowDown className="arrow" />
                   </div>
                 </div>
               </button>
@@ -262,7 +281,9 @@ const Header = ({location}) => {
           ) : null}
         </div>
       </div>
-      {toggleSearch && <SearchPage toggle={setToggleSearch} location={location} />}
+      {toggleSearch && (
+        <SearchPage toggle={setToggleSearch} location={location} />
+      )}
     </>
   );
 };

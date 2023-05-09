@@ -28,10 +28,20 @@ function Organizer() {
             <p className="select">Events</p>
             <div className="uporpast">
               <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                <ToggleButton id="tbg-radio-1" value={1}>
+                <ToggleButton
+                  data-testid="tbg-radio-1"
+                  id="tbg-radio-1"
+                  value={1}
+                  role="radio"
+                >
                   Upcoming (1)
                 </ToggleButton>
-                <ToggleButton id="tbg-radio-2" value={2}>
+                <ToggleButton
+                  data-testid="tbg-radio-2"
+                  id="tbg-radio-2"
+                  value={2}
+                  role="radio"
+                >
                   Past (1)
                 </ToggleButton>
               </ToggleButtonGroup>
