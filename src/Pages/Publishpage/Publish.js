@@ -15,7 +15,7 @@ const Publish = () => {
     return (
         <div>
             <Headerpub data_testid="HDID" />
-            <Sidebar />
+            {/* <Sidebar /> */}
 
             <div  className='ppt'>
                 <h1 className='pubhead'>Publish Your Event</h1>

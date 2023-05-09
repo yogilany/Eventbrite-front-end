@@ -10,7 +10,8 @@ import Headerpub from '../../Publishpage/Headerpub'
 import Publish from '../../Publishpage/Publish'
 import Dashboard from '../Dashboard/Dashboard'
 import { useState } from 'react'
-
+import CreatorHeader from '../Details/Components/creatorHeader/CreatorHeader'
+import TicketsPage from '../../../Pages/CreatorsView/TicketsPage/TicketsPage'
 const CreateEvent = () => {
     const [event, setEvent] = useState({
         "basic_info": {
@@ -75,7 +76,7 @@ const CreateEvent = () => {
     </Tab.Pane>
 
     <Tab.Pane eventKey="third">
-      <Details />
+      <TicketsPage />
     </Tab.Pane>
 
     <Tab.Pane eventKey="fourth">
@@ -92,8 +93,8 @@ const CreateEvent = () => {
 
 </Container>
 
-<Headerpub data_testid="HDID" />
-
+{/* <Headerpub data_testid="HDID" /> */}
+<CreatorHeader />
    </Tab.Container>
   )
 }
