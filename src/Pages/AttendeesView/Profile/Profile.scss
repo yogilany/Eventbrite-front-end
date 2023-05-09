@@ -1,26 +1,14 @@
-*
-{
+* {
   font-family: "Neue Plak" !important;
 }
-<<<<<<< HEAD
-.prof_img
-{
-  border-radius: 50%;
-}
-.zzz {
-  width: 85%;
-  margin-top: 80px;
-=======
 .form_prof {
   height: auto;
   background-color: rgb(255, 255, 255);
   border: 1px solid #eeedf2;
   box-shadow: 1px 1px #f4f4f5;
   padding-bottom: 50px;
->>>>>>> 5ba8c3703c1b5a44f87ebdec9b4170c009b1be2e
 }
-.info__dot
-{
+.info__dot {
   margin-right: 2px;
 }
 .greyform_prof {
@@ -53,22 +41,19 @@
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin-top: 10px;
 }
-.collection_prof
-{
-    color: black;
-    font-size: 22px;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-    margin-top: 5px;
+.collection_prof {
+  color: black;
+  font-size: 22px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-top: 5px;
 }
-.likes_prof
-{
-    color: black;
-    font-size: 22px;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-    margin-top: 5px;
+.likes_prof {
+  color: black;
+  font-size: 22px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-top: 5px;
 }
-.interests__container
-{
+.interests__container {
   display: flex !important;
   align-items: center !important;
 }
@@ -99,23 +84,18 @@
   margin-left: 520px;
   margin-top: 8px;
 }
-@media screen and (max-width: 745px) 
-{
-  .likeblk_prof
-  {
-    width:75%;
+@media screen and (max-width: 745px) {
+  .likeblk_prof {
+    width: 75%;
   }
-  .follblk_prof
-  {
+  .follblk_prof {
     width: 50%;
   }
-  .events_prof
-  {
+  .events_prof {
     margin-left: 100px;
   }
-  .orderecss
-  {
-    width:75%;
+  .orderecss {
+    width: 75%;
   }
 }
 .form_proff {
