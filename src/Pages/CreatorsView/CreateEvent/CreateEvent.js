@@ -76,7 +76,7 @@ const CreateEvent = () => {
     </Tab.Pane>
 
     <Tab.Pane eventKey="third">
-      <TicketsPage />
+      <TicketsPage event={event} setEvent={setEvent} />
     </Tab.Pane>
 
     <Tab.Pane eventKey="fourth">
