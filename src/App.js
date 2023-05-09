@@ -82,7 +82,7 @@ function App() {
             />
             <Route path="/event/:id" element={<SingleEvent />} />
 
-            <Route element={<ProtectedRoute />}>
+            <Route element={<ProtectedRoute />} errorElement={<ErrorPage />}>
               <Route path="/likes" element={<Likes />} />
               <Route path="/all-events" element={<AllEvents />} />
               <Route path="/details" element={<Details />} />

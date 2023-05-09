@@ -9,6 +9,10 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+const responseFacebook = (response) => {
+  console.log(response);
+};
 /**
  *
  * @param {name: Name of this element after creation} props
@@ -61,13 +65,22 @@ export const SignupMethods = (props) => {
         <Row xs={1} md={4} lg={4}>
           <Col>
             <div id="circular-icon">
-              <TiIcons.TiSocialFacebook
-                data-testid="SignupMethods-FacebookButton"
-                id="SignupMethods-FacebookButton"
-                role="button"
-                color="white"
-                size="32px"
-              ></TiIcons.TiSocialFacebook>
+              <FacebookLogin
+                appId={`${process.env.REACT_APP_FACEBOOK_APP_ID}`}
+                autoLoad
+                fields="name,email,picture"
+                scope={"email"}
+                callback={responseFacebook}
+                render={(renderProps) => (
+                  <TiIcons.TiSocialFacebook
+                    data-testid="SignupMethods-FacebookButton"
+                    id="SignupMethods-FacebookButton"
+                    role="button"
+                    color="white"
+                    size="32px"
+                  />
+                )}
+              />
             </div>
           </Col>
         </Row>
