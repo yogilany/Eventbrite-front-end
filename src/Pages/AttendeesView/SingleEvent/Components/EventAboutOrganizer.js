@@ -3,6 +3,8 @@ import { Container, Row, Col, Button, Stack } from "react-bootstrap";
 import { Avatar, Link } from "@mui/material";
 import * as HIIcons from "react-icons/hi";
 import "../SingleEvent.scss";
+import BlueButton from "src/Components/Buttons/BlueButton";
+import WhiteButton from "src/Components/Buttons/WhiteButton";
 const EventAboutOrganizer = (props) => {
   const AvatarStyle = {
     border: "1px solid #eeedf2",
@@ -61,13 +63,28 @@ const EventAboutOrganizer = (props) => {
               gap={4}
               className="d-flex justify-content-center"
             >
-              <Button
-                variant="outline-dark"
-                style={{ color: "#3659e3", border: "none", padding: "1% 3%" }}
+              <WhiteButton
+                style={{
+                  fontSize: "16px",
+
+                  border: "none",
+                  padding: "2% 4%",
+                  color: "#4161df",
+                }}
               >
                 Contact
-              </Button>
-              <Button
+              </WhiteButton>
+              <BlueButton
+                style={{
+                  fontSize: "16px",
+                  border: "none",
+                  padding: "2% 4%",
+                  color: `${props.isOrganizerFollowed ? "white" : ""}`,
+                }}
+              >
+                Follow
+              </BlueButton>
+              {/* <Button
                 style={{
                   backgroundColor: "#3659e3",
                   border: "none",
@@ -75,7 +92,7 @@ const EventAboutOrganizer = (props) => {
                 }}
               >
                 Follow
-              </Button>
+              </Button> */}
             </Stack>
           </Row>
 

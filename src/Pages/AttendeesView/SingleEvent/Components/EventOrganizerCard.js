@@ -41,6 +41,7 @@ export const EventOrganizerCard = (props) => {
           <BlueButton
             style={{
               width: "50%",
+              color: `${props.isOrganizerFollowed ? "white" : ""}`,
             }}
           >
             Follow

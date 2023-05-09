@@ -20,6 +20,7 @@ import axios from "axios";
 const SingleEvent = (props) => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
+  const [isOrganizerFollowed, setIsOrganizerFollowed] = useState(false);
   const EventNameHeaderStyle = {
     color: "#1e0a3c",
     fontWeight: "bold",
@@ -103,6 +104,7 @@ const SingleEvent = (props) => {
                         </Stack>
                         <Col md={8}>
                           <EventOrganizerCard
+                            isOrganizerFollowed={isOrganizerFollowed}
                             avatar={organizer_avatar}
                             name={event.basic_info.organizer}
                             follower_count="1.5k"
@@ -123,6 +125,7 @@ const SingleEvent = (props) => {
                       </Row>
                       <Row>
                         <EventAboutOrganizer
+                          isOrganizerFollowed={isOrganizerFollowed}
                           avatar={organizer_avatar}
                           organizer_name="E7kky magazine"
                           follower_count="1.4k"
