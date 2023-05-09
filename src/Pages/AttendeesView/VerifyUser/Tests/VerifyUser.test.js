@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { unwrapResult } from "@reduxjs/toolkit";
-import VerifyUser from "./VerifyUser";
+import VerifyUser from "../VerifyUser";
 import { renderWithProviders } from "src/test_utils";
 
 jest.mock("react-redux");

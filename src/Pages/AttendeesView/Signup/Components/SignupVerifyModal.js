@@ -50,16 +50,27 @@ const SignupVerifyModal = (props) => {
               <Col className="g-0 p-0" md={5}></Col>
             </Row>
             <Row>
-              <h2 className="verify-modal-header">Terms and conditions</h2>
+              <h2
+                data-testid="SignupVerifyModal-header"
+                className="verify-modal-header"
+              >
+                Terms and conditions
+              </h2>
             </Row>
             <Row>
               <span className="span-text-format">
                 {"I accept the "}
-                <Link to="/">Eventbrite Terms Of Service</Link>
+                <Link data-testid="SignupVerifyModal-TOS-link" to="/">
+                  Eventbrite Terms Of Service
+                </Link>
                 {", "}
-                <Link to="/">Eventbrite Terms Of Service</Link>
+                <Link data-testid="SignupVerifyModal-Guidelines-link" to="/">
+                  Eventbrite Terms Of Service
+                </Link>
                 {", "}
-                <Link to="/">Community Guidelines</Link>
+                <Link data-testid="SignupVerifyModal-PrivacyPrivacy" to="/">
+                  Community Guidelines
+                </Link>
                 {" and have read the "}
                 <Link to="/">Privacy Policy</Link>.
               </span>
