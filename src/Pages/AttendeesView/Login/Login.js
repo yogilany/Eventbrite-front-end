@@ -5,7 +5,14 @@ import { useNavigate } from "react-router";
 import imageLogin from "../../../assets/adelLogin.png";
 import AboutFooter from "../../../Components/AboutFooter/AboutFooter";
 import Footer from "../../../Components/footer/Footer";
-import { authUser, checkEmailExists, forgotPassword } from "../../../features/authSlice";
+import {
+  authGoogleUser,
+  authUser,
+  checkEmailExists,
+  forgotPassword,
+  registerGoogleUser,
+  registerUser,
+} from "../../../features/authSlice";
 import { HorizontalChip } from "./Components/HorizontalChip";
 import LoginForm from "./Components/LoginForm";
 import LoginImage from "./Components/LoginImage";
@@ -14,7 +21,7 @@ import { LoginTitle } from "./Components/Title";
 import "./Login.scss";
 import { unwrapResult } from "@reduxjs/toolkit";
 import FormMessage from "../../../Components/FormMessage/FormMessage";
-import { Link, } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import LoginForgotPasswordModal from "./Components/LoginForgotPasswordModal";
 /**
@@ -46,7 +53,7 @@ export const Login = (props) => {
   const [emailExist, setEmailExist] = useState(true);
   const [passwordIncorrect, setPasswordIncorrect] = useState(false);
   const [forgotPasswordModalShow, setForgotPasswordModalShow] = useState(false);
-
+  const [GoogleProfile, setGoogleProfile] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const controls = useAnimation();
@@ -56,12 +63,11 @@ export const Login = (props) => {
       dispatch(forgotPassword(emailInput))
         .unwrap(unwrapResult)
         .then((result) => {
-          console.log('success', result)
+          console.log("success", result);
         })
         .catch((err) => {
-          console.log('error', err)
+          console.log("error", err);
         });
-
     } catch (err) {
       console.log(err);
     }
@@ -75,7 +81,7 @@ export const Login = (props) => {
       };
 
       // Save email for forget password modal
-      setEmailInput(e.email)
+      setEmailInput(e.email);
 
       console.log(data);
 
@@ -89,29 +95,23 @@ export const Login = (props) => {
           setPasswordIncorrect(emailExist === true);
           setErrMsg(err);
           setTimeout(() => {
-            controls.start('start');
+            controls.start("start");
           }, 500);
         });
-
-
     } catch (err) {
       console.log(err);
     }
-
-
   };
   useEffect(() => {
     if (success) {
       navigate("/", { replace: true });
     }
-  }, [success])
+  }, [success]);
 
   useEffect(() => {
-
     const isValid = user.match(isValidEmail);
 
-    if (!isValid)
-      setEmailExist(false);
+    if (!isValid) setEmailExist(false);
 
     if (user.length > 6 && isValidEmail) {
       dispatch(checkEmailExists(user))
@@ -120,24 +120,78 @@ export const Login = (props) => {
           setEmailExist(true);
           setPasswordIncorrect(false);
           setTimeout(() => {
-            controls.start('start');
+            controls.start("start");
           }, 500);
         })
         .catch(() => {
           //Server error
-          setSuccess(false)
-          setEmailExist(false)
+          setSuccess(false);
+          setEmailExist(false);
           setPasswordIncorrect(false);
         });
     }
   }, [user]);
 
+  useEffect(() => {
+    console.log(GoogleProfile);
+    if (GoogleProfile) {
+      if (!GoogleProfile.email_verified) {
+        setSuccess(false);
+        setPasswordIncorrect(emailExist === true);
+        setErrMsg("Google email is not verified");
+        setTimeout(() => {
+          controls.start("start");
+        }, 500);
+      } else {
+        const email_exists = dispatch(checkEmailExists(user));
+        if (!email_exists) {
+          //Email does not exist, create account for user
+          dispatch(
+            registerGoogleUser({
+              email: GoogleProfile.email,
+              password: crypto.getRandomValues(new Uint8Array(64)).toString(),
+              firstname: GoogleProfile.given_name,
+              lastname: GoogleProfile.family_name ?? "",
+              picture: GoogleProfile.picture,
+            })
+          ).catch((err) => {
+            setSuccess(false);
+            setPasswordIncorrect(emailExist === true);
+            setErrMsg(err);
+            setTimeout(() => {
+              controls.start("start");
+            }, 500);
+            return;
+          });
+        }
+
+        dispatch(
+          authGoogleUser({
+            email: GoogleProfile.email,
+          })
+        )
+          .then((result) => {
+            setSuccess(true);
+          })
+          .catch((err) => {
+            setSuccess(false);
+            setPasswordIncorrect(emailExist === true);
+            setErrMsg(err);
+            setTimeout(() => {
+              controls.start("start");
+            }, 500);
+          });
+      }
+    }
+
+    return () => {};
+  }, [GoogleProfile]);
+
   return (
     <Container className={props.name} fluid style={{ height: "50px" }}>
       <LoginForgotPasswordModal
         show={forgotPasswordModalShow}
-        onHide={() => setForgotPasswordModalShow(false)
-        }
+        onHide={() => setForgotPasswordModalShow(false)}
         email={emailInput}
       />
       <Row>
@@ -151,8 +205,8 @@ export const Login = (props) => {
             justifyContent: "center",
             alignContent: "center",
           }}
-          id='login-column-left'
-          data-testid='login-column-left'
+          id="login-column-left"
+          data-testid="login-column-left"
         >
           <Col>
             <Row>
@@ -176,12 +230,12 @@ export const Login = (props) => {
                       x: [-30, 30, -30, 30, 0],
                       transition: {
                         duration: 0.5,
-                      }
-                    })
+                      },
+                    }),
                   }}
                   animate={controls}
                   initial={{
-                    x: "0px"
+                    x: "0px",
                   }}
                 >
                   <FormMessage>
@@ -201,12 +255,12 @@ export const Login = (props) => {
                       x: [-30, 30, -30, 30, 0],
                       transition: {
                         duration: 0.5,
-                      }
-                    })
+                      },
+                    }),
                   }}
                   animate={controls}
                   initial={{
-                    x: "0px"
+                    x: "0px",
                   }}
                 >
                   <FormMessage>
@@ -229,38 +283,41 @@ export const Login = (props) => {
                 passwordIncorrect={passwordIncorrect}
               />
             </Row>
-            {passwordIncorrect ?
-              (
-                <Row
-                  className="g-0">
-                  <Button
-                    style={{ textDecoration: "none" }}
-                    onClick={() => {
-                      setForgotPasswordModalShow(true);
-                      forgotPasswordHandler();
-                      return;
-                    }}
-                    className={`d-flex w-auto p-0 `}
-                    variant="link" data-testid="login-forgot-password"
-                  >Forgot your password?</Button>
-                </Row>
-
-              ) : null
-            }
+            {passwordIncorrect ? (
+              <Row className="g-0">
+                <Button
+                  style={{ textDecoration: "none" }}
+                  onClick={() => {
+                    setForgotPasswordModalShow(true);
+                    forgotPasswordHandler();
+                    return;
+                  }}
+                  className={`d-flex w-auto p-0 `}
+                  variant="link"
+                  data-testid="login-forgot-password"
+                >
+                  Forgot your password?
+                </Button>
+              </Row>
+            ) : null}
             <Row className="g-0">
-              <HorizontalChip id='login-horizontalchip' data_testid="horizontal-chip" />
+              <HorizontalChip
+                id="login-horizontalchip"
+                data_testid="horizontal-chip"
+              />
             </Row>
             <Row className="g-0">
               <LoginMethods
                 data_testid="login-methods"
                 name="login-methods-div"
+                setGoogleProfile={setGoogleProfile}
               />
             </Row>
           </Col>
         </Col>
         <Col md={0} lg={6} sm={0} className="g-0 d-none d-lg-block">
           <LoginImage
-            id='login-image'
+            id="login-image"
             data_testid="login-image"
             img_url={imageLogin}
             img_caption="Winston Baker"
@@ -270,10 +327,10 @@ export const Login = (props) => {
         </Col>
       </Row>
       <Row className="d-none d-lg-block d-md-block">
-        <AboutFooter id='login-aboutfooter' />
+        <AboutFooter id="login-aboutfooter" />
       </Row>
       <Row>
-        <Footer id='login-footer' data_testid="login-footer" />
+        <Footer id="login-footer" data_testid="login-footer" />
       </Row>
     </Container>
   );
