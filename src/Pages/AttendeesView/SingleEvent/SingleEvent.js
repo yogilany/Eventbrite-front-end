@@ -2,25 +2,25 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Stack } from "react-bootstrap/";
 import { Layout } from "../../../app/layout";
 import event_image from "../../../assets/event_image.png";
-import organizer_avatar from "../../../assets/event_organizer_avatar.png";
+import organizer_avatar from "../../../assets/Organizer/AnasOrg.jpg";
 import EventImage from "./Components/EventImage.js";
-import EventOrganizerCard from "./Components/EventAboutOrganizer";
+import EventOrganizerCard from "./Components/EventOrganizerCard";
 import EventLocation from "./Components/EventLocation.js";
 import EventAbout from "./Components/EventAbout";
 import { EventShare } from "./Components/EventShare";
 import EventAboutOrganizer from "./Components/EventAboutOrganizer";
 import { EventTicketCard } from "./Components/EventTicketCard";
 import * as HIIcons from "react-icons/hi";
-import "./SingleEvent.css";
+import "./SingleEvent.scss";
 import testbackground from "../../../assets/adelEv10.png";
 import Header from "../../../Components/header/Header";
 import Footer from "../../../Components/footer/Footer";
 import { useParams } from "react-router";
 import axios from "axios";
-
 const SingleEvent = (props) => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
+  const [isOrganizerFollowed, setIsOrganizerFollowed] = useState(false);
   const EventNameHeaderStyle = {
     color: "#1e0a3c",
     fontWeight: "bold",
@@ -62,7 +62,7 @@ const SingleEvent = (props) => {
                         <EventImage img_url={event.image_link} />
                       </Col>
                     </Row>
-                    <Row className="ml-5 mr-5" style={{ padding: "0 0 0 2%" }}>
+                    <Row className="">
                       <Row className="mb-5">
                         <Stack gap={3}>
                           <div>
@@ -102,8 +102,9 @@ const SingleEvent = (props) => {
                           </div>
                           <p>{event.description}</p>
                         </Stack>
-                        <Col md={6}>
-                          <EventAboutOrganizer
+                        <Col md={8}>
+                          <EventOrganizerCard
+                            isOrganizerFollowed={isOrganizerFollowed}
                             avatar={organizer_avatar}
                             name={event.basic_info.organizer}
                             follower_count="1.5k"
@@ -124,6 +125,7 @@ const SingleEvent = (props) => {
                       </Row>
                       <Row>
                         <EventAboutOrganizer
+                          isOrganizerFollowed={isOrganizerFollowed}
                           avatar={organizer_avatar}
                           organizer_name="E7kky magazine"
                           follower_count="1.4k"
