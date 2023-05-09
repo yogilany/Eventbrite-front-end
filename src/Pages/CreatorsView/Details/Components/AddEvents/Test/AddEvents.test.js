@@ -1,12 +1,13 @@
 import { getByTestId, render, screen } from "@testing-library/react";
 import AddEvents from "../AddEvents";
+import renderWithProviders from "src/test_utils";
 test("Test Add Events Section to be displayed in Details Page", () => {
-    render(<AddEvents />);
-    const Contianer = screen.getByTestId("addEvents");
-    expect(Contianer).toBeInTheDocument();
-})
+  render(<AddEvents />);
+  const Contianer = screen.getByTestId("addEvents");
+  expect(Contianer).toBeInTheDocument();
+});
 test("Test Agenda and FAQ Section to be displayed in Add Event Section", () => {
-    render(<AddEvents />);
-    const section = screen.getByTestId("addSection");
-    expect(section).toBeInTheDocument();
-})
+  render(<AddEvents />);
+  const section = screen.getByTestId("addSection");
+  expect(section).toBeInTheDocument();
+});

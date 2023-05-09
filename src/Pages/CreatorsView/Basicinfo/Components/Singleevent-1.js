@@ -1,16 +1,54 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import "./Singleevent.scss";
 
 function Singleevent(props) {
   const [showwarning, setshowwarning] = useState(false);
+
+  const startDateRef = useRef(null);
+  const endDateRef = useRef(null);
+  const startTimeRef = useRef(null);
+  const endTimeRef = useRef(null);
+
   function changehandler(e) {
     if (e.target.value === "") {
+      props.setStartDate(null);
+      props.setEndDate(null);
       setshowwarning(true);
+      const e = props.error.slice();
+      props.setError([...props.error, "1"]);
     } else {
-      setshowwarning(false);
+      // Convert date to YYYY-MM-DD HH:MM
+      const full_start_date = new Date(
+        startDateRef.current.value + " " + startTimeRef.current.value
+      );
+      const full_end_date = new Date(
+        endDateRef.current.value + " " + endTimeRef.current.value
+      );
+      console.log("full_start_date: ", full_start_date);
+      console.log("full_end_date: ", full_end_date);
+      // Check end date is after start date
+      if (full_end_date < full_start_date) {
+        setshowwarning(true);
+        props.setStartDate(null);
+        props.setEndDate(null);
+        props.setError(true);
+        const e = props.error.slice();
+        props.setError([...props.error, "1"]);
+      } else {
+        props.setStartDate(full_start_date);
+        props.setEndDate(full_end_date);
+        if (props.error.length !== 0) {
+          // Pop element from error list
+          const e = props.error.slice();
+          e.pop();
+          props.setError(e);
+        }
+        setshowwarning(false);
+      }
     }
   }
+
   return (
     <div>
       <p>Single event happens once and can last multiple days</p>
@@ -31,11 +69,11 @@ function Singleevent(props) {
             Event Starts<sup className="suplol"> *</sup>
           </label>
           <input
+            ref={startDateRef}
             id="startdateInput"
             className={showwarning ? "inputwarning" : "inputregular"}
             type="date"
             name="startdate"
-            role="textbox"
             defaultValue={"2023-05-01"}
             onChange={changehandler}
           />
@@ -43,12 +81,14 @@ function Singleevent(props) {
         <div className="fulltime-input">
           <label for="starttime">Start time</label>
           <select
+            ref={startTimeRef}
             id="starttimeInput"
             className="inputregular"
             type="select"
             name="starttime"
             role="textbox"
             defaultValue={"07:30 AM"}
+            onChange={changehandler}
           >
             <option value="07:00 AM">07:00 AM</option>
             <option value="07:30 AM">07:30 AM</option>
@@ -101,11 +141,11 @@ function Singleevent(props) {
             Event Ends<sup className="suplol"> *</sup>
           </label>
           <input
+            ref={endDateRef}
             id="enddateInput"
             className={showwarning ? "inputwarning" : "inputregular"}
             type="date"
             name="enddate"
-            role="textbox"
             defaultValue={"2023-05-03"}
             onChange={changehandler}
           />
@@ -113,12 +153,14 @@ function Singleevent(props) {
         <div className="fulltime-input">
           <label for="starttime">End time</label>
           <select
+            ref={endTimeRef}
             id="endtimeInput"
             className="inputregular"
             type="select"
             name="starttime"
             role="textbox"
             defaultValue={"10:00 PM"}
+            onChange={changehandler}
           >
             <option value="07:00 AM">07:00 AM</option>
             <option value="07:30 AM">07:30 AM</option>
@@ -153,6 +195,13 @@ function Singleevent(props) {
             <option value="10:00 PM">10:00 PM</option>
           </select>
         </div>
+      </div>
+      <div>
+        {showwarning ? (
+          <label className="warning-label">
+            End date must be after start date.
+          </label>
+        ) : null}
       </div>
       <label className="displaybox-container">
         Display start time.

@@ -87,5 +87,10 @@
     "better-docs": "^2.7.2",
     "miragejs": "^0.1.47",
     "tailwindcss": "^3.3.2"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
+    ]
   }
 }
