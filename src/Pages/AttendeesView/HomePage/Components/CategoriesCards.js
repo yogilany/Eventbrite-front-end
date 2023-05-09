@@ -12,6 +12,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlined";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { set } from "date-fns";
 /**
  * @author Yousef Gilany
  * @description This is the Categories component that contains the categories tiles. It takes the user to a new page that shows event in that category.
@@ -32,13 +33,17 @@ const CategoriesCards = ({ location, setLocation }) => {
     <SportsFootballOutlinedIcon sx={{ color: "#d1410c" }} />,
   ];
 
+  const eight = [1,2,3,4,5,6,7,8]
+
   const fetchCategories = () => {
     // console.log("baseee", process.env.REACT_APP_BASE_API);
+    setIsLoading(true);
     axios
       .get(`${process.env.REACT_APP_BASE_API}/categories`)
       .then(function (response) {
         console.log(response);
         setCategories(response.data);
+        setIsLoading(false);
       })
       .catch(function (error) {
         // handle error
@@ -58,7 +63,7 @@ const CategoriesCards = ({ location, setLocation }) => {
           <Row>
             <Col>
               <div className="tile-group">
-                {categories.map((category, index) => {
+                { !isLoading ? categories.map((category, index) => {
                   return (
                     <Link key={index} to={`/events/${category.name}/${location}`}>
                       <Tile
@@ -69,7 +74,13 @@ const CategoriesCards = ({ location, setLocation }) => {
                       />
                     </Link>
                   );
-                })}
+                }) :   eight.map(<div class="flex items-center justify-between">
+                <div>
+                    <div class="h-2.5 bg-gray-300 rounded-full  w-24 mb-2.5"></div>
+                    <div class="w-32 h-2 bg-gray-200 rounded-full "></div>
+                </div>
+                <div class="h-2.5 bg-gray-300 rounded-full  w-12"></div>
+            </div>)}
               </div>
             </Col>
           </Row>

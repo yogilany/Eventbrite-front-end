@@ -1,9 +1,30 @@
-import React from "react";
-import { Container, Col, Row, Table } from "react-bootstrap";
+import React from 'react'
+import { Container, Row, Col } from "react-bootstrap";
+import Headerpub from '../../../Publishpage/Headerpub'
+import Sidebar from '../../Sidebar/Sidebar'
+import { Table } from 'react-bootstrap'
 
-const OrdersTable = () => {
+const TicketsReport = () => {
   return (
-    <Container fluid className="mt-5 mb-5">
+    <>
+    <Headerpub data_testid="HDID" />
+    <Sidebar />
+
+    <div style={{ marginLeft: 450, marginTop: 20 }}>
+      <Container fluid>
+        <Container>
+          <Row>
+            <Col>
+              <h1
+                className="pubhead"
+                style={{ fontSize: "52px", fontFamily: "Neue Plak Bold !important" , fontWeight:'bold' }}
+              >
+                Tickets Report
+              </h1>
+            </Col>
+          </Row>
+        </Container>
+        <Container fluid className="mt-5 mb-5">
       <Row>
         <Col md={8}>
           <h3 className="heading3 ">Recent Orders</h3>
@@ -49,7 +70,12 @@ const OrdersTable = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
 
-export default OrdersTable;
+   
+      </Container>
+    </div>
+  </>
+  )
+}
+
+export default TicketsReport
