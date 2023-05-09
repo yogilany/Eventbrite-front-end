@@ -31,7 +31,7 @@ const DateTime = (props) => {
   }
   
   return (
-    <div data-testid={props.data_testid} style={{ paddingBottom: 70 }}>
+    <div class="mb-2" data-testid={props.data_testid} style={{ paddingBottom: 70 }}>
       <h2 className="rdh">{props.title}</h2>
       <div style={{ display: "flex" }}>
         <input
@@ -43,7 +43,7 @@ const DateTime = (props) => {
           checked={val === "now"}
           style={{ cursor: "pointer" }}
         ></input>
-        <p style={{ marginLeft: 20, marginTop: 15, color: "#39364f" }}>
+        <p class="mb-2" style={{ marginLeft: 20, marginTop: 15, color: "#39364f" }}>
           {props.c1}
         </p>
       </div>
@@ -57,7 +57,7 @@ const DateTime = (props) => {
           checked={val === "sch"}
           style={{ cursor: "pointer" }}
         ></input>
-        <p style={{ marginLeft: 20, marginTop: 10, color: "#39364f" }}>
+        <p class="mb-2" style={{ marginLeft: 20, marginTop: 10, color: "#39364f" }}>
           {props.c2}
         </p>
       </div>
