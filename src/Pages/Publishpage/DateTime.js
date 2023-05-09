@@ -46,10 +46,10 @@ const DateTime = (props) => {
                 </div>
             </div>
             <div><p style={{ fontSize: '.875rem', lineHeight: '1.25rem' }}>Time zone is same as your event's</p></div>
-            {val==="sch" &&(<div class="ft">
+            {val==="sch" &&(<div className="ft">
                 <button id="sch_butt" className="ftbtn">Schedule</button>
             </div>)}
-            {val==="now" &&(<div class="ft">
+            {val==="now" &&(<div className="ft">
                 <button id="pub_button" className="ftbtn">Publish</button>
             </div>)}
         </div>
