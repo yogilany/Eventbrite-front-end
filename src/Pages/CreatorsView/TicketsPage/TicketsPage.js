@@ -18,7 +18,7 @@ import { useEffect } from "react";
  * @description This is Tickets Page contains Add tickets and Add Promo-codes
  * @returns {JSX.Element}
  */
-const Tickets = ({event , setEvent}) => {
+const Tickets = ({ event, setEvent }) => {
   const [ticketName, setTicketName] = useState("");
   const [success, setSuccess] = useState(false);
   const [ticketStartTime, setTiccketStartTime] = useState("");
@@ -53,8 +53,10 @@ const Tickets = ({event , setEvent}) => {
   const [promoStartTime, setPromoStartTime] = useState();
   const [promoEndTime, setPromoEndTime] = useState();
   const [isPercentage, setIsPercentage] = useState("");
-  const [isTicketSavedSuccessfully, setIsTicketSavedSuccessfully] = useState(false);
-  const [isPromoCodeSavedSuccessfully, setIsPromoCodeSavedSuccessfully] = useState(false);
+  const [isTicketSavedSuccessfully, setIsTicketSavedSuccessfully] =
+    useState(false);
+  const [isPromoCodeSavedSuccessfully, setIsPromoCodeSavedSuccessfully] =
+    useState(false);
   const [isPastDate, setIsPastDate] = useState(false);
   const promoCodeData = {
     name: promoCodeName,
@@ -78,41 +80,48 @@ const Tickets = ({event , setEvent}) => {
     setIsTicketSavedSuccessfully(true);
   };
   const handleSubmitPromoCode = () => {
-    if (promoCodeName !== "" && (discountAmount !== "" || percentageAmount !== ""))
-    {
-      if ((isLimited && LimitedAmount === ""))
+    if (
+      promoCodeName !== "" &&
+      (discountAmount !== "" || percentageAmount !== "")
+    ) {
+      if (isLimited && LimitedAmount === "")
         setIsPromoCodeSavedSuccessfully(false);
       else {
-        setIsPromoCodeSavedSuccessfully(true); setShowPromoCode(false);
+        setIsPromoCodeSavedSuccessfully(true);
+        setShowPromoCode(false);
       }
-    }
-    else
-      setIsPromoCodeSavedSuccessfully(false);
+    } else setIsPromoCodeSavedSuccessfully(false);
     console.log(isPromoCodeSavedSuccessfully);
   };
-  function saveData()
-  {
+  function saveData() {
+    // spread old state and save new ticket
     setEvent({
-      ...event, 
-      tickets: [{
-        type: "vip",
-        name: ticketName,
-        quantity: ticketQuantity,
-        price: ticketPrice,
-        sales_end_date_time: endTicketDate,
-        sales_start_date_time: startTicketDate
-      }
-      ]
-    })
+      ...event,
+      tickets: [
+        ...event.tickets,
+        {
+          type: "vip",
+          name: ticketName,
+          max_quantity: ticketQuantity,
+          price: ticketPrice,
+          sales_end_date_time: new Date(endTicketDate)
+            .toISOString()
+            .slice(0, -5),
+          sales_start_date_time: new Date(endTicketDate)
+            .toISOString()
+            .slice(0, -5),
+        },
+      ],
+    });
     setSuccess(true);
     alert("Saved");
   }
-    useEffect(() => {
-      setTimeout(() => {
-        // After 3 seconds set the show value to false
-        setSuccess(false);
-      }, 3000);
-    }, [success]);
+  useEffect(() => {
+    setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setSuccess(false);
+    }, 3000);
+  }, [success]);
   // const checkPastDate = () => {
   //   const currentDate = new Date().toISOString().slice(0, -5);
   //   if (currentDate >= endTicketDate)
@@ -572,7 +581,10 @@ const Tickets = ({event , setEvent}) => {
               />
             </div>
             {isPastDate && <p>Error Date</p>}
-            <div className="submition__section" style = {{paddingBottom:'10px'}}>
+            <div
+              className="submition__section"
+              style={{ paddingBottom: "10px" }}
+            >
               <button
                 className="submition-cancelBtn"
                 onClick={() => setShowPromoCode(false)}
@@ -591,12 +603,26 @@ const Tickets = ({event , setEvent}) => {
         {/* {isPromoCodeSavedSuccessfully && <div>
           {promoCodeName} , {discountAmount} 
         </div>} */}
-        <div style={{ marginTop: '100px' }}>
-          {addmissionBtn && <TicketInfo ticketName = "General admission" ticketDate = "On sale Ends Jul 16,2023 at 7:00PM" amount = "0 / 10" Price = "$90" />}
-          {promoCodeBtn && <PromoCodesInfo name = "Mahmoud Khaled" codeType = "Applies discount" disacount = "$20" Uses = "0 / Unlimites" Status = "Ended" />}
+        <div style={{ marginTop: "100px" }}>
+          {addmissionBtn && (
+            <TicketInfo
+              ticketName="General admission"
+              ticketDate="On sale Ends Jul 16,2023 at 7:00PM"
+              amount="0 / 10"
+              Price="$90"
+            />
+          )}
+          {promoCodeBtn && (
+            <PromoCodesInfo
+              name="Mahmoud Khaled"
+              codeType="Applies discount"
+              disacount="$20"
+              Uses="0 / Unlimites"
+              Status="Ended"
+            />
+          )}
         </div>
       </div>
-      
     </div>
   );
 };

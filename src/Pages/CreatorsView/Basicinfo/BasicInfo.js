@@ -27,8 +27,8 @@ function Basicinfo({ event, setEvent, setEventTitle }) {
   const [title, setTitle] = useState("");
   const [organizer, setOrganizer] = useState("");
   const [venue, setVenue] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date() + 24 * 60 * 60 * 1000);
   const [timezone, setTimezone] = useState("");
   const [language, setLanguage] = useState("");
   const [isStartShown, setIsStartShown] = useState(null);
@@ -50,12 +50,12 @@ function Basicinfo({ event, setEvent, setEventTitle }) {
       date_and_time: {
         start_date_time: startDate,
         end_date_time: endDate,
-        is_display_start_date: isStartShown,
-        is_display_end_date: isEndShown,
+        is_display_start_date: true,
+        is_display_end_date: true,
         time_zone: timezone,
         event_page_language: language,
       },
-      location: { ...event.location, location: venue },
+      location: { city: venue, is_online: true },
     });
 
     setSuccess(true);
@@ -205,6 +205,7 @@ function Basicinfo({ event, setEvent, setEventTitle }) {
                       Event Title<sup className="suplol"> *</sup>
                     </label>
                     <input
+                      required
                       className={showwarning ? "inputwarning" : "inputregular"}
                       placeholder="Be clear and discriptive."
                       type="text"
@@ -233,6 +234,7 @@ function Basicinfo({ event, setEvent, setEventTitle }) {
                   <div className="full-input">
                     <label for="organizer">Organizer</label>
                     <input
+                      required
                       className="inputregular"
                       placeholder="Tell attendees who is organizing this event. "
                       type="text"
@@ -251,6 +253,7 @@ function Basicinfo({ event, setEvent, setEventTitle }) {
                   </p>
                   <div className="select-container">
                     <select
+                      required
                       aria-invalid="false"
                       aria-labelledby="eventType-label"
                       className="input eds-field-styled__select"

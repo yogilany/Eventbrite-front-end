@@ -10,7 +10,48 @@ import { Alert, Row, Col } from "react-bootstrap";
  */
 
 function AddAttendees({ event, setEvent }) {
-  // define const variables here
+  // define an array of ticket types to be used in the table
+  const [ticketTypes, setTicketTypes] = useState([
+    {
+      type: "General Admission",
+      sold: "0/200",
+      price: "$5.00",
+    },
+    {
+      type: "VIP",
+      sold: "0/100",
+      price: "$10.00",
+    },
+  ]);
+
+  const [orderType, setOrderType] = useState("check");
+  const [totalvalue, setTotalValue] = useState(0);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState([]);
+
+  function saveData() {
+    if (error.length !== 0) return;
+    setEvent({
+      ...event,
+      orderType: orderType,
+      totalvalue: totalvalue,
+    });
+
+    setSuccess(true);
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setSuccess(false);
+    }, 3000);
+  }, [success]);
+
+  function quantityupdatehandler(e)
+  {
+    // set the total value of the tickets to the sume of each ticket type price * quantity
+    
+  }
   return (
     <>
       <Row>
@@ -38,6 +79,7 @@ function AddAttendees({ event, setEvent }) {
                   id="pp_payment_status"
                   name="pp_payment_status"
                   className="js-d-select-box"
+                  onChange={(e) => setOrderType(e.target.value)}
                 >
                   <option value="check">Paid with check</option>
                   <option value="cash">Paid with cash</option>
@@ -66,95 +108,28 @@ function AddAttendees({ event, setEvent }) {
                   <th width="20%" align="center">
                     Quantity
                   </th>
-                  <th width="20%" align="center">
-                    Face Value
-                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="ticket_row">
-                  <td>
-                    <div className="responsive-table--stacked__content">
-                      General Admission
-                    </div>
-                  </td>
-                  <td align="center">
-                    <div className="responsive-table--stacked__content">
-                      0/200
-                    </div>
-                  </td>
-                  <td align="center">
-                    <div className="responsive-table--stacked__content">
-                      $2.00
-                    </div>
-                  </td>
-                  <td align="center">
-                    <div className="responsive-table--stacked__content">
-                      <div className="l-mar-top-2">
-                        <input
-                          type="hidden"
-                          name="first_id"
-                          id="first_id"
-                          defaultValue={1039617099}
-                        />
-                        <input
-                          type="hidden"
-                          name="ticket_quantity_total_1039617099"
-                          id="ticket_quantity_total_1039617099"
-                          defaultValue={200}
-                        />
-                        <input
-                          type="hidden"
-                          name="ticket_quantity_sold_1039617099"
-                          id="ticket_quantity_sold_1039617099"
-                          defaultValue={0}
-                        />
-                        <input
-                          type="text"
-                          maxLength={5}
-                          pattern="\d*"
-                          onkeyup="CheckNumeric(this.name,'I',10000,  UpdateQuantity,1039617099);"
-                          name="quant_1039617099"
-                          id="quant_1039617099"
-                          defaultValue=""
-                          className="js-attendees-quant-input"
-                          data-automation="ticket-quantity-input-1039617099"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td align="center">
-                    <div className="responsive-table--stacked__content">
+                {ticketTypes.map((ticketType) => (
+                  <tr>
+                    <td>{ticketType.type}</td>
+                    <td align="center">{ticketType.sold}</td>
+                    <td align="center">{ticketType.price}</td>
+                    <td align="center">
                       <input
-                        type="hidden"
-                        name="cost_1039617099"
-                        id="cost_1039617099"
-                        defaultValue={2.0}
+                        type="text"
+                        maxLength={3}
+                        className="add-attendee-currency-input"
+                        name="quantity"
+                        id="quantity"
+                        defaultValue={0}
+                        data-automation="ticket-quantity-1039617099"
+                        onChange={quantityupdatehandler(ticketType.type)}
                       />
-                      <div className="l-mar-top-2 responsive-form__input--currency">
-                        <div className="responsive-form__input--currency__symbol">
-                          $
-                        </div>
-                        <input
-                          type="text"
-                          maxLength={7}
-                          className="add-attendee-currency-input"
-                          onkeyup="CheckNumeric(this.name,'F',0,UpdateGross);"
-                          name="gross_1039617099"
-                          id="gross_1039617099"
-                          defaultValue=""
-                          data-automation="ticket-gross-1039617099"
-                        />
-                        <input
-                          type="hidden"
-                          name="currency_1039617099"
-                          id="currency_1039617099"
-                          defaultValue="USD"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             <div className="eds-align--right">
@@ -172,7 +147,6 @@ function AddAttendees({ event, setEvent }) {
                   type="text"
                   maxLength={7}
                   className="add-attendee-currency-input"
-                  onkeyup="CheckNumeric(this.name,'F');"
                   name="gross"
                   disabled="disabled"
                   id="gross"
@@ -181,14 +155,12 @@ function AddAttendees({ event, setEvent }) {
                 />
               </div>
             </div>
-            <br/>
+            <br />
             <div className="eds-align--right">
               <button
-                type="submit"
-                className="eds-continue-button"
-                data-spec="continue-button"
-                data-automation="continue-button"
-                data-automation-click="AddAttendeesContinue"
+                type="Addbtn"
+                className="eds-addattendees-continue-button"
+                onClick={saveData}
               >
                 Continue
               </button>

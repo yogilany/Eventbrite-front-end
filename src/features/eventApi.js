@@ -12,18 +12,31 @@ import axios from "axios";
  */
 export const createEvent = async (eventData, userToken) => {
   try {
+    eventData.date_and_time.start_date_time = new Date(
+      eventData.date_and_time.start_date_time
+    )
+      .toISOString()
+      .slice(0, -5);
+    eventData.date_and_time.end_date_time = new Date(
+      eventData.date_and_time.end_date_time
+    )
+      .toISOString()
+      .slice(0, -5);
+    console.log("eventData: ", eventData);
+
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_API}/events/create`,
       JSON.stringify(eventData),
       {
         headers: {
-          ContentType: "application/json",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${userToken}`,
         },
       }
     );
-    return response.data;
+    return response;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };
