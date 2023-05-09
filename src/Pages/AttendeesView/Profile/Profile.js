@@ -96,6 +96,7 @@ const Profile = () => {
     };
     getfoll();
   }, []);
+
   console.log("data is", LikedEvents);
   const LikedEventscount = LikedEvents.length;
   const follwedpeoplecount = followedpeople.length;
