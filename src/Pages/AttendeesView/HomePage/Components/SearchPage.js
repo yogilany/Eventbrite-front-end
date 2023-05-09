@@ -3,6 +3,8 @@ import { Container, Col, Row } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import Follow from "../../FollowingOrganizersEvents/Components/Follow";
+import EventHorizontal from "./EventHorizontal";
 
 
 /**
@@ -71,7 +73,19 @@ const SearchPage = ({ toggle, location }) => {
             </div>
             </div>
             <div className="">
-              
+              <h1 class=" text-6xl font-extrabold text-blue-950 mb-12">Top Matches</h1>
+              <EventHorizontal
+          Title="Work in Europe / Sweden - Work Visa, Employers, Jobs, Relocation (DC)"
+          Date="Today at 4:00 PM + 24 more events"
+          Location="Regus - Washington DC - Metro Center, Washington"
+          Price="Starts at €19.00"
+        ></EventHorizontal>  
+         <EventHorizontal
+          Title="Work in Europe / Sweden - Work Visa, Employers, Jobs, Relocation (DC)"
+          Date="Today at 4:00 PM + 24 more events"
+          Location="Regus - Washington DC - Metro Center, Washington"
+          Price="Starts at €19.00"
+        ></EventHorizontal>             
               </div>
 
           </div>
