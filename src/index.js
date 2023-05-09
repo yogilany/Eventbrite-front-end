@@ -4,11 +4,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import store, { persistor } from "./store";
-import App from "src/App";
+import store, { persistor } from "./store.ts";
+import App from "./App";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import "src/App.scss";
-import "src/index.css";
+import "./App.scss";
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

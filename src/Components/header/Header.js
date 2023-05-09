@@ -174,7 +174,7 @@ const Header = ({ location }) => {
           ) : (
             <>
               <Link to="/create-event">
-                <div className="header-button flex flex-col items-center">
+                <div className="header-button flex flex-col items-center font-semibold">
                   {" "}
                   <div
                     style={{
@@ -183,11 +183,11 @@ const Header = ({ location }) => {
                   >
                     <HiOutlinePlus fontSize="18px" />
                   </div>{" "}
-                  <span style={{ color: "#3659e3" }}>Create an event</span>
+                  <span style={{ color: "#3659e3" }} >Create an event</span>
                 </div>
               </Link>
               <Link to="/likes">
-                <div className="header-button flex flex-col items-center">
+                <div className="header-button flex flex-col items-center font-semibold">
                   {" "}
                   <div
                     style={{
@@ -200,7 +200,7 @@ const Header = ({ location }) => {
                 </div>
               </Link>
               <Link to="/likes">
-                <div className="header-button flex flex-col items-center">
+                <div className="header-button flex flex-col items-center font-semibold">
                   {" "}
                   <div
                     style={{
@@ -208,7 +208,7 @@ const Header = ({ location }) => {
                     }}
                   >
                     <svg
-                      className="w-4"
+                      className="w-4 h-4"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth={1.5}
@@ -257,7 +257,7 @@ const Header = ({ location }) => {
           {userEmail ? (
             <div className="dropdown flex flex-col items-center">
               <button className="dropbtn">
-                <div className="flex flex-row">
+                <div className="flex flex-row font-semibold">
                   <div>{userEmail}</div>
                   <div>
                     <MdOutlineKeyboardArrowDown className="arrow" />

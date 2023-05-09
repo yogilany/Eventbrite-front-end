@@ -30,22 +30,6 @@ const Events = ({ location }) => {
     cards.push(i);
   }
 
-  // async function fetchEvents() {
-  //   const response = await getEvents({ category: category });
-  //   const filteredEvents = response.filter((event) => {
-  //     if (category != "All") {
-  //       setIsCategoriesShown(false);
-  //       return event.eventCategory == category;
-  //     } else {
-  //       setIsCategoriesShown(true);
-
-  //       return response;
-  //     }
-  //   });
-  //   // console.log("filteredEvents: ", filteredEvents);
-  //   setEvents(filteredEvents.slice(0, 8));
-  //   setMoreEvents(filteredEvents.slice(8, 24));
-  // }
 
   useEffect(() => {
     setLoading(true);
@@ -80,17 +64,19 @@ const Events = ({ location }) => {
           <Row className="justify-content-md-right">
             {events
               ? events.map((event, index) => (
-                  <EventCard
-                    key={index}
-                    eventTitle={event.eventName}
-                    eventDate={event.eventDate}
-                    eventTime={event.eventTime}
-                    eventLocation={event.eventLocation}
-                    eventPrice={event.eventPrice}
-                    eventOrganizer={event.eventOrganizer}
-                    organizerFollowers={event.organizerFollowers}
-                  />
-                ))
+                <EventCard
+                  key={index}
+                  eventTitle={event.basic_info.title}
+                  eventDate={event.date_and_time.start_date_time}
+                  // eventTime={event.eventTime}
+                  eventLocation={event.location.city}
+                  eventPrice={event.price}
+                  eventOrganizer={event.basic_info.organizer}
+                  organizerFollowers={event.organizerFollowers}
+                  eventCover={event.image_link}
+                  eventID={event.id}
+                />
+              ))
               : "Loading..."}
           </Row>
         </Container>

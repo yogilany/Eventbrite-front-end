@@ -24,6 +24,7 @@ import {
 } from "../../../features/userprofSlice";
 import { useDispatch } from "react-redux";
 import eventphoto from "../../../assets/adelEv1.png";
+import { RxDotFilled } from "react-icons/rx";
 /**
  * @author Ziad Ezzat
  * @param {}
@@ -67,8 +68,10 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const token = useSelector(selectUserToken);
-  const ddd = getLikedEvents(token);
-  const [data, setdata] = useState();
+  const [imgSrc, setImgSrc] = useState(UserAvatar);
+  const handleImgError = () => {
+    setImgSrc(emptyprofile);
+  };
   useEffect(() => {
     const getlikes = async () => {
       try {
@@ -105,7 +108,8 @@ const Profile = () => {
             <div style={{ marginTop: 50, marginLeft: 50, display: "flex" }}>
               <img
                 className="prof_img"
-                src={UserAvatar}
+                onError={handleImgError}
+                src={imgSrc}
                 alt="profilelogo"
                 style={{ width: 120, height: 120 }}
               />
@@ -185,15 +189,10 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="compon">
+          <div className="compon" >
             <h5>Orders</h5>
-            <div className="orderecss">
-              <OrderComp data_testid="Order-Form-id" />
-            </div>
-            <button id="btn_prof_id" className="btn_prof">
-              {" "}
-              See past Orders
-            </button>
+            <div className="orderecss"><OrderComp data_testid="Order-Form-id" /></div>
+            <button id="btn_prof_id" className="btn_prof"> See past Orders</button>
             <hr className="zzz"></hr>
             <div style={{ display: "flex" }}>
               <a href="#" className="intersts_prof">
@@ -270,4 +269,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+// export default Profile;

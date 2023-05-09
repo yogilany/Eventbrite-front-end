@@ -2,7 +2,7 @@ import { TfiTicket } from 'react-icons/tfi';
 import { CgProfile } from 'react-icons/cg'
 import {FiExternalLink} from 'react-icons/fi'
 import "./Publish.css"
-import eventphoto from '../../assets/like1.jpeg' 
+import eventphoto from '../../assets/empt.png' 
 /**
  * @author Ziad Ezzat
  * @param {string} props.data_testid

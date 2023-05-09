@@ -14,7 +14,7 @@ import { Alert, Row, Col } from "react-bootstrap";
  * @returns {JSX.Element}
  */
 
-function Basicinfo({ event, setEvent }) {
+function Basicinfo({ event, setEvent, setEventTitle }) {
   const [tags, setTags] = useState([]);
   const [tagscount, setTagsCount] = useState(0);
   const [tagscharcount, setTagsCharCount] = useState(0);
@@ -212,6 +212,7 @@ function Basicinfo({ event, setEvent }) {
                       maxLength={75}
                       value={title}
                       onChange={(event) => {
+                        setEventTitle(event.target.value);
                         setTitle(event.target.value);
                         setCount(event.target.value.length);
                       }}

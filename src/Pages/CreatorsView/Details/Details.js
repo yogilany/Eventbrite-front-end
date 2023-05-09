@@ -35,11 +35,10 @@ const Details = ({ event, setEvent }) => {
     setEvent({
       ...event,
 
-      image_link: imageLink,
+      image_link: "https://www.example.com/image.png",
       summary: summary,
       description: description,
     });
-
     setSuccess(true);
   }
 
