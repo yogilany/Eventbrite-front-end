@@ -5,6 +5,7 @@ pipeline
         stage('Test') {
             steps {
                 echo "we need to install dependancies first This step tests the project"
+                pwd
             }
         }
         
