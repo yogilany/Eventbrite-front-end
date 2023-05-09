@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import {
   getUserDetails,
   logOut,
+  selectLoggedIn,
   selectUserAvatarURL,
   selectUserEmail,
   selectUserFirstName,
@@ -34,7 +35,7 @@ const Header = ({ location }) => {
 
   const userFirstName = useSelector(selectUserFirstName);
   const userLastName = useSelector(selectUserLastName);
-
+  const userIsLoggedIn = useSelector(selectLoggedIn);
   const userEmail = useSelector(selectUserEmail);
   const userAvatarURL = useSelector(selectUserAvatarURL);
   const [userFullName, setUserFullName] = useState(
@@ -74,6 +75,9 @@ const Header = ({ location }) => {
 
   // Update user details as soon as page loads:
   useEffect(() => {
+    if (!userIsLoggedIn) {
+      return;
+    }
     dispatch(getUserDetails("aaa")).then(() => {
       console.log(
         "User data: ",
@@ -84,6 +88,9 @@ const Header = ({ location }) => {
       );
       setUserFullName(userFirstName + " " + userLastName);
     });
+
+    // cleanup
+    return () => {};
   }, []);
 
   return (

@@ -27,9 +27,5 @@ export const persistor = persistStore(store, null, () => {
   // if you want to get restoredState
   console.log("restoredState", store.getState());
 });
-export type RootState = ReturnType<typeof store.getState>;
-export function getStoreWithState(preloadedState?: RootState) {
-  return configureStore({ reducer: persistedReducer, preloadedState });
-}
 
 export default store;

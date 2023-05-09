@@ -43,7 +43,10 @@ export const LoginMethods = (props) => {
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => setGoogleUser(codeResponse),
-    onError: (error) => console.log("Login Failed:", error),
+    onError: (error) => {
+      setGoogleUser(null);
+      console.log("Login Failed:", error);
+    },
   });
 
   return (

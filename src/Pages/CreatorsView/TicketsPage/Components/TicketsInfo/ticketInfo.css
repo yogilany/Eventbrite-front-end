@@ -1,0 +1,121 @@
+.ticket__info
+{
+    border-bottom: 1px solid #dbdae3;
+    width: 917px;
+    height: 94px;
+    padding-right: 24px;
+    /* background-color: yellow; */
+    transition: all ease-in-out 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 16px;
+}
+.ticket__info:hover
+{
+    box-shadow: 1px 1px 1px 1px rgba(50, 49, 49, 0.1);
+}
+.ticket__info-body
+{
+    display: flex;
+    align-items: center;
+}
+.ticket-name-date
+{
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    justify-content: center;
+    margin-top: 15px;
+}
+.ticket__name
+{
+    font-weight: 600;
+    font-size: 18px;
+    color: #4b4d63;
+    letter-spacing: .25px;
+    margin-right: -0.25px;
+    margin-bottom: 0px;
+}
+.ticket-price-amount
+{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    position: relative;
+}
+.ticket__menu
+{
+    margin-top: -17px;
+    margin-left: 25px;
+    color: #4b4d63;
+    width: 20px;
+    height: 20px;
+}
+.ticket__price
+{
+    margin-left: 50px;
+}
+.btn__menu
+{
+    outline: none;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.edit__delete-ticket
+{
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 17px 0 rgba(40,44,53,.1), 0 2px 4px 0 rgba(40,44,53,.1);
+    box-shadow: 0 1px 17px 0 rgba(40,44,53,.1), 0 2px 4px 0 rgba(40,44,53,.1);
+    width: 230px;
+    height: 170px;
+    position: absolute;
+    top:10%;
+    right:10%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 5px;
+}
+.Edit__button
+{
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 16px 24px;
+    height: 53px;
+    background-color: white;
+}
+.Edit__button:hover
+{
+    background-color: rgb(233, 231, 231);
+}
+.Delete__button:hover
+{
+    background-color: rgb(233, 231, 231);
+}
+.Cancel__button:hover
+{
+    background-color: rgb(233, 231, 231);
+}
+.Delete__button
+{
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 16px 24px;
+    height: 53px;
+    background-color: white;
+}
+.Cancel__button
+{
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 16px 24px;
+    height: 53px;
+    background-color: white;
+}

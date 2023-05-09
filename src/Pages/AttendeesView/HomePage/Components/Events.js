@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, } from "react-bootstrap";
-import { getEvents } from "../../../../services/services";
+import { Container, Row, Col } from "react-bootstrap";
 import { CategoriesTaps } from "./Categories";
 import CategoriesCards from "./CategoriesCards";
 import EventCard from "./EventCard";
 import Hr from "../../../../Components/Elements/Hr";
 import { MdCalendarMonth } from "react-icons/md";
 import { Link } from "react-router-dom";
-import axios from "axios";
 /**
  * @author Yousef Gilany
  * @description This is the Events section of the HomePage.
@@ -18,15 +16,13 @@ import axios from "axios";
  * @todo Get data from API and show it.
  * @todo Styling headings
  */
-const Events = ({location,events}) => {
-  const [moreEvents, setMoreEvents] = useState([]);
+const Events = ({ location }) => {
+  const [events] = useState([]);
+  const [moreEvents] = useState([]);
 
   const [category, setCategory] = useState("All");
   const [isCategoriesShown, setIsCategoriesShown] = useState(true);
   const [loading, setLoading] = useState(false);
-
-
-
 
   var cards = [];
 
@@ -59,7 +55,7 @@ const Events = ({location,events}) => {
       />
       {/* {isCategoriesShown ? (
       ): null} */}
-      <CategoriesCards location={location} id="categoriesCards"  />
+      <CategoriesCards location={location} id="categoriesCards" />
 
       {events.length != 0 ? (
         <Container className=" pl-5 pr-5 mb-5" id="eventsByLocationSection">
@@ -87,7 +83,7 @@ const Events = ({location,events}) => {
       ) : (
         <Container className="pt-5">
           <Row className="justify-content-md-center">
-          <Col md={12} className="flex flex-col items-center pb-20">
+            <Col md={12} className="flex flex-col items-center pb-20">
               <MdCalendarMonth size={50} color="#39364f" />
               <h3 className="heading3 mb-0">No events in your location</h3>
               <h6 className="heading6">Try another location</h6>
@@ -108,17 +104,17 @@ const Events = ({location,events}) => {
             <Row className="justify-content-md-right">
               {moreEvents
                 ? moreEvents.map((event2, index) => (
-                  <EventCard
-                    key={index}
-                    eventTitle={event2.eventName}
-                    eventDate={event2.eventDate}
-                    eventTime={event2.eventTime}
-                    eventLocation={event2.eventLocation}
-                    eventPrice={event2.eventPrice}
-                    eventOrganizer={event2.eventOrganizer}
-                    organizerFollowers={event2.organizerFollowers}
-                  />
-                ))
+                    <EventCard
+                      key={index}
+                      eventTitle={event2.eventName}
+                      eventDate={event2.eventDate}
+                      eventTime={event2.eventTime}
+                      eventLocation={event2.eventLocation}
+                      eventPrice={event2.eventPrice}
+                      eventOrganizer={event2.eventOrganizer}
+                      organizerFollowers={event2.organizerFollowers}
+                    />
+                  ))
                 : "Loading..."}
             </Row>
             <Row className="justify-content-md-center">

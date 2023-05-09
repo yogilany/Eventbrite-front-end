@@ -13,7 +13,7 @@ import axios from "axios";
 export const createEvent = async (eventData, userToken) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_BASE_API}/users/me/info`,
+      `${process.env.REACT_APP_BASE_API}/events/create`,
       JSON.stringify(eventData),
       {
         headers: {

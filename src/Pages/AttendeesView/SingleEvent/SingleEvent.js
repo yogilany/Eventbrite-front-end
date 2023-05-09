@@ -31,7 +31,7 @@ const SingleEvent = (props) => {
     axios
       .get(`${process.env.REACT_APP_BASE_API}/events/id/${id}`)
       .then(function (response) {
-        console.log("response",response);
+        console.log("response", response);
 
         setEvent(response.data);
       })
@@ -50,77 +50,100 @@ const SingleEvent = (props) => {
     <div className="overflow-hidden">
       <Header />
       <div style={{ display: "flow" }}>
-        <Container >
-          <Row>
-            {/* <Layout /> */}
-          </Row>
+        <Container>
+          <Row>{/* <Layout /> */}</Row>
           <Row className="align-items-center overflow-hidden">
             <Col>
               <Container fluid className="pt-3">
-                {event ? <Col>
-                  <Row className="pb-5 ">
-                    <Col md={12}>
-                      <EventImage img_url={event.image_link} />
-                    </Col>
-                  </Row>
-                  <Row className="ml-5 mr-5" style={{ padding: "0 0 0 2%" }}>
-                    <Row className="mb-5">
-                      <Stack gap={3}>
-                        <div>
-                          <Container>
-                            <Row>
-                              <Col>
-                                <h3 style={{ fontSize: "1rem", fontWeight:"600"}}>
-                                  {/* {props.event_date}{" "} */}
-                                  {new Date(event.date_and_time.start_date_time).toLocaleString('default', { month: 'long' }) +" "+ new Date(event.date_and_time.start_date_time).getDay()}
-                                </h3>
-                              </Col>
-                              <Col md={{ offset: 9, span: 1 }}>
-                                <HIIcons.HiOutlineHeart size="2em" />
-                              </Col>
-                              <Col md={{ span: 1 }}>
-                                <HIIcons.HiOutlineUpload size="2em" />
-                              </Col>
-                            </Row>
-                          </Container>
-
-                          <h1 style={EventNameHeaderStyle}>
-                            {event.basic_info.title}
-                          </h1>
-                        </div>
-                        <p>{event.description}</p>
-                      </Stack>
-                      <Col md={6}>
-                        <EventOrganizerCard
-                          avatar={organizer_avatar}
-                          name={event.basic_info.organizer}
-                          follower_count="1.5k"
-                        />
+                {event ? (
+                  <Col>
+                    <Row className="pb-5 ">
+                      <Col md={12}>
+                        <EventImage img_url={event.image_link} />
                       </Col>
                     </Row>
-                    <Row className="mb-5">
-                      <EventLocation location={event.location} date_and_time={event.date_and_time}/>
+                    <Row className="ml-5 mr-5" style={{ padding: "0 0 0 2%" }}>
+                      <Row className="mb-5">
+                        <Stack gap={3}>
+                          <div>
+                            <Container>
+                              <Row>
+                                <Col>
+                                  <h3
+                                    style={{
+                                      fontSize: "1rem",
+                                      fontWeight: "600",
+                                    }}
+                                  >
+                                    {/* {props.event_date}{" "} */}
+                                    {new Date(
+                                      event.date_and_time.start_date_time
+                                    ).toLocaleString("default", {
+                                      month: "long",
+                                    }) +
+                                      " " +
+                                      new Date(
+                                        event.date_and_time.start_date_time
+                                      ).getDay()}
+                                  </h3>
+                                </Col>
+                                <Col md={{ offset: 9, span: 1 }}>
+                                  <HIIcons.HiOutlineHeart size="2em" />
+                                </Col>
+                                <Col md={{ span: 1 }}>
+                                  <HIIcons.HiOutlineUpload size="2em" />
+                                </Col>
+                              </Row>
+                            </Container>
+
+                            <h1 style={EventNameHeaderStyle}>
+                              {event.basic_info.title}
+                            </h1>
+                          </div>
+                          <p>{event.description}</p>
+                        </Stack>
+                        <Col md={6}>
+                          <EventAboutOrganizer
+                            avatar={organizer_avatar}
+                            name={event.basic_info.organizer}
+                            follower_count="1.5k"
+                          />
+                        </Col>
+                      </Row>
+                      <Row className="mb-5">
+                        <EventLocation
+                          location={event.location}
+                          date_and_time={event.date_and_time}
+                        />
+                      </Row>
+                      <Row>
+                        <EventAbout summary={event.summary} />
+                      </Row>
+                      <Row className="mb-5 mt-5">
+                        <EventShare />
+                      </Row>
+                      <Row>
+                        <EventAboutOrganizer
+                          avatar={organizer_avatar}
+                          organizer_name="E7kky magazine"
+                          follower_count="1.4k"
+                        />
+                      </Row>
+                      <Row></Row>
                     </Row>
-                    <Row>
-                      <EventAbout summary={event.summary}/>
-                    </Row>
-                    <Row className="mb-5 mt-5">
-                      <EventShare />
-                    </Row>
-                    <Row>
-                      <EventAboutOrganizer
-                        avatar={organizer_avatar}
-                        organizer_name="E7kky magazine"
-                        follower_count="1.4k"
-                      />
-                    </Row>
-                    <Row></Row>
-                  </Row>
-                </Col> : <div>loading</div>}
+                  </Col>
+                ) : (
+                  <div>loading</div>
+                )}
               </Container>
             </Col>
             <Col style={{ top: "105%", left: "25%", position: "absolute" }}>
-              {event ? <EventTicketCard img_url={event ? event.image_link : null} event={event}/> : null}
+              {event ? (
+                <EventTicketCard
+                  img_url={event ? event.image_link : null}
+                  event={event}
+                />
+              ) : null}
             </Col>
           </Row>
         </Container>

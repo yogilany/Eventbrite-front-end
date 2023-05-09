@@ -69,28 +69,32 @@ const CreateEvent = () => {
             <Basicinfo event={event} setEvent={setEvent} setEventTitle={setEventTitle} />
           </Tab.Pane>
 
-          <Tab.Pane eventKey="second">
-            <Details event={event} setEvent={setEvent} />
-          </Tab.Pane>
+    <Tab.Pane eventKey="second">
+      <Details event={event} setEvent={setEvent} />
+    </Tab.Pane>
 
-          <Tab.Pane eventKey="third">
-            <TicketsPage />
-          </Tab.Pane>
+    <Tab.Pane eventKey="third">
+      <TicketsPage event={event} setEvent={setEvent} />
+    </Tab.Pane>
 
-          <Tab.Pane eventKey="fourth">
-            <Publish event={event} setEvent={setEvent} />
-          </Tab.Pane>
+    <Tab.Pane eventKey="fourth">
+      <Publish event={event} setEvent={setEvent}/>
+    </Tab.Pane>
 
-          <Tab.Pane eventKey="fifth">
-            <Dashboard />
-          </Tab.Pane>
-        </Tab.Content>
-      </Container>
+    <Tab.Pane eventKey="fifth">
+      <Dashboard />
+    </Tab.Pane>
 
-      {/* <Headerpub data_testid="HDID" /> */}
-      <CreatorHeader />
-    </Tab.Container>
-  );
-};
 
-export default CreateEvent;
+
+    </Tab.Content>
+
+</Container>
+
+{/* <Headerpub data_testid="HDID" /> */}
+<CreatorHeader />
+   </Tab.Container>
+  )
+}
+
+export default CreateEvent

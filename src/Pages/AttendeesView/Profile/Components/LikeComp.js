@@ -3,7 +3,7 @@ import "./LikeComp.css";
 import eventphoto from "../../../../assets/like3.jpeg";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import { FiShare } from "react-icons/fi";
-import { BorderColor } from "@mui/icons-material";
+import { BorderColor, Token } from "@mui/icons-material";
 import {likeEvent,unlikeEvent} from "../../../../features/userprofSlice";
 import { useSelector } from "react-redux";
 import { getUserDetails, logOut, selectUserAvatarURL, selectUserEmail, selectUserFirstName, selectUserLastName, selectUserToken } from "../../../../features/authSlice";
@@ -19,11 +19,16 @@ const LikeComp = (props) => {
   const [isClicked, setIsClicked] = React.useState(false);
   const handleClick = () => {
     setIsClicked(!isClicked);
-    if (!isClicked)
+    if (isClicked)
     {
+      console.log("ID with like :",props.id);
+      console.log("Token with like :",token);
       likeEvent(token,props.id);
+
     }
     else{
+      console.log("Token with unlike :",token);
+      console.log("id with unlike :",props.id);
       unlikeEvent(token,props.id);
     }
   };
@@ -44,17 +49,14 @@ const LikeComp = (props) => {
       </div>
 
       <div style={{ marginTop: 25, paddingLeft: 10 }}>
-<<<<<<< HEAD
         <div className="desc_prof">
           {props.title}
         </div>
         <div className="dat_prof">{props.start_date_time}</div>
-=======
         <div className="desc_prof" style = {{fontSize:'18px' , fontWeight:'600' , marginBottom:'5px'}}>
           Demo Day: Present Your Project to get your dream job - GoMyCode Egypt
         </div>
         <div className="dat_prof" style = {{color: "#d1410c" , marginBottom:'5px'}}>Thu, Mar 30 ,8:00 PM</div>
->>>>>>> 5ba8c3703c1b5a44f87ebdec9b4170c009b1be2e
         <div className="det_prof">GoMyCode Dokki ,Ad Doqi A</div>
       </div>
       <div style={{ display: "flex" }}>
