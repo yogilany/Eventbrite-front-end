@@ -10,6 +10,7 @@ import SubCategoryCard from "./Components/SubCategoryCard-1";
 import EventCard from "../HomePage/Components/EventCard";
 import { MdCalendarMonth } from "react-icons/md";
 import { Breadcrumbs, Link, Typography } from "@mui/material";
+import "./index.css"
 
 const EventsByCategory = () => {
   const { category, location } = useParams();

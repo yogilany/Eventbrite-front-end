@@ -18,7 +18,7 @@ const Hero = ({ category, location }) => {
     <Container
       fluid
       className=""
-      style={{ backgroundColor: `${HeroStyle[0].background}`, height: "300px" }}
+      style={{ backgroundColor: `${HeroStyle[1].background}`, height: "300px" }}
     >
       <Row>
         <Col className="p-5">
@@ -28,7 +28,7 @@ const Hero = ({ category, location }) => {
             {category} Events
           </h1>
           <h3
-                      className="heading1 mt-2 ml-5 mb-0 font-medium text-cyan-400 text-lg"
+                      className=" mt-2 ml-5 mb-0 font-medium text-cyan-400 text-md"
 
           >
             In {location}

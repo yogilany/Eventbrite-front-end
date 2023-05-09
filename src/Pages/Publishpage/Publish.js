@@ -1,9 +1,10 @@
 import React from "react";
-import "./Publish.css";
 import Radpub from "./Radpub";
 import Headerpub from "./Headerpub";
 import Tipsbox from "./Tipsbox";
 import Containerpub from "./Containerpub";
+import "./Publish.css";
+
 /**
  * @author Ziad Ezzat
  * @param {}
