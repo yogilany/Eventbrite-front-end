@@ -54,7 +54,7 @@ export const Login = (props) => {
   const [emailExist, setEmailExist] = useState(true);
   const [passwordIncorrect, setPasswordIncorrect] = useState(false);
   const [forgotPasswordModalShow, setForgotPasswordModalShow] = useState(false);
-  const [GoogleProfile, setGoogleProfile] = useState(null);
+  const [SocialProfile, setSocialProfile] = useState(null);
   const isLoggedIn = useSelector(selectLoggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -135,59 +135,49 @@ export const Login = (props) => {
   }, [user]);
 
   useEffect(() => {
-    console.log(GoogleProfile);
-    if (GoogleProfile) {
-      if (!GoogleProfile.email_verified) {
-        setSuccess(false);
-        setPasswordIncorrect(emailExist === true);
-        setErrMsg("Google email is not verified");
-        setTimeout(() => {
-          controls.start("start");
-        }, 500);
-      } else {
-        const email_exists = dispatch(checkEmailExists(user));
-        if (!email_exists) {
-          //Email does not exist, create account for user
-          dispatch(
-            registerGoogleUser({
-              email: GoogleProfile.email,
-              password: crypto.getRandomValues(new Uint8Array(64)).toString(),
-              firstname: GoogleProfile.given_name,
-              lastname: GoogleProfile.family_name ?? "",
-              picture: GoogleProfile.picture,
-            })
-          ).catch((err) => {
-            setSuccess(false);
-            setPasswordIncorrect(emailExist === true);
-            setErrMsg(err);
-            setTimeout(() => {
-              controls.start("start");
-            }, 500);
-            return;
-          });
-        }
-
+    if (SocialProfile) {
+      const email_exists = dispatch(checkEmailExists(user));
+      if (!email_exists) {
+        //Email does not exist, create account for user
         dispatch(
-          authGoogleUser({
-            email: GoogleProfile.email,
+          registerGoogleUser({
+            email: SocialProfile.email,
+            password: crypto.getRandomValues(new Uint8Array(64)).toString(),
+            firstname: SocialProfile.given_name,
+            lastname: SocialProfile.family_name ?? "",
+            picture: SocialProfile.picture,
           })
-        )
-          .then((result) => {
-            setSuccess(true);
-          })
-          .catch((err) => {
-            setSuccess(false);
-            setPasswordIncorrect(emailExist === true);
-            setErrMsg(err);
-            setTimeout(() => {
-              controls.start("start");
-            }, 500);
-          });
+        ).catch((err) => {
+          setSuccess(false);
+          setPasswordIncorrect(emailExist === true);
+          setErrMsg(err);
+          setTimeout(() => {
+            controls.start("start");
+          }, 500);
+          return;
+        });
       }
+
+      dispatch(
+        authGoogleUser({
+          email: SocialProfile.email,
+        })
+      )
+        .then((result) => {
+          setSuccess(true);
+        })
+        .catch((err) => {
+          setSuccess(false);
+          setPasswordIncorrect(emailExist === true);
+          setErrMsg(err);
+          setTimeout(() => {
+            controls.start("start");
+          }, 500);
+        });
     }
 
     return () => {};
-  }, [GoogleProfile]);
+  }, [SocialProfile]);
 
   if (isLoggedIn) return <Navigate to="/" />;
 
@@ -314,7 +304,7 @@ export const Login = (props) => {
               <LoginMethods
                 data_testid="login-methods"
                 name="login-methods-div"
-                setGoogleProfile={setGoogleProfile}
+                setSocialProfile={setSocialProfile}
               />
             </Row>
           </Col>
