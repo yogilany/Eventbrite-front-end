@@ -17,7 +17,6 @@ import { Link } from "react-router-dom";
  * @todo Styling headings
  */
 const Events = ({ location, events }) => {
-  const [events] = useState([]);
   const [moreEvents] = useState([]);
 
   const [category, setCategory] = useState("All");
