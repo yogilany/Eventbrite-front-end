@@ -10,7 +10,6 @@ const Dashboard = () => {
   return (
     <>
       <Headerpub data_testid="HDID" />
-      <Sidebar />
       <div style={{ marginLeft: 450, marginTop: 20 }}>
         <Container fluid>
           <Container>
