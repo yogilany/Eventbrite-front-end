@@ -4,11 +4,13 @@ import { combineReducers } from "redux";
 import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
 import authReducer from "./features/authSlice";
-import eventReducer from "./features/eventSlice";
+import { eventsApi } from "./features/api/eventApi";
+import { userApi } from "./features/api/userApi";
 
 const reducers = combineReducers({
   auth: authReducer,
-  events: eventReducer,
+  [userApi.reducerPath]: userApi.reducer,
+  [eventsApi.reducerPath]: eventsApi.reducer,
 });
 
 const persistConfig = {
@@ -18,13 +20,33 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
+/**
+ * @description Redux store with all reducers
+ * @date 5/11/2023 - 11:05:28 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
 const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== "production",
-  middleware: [thunk],
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    })
+      .concat(thunk)
+      .concat(eventsApi.middleware)
+      .concat(userApi.middleware),
 });
+
+/**
+ * @description Persistor for redux store
+ * @date 5/11/2023 - 11:05:11 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
 export const persistor = persistStore(store, null, () => {
-  // if you want to get restoredState
   console.log("restoredState", store.getState());
 });
 

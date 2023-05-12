@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Tile } from "./Tile";
 import { Container, Row, Col } from "react-bootstrap";
-import { AccessAlarm } from "@mui/icons-material";
 import AudiotrackOutlinedIcon from "@mui/icons-material/AudiotrackOutlined";
 import VideogameAssetOutlinedIcon from "@mui/icons-material/VideogameAssetOutlined";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
@@ -12,7 +11,6 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import SportsFootballOutlinedIcon from "@mui/icons-material/SportsFootballOutlined";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { set } from "date-fns";
 /**
  * @author Yousef Gilany
  * @description This is the Categories component that contains the categories tiles. It takes the user to a new page that shows event in that category.
@@ -33,7 +31,7 @@ const CategoriesCards = ({ location }) => {
     <SportsFootballOutlinedIcon sx={{ color: "#d1410c" }} />,
   ];
 
-  const eight = [1,2,3,4,5,6,7,8]
+  const eight = [1, 2, 3, 4, 5, 6, 7, 8];
 
   const fetchCategories = () => {
     // console.log("baseee", process.env.REACT_APP_BASE_API);
@@ -63,24 +61,33 @@ const CategoriesCards = ({ location }) => {
           <Row>
             <Col>
               <div className="tile-group">
-                { !isLoading ? categories.map((category, index) => {
-                  return (
-                    <Link key={index} to={`/events/${category.name}/${location}`}>
-                      <Tile
-                        icon={categoriesIcons[index]}
-                        name={category.name}
-                        
-                        id="categoryTile"
-                      />
-                    </Link>
-                  );
-                }) :   eight.map((category, index) => <div className="flex items-center justify-between">
-                <div>
-                    <div className="h-2.5 bg-gray-300 rounded-full  w-24 mb-2.5"></div>
-                    <div className="w-32 h-2 bg-gray-200 rounded-full "></div>
-                </div>
-                <div className="h-2.5 bg-gray-300 rounded-full  w-12"></div>
-            </div>)}
+                {!isLoading
+                  ? categories.map((category, index) => {
+                      return (
+                        <Link
+                          key={index}
+                          to={`/events/${category.name}/${location}`}
+                        >
+                          <Tile
+                            icon={categoriesIcons[index]}
+                            name={category.name}
+                            id="categoryTile"
+                          />
+                        </Link>
+                      );
+                    })
+                  : eight.map((category, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between"
+                      >
+                        <div>
+                          <div className="h-2.5 bg-gray-300 rounded-full  w-24 mb-2.5"></div>
+                          <div className="w-32 h-2 bg-gray-200 rounded-full "></div>
+                        </div>
+                        <div className="h-2.5 bg-gray-300 rounded-full  w-12"></div>
+                      </div>
+                    ))}
               </div>
             </Col>
           </Row>

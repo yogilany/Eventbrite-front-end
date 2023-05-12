@@ -78,7 +78,7 @@ const Header = ({ location }) => {
     if (!userIsLoggedIn) {
       return;
     }
-    dispatch(getUserDetails("aaa")).then(() => {
+    dispatch(getUserDetails()).then(() => {
       console.log(
         "User data: ",
         userFirstName,
@@ -183,7 +183,7 @@ const Header = ({ location }) => {
                   >
                     <HiOutlinePlus fontSize="18px" />
                   </div>{" "}
-                  <span style={{ color: "#3659e3" }} >Create an event</span>
+                  <span style={{ color: "#3659e3" }}>Create an event</span>
                 </div>
               </Link>
               <Link to="/likes">

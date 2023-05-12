@@ -3,9 +3,21 @@ import { Container, Row, Col, Button, Stack } from "react-bootstrap";
 import { Avatar, Link } from "@mui/material";
 import * as HIIcons from "react-icons/hi";
 import "../SingleEvent.scss";
-import BlueButton from "src/Components/Buttons/BlueButton";
 import WhiteButton from "src/Components/Buttons/WhiteButton";
+import {
+  useFollowUserMutation,
+  useGetUserQuery,
+  useIsUserFollowedQuery,
+  useUnfollowUserMutation,
+} from "src/features/api/userApi";
 const EventAboutOrganizer = (props) => {
+  const [followUser] = useFollowUserMutation();
+  const [unfollowUser] = useUnfollowUserMutation();
+  const { data: isUserFollowed, isError: isError } = useIsUserFollowedQuery(
+    props.organizerId
+  );
+  const { data: organizerData } = useGetUserQuery(props.organizerId);
+
   const AvatarStyle = {
     border: "1px solid #eeedf2",
     width: "5rem",
@@ -19,6 +31,14 @@ const EventAboutOrganizer = (props) => {
     maxHeight: "70vh",
     boxShadow: "0 2px 2px 2px rgba(0,0,0.3,0.1)",
   };
+  const followBtnHandler = () => {
+    if (!isError) {
+      unfollowUser(props.organizerId);
+    } else {
+      followUser(props.organizerId);
+    }
+  };
+
   return (
     <>
       <h3 className="header-text">About the organizer</h3>
@@ -27,7 +47,7 @@ const EventAboutOrganizer = (props) => {
           <Row className="d-flex justify-content-center mb-4">
             <Avatar
               alt="Organizer Avatar"
-              src={props.avatar}
+              src={organizerData?.avatar_url}
               style={AvatarStyle}
             />
           </Row>
@@ -43,7 +63,7 @@ const EventAboutOrganizer = (props) => {
                 color: "#1e0a3c",
               }}
             >
-              {props.organizer_name}
+              {organizerData?.firstname + " " + organizerData?.lastname}
             </Button>
           </Row>
 
@@ -66,33 +86,25 @@ const EventAboutOrganizer = (props) => {
               <WhiteButton
                 style={{
                   fontSize: "16px",
-
-                  border: "none",
+                  borderRadius: "1vmin",
                   padding: "2% 4%",
                   color: "#4161df",
                 }}
               >
                 Contact
               </WhiteButton>
-              <BlueButton
+              <WhiteButton
                 style={{
                   fontSize: "16px",
-                  border: "none",
+                  borderRadius: "1vmin",
                   padding: "2% 4%",
-                  color: `${props.isOrganizerFollowed ? "white" : ""}`,
+                  backgroundColor: `${isError === false ? "#4161df" : "white"}`,
+                  color: `${isError === false ? "white" : "#4161df"}`,
                 }}
+                onClick={followBtnHandler}
               >
-                Follow
-              </BlueButton>
-              {/* <Button
-                style={{
-                  backgroundColor: "#3659e3",
-                  border: "none",
-                  padding: "1.5% 4%",
-                }}
-              >
-                Follow
-              </Button> */}
+                {isError === false ? "Following" : "Follow"}
+              </WhiteButton>
             </Stack>
           </Row>
 

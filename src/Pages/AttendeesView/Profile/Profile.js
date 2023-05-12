@@ -17,14 +17,13 @@ import {
   selectUserFirstName,
   selectUserLastName,
   selectUserToken,
-} from "../../../features/authSlice";
+} from "src/features/authSlice";
 import {
-  getLikedEvents,
-  getfollwingpeople,
-} from "../../../features/userprofSlice";
+  useFetchLikedEventsQuery,
+  useGetFollowingUsersQuery,
+} from "src/features/api/userApi";
 import { useDispatch } from "react-redux";
 import eventphoto from "../../../assets/adelEv1.png";
-import { RxDotFilled } from "react-icons/rx";
 /**
  * @author Ziad Ezzat
  * @param {}
@@ -69,37 +68,46 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const token = useSelector(selectUserToken);
   const [imgSrc, setImgSrc] = useState(UserAvatar);
+  const { data: likedEvents, isSuccessLikedEvents } =
+    useFetchLikedEventsQuery();
+  const { data: followingUsers, isSuccessFollowing } =
+    useGetFollowingUsersQuery();
+
   const handleImgError = () => {
     setImgSrc(emptyprofile);
   };
   useEffect(() => {
-    const getlikes = async () => {
-      try {
-        const response = await getLikedEvents(token);
-        setLikedEvents(response);
-      } catch (error) {
-        setError(error);
-        setIsLoading(false);
-      }
-    };
-    getlikes();
+    // const getlikes = async () => {
+    //   try {
+    //     const response = await dispatch(fetchLikedEvents());
+    //     setLikedEvents(response);
+    //   } catch (error) {
+    //     setError(error);
+    //     setIsLoading(false);
+    //   }
+    // };
+    // getlikes();
   }, []);
-  useEffect(() => {
-    const getfoll = async () => {
-      try {
-        const response = await getfollwingpeople(token);
-        setfollowedpeople(response);
-      } catch (error) {
-        setError(error);
-        setIsLoading(false);
-      }
-    };
-    getfoll();
-  }, []);
+  // useEffect(() => {
+  //   const getfoll = async () => {
+  //     try {
+  //       const response = await dispatch(getFollowingUsers());
+  //       setfollowedpeople(response);
+  //     } catch (error) {
+  //       setError(error);
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   getfoll();
+  // }, []);
 
   console.log("data is", LikedEvents);
-  const LikedEventscount = LikedEvents.length;
-  const follwedpeoplecount = followedpeople.length;
+  if (isSuccessLikedEvents) {
+    setLikedEvents(likedEvents);
+  }
+  if (isSuccessFollowing) {
+    setfollowedpeople(followingUsers);
+  }
   return (
     <div>
       <Header />
@@ -157,7 +165,7 @@ const Profile = () => {
                   </a>
                   <div style={{ display: "flex" }}>
                     <a href="#" style={{ color: "grey", fontSize: 15 }}>
-                      {LikedEventscount}
+                      {LikedEvents.length}
                     </a>
                     <p
                       style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
@@ -178,7 +186,7 @@ const Profile = () => {
                   </a>
                   <div style={{ display: "flex" }}>
                     <a href="#" style={{ color: "grey", fontSize: 15 }}>
-                      {follwedpeoplecount}
+                      {followedpeople.length}
                     </a>
                     <p
                       style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}

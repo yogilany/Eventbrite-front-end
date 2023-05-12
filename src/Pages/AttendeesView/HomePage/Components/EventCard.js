@@ -90,13 +90,18 @@ const EventCard = ({
               hour12: true,
             }).format(new Date(eventDate))}
           </h3>
-          <h3 className="card-text overflow-hidden whitespace-nowrap overflow-ellipsis p-0 ">{eventLocation}</h3>
-          <h3 className="card-text">{eventPrice == 0 ? null : "Starts at $"}{eventPrice == 0 ? "Free" : eventPrice}</h3>
+          <h3 className="card-text overflow-hidden whitespace-nowrap overflow-ellipsis p-0 ">
+            {eventLocation}
+          </h3>
+          <h3 className="card-text">
+            {eventPrice == 0 ? null : "Starts at $"}
+            {eventPrice == 0 ? "Free" : eventPrice}
+          </h3>
           <div>
             <h3 className="card-caption">{eventOrganizer}</h3>
             <div className="flex flex-row ">
               <svg
-                class="w-4 h-4"
+                className="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={1.5}

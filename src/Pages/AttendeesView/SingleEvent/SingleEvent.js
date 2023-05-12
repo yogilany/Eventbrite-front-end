@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Stack } from "react-bootstrap/";
+import { Container, Row, Col, Stack, Spinner } from "react-bootstrap/";
 import { Layout } from "../../../app/layout";
 import event_image from "../../../assets/event_image.png";
 import organizer_avatar from "../../../assets/Organizer/AnasOrg.jpg";
@@ -16,35 +16,69 @@ import testbackground from "../../../assets/adelEv10.png";
 import Header from "../../../Components/header/Header";
 import Footer from "../../../Components/footer/Footer";
 import { useParams } from "react-router";
-import axios from "axios";
+import { useGetEventByIdQuery } from "src/features/api/eventApi";
+import {
+  useGetUserQuery,
+  useIsUserFollowedQuery,
+} from "src/features/api/userApi";
+/* 
+------Get event
+{
+  "creator_id": "2dg3f4g5h6j7k8l9",
+  "basic_info": {
+    "title": "Let's be loyal",
+    "organizer": "Loyalty Organization",
+    "category": "Loyalty",
+    "sub_category": "Loyalty"
+  },
+  "image_link": "https://www.example.com/image.png",
+  "summary": "This is a summary of the event",
+  "description": "This is a description of the event",
+  "state": {
+    "is_public": true,
+    "publish_date_time": "2023-05-01T09:00:00"
+  },
+  "date_and_time": {
+    "start_date_time": "2023-05-01T15:30:00",
+    "end_date_time": "2023-05-01T18:30:00",
+    "is_display_start_date": true,
+    "is_display_end_date": true,
+    "time_zone": "US/Pacific",
+    "event_page_language": "en-US"
+  },
+  "location": {
+    "is_online": false,
+    "city": "San Francisco"
+  },
+  "id": "2dg3f4g5h6j7k8l9",
+  "price": 100,
+  "is_free": false
+}
+
+
+	
+-----get user 
+
+application/json
+Controls Accept header.
+Example Value
+Schema
+{
+  "email": "user@gmail.com",
+  "firstname": "user",
+  "lastname": "user",
+  "avatar_url": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+}
+
+*/
 const SingleEvent = (props) => {
   const { id } = useParams();
-  const [event, setEvent] = useState(null);
-  const [isOrganizerFollowed, setIsOrganizerFollowed] = useState(false);
+  const { data: event } = useGetEventByIdQuery(id);
   const EventNameHeaderStyle = {
     color: "#1e0a3c",
     fontWeight: "bold",
     fontSize: "48px",
   };
-
-  const fetchEvent = () => {
-    axios
-      .get(`${process.env.REACT_APP_BASE_API}/events/id/${id}`)
-      .then(function (response) {
-        console.log("response", response);
-
-        setEvent(response.data);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    console.log("props", props);
-    fetchEvent();
-  }, []);
 
   return (
     <div className="overflow-hidden">
@@ -104,9 +138,7 @@ const SingleEvent = (props) => {
                         </Stack>
                         <Col md={8}>
                           <EventOrganizerCard
-                            isOrganizerFollowed={isOrganizerFollowed}
-                            avatar={organizer_avatar}
-                            name={event.basic_info.organizer}
+                            organizerId={event?.creator_id}
                             follower_count="1.5k"
                           />
                         </Col>
@@ -125,9 +157,7 @@ const SingleEvent = (props) => {
                       </Row>
                       <Row>
                         <EventAboutOrganizer
-                          isOrganizerFollowed={isOrganizerFollowed}
-                          avatar={organizer_avatar}
-                          organizer_name="E7kky magazine"
+                          organizerId={event?.creator_id}
                           follower_count="1.4k"
                         />
                       </Row>
@@ -135,7 +165,7 @@ const SingleEvent = (props) => {
                     </Row>
                   </Col>
                 ) : (
-                  <div>loading</div>
+                  <Spinner animation="border" role="status" />
                 )}
               </Container>
             </Col>

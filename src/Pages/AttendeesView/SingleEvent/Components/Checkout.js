@@ -14,9 +14,8 @@ import MainGrayButton from "src/Components/Buttons/MainGrayButton";
 import { useSelector } from "react-redux";
 import { selectUserToken } from "src/features/authSlice";
 
-
 const Checkout = ({ setIsCheckout, img_url, event }) => {
-    const token = useSelector(selectUserToken);
+  const token = useSelector(selectUserToken);
 
   const {
     register,
@@ -33,8 +32,8 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
   const [isNoTickets, setIsNoTickets] = useState(false);
   const [attendees, setAttendees] = useState([]);
   const [isPlaceorder, setIsPlaceOrder] = useState(false);
-const [orderID, setOrderID] = useState(null)
-const [isCheckoutDone, setIsCheckoutDone] = useState(0);
+  const [orderID, setOrderID] = useState(null);
+  const [isCheckoutDone, setIsCheckoutDone] = useState(0);
 
   const [selectedTicket, setSelectedTicket] = useState([]);
   const [ticketsTypes, setTicketsTypes] = useState([]);
@@ -53,7 +52,6 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
       .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`)
       .then(function (response) {
         console.log("tickets", response);
-
         setTicketsTypes(response.data);
       })
       .catch(function (error) {
@@ -125,87 +123,79 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
 
   const handleCheckout = () => {
     if (selectedTicket.length === 0) {
-        setIsNoTickets(true);
+      setIsNoTickets(true);
       return;
     } else {
-        setIsNoTickets(false);
+      setIsNoTickets(false);
       setIsFinalCheckout(true);
-       // Set the current time as the start time
-    const startTime = new Date().getTime();
+      // Set the current time as the start time
+      const startTime = new Date().getTime();
 
-    // Update the remaining time every second
-    const countdownInterval = setInterval(() => {
-      // Calculate the time elapsed since the start time
-      const elapsedSeconds = Math.floor(
-        (new Date().getTime() - startTime) / 1000
-      );
+      // Update the remaining time every second
+      const countdownInterval = setInterval(() => {
+        // Calculate the time elapsed since the start time
+        const elapsedSeconds = Math.floor(
+          (new Date().getTime() - startTime) / 1000
+        );
 
-      // Calculate the remaining time
-      const newRemainingTime = Math.max(timerDuration - elapsedSeconds, 0);
+        // Calculate the remaining time
+        const newRemainingTime = Math.max(timerDuration - elapsedSeconds, 0);
 
-      // Update the remaining time state
-      setRemainingTime(newRemainingTime);
+        // Update the remaining time state
+        setRemainingTime(newRemainingTime);
 
-      // Check if the timer has expired
-      if (newRemainingTime === 0) {
-        clearInterval(countdownInterval);
-        setIsTimeOut(true);
-      }
-    }, 1000);
+        // Check if the timer has expired
+        if (newRemainingTime === 0) {
+          clearInterval(countdownInterval);
+          setIsTimeOut(true);
+        }
+      }, 1000);
 
-    // Clear the countdown interval on unmount
-    return () => clearInterval(countdownInterval);
+      // Clear the countdown interval on unmount
+      return () => clearInterval(countdownInterval);
     }
   };
 
   const handlePlaceOrder = async () => {
     setIsPlaceOrder(true);
-    const finalOrder =   {
-        "first_name": firstName,
-        "last_name": lastName,
-        "email": email,
-        "event_id": event.id,
-        "created_date": new Date(),
-        "price": totalTickets,
-        "image_link": "https://www.example.com/image.png"
-      }
+    const finalOrder = {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      event_id: event.id,
+      created_date: new Date(),
+      price: totalTickets,
+      image_link: "https://www.example.com/image.png",
+    };
 
-      console.log("finalOrder",finalOrder, token);
+    console.log("finalOrder", finalOrder, token);
 
     try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_BASE_API}/orders/${event.id}/add_order`,
-          finalOrder,
-          {
-            headers: { "Content-Type": "application/json" ,
-            Authorization: `Bearer ${token}`}
-          }
-        );
-        console.log("Res : ", response);
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_API}/orders/${event.id}/add_order`,
+        finalOrder,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Res : ", response);
 
-        setOrderID(response.data.id);
-
-        
-
-
-
-
-
-
-      } catch (error) {
-        console.log(error);
-      }
-   
+      setOrderID(response.data.id);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-//   useEffect(() => { 
-//     console.log("isCheckoutDone", isCheckoutDone, "count", count);
-//     if(isCheckoutDone == count && isFinalCheckout){
-//         setIsCheckout(false);
-//     }
+  //   useEffect(() => {
+  //     console.log("isCheckoutDone", isCheckoutDone, "count", count);
+  //     if(isCheckoutDone == count && isFinalCheckout){
+  //         setIsCheckout(false);
+  //     }
 
-//   }, [isCheckoutDone]);
-
+  //   }, [isCheckoutDone]);
 
   const handleCancel = () => {
     setIsCheckout(false);
@@ -213,21 +203,18 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
 
   const handleAddAttendee = (props) => {
     setAttendees([...attendees, props]);
-  }
+  };
 
   useEffect(() => {
     console.log("attendees", attendees);
   }, [attendees]);
 
-//   useEffect(() => {
-//     if(isPlaceorder){
-//         han
-        
+  //   useEffect(() => {
+  //     if(isPlaceorder){
+  //         han
 
-      
-
-//         // handleAddAttendee({...attendee, [e.target.name]: e.target.value});
-//       }  }, [isPlaceorder]);
+  //         // handleAddAttendee({...attendee, [e.target.name]: e.target.value});
+  //       }  }, [isPlaceorder]);
   return (
     <>
       <div
@@ -288,6 +275,7 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
                     {!isFinalCheckout ? (
                       ticketsTypes.map((ticket) => (
                         <TicketCard
+                          key={ticket.id}
                           ticket={ticket}
                           handleAddTicket={handleAddTicket}
                         />
@@ -396,12 +384,12 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
                                           isPlaceorder={isPlaceorder}
                                           handleAddAttendee={handleAddAttendee}
                                           event={event}
-                                            orderID={orderID}
-                                            token={token}
-                                            setIsCheckoutDone={setIsCheckoutDone}
-                                            isCheckoutDone={isCheckoutDone}
-                                            setIsCheckout={setIsCheckout}
-                                            total={count}
+                                          orderID={orderID}
+                                          token={token}
+                                          setIsCheckoutDone={setIsCheckoutDone}
+                                          isCheckoutDone={isCheckoutDone}
+                                          setIsCheckout={setIsCheckout}
+                                          total={count}
                                         />
                                       );
                                     });
@@ -429,28 +417,32 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
                     {isFinalCheckout ? (
                       <MainGrayButton text="Cancel" onClick={handleCancel} />
                     ) : null}
-                    { isNoTickets ? <div
-                      class="flex p-2.5   mb-1 text-sm text-red-800 rounded-lg bg-red-50 "
-                      role="alert"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="flex-shrink-0 inline w-5 h-5 mr-3"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
+                    {isNoTickets ? (
+                      <div
+                        class="flex p-2.5   mb-1 text-sm text-red-800 rounded-lg bg-red-50 "
+                        role="alert"
                       >
-                        <path
-                          fill-rule="evenodd"
-                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                      <span class="sr-only">Info</span>
-                      <div>
-                        <span class="font-medium">Select a ticket first!</span> 
+                        <svg
+                          aria-hidden="true"
+                          class="flex-shrink-0 inline w-5 h-5 mr-3"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                          <span class="font-medium">
+                            Select a ticket first!
+                          </span>
+                        </div>
                       </div>
-                    </div> : null}
+                    ) : null}
                   </div>
                 </div>
                 <div className="bg-gray-100 p-0 ocl-span-1 ">

@@ -29,7 +29,6 @@ const Events = ({ location, events }) => {
     cards.push(i);
   }
 
-
   useEffect(() => {
     setLoading(true);
     // fetchEvents();
@@ -39,7 +38,6 @@ const Events = ({ location, events }) => {
   useEffect(() => {
     console.log("events: ", events);
   }, [events]);
-
 
   return (
     <>
@@ -59,19 +57,19 @@ const Events = ({ location, events }) => {
           <Row className="justify-content-md-right">
             {events
               ? events.map((event, index) => (
-                <EventCard
-                  key={index}
-                  eventTitle={event.basic_info.title}
-                  eventDate={event.date_and_time.start_date_time}
-                  // eventTime={event.eventTime}
-                  eventLocation={event.location.city}
-                  eventPrice={event.price}
-                  eventOrganizer={event.basic_info.organizer}
-                  organizerFollowers={event.organizerFollowers}
-                  eventCover={event.image_link}
-                  eventID={event.id}
-                />
-              ))
+                  <EventCard
+                    key={index}
+                    eventTitle={event.basic_info.title}
+                    eventDate={event.date_and_time.start_date_time}
+                    // eventTime={event.eventTime}
+                    eventLocation={event.location.city}
+                    eventPrice={event.price}
+                    eventOrganizer={event.basic_info.organizer}
+                    organizerFollowers={event.organizerFollowers}
+                    eventCover={event.image_link}
+                    eventID={event.id}
+                  />
+                ))
               : "Loading..."}
           </Row>
         </Container>
