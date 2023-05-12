@@ -17,6 +17,8 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useContext, useEffect, useState, useRef } from "react";
 import { AppContext } from "../Details/Details";
 import { Nav } from "react-bootstrap";
+import Tooltip from '@mui/material/Tooltip'
+import { IconButton } from "@mui/material";
 // console.log(window.innerWidth);
 /**
  * @author Mahmoud Khaled
@@ -24,7 +26,7 @@ import { Nav } from "react-bootstrap";
  * @description This is sidebar which displayed in Creator Pages (Publish , Details , Basic Info)
  * @returns {JSX.Element}
  */
-const Sidebar = ({ HideMenu, eventTitle }) => {
+const Sidebar = ({ DashoboardStatus , HideMenu, eventTitle }) => {
   const orderOptions = ["Order Form", "Order Confirmation", "Waitlist"];
   const Marketing = [
     "Add to Facebook",
@@ -52,46 +54,72 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
       window.removeEventListener("resize", handleWindowSize);
     };
   });
-  // useEffect(() => {
-  //   let handler = (e) => {
-  //     if (!sidebarOptions.current.contains(e.target))
-  //       setToggleSidebar(!toggleSidebar);
-  //   }
-  //   document.addEventListener('mousedown', handler);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handler);
-  //   }
-  // })
   return (
     <div className="sidebar">
       <div className="sidebar__links">
         <a href="#">
-          <AiOutlineHome className="logo" />
+          <Tooltip title="Home">
+            <IconButton className="Icon__Button">
+              <AiOutlineHome className="logo" />
+            </IconButton>
+          </Tooltip>
         </a>
         <a href="#">
-          <BsCalendar2Date className="logo" />
+          <Tooltip title="Events">
+            <IconButton className="Icon__Button">
+              <BsCalendar2Date className="logo" />
+            </IconButton>
+          </Tooltip>
         </a>
         <a href="#">
-          <HiOutlineClipboardList className="logo" />
+          <Tooltip title="Orders">
+            <IconButton className="Icon__Button">
+              <HiOutlineClipboardList className="logo" />
+            </IconButton>
+          </Tooltip>
         </a>
         <a href="#">
-          <TfiAnnouncement className="logo" />
+          <Tooltip title="Marketing">
+            <IconButton className="Icon__Button">
+              <TfiAnnouncement className="logo" />
+            </IconButton>
+          </Tooltip>
         </a>
         <a href="#">
-          <SiSimpleanalytics className="logo" />
+          <Tooltip title="Reports">
+            <IconButton className="Icon__Button">
+              <SiSimpleanalytics className="logo" />
+            </IconButton>
+          </Tooltip>
         </a>
         <a href="#">
-          <SiEsphome className="logo" />
+          <Tooltip title="Finance">
+            <IconButton className="Icon__Button">
+              <SiEsphome className="logo" />
+            </IconButton>
+          </Tooltip>
         </a>
         <a href="#">
-          <FiSettings className="logo" />
+          <Tooltip title="Organization Setting">
+            <IconButton className="Icon__Button">
+              <FiSettings className="logo" />
+            </IconButton>
+          </Tooltip>
         </a>
         <div className="footer">
           <a href="#">
-            <AiOutlineAppstore className="logo" />
+            <Tooltip title="App marketplace">
+              <IconButton className="Icon__Button">
+                <AiOutlineAppstore className="logo" />
+              </IconButton>
+            </Tooltip>
           </a>
           <a href="#">
-            <FiHelpCircle className="logo" />
+            <Tooltip title="Help center">
+              <IconButton className="Icon__Button">
+                <FiHelpCircle className="logo" />
+              </IconButton>
+            </Tooltip>
           </a>
         </div>
       </div>
@@ -136,9 +164,7 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
               marginTop: "2px",
               fontWeight: "600",
             }}
-          >
-           
-          </p>
+          ></p>
           <a
             href="#"
             style={{
@@ -202,6 +228,7 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
                   fontSize: "14px",
                   fontWeight: "600",
                 }}
+                disabled= {DashoboardStatus}
               >
                 {" "}
                 Dashboard
@@ -306,13 +333,15 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
             style={{ borderTop: "2px solid grey", width: "100%" }}
           ></div>
           <div>
-            <a
-              href="/dashboard"
-              className="EventOption"
-              style={{ fontWeight: "500" }}
-            >
-              Dashboardd
-            </a>
+            <button disabled={DashoboardStatus}>
+              <a
+                href="/dashboard"
+                className="EventOption"
+                style={{ fontWeight: "500" }}
+              >
+                Dashboard
+              </a>
+            </button>
             <Dropdown Name="Order Options" Links={orderOptions} />
             <Dropdown Name="Marketing" Links={Marketing} />
             <Dropdown Name="Manage Attendes" Links={ManageAttendees} />
