@@ -9,8 +9,11 @@ import Dashboard from "../Dashboard/Dashboard";
 import { useState } from "react";
 import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
 import TicketsPage from "../../../Pages/CreatorsView/TicketsPage/TicketsPage";
+import { createContext } from "react";
+export const AppCreateEvent = createContext({});
 const CreateEvent = () => {
   const [eventTitle, setEventTitle] = useState("");
+  const [disableDashboard, setDisableDashboard] = useState(true);
   const [event, setEvent] = useState({
     basic_info: {
       title: "",
@@ -50,12 +53,13 @@ const CreateEvent = () => {
   }, []);
 
   return (
+    <AppCreateEvent.Provider value = {{disableDashboard , setDisableDashboard}}>
     <Tab.Container
       defaultActiveKey={"first"}
       onSelect={() => window.scrollTo(0, 0)}
     >
       <Container fluid className="p-0" style={{ overflow: "hidden" }}>
-        <Sidebar DashboardStatus={true} eventTitle={eventTitle} />
+        <Sidebar eventTitle={eventTitle} />
         <Tab.Content>
           <Tab.Pane eventKey="first">
             <Basicinfo
@@ -85,7 +89,8 @@ const CreateEvent = () => {
 
       {/* <Headerpub data_testid="HDID" /> */}
       <CreatorHeader />
-    </Tab.Container>
+      </Tab.Container>
+      </AppCreateEvent.Provider>
   );
 };
 

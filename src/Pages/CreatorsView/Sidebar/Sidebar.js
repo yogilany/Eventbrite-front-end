@@ -19,6 +19,7 @@ import { AppContext } from "../Details/Details";
 import { Nav } from "react-bootstrap";
 import Tooltip from '@mui/material/Tooltip'
 import { IconButton } from "@mui/material";
+import { AppCreateEvent } from "../CreateEvent/CreateEvent";
 // console.log(window.innerWidth);
 /**
  * @author Mahmoud Khaled
@@ -43,6 +44,7 @@ const Sidebar = ({ DashoboardStatus , HideMenu, eventTitle }) => {
     "Check-in",
   ];
   const sidebarOptions = useRef();
+  const { disableDashboard, setDisableDashbaord } = useContext(AppCreateEvent);
   const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
@@ -228,7 +230,7 @@ const Sidebar = ({ DashoboardStatus , HideMenu, eventTitle }) => {
                   fontSize: "14px",
                   fontWeight: "600",
                 }}
-                disabled= {DashoboardStatus}
+                disabled={disableDashboard}
               >
                 {" "}
                 Dashboard
