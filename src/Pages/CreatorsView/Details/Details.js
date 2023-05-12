@@ -76,14 +76,14 @@ const Details = ({ event, setEvent }) => {
               setDescription={setDescription}
             />
             <AddEvents />
-            {showSubmit && (
+            {/* {showSubmit && (
               <div className="submit__section" data-testid="submit__section">
                 <button className="discard__btn">Discard</button>
-                <button type="submit" className="submit__btn">
+                <button type="submit" className="submit__btn" onClick = {saveData} disabled = {!inputsChanged}>
                   Save
                 </button>
               </div>
-            )}
+            )} */}
           </div>
         </form>
       </div>
