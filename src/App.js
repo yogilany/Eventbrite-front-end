@@ -90,6 +90,7 @@ function App() {
 
             <Route element={<ProtectedRoute />} errorElement={<ErrorPage />}>
               <Route path="/likes" element={<Likes />} />
+              <Route path="/basic-info" element = {<Basicinfo />} />
               <Route path="/all-events" element={<AllEvents />} />
               <Route path="/details" element={<Details />} />
               <Route path="/following" element={<FollowingOrgEvents />} />
