@@ -198,4 +198,8 @@
         display: none;
     }
 }
+.Icon__Button
+{
+    font-size: 35px !important;
+}
 
