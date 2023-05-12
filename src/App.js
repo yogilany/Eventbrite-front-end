@@ -1,62 +1,31 @@
-// import "./App.css";
-// import { Layout } from "./app/layout";
-// import AuthenticatedApp from "./app/AuthenticatedApp";
-// import UnauthenticatedApp from "./app/UnauthenticatedApp";
-// import { useSelector } from "react-redux";
-// import { selectUserToken } from "./features/authSlice";
-// function App() {
-//   const token = useSelector(selectUserToken);
-//   console.log("Token = ", token);
-
-//   return (
-//     <>
-//       {token ? (
-//         <Layout>
-//           <AuthenticatedApp />
-//         </Layout>
-//       ) : (
-//         <Layout>
-//           <UnauthenticatedApp />
-//         </Layout>
-
-//       )}
-//     </>
-//   );
-// }
-
-// export default App;
-
-// Alternate App.js for route protection
-import "./App.css";
-import { useSelector } from "react-redux";
-import { selectUserToken } from "./features/authSlice";
 import { Navigate, Route, Routes } from "react-router";
-import { HomePage } from "./Pages/AttendeesView/HomePage/HomePage";
-import Signup from "./Pages/AttendeesView/Signup/Signup";
-import { ProtectedRoute } from "./app/ProtectedRoute";
-import Likes from "./Pages/AttendeesView/Likes/Likes";
-import FollowingOrgEvents from "./Pages/AttendeesView/FollowingOrganizersEvents/Following";
 import { BrowserRouter } from "react-router-dom";
-import Login from "./Pages/AttendeesView/Login/Login";
-import { Layout } from "./app/layout";
-import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+import "./App.css";
 import AllEvents from "./Pages/AttendeesView/BrowseEvents/AllEvents";
-import Organizer from "./Pages/AttendeesView/Organizer/Organizer";
-import Details from "./Pages/CreatorsView/Details/Details";
-import Publish from "./Pages/Publishpage/Publish";
-import Dashboard from "./Pages/CreatorsView/Dashboard/Dashboard";
-import SearchPage from "./Pages/AttendeesView/HomePage/Components/SearchPage";
 import EventsByCategory from "./Pages/AttendeesView/EventsByCategory/EventsByCategory";
-import SingleEvent from "./Pages/AttendeesView/SingleEvent/SingleEvent";
-import Profile from "./Pages/AttendeesView/Profile/Profile";
-import VerifyUser from "./Pages/AttendeesView/VerifyUser/VerifyUser";
-import Tickets from "./Pages/CreatorsView/TicketsPage/TicketsPage";
-import CreateEvent from "./Pages/CreatorsView/CreateEvent/CreateEvent";
+import FollowingOrgEvents from "./Pages/AttendeesView/FollowingOrganizersEvents/Following";
+import SearchPage from "./Pages/AttendeesView/HomePage/Components/SearchPage";
+import { HomePage } from "./Pages/AttendeesView/HomePage/HomePage";
+import Likes from "./Pages/AttendeesView/Likes/Likes";
+import Login from "./Pages/AttendeesView/Login/Login";
 import ResetPassword from "./Pages/AttendeesView/Login/ResetPassword";
+import Organizer from "./Pages/AttendeesView/Organizer/Organizer";
+import Profile from "./Pages/AttendeesView/Profile/Profile";
+import Signup from "./Pages/AttendeesView/Signup/Signup";
+import SingleEvent from "./Pages/AttendeesView/SingleEvent/SingleEvent";
+import VerifyUser from "./Pages/AttendeesView/VerifyUser/VerifyUser";
 import AddAttendees from "./Pages/CreatorsView/AddAttendees/AddAttendees";
+import CreateEvent from "./Pages/CreatorsView/CreateEvent/CreateEvent";
 import SalesReport from "./Pages/CreatorsView/Dashboard/Components/SalesReport";
 import TicketsReport from "./Pages/CreatorsView/Dashboard/Components/TicketsReport";
+import Dashboard from "./Pages/CreatorsView/Dashboard/Dashboard";
+import Details from "./Pages/CreatorsView/Details/Details";
 import ManageEvents from "./Pages/CreatorsView/ManageEvents/ManageEvents";
+import Tickets from "./Pages/CreatorsView/TicketsPage/TicketsPage";
+import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+import Publish from "./Pages/Publishpage/Publish";
+import { ProtectedRoute } from "./app/ProtectedRoute";
+import { Layout } from "./app/layout";
 function App() {
   return (
     <>

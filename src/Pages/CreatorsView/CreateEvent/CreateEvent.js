@@ -24,14 +24,14 @@ const CreateEvent = () => {
     summary: "",
     description: "",
     state: {
-      is_public: null,
+      is_public: true,
       publish_date_time: "",
     },
     date_and_time: {
       start_date_time: new Date(),
-      end_date_time: new Date() + 24 * 60 * 60 * 1000,
-      is_display_start_date: null,
-      is_display_end_date: null,
+      end_date_time: new Date(),
+      is_display_start_date: true,
+      is_display_end_date: true,
       time_zone: "",
       event_page_language: "",
     },

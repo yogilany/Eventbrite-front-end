@@ -21,7 +21,7 @@ const DateTime = (props) => {
     setval(event.target.value);
   };
   async function saveData() {
-    props.setEvent({
+    await props.setEvent({
       ...props.event,
       state: {
         is_public: props.public,

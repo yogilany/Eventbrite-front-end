@@ -41,8 +41,8 @@ function Singleevent(props) {
       } else {
         console.log("correct");
 
-        props.setStartDate(full_start_date);
-        props.setEndDate(full_end_date);
+        props.setStartDate(full_start_date.toISOString().slice(0, -5));
+        props.setEndDate(full_end_date.toISOString().slice(0, -5));
         if (props.error.length !== 0) {
           // Pop element from error list
           const e = props.error.slice();
