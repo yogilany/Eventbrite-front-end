@@ -17,13 +17,17 @@
   -webkit-box-flex: 1;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
+  flex-direction: column;
   position: relative;
   align-self: center;
   width: 100%;
-  display: block;
+  display: flex;
   // make this container centerd in the page
-  margin: 0 auto;
+  // margin: 0 auto;
+  
   padding: 24px 24px;
+  margin-left: 400px;
+  margin-top: 70px;
 }
 
 .eds-divider--horizontal {
@@ -61,8 +65,8 @@ label.label-primary {
   background-color: #fff;
   border: 1px solid #a9a8b3;
   border-radius: 4px;
-  box-shadow: 0 12px 32px rgba(46, 55, 77, 0.06);
-  -webkit-transition: box-shadow 0.2s ease-in-out;
+  // box-shadow: 0 12px 32px rgba(46, 55, 77, 0.06);
+  // -webkit-transition: box-shadow 0.2s ease-in-out;
   transition: box-shadow 0.2s ease-in-out;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -280,4 +284,12 @@ label.label-primary {
     &:active {
         background: #ad360a;
     }
+}
+
+.select-input{
+  border-width: 1px;
+  border-style: solid;
+  border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+  border-image: initial;
+  border-radius: 0px;
 }

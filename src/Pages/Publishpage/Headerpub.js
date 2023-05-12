@@ -30,11 +30,17 @@ const Headerpub = (props) => {
         <img src={Logo} alt="headerLogo" />
         </Link>
       </div>
-      <div  className="header__responsive-links">
+      {/* <div  className="header__responsive-links">
           <button className="event__details" style = {{marginRight:'10px'}} ><AiFillEye /></button>
           <button className="sidebar__details" style = {{marginRight:'10px'}}><MdApps /></button>
-          <button className="header__more-btn" style={{ marginRight: '45px'}}><RiMore2Fill className="more-logo" /> <span style = {{fontSize:'14px'}}>More</span></button>
-        </div>
+          <button className="header__more-btn" style={{ marginRight: '45px'}}>
+          <div class="flex flex-row items-center">
+
+            <RiMore2Fill className="more-logo" /> <span style = {{fontSize:'14px'}}>Morre</span>
+            </div>
+            </button>
+
+          </div> */}
       <div
         className="header__container-right"
         style={{ marginLeft: "-15px" }}

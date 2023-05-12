@@ -34,11 +34,11 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
     "Tracking Pixels",
   ];
   const ManageAttendees = [
-    "Orders",
-    "Add Attendees",
-    "Emails to Attendees",
-    "Attendee List",
-    "Check-in",
+    {name: "Orders", link: "/orders"},
+    {name: "Add Attendees", link: "/add-attendees"},
+    {name: "Emails to Attendees" , link: "/emails-to-attendees"},
+    {name: "Attendee List", link: "/attendee-list"},
+    {name: "Check-in", link: "/check-in"},
   ];
   const sidebarOptions = useRef();
   const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
@@ -315,7 +315,7 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
             </a>
             <Dropdown Name="Order Options" Links={orderOptions} />
             <Dropdown Name="Marketing" Links={Marketing} />
-            <Dropdown Name="Manage Attendes" Links={ManageAttendees} />
+            {/* <Dropdown Name="Manage Attendes" Links={ManageAttendees} /> */}
           </div>
           {/* <hr className='line' /> */}
           <div
