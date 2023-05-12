@@ -4,7 +4,7 @@ pipeline {
            stage('Fetch code') {
             steps {
                 git branch: 'dev',
-                credentialsId: 'ElmeSelhyy',
+                credentialsId: 'Elmeselhy',
                 url: 'https://github.com/yogilany/Eventbrite-front-end.git'
             }
         }
