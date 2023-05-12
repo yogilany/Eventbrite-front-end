@@ -21,6 +21,7 @@ import {
   useGetUserQuery,
   useIsUserFollowedQuery,
 } from "src/features/api/userApi";
+import LikeButton from "src/Components/LikeButton/LikeButton";
 /* 
 ------Get event
 {
@@ -122,7 +123,7 @@ const SingleEvent = (props) => {
                                   </h3>
                                 </Col>
                                 <Col md={{ offset: 9, span: 1 }}>
-                                  <HIIcons.HiOutlineHeart size="2em" />
+                                  <LikeButton id={event?.id} />
                                 </Col>
                                 <Col md={{ span: 1 }}>
                                   <HIIcons.HiOutlineUpload size="2em" />

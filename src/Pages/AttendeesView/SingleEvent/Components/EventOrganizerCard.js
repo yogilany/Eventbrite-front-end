@@ -2,6 +2,7 @@ import { Col, Row, Container, Stack } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Avatar } from "@mui/material";
 import BlueButton from "src/Components/Buttons/BlueButton";
+import FollowButton from "src/Components/FollowButton/FollowButton";
 export const EventOrganizerCard = (props) => {
   const ContainerCardStyle = {
     backgroundColor: "#f8f7fa",
@@ -38,14 +39,7 @@ export const EventOrganizerCard = (props) => {
         </Col>
 
         <Col className="d-flex justify-content-end align-items-center">
-          <BlueButton
-            style={{
-              width: "50%",
-              color: `${props.isOrganizerFollowed ? "white" : ""}`,
-            }}
-          >
-            Follow
-          </BlueButton>
+          <FollowButton id={props?.organizerId} />
         </Col>
       </Row>
     </Container>

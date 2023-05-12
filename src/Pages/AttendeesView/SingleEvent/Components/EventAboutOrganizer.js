@@ -10,12 +10,8 @@ import {
   useIsUserFollowedQuery,
   useUnfollowUserMutation,
 } from "src/features/api/userApi";
+import FollowButton from "src/Components/FollowButton/FollowButton";
 const EventAboutOrganizer = (props) => {
-  const [followUser] = useFollowUserMutation();
-  const [unfollowUser] = useUnfollowUserMutation();
-  const { data: isUserFollowed, isError: isError } = useIsUserFollowedQuery(
-    props.organizerId
-  );
   const { data: organizerData } = useGetUserQuery(props.organizerId);
 
   const AvatarStyle = {
@@ -30,13 +26,6 @@ const EventAboutOrganizer = (props) => {
     maxWidth: "50vw",
     maxHeight: "70vh",
     boxShadow: "0 2px 2px 2px rgba(0,0,0.3,0.1)",
-  };
-  const followBtnHandler = () => {
-    if (!isError) {
-      unfollowUser(props.organizerId);
-    } else {
-      followUser(props.organizerId);
-    }
   };
 
   return (
@@ -93,18 +82,7 @@ const EventAboutOrganizer = (props) => {
               >
                 Contact
               </WhiteButton>
-              <WhiteButton
-                style={{
-                  fontSize: "16px",
-                  borderRadius: "1vmin",
-                  padding: "2% 4%",
-                  backgroundColor: `${isError === false ? "#4161df" : "white"}`,
-                  color: `${isError === false ? "white" : "#4161df"}`,
-                }}
-                onClick={followBtnHandler}
-              >
-                {isError === false ? "Following" : "Follow"}
-              </WhiteButton>
+              <FollowButton id={props?.organizerId} />
             </Stack>
           </Row>
 
