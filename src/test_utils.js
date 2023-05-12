@@ -5,7 +5,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { BrowserRouter } from "react-router-dom";
 // As a basic setup, import your same slice reducers
 import { authSlice } from "./features/authSlice";
-import { eventSlice } from "./features/eventSlice";
+import { eventSlice } from "./features/api/eventApi";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { persistor } from "./store";

@@ -52,7 +52,7 @@ export const SignupForm = (props) => {
   const [emailExists, setEmailExists] = useState(false);
   const [submitPosition, setSubmitPosition] = useState("");
   const [oldSubmitPosition, setOldSubmitPosition] = useState("");
-  const [GoogleProfile, setGoogleProfile] = useState(null);
+  const [SocialProfile, setSocialProfile] = useState(null);
 
   const rowRef = useRef();
   const navigate = useNavigate();
@@ -88,49 +88,35 @@ export const SignupForm = (props) => {
   };
 
   const registerUserHandler = () => {
-    if (GoogleProfile) {
-      if (!GoogleProfile.email_verified) {
-        setSuccess(false);
-        setTimeout(() => {
-          controls.start("start");
-        }, 500);
-      } else {
-        dispatch(checkEmailExists(GoogleProfile.email))
-          .unwrap(unwrapResult)
-          .catch((err) => {
-            //Email does not exist, create account for user
-            dispatch(
-              registerGoogleUser({
-                email: GoogleProfile.email,
-                password: crypto.getRandomValues(new Uint8Array(64)).toString(),
-                firstname: GoogleProfile.given_name,
-                lastname: GoogleProfile.family_name ?? "",
-                picture: GoogleProfile.picture,
-              })
-            ).catch((err) => {
-              setSuccess(false);
-              setTimeout(() => {
-                controls.start("start");
-              }, 500);
-              return;
-            });
-          });
-
-        dispatch(
-          authGoogleUser({
-            email: GoogleProfile.email,
-          })
-        )
-          .then((result) => {
-            setSuccess(true);
-          })
-          .catch((err) => {
+    if (SocialProfile) {
+      console.log("aaaaaaaaaa", SocialProfile);
+      dispatch(checkEmailExists(SocialProfile.email))
+        .unwrap(unwrapResult)
+        .catch((err) => {
+          //Email does not exist, create account for user
+          dispatch(registerGoogleUser(SocialProfile)).catch((err) => {
             setSuccess(false);
             setTimeout(() => {
               controls.start("start");
             }, 500);
+            return;
           });
-      }
+        });
+
+      dispatch(
+        authGoogleUser({
+          email: SocialProfile.email,
+        })
+      )
+        .then((result) => {
+          setSuccess(true);
+        })
+        .catch((err) => {
+          setSuccess(false);
+          setTimeout(() => {
+            controls.start("start");
+          }, 500);
+        });
     } else {
       const data = {
         email: getValues("email"),
@@ -189,8 +175,8 @@ export const SignupForm = (props) => {
   }, [watchEmail, dispatch, getValues]);
 
   useEffect(() => {
-    if (GoogleProfile) setPrivacyPolicyModalShow(true);
-  }, [GoogleProfile]);
+    if (SocialProfile) registerUserHandler();
+  }, [SocialProfile]);
 
   return (
     <>
@@ -478,7 +464,7 @@ export const SignupForm = (props) => {
                     data-testid="HorizontalChip"
                     id="HorizontalChip"
                   />
-                  <SignupMethods setGoogleProfile={setGoogleProfile} />
+                  <SignupMethods setSocialProfile={setSocialProfile} />
                 </>
               )}
             </Row>

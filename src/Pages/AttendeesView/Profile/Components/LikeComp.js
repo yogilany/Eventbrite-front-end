@@ -3,18 +3,12 @@ import "./LikeComp.css";
 import eventphoto from "../../../../assets/like3.jpeg";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import { FiShare } from "react-icons/fi";
-import { BorderColor, Token } from "@mui/icons-material";
-import { likeEvent, unlikeEvent } from "../../../../features/userprofSlice";
-import { useSelector } from "react-redux";
 import {
-  getUserDetails,
-  logOut,
-  selectUserAvatarURL,
-  selectUserEmail,
-  selectUserFirstName,
-  selectUserLastName,
-  selectUserToken,
-} from "../../../../features/authSlice";
+  useLikeEventMutation,
+  useUnlikeEventMutation,
+} from "src/features/api/userApi";
+import { useDispatch } from "react-redux";
+
 /**
  * @author Ziad Ezzat
  * @param {string} props.data_testid
@@ -23,20 +17,23 @@ import {
  */
 const LikeComp = (props) => {
   const [imgSrc, setImgSrc] = React.useState(props.image_link);
-  const token = useSelector(selectUserToken);
   const [isClicked, setIsClicked] = React.useState(false);
-  const handleClick = () => {
+  const [likeEvent] = useLikeEventMutation();
+  const [unlikeEvent] = useUnlikeEventMutation();
+
+  const handleClick = async () => {
     setIsClicked(!isClicked);
     if (isClicked) {
       console.log("ID with like :", props.id);
-      console.log("Token with like :", token);
-      likeEvent(token, props.id);
+      const res = await likeEvent(props.id).unwrap();
+      console.log(res);
     } else {
-      console.log("Token with unlike :", token);
       console.log("id with unlike :", props.id);
-      unlikeEvent(token, props.id);
+      const res = await unlikeEvent(props.id).unwrap();
+      console.log(res);
     }
   };
+
   const handleImgError = () => {
     setImgSrc(eventphoto);
   };

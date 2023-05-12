@@ -11,17 +11,6 @@ import axios from "axios";
 const qs = require("qs");
 
 /**
- * User token, fetched from local storage or null
- * @date 5/4/2023 - 7:28:17 PM
- * @author h4z3m
- *
- * @type {*}
- */
-const userToken = localStorage.getItem("userToken")
-  ? localStorage.getItem("userToken")
-  : null;
-
-/**
  * Authentication state object
  * @date 5/4/2023 - 7:27:51 PM
  * @author h4z3m
@@ -33,7 +22,7 @@ const initialState = {
   userFirstName: "",
   userLastName: "",
   userAvatarURL: "",
-  userToken,
+  userToken: null,
   userID: "",
   isLoading: false,
   emailExists: false,
@@ -62,7 +51,7 @@ export const authUser = createAsyncThunk(
 
       if (response.data?.access_token !== null) {
         console.log("heeelo");
-        localStorage.setItem("userToken", response.data.access_token);
+        // localStorage.setItem("userToken", response.data.access_token);
         return response.data;
       } else {
         throw rejectWithValue(response.data.detail);
@@ -102,6 +91,13 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+/**
+ * @description Login Google/FB user
+ * @date 5/11/2023 - 9:36:34 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
 export const authGoogleUser = createAsyncThunk(
   "auth/login-with-google",
   async (userData, thunkAPI) => {
@@ -128,6 +124,13 @@ export const authGoogleUser = createAsyncThunk(
   }
 );
 
+/**
+ * @description Register Google/FB user
+ * @date 5/11/2023 - 9:36:10 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
 export const registerGoogleUser = createAsyncThunk(
   "auth/signup-google",
   async (registerData, thunkAPI) => {
@@ -274,12 +277,8 @@ export const verifyUser = createAsyncThunk(
  */
 export const getUserDetails = createAsyncThunk(
   "users/me/info",
-  async (aa, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      console.log(
-        " inside user details Token = ",
-        localStorage.getItem("userToken")
-      );
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_API}/users/me/info`,
         {
@@ -357,9 +356,7 @@ export const authSlice = createSlice({
     builder
       // Authenticate user
       .addCase(authUser.rejected, (state, action) => {
-        state.userEmail = null;
-        state.userToken = null;
-        state.isLoading = false;
+        state = initialState;
       })
       .addCase(authUser.pending, (state, action) => {
         state.isLoading = true;
@@ -373,9 +370,7 @@ export const authSlice = createSlice({
       })
       // Authenticate Google user
       .addCase(authGoogleUser.rejected, (state, action) => {
-        state.userEmail = null;
-        state.userToken = null;
-        state.isLoading = false;
+        state = initialState;
       })
       .addCase(authGoogleUser.pending, (state, action) => {
         state.isLoading = true;
@@ -389,11 +384,8 @@ export const authSlice = createSlice({
       })
       // Register user
       .addCase(registerUser.rejected, (state, action) => {
-        state.userEmail = null;
-        state.userToken = null;
-        state.isLoading = false;
+        state = initialState;
       })
-
       .addCase(registerUser.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -403,11 +395,8 @@ export const authSlice = createSlice({
       })
       // Register Google user
       .addCase(registerGoogleUser.rejected, (state, action) => {
-        state.userEmail = null;
-        state.userToken = null;
-        state.isLoading = false;
+        state = initialState;
       })
-
       .addCase(registerGoogleUser.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -418,20 +407,13 @@ export const authSlice = createSlice({
       // Get user details
       .addCase(getUserDetails.rejected, (state, action) => {
         console.log("rejected action.payload = ", action.payload);
-        state.isLoading = false;
-        state.userToken = null;
-        state.userEmail = null;
-        state.userFirstName = "";
-        state.userLastName = "";
-        state.userAvatarURL = "";
-        localStorage.setItem("userToken", null);
+        state = initialState;
       })
       .addCase(getUserDetails.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(getUserDetails.fulfilled, (state, action) => {
         console.log("fulfilled action.payload = ", action.payload);
-
         state.isLoading = false;
         state.userEmail = action.payload.email;
         state.userFirstName = action.payload.firstname;

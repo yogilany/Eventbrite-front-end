@@ -1,9 +1,7 @@
 import "./Publish.css";
 import { CiCalendar, CiClock2 } from "react-icons/ci";
 import { useState } from "react";
-import { createEvent } from "src/features/eventApi";
-import { selectUserToken } from "src/features/authSlice";
-import { useSelector } from "react-redux";
+import { useCreateEventMutation } from "../../features/api/eventApi";
 import { useNavigate } from "react-router";
 /**
  * @author Ziad Ezzat
@@ -15,8 +13,10 @@ const DateTime = (props) => {
   const [val, setval] = useState("now");
   const [date, setDate] = useState("03/11/2023");
   const [time, setTime] = useState("2:00PM");
-  const token = useSelector(selectUserToken);
+  const [createEvent] = useCreateEventMutation();
+
   const navigate = useNavigate();
+
   const readorwrite = (event) => {
     setval(event.target.value);
   };
@@ -28,15 +28,20 @@ const DateTime = (props) => {
         publish_date_time: new Date(date).toISOString().slice(0, -5),
       },
     });
-    const response = await createEvent(props.event, token);
-    console.log(response);
-    if (response.status === 200) {
+    try {
+      const { response, isLoading } = await createEvent(props.event).unwrap();
       navigate(`/event/${response.data.id}`, { replace: true });
+    } catch (error) {
+      console.log("Error creating event : ", error);
     }
   }
 
   return (
-    <div class="mb-2" data-testid={props.data_testid} style={{ paddingBottom: 70 }}>
+    <div
+      class="mb-2"
+      data-testid={props.data_testid}
+      style={{ paddingBottom: 70 }}
+    >
       <h2 className="rdh">{props.title}</h2>
       <div style={{ display: "flex" }}>
         <input
@@ -48,7 +53,10 @@ const DateTime = (props) => {
           checked={val === "now"}
           style={{ cursor: "pointer" }}
         ></input>
-        <p class="mb-2" style={{ marginLeft: 20, marginTop: 15, color: "#39364f" }}>
+        <p
+          class="mb-2"
+          style={{ marginLeft: 20, marginTop: 15, color: "#39364f" }}
+        >
           {props.c1}
         </p>
       </div>
@@ -62,7 +70,10 @@ const DateTime = (props) => {
           checked={val === "sch"}
           style={{ cursor: "pointer" }}
         ></input>
-        <p class="mb-2" style={{ marginLeft: 20, marginTop: 10, color: "#39364f" }}>
+        <p
+          class="mb-2"
+          style={{ marginLeft: 20, marginTop: 10, color: "#39364f" }}
+        >
           {props.c2}
         </p>
       </div>

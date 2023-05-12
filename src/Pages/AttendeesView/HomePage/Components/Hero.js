@@ -34,7 +34,7 @@ const Hero = ({ screenSize }) => {
         </Row>
         <Row style={{ position: "relative", left: "100px", bottom: "75px" }}>
           <Col>
-            <button className="primaryBtn" id="nextEventBtn" sty>
+            <button className="primaryBtn" id="nextEventBtn" sty="true">
               Find your next event
             </button>
           </Col>

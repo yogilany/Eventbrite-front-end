@@ -66,7 +66,9 @@ export const HomePage = () => {
   const fetchEvents = () => {
     console.log("baseee", location);
     axios
-      .get(`${process.env.REACT_APP_BASE_API}/events/search`,{ params: { city: location ? location : "Cairo" } })
+      .get(`${process.env.REACT_APP_BASE_API}/events/search`, {
+        params: { city: location ? location : "Cairo" },
+      })
       .then(function (response) {
         console.log("response", response.data);
         setEvents(response.data);
@@ -78,7 +80,6 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
-
     async function fetchLocation() {
       let url = "https://ipinfo.io/json?token=89085807858d6e";
       let response = await fetch(url);
@@ -105,20 +106,17 @@ export const HomePage = () => {
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-
-
     }
-
-   
   };
 
-  useEffect(() => {    fetchEvents();
+  useEffect(() => {
+    fetchEvents();
   }, []);
 
   // console.log(selectCurrentUser);
   return (
     <>
-      <Header screenSize={screenSize} location={location}/>
+      <Header screenSize={screenSize} location={location} />
       <Container fluid id="homePageContainer">
         <Row>
           <Col className="p-0">
@@ -143,7 +141,6 @@ export const HomePage = () => {
                       value={location}
                       onChange={(e) => {
                         setLocation(e.target.value);
-
                       }}
                       onKeyPress={handleEnter}
                       type="search"
@@ -152,7 +149,7 @@ export const HomePage = () => {
                       placeholder="Location"
                     />
                     <MdOutlineKeyboardArrowDown
-                    onClick={fetchEvents}
+                      onClick={fetchEvents}
                       color="#3659e3"
                       className="w-12 h-12"
                     />
@@ -186,7 +183,7 @@ export const HomePage = () => {
               </Row>
             </Container>
 
-            <Events location={location} events={events}/>
+            <Events location={location} events={events} />
             {/* <MoreEvents /> */}
           </Col>
         </Row>
