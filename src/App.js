@@ -30,7 +30,7 @@
 import "./App.css";
 import { useSelector } from "react-redux";
 import { selectUserToken } from "./features/authSlice";
-import { Navigate, Route, Routes, useRoutes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import { HomePage } from "./Pages/AttendeesView/HomePage/HomePage";
 import Signup from "./Pages/AttendeesView/Signup/Signup";
 import { ProtectedRoute } from "./app/ProtectedRoute";
@@ -45,7 +45,6 @@ import Organizer from "./Pages/AttendeesView/Organizer/Organizer";
 import Details from "./Pages/CreatorsView/Details/Details";
 import Publish from "./Pages/Publishpage/Publish";
 import Dashboard from "./Pages/CreatorsView/Dashboard/Dashboard";
-import Basicinfo from "./Pages/CreatorsView/Basicinfo/BasicInfo";
 import SearchPage from "./Pages/AttendeesView/HomePage/Components/SearchPage";
 import EventsByCategory from "./Pages/AttendeesView/EventsByCategory/EventsByCategory";
 import SingleEvent from "./Pages/AttendeesView/SingleEvent/SingleEvent";
@@ -55,14 +54,10 @@ import Tickets from "./Pages/CreatorsView/TicketsPage/TicketsPage";
 import CreateEvent from "./Pages/CreatorsView/CreateEvent/CreateEvent";
 import ResetPassword from "./Pages/AttendeesView/Login/ResetPassword";
 import AddAttendees from "./Pages/CreatorsView/AddAttendees/AddAttendees";
-
 import SalesReport from "./Pages/CreatorsView/Dashboard/Components/SalesReport";
 import TicketsReport from "./Pages/CreatorsView/Dashboard/Components/TicketsReport";
 import ManageEvents from "./Pages/CreatorsView/ManageEvents/ManageEvents";
 function App() {
-  const userToken = useSelector(selectUserToken);
-
-  console.log("Token = ", userToken);
   return (
     <>
       <Layout>
@@ -77,7 +72,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/login/resetpassword" element={<ResetPassword />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/organizer" element={<Organizer />} />
+            <Route path="/organizer/:id" element={<Organizer />} />
             <Route path="/verify" element={<VerifyUser />} />
             <Route path="/search" element={<SearchPage />} />
             <Route
@@ -99,7 +94,7 @@ function App() {
               <Route path="/Profile" element={<Profile />} />
               <Route path="/tickets" element={<Tickets />} />
               <Route path="/manage-events" element={<ManageEvents />} />
-
+              <Route path="/add-attendees" element={<AddAttendees />} />
             </Route>
           </Routes>
         </BrowserRouter>

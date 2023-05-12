@@ -97,27 +97,13 @@ const BASE_API = process.env.REACT_APP_BASE_API;
 
 export const eventsApi = createApi({
   reducerPath: "events",
-  baseQuery: fetchBaseQuery({
-    baseUrl: BASE_API,
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.userToken;
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      headers.set("Content-Type", "application/json");
-      return headers;
-    },
-  }),
+  baseQuery: axiosBaseQuery({ baseUrl: BASE_API }),
   endpoints: (builder) => ({
     createEvent: builder.mutation({
-      query: (eventData, { getState }) => ({
+      query: (eventData) => ({
         url: "/events/create",
         method: "POST",
-        body: eventData,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getState().auth.userToken}`,
-        },
+        data: eventData,
       }),
     }),
     getEventById: builder.query({

@@ -29,8 +29,9 @@ const DateTime = (props) => {
       },
     });
     try {
-      const { response, isLoading } = await createEvent(props.event).unwrap();
-      navigate(`/event/${response.data.id}`, { replace: true });
+      const response = await createEvent(props.event).unwrap();
+      console.log("response: ", response);
+      navigate(`/event/${response.id}`, { replace: true });
     } catch (error) {
       console.log("Error creating event : ", error);
     }

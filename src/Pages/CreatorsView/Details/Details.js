@@ -35,7 +35,8 @@ const Details = ({ event, setEvent }) => {
     setEvent({
       ...event,
 
-      image_link: "https://www.example.com/image.png",
+      image_link:
+        "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F508415919%2F1144043283543%2F1%2Foriginal.20230505-120629?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C60%2C1920%2C960&s=d8fd402e4d59e205dcd67cab6c6dbe83",
       summary: summary,
       description: description,
     });

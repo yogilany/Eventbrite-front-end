@@ -7,6 +7,8 @@ import {
   useUnfollowUserMutation,
 } from "src/features/api/userApi";
 import { useState } from "react";
+import { Avatar } from "@mui/material";
+import FollowButton from "src/Components/FollowButton/FollowButton";
 /**
  * @author Ziad Ezzat
  * @param {string} props.text
@@ -18,43 +20,21 @@ const FollComp = (props) => {
   const [userFullName, setUserFullName] = useState(
     props.firstname + " " + props.lastname
   );
-  const [imgSrc, setImgSrc] = React.useState(props.avatar);
-  const [isfollowing, setisfollowing] = React.useState("Following");
-  const [followEvent] = useFollowUserMutation();
-  const [unfollowEvent] = useUnfollowUserMutation();
-
-  const handleImgError = () => {
-    setImgSrc(emptyprofile);
-  };
-  const handleClick = async () => {
-    if (isfollowing === "Following") {
-      setisfollowing("Follow");
-      console.log("ID with unfollow :", props.id);
-      const res = await unfollowEvent(props.id).unwrap();
-      console.log(res);
-    } else {
-      setisfollowing("Following");
-      const res = await unfollowEvent(props.id).unwrap();
-      console.log(res);
-    }
-  };
   return (
     <div
+      className={props.className}
       style={{ display: "flex", marginTop: 10 }}
       data-testid={props.data_testid}
     >
-      <img
-        onError={handleImgError}
-        src={imgSrc}
+      <Avatar
+        src={props.avatar_url}
         alt="profilelogo"
-        style={{ width: 65, height: 65, borderRadius: "50%" }}
+        style={{ width: 36, height: 36, borderRadius: "50%" }}
       />
-      <h5 style={{ marginTop: 20, fontSize: 17, width: "200px" }}>
+      <h5 style={{ marginTop: 7, marginLeft: 10, fontSize: 17, width: "100%" }}>
         {userFullName}
       </h5>
-      <button id="btnfol_prof_id" onClick={handleClick} className="btnfol_prof">
-        {isfollowing}
-      </button>
+      <FollowButton className="btnfol_prof" id={props.id}></FollowButton>
     </div>
   );
 };

@@ -296,6 +296,9 @@ export const userApi = createApi({
       query: () => "/users/me/event/liked",
       providesTags: ["Liked"],
     }),
+    fetchLikedEventsNoValidation: builder.query({
+      query: () => "/users/me/event/liked",
+    }),
     likeEvent: builder.mutation({
       query: (eventId) => ({
         url: `/users/me/event/${eventId}/like`,
@@ -313,6 +316,9 @@ export const userApi = createApi({
     getFollowingUsers: builder.query({
       query: () => "/users/me/user/following",
       providesTags: ["Following"],
+    }),
+    getFollowingUsersNoValidation: builder.query({
+      query: () => "/users/me/user/following",
     }),
     followUser: builder.mutation({
       query: (userId) => ({
@@ -344,9 +350,11 @@ export const userApi = createApi({
 
 export const {
   useFetchLikedEventsQuery,
+  useFetchLikedEventsNoValidationQuery,
   useLikeEventMutation,
   useUnlikeEventMutation,
   useGetFollowingUsersQuery,
+  useGetFollowingUsersNoValidationQuery,
   useFollowUserMutation,
   useUnfollowUserMutation,
   useGetUserQuery,

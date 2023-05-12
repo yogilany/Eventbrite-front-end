@@ -10,20 +10,18 @@ import { AiOutlineRight } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import {
-  getUserDetails,
-  logOut,
   selectUserAvatarURL,
-  selectUserEmail,
   selectUserFirstName,
   selectUserLastName,
-  selectUserToken,
 } from "src/features/authSlice";
 import {
+  useFetchLikedEventsNoValidationQuery,
   useFetchLikedEventsQuery,
+  useGetFollowingUsersNoValidationQuery,
   useGetFollowingUsersQuery,
 } from "src/features/api/userApi";
-import { useDispatch } from "react-redux";
 import eventphoto from "../../../assets/adelEv1.png";
+import { Col, Container, Row } from "react-bootstrap";
 /**
  * @author Ziad Ezzat
  * @param {}
@@ -55,59 +53,19 @@ const Profile = () => {
       is_online: true,
     },
   ];
-  const dispatch = useDispatch();
   const UserAvatar = useSelector(selectUserAvatarURL);
   const userFirstName = useSelector(selectUserFirstName);
   const userLastName = useSelector(selectUserLastName);
   const [userFullName, setUserFullName] = useState(
     userFirstName + " " + userLastName
   );
-  const [LikedEvents, setLikedEvents] = useState([]);
-  const [followedpeople, setfollowedpeople] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const token = useSelector(selectUserToken);
   const [imgSrc, setImgSrc] = useState(UserAvatar);
-  const { data: likedEvents, isSuccessLikedEvents } =
-    useFetchLikedEventsQuery();
-  const { data: followingUsers, isSuccessFollowing } =
-    useGetFollowingUsersQuery();
-
+  const { data: likedEvents } = useFetchLikedEventsNoValidationQuery();
+  const { data: followingUsers } = useGetFollowingUsersNoValidationQuery();
   const handleImgError = () => {
     setImgSrc(emptyprofile);
   };
-  useEffect(() => {
-    // const getlikes = async () => {
-    //   try {
-    //     const response = await dispatch(fetchLikedEvents());
-    //     setLikedEvents(response);
-    //   } catch (error) {
-    //     setError(error);
-    //     setIsLoading(false);
-    //   }
-    // };
-    // getlikes();
-  }, []);
-  // useEffect(() => {
-  //   const getfoll = async () => {
-  //     try {
-  //       const response = await dispatch(getFollowingUsers());
-  //       setfollowedpeople(response);
-  //     } catch (error) {
-  //       setError(error);
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   getfoll();
-  // }, []);
 
-  console.log("data is", LikedEvents);
-  if (isSuccessLikedEvents) {
-    setLikedEvents(likedEvents);
-  }
-  if (isSuccessFollowing) {
-    setfollowedpeople(followingUsers);
-  }
   return (
     <div>
       <Header />
@@ -165,7 +123,7 @@ const Profile = () => {
                   </a>
                   <div style={{ display: "flex" }}>
                     <a href="#" style={{ color: "grey", fontSize: 15 }}>
-                      {LikedEvents.length}
+                      {likedEvents?.length}
                     </a>
                     <p
                       style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
@@ -186,7 +144,7 @@ const Profile = () => {
                   </a>
                   <div style={{ display: "flex" }}>
                     <a href="#" style={{ color: "grey", fontSize: 15 }}>
-                      {followedpeople.length}
+                      {followingUsers?.length}
                     </a>
                     <p
                       style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
@@ -238,8 +196,10 @@ const Profile = () => {
               />
             </div>
             <div className="likeblk_prof">
-              {LikedEvents.map((event) => (
+              {likedEvents?.map((event) => (
                 <LikeComp
+                  key={event.id}
+                  event={event}
                   id={event.id}
                   title={event.title}
                   start_date_time={event.start_date_time}
@@ -263,18 +223,25 @@ const Profile = () => {
                   className="arr_prof"
                 />
               </div>
-              <div className="follblk_prof">
-                {followedpeople.map((person) => (
-                  <FollComp
-                    email={person.email}
-                    firstname={person.firstname}
-                    lastname={person.lastname}
-                    avatar={person.avatar}
-                  />
-                ))}
-                {/* <FollComp text="GoMyCode" data_testid="Follow-Form-id" />
-                <FollComp text="Ezz event riders" /> */}
-              </div>
+              {/* <div className="follblk_prof"> */}
+              <Container>
+                <Row>
+                  {followingUsers?.map((person) => (
+                    <Col md={6}>
+                      <FollComp
+                        key={person.id}
+                        id={person.id}
+                        email={person.email}
+                        firstname={person.firstname}
+                        lastname={person.lastname}
+                        avatar_url={person.avatar_url}
+                        className="mr-5"
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              </Container>
+              {/* </div> */}
             </div>
           </div>
         </div>
