@@ -23,7 +23,7 @@ const Details = ({ event, setEvent }) => {
   const handleForm = (e) => {
     e.preventDefault();
   };
-  const[isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [showSubmit, setShowSubmit] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -36,7 +36,8 @@ const Details = ({ event, setEvent }) => {
     setEvent({
       ...event,
 
-      image_link: "https://www.example.com/image.png",
+      image_link:
+        imageLink === "" ? "https://picsum.photos/1600/800" : imageLink,
       summary: summary,
       description: description,
     });
