@@ -7,7 +7,7 @@ import { Button, InputAdornment, TextField } from "@mui/material";
 
 const URLBox = ({event}) => {
   const [editURL, setEditURL] = useState(false);
-  const [URL, setURL] = useState(event ? `https://www.eventbrite.com/event/${event.id}` : null );
+  const [URL, setURL] = useState(event ? `https://www.bort2an.com/event/${event.id}` : null );
    
   return (
     <Container fluid className="mt-5">
@@ -30,12 +30,12 @@ const URLBox = ({event}) => {
                 >
                   <ContentCopyIcon />
                 </IconButton>
-                <IconButton
+                {/* <IconButton
                   aria-label="delete"
                   onClick={() => setEditURL(true)}
                 >
                   <EditIcon />
-                </IconButton>
+                </IconButton> */}
               </Col>
             </Row>
           ) : (

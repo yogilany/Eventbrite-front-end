@@ -69,11 +69,15 @@ const Profile = () => {
   const handleImgError = () => {
     setImgSrc(emptyprofile);
   };
-  const {data:Orders} = useGetordersQuery();
   const refetch = () => {
     refetchFollowingUsers();
     refetchLikedEvents();
   };
+
+  const { data: Orders } = useGetordersQuery(undefined, {
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
   useEffect(() => {
     refetch();
   }, []);

@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { selectUserToken } from "src/features/authSlice";
 import { useNavigate } from "react-router";
 import Containerpub from "src/Pages/Publishpage/Containerpub";
+import CreatorHeader from "../../Details/Components/creatorHeader/CreatorHeader";
 
 const SalesReport = () => {
   const { id } = useParams();
@@ -57,7 +58,7 @@ const SalesReport = () => {
 
   return (
     <>
-      <Containerpub data_testid="HDID" />
+      <CreatorHeader data_testid="HDID"  />
       <OnlyLinksSideBar />
 
       <Container fluid className="mt-5 pl-24">

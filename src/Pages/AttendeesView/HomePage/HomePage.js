@@ -90,17 +90,17 @@ export const HomePage = () => {
 
     fetchLocation();
 
-    const testLocation = {
-      hostname: "host-156.215.249.101-static.tedata.net",
-      city: "Cairo",
-      region: "Cairo",
-      country: "EG",
-      loc: "30.0626,31.2497",
-      org: "AS8452 TE-AS",
-      timezone: "Africa/Cairo",
-    };
+    // const testLocation = {
+    //   hostname: "host-156.215.249.101-static.tedata.net",
+    //   city: "Cairo",
+    //   region: "Cairo",
+    //   country: "EG",
+    //   loc: "30.0626,31.2497",
+    //   org: "AS8452 TE-AS",
+    //   timezone: "Africa/Cairo",
+    // };
 
-    setLocation(testLocation.city);
+    // setLocation(testLocation.city);
     fetchEvents();
   }, []);
 
