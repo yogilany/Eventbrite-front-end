@@ -13,8 +13,8 @@ const Containerpub = (props) => {
     const data = props.event;
     console.log("data ziad: ", data);
     const title = data.basic_info.title;
-     const price = data?.tickets[0]?.price; // Events don't have tickets in usual case
-     const quant = data?.tickets[0]?.max_quantity; // Events don't have tickets in usual case
+    //  const price = data?.tickets[0]?.price; // Events don't have tickets in usual case
+    //  const quant = data?.tickets[0]?.max_quantity; // Events don't have tickets in usual case
     const date =data.date_and_time.start_date_time;
     console.log("date",date);
     console.log("title");
@@ -30,10 +30,10 @@ const Containerpub = (props) => {
                     <p style={{ marginLeft: 10, fontSize: 13, width: "150%",marginTop:5 }}>{data?.location?.city}</p>
                     <div style={{ marginTop: 18, marginRight: 10, display: 'flex' }}>
                         <TfiTicket style={{ width: 45, height: 20 }} />
-                        { <p style={{}} >{price}</p> }
+                        {/* { <p style={{}} >{price}</p> } */}
                         <div style={{ marginLeft: 10, display: 'flex' }}>
                             <CgProfile style={{ width: 45, height: 20 }} />
-                            <p style={{}} >{quant}</p> 
+                            {/* <p style={{}} >{quant}</p>  */}
                         </div>
                     </div>
                     <div className='hline'>
