@@ -27,6 +27,7 @@ import Publish from "./Pages/Publishpage/Publish";
 import { ProtectedRoute } from "./app/ProtectedRoute";
 import { Layout } from "./app/layout";
 import MyEvents from "./Pages/CreatorsView/MyEvents/MyEvents";
+import ManageEvent from "./Pages/CreatorsView/ManageEvent/ManageEvent";
 function App() {
   return (
     <>
@@ -65,6 +66,8 @@ function App() {
               <Route path="/tickets" element={<Tickets />} />
               <Route path="/manage-events" element={<ManageEvents />} />
               <Route path="/add-attendees" element={<AddAttendees />} />
+              <Route path="/manage-event/:id" element={<ManageEvent />} />
+
 
             </Route>
           </Routes>
