@@ -1,12 +1,13 @@
 import React from 'react'
-import axios from 'axios'
+import axios, { all } from 'axios'
 import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { selectUserToken } from "src/features/authSlice";
 import { Link } from 'react-router-dom';
+import { set } from 'date-fns';
 
 
-const TableRow = ({event}) => {
+const TableRow = ({event,csvExport}) => {
     const token = useSelector(selectUserToken);
     const [totalTickets, setTotalTickets] = useState(0);
     const [SoldTickets, setSoldTickets] = useState(0);
@@ -34,15 +35,39 @@ const TableRow = ({event}) => {
                 },
               })
               .then(function (response) {
-                console.log("my tickets", response.data);
+                // console.log("my tickets", response.data);
                 // loop on the max quantity attribute of each ticket in the array and add it to the totalTickets
                 response.data.map((ticket) => {
                     setTotalTickets(totalTickets + ticket.max_quantity);
                     setSoldTickets(SoldTickets + (ticket.max_quantity - ticket.available_quantity));
                     setGross(gross + ((ticket.max_quantity - ticket.available_quantity) * ticket.price));
+            
 
                 })
 
+                // const newReportRow = {
+                //     event: event.basic_info.title,
+                //     date: formatter.format(new Date(event.date_and_time.start_date_time)) ,
+                //     status: new Date(event.date_and_time.start_date_time).getTime() > new Date().getTime() ? 'Upcoming' : 'On Sale',
+                //     SoldTickets: SoldTickets,
+                //     AvailableTickets: totalTickets - SoldTickets,
+                // }
+    
+                // // add newReportRow to allData if the event property in the object is not already in the array
+                // const index = allData.findIndex((row) => row.event === newReportRow.event);
+                // if(index === -1){
+                //     // console.log("allDataallData", allData)
+                //     setAllData([...allData, newReportRow]);
+                  
+
+                    
+    
+    
+                   
+                // }
+    
+
+             
                 
 
 
@@ -58,12 +83,21 @@ const TableRow = ({event}) => {
     }
 
     useEffect(() => {
-        fetchTickets()
+        fetchTickets();
+
     }, [])
+
+    // useEffect(() => {
+    //     if(!csvExport) return;
+    //     console.log("csvExport", csvExport)
+            
+    
+    // }, [allData, csvExport])
+
     
   return (
     <tr class="bg-white border-b ">
-            <Link to={`/event/${event.id}`}>
+            <Link to={`/manage-event/${event.id}`}>
 
                     <td class="px-6 py-4">
                         <div className='flex flex-row'>

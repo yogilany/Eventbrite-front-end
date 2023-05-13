@@ -27,8 +27,8 @@ const Details = ({ event, setEvent }) => {
   const [showSubmit, setShowSubmit] = useState(false);
   const [success, setSuccess] = useState(false);
   const [imageLink, setImageLink] = useState("");
-  const [summary, setSummary] = useState("");
-  const [description, setDescription] = useState("");
+  const [summary, setSummary] = useState(event ? event.summary : "");
+  const [description, setDescription] = useState(event ? event.description : "");
   const [inputsChanged, setInputsChanged] = useState(false);
 
   function saveData() {
