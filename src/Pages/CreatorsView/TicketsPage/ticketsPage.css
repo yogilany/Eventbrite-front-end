@@ -4,7 +4,7 @@
 }
 .tickets__page-body
 {
-    margin-top: 70px;
+    margin-top: 90px;
     margin-left: 350px;
     /* display: flex;
     align-items: flex-start;
@@ -151,6 +151,7 @@
 {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-left: 30px;
     margin-right: 30px;
@@ -163,6 +164,7 @@
     margin-left: 30px;
     margin-right: 30px;
     margin-top: 0px;
+    flex-wrap: wrap;
 }
 .tickets__inputs-label-start
 {
@@ -414,4 +416,51 @@
     margin-left: 30px;
     font-size: 12px;
     color:#c5162e;
+}
+.required__price
+{
+    margin-left: 30px;
+    font-size: 12px;
+    color:#c5162e;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+.ticket_price-input-error
+{
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-left: 15px;
+    border:1px solid #c5162e;
+}
+.data__row-table
+{
+    background-color: #dfdfe2;
+}
+.errorEndDate
+{
+    margin-left: 0px;
+    color: #c5162e;
+    font-size: 12px;
+}
+.error__date
+{
+    margin-left: 0px;
+    color: #c5162e;
+    font-size: 12px;
+}
+#promocode_end_date-field
+{
+    border:1px solid #c5162e;
+}
+#promocode_start_date-field
+{
+    border:1px solid #c5162e;
+}
+#end_date-field
+{
+    border:1px solid #c5162e;
+}
+#start_date-field
+{
+    border:1px solid #c5162e;
 }
