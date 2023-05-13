@@ -1,8 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const BASE_API = process.env.REACT_APP_BASE_API;
 
 export const promocodeApi = createApi({
-  reducerPath: "promocodeApi",
+  reducerPath: "promocode",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_API,
     prepareHeaders: (headers, { getState }) => {
