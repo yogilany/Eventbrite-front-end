@@ -245,6 +245,9 @@ const ManageEvents = () => {
                       <th scope="col" class="px-6 py-3">
                         Status
                       </th>
+                      <th scope="col" class="px-6 py-3">
+                        
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -255,6 +258,7 @@ const ManageEvents = () => {
                           setAllData={setAllData}
                           allData={allData}
                           csvExport={csvExport}
+                          fetch={fetchMyevents}
                         />
                       );
                     })}

@@ -14,6 +14,8 @@ import "./index.css"
 
 const EventsByCategory = () => {
   const { category, location } = useParams();
+  console.log("categorycategory", category);
+  console.log("locationlocation", location);
   const [subcategories, setSubcategories] = useState([]);
   const [events, setEvents] = useState([]);
 
@@ -33,9 +35,9 @@ const EventsByCategory = () => {
 
   const fetchEvents = () => {
     axios
-      .get(`${process.env.REACT_APP_BASE_API}/events/search`,{ params: { city: "Sudan", category: "Health" } })
+      .get(`${process.env.REACT_APP_BASE_API}/events/search`,{ params: { city: location, category: category } })
       .then(function (response) {
-        console.log("response", response.data);
+        console.log("responseeee", response.data);
 
         setEvents(response.data);
       })
