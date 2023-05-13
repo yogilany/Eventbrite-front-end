@@ -9,40 +9,26 @@ import Dashboard from "../Dashboard/Dashboard";
 import { useState } from "react";
 import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
 import TicketsPage from "../../../Pages/CreatorsView/TicketsPage/TicketsPage";
-import { createContext } from "react";
-export const AppCreateEvent = createContext({});
-const CreateEvent = () => {
+import Headerpub from "src/Pages/Publishpage/Headerpub";
+import AddAttendees from "../AddAttendees/AddAttendees";
+import { useParams } from "react-router-dom";
+import { useGetEventByIdQuery } from "src/features/api/eventApi";
+import { set } from "date-fns";
+
+const ManageEvent = () => {
+  const { id } = useParams();
+
+  console.log(id);
+  const { data: fetchedEvent } = useGetEventByIdQuery(id);
+  console.log("got event", fetchedEvent);
+
+  
   const [eventTitle, setEventTitle] = useState("");
-  const [disableDashboard, setDisableDashboard] = useState(true);
-  const [event, setEvent] = useState({
-    basic_info: {
-      title: "",
-      organizer: "",
-      category: "",
-      sub_category: "Loyalty",
-    },
-    image_link: "",
-    summary: "",
-    description: "",
-    state: {
-      is_public: null,
-      publish_date_time: "",
-    },
-    date_and_time: {
-      start_date_time: new Date(),
-      end_date_time: new Date() + 24 * 60 * 60 * 1000,
-      is_display_start_date: null,
-      is_display_end_date: null,
-      time_zone: "",
-      event_page_language: "",
-    },
-    location: {
-      city: "",
-      is_online: false,
-    },
-    tickets: [],
-    promocodes: [],
-  });
+  const [event, setEvent] = useState(fetchedEvent ? fetchedEvent : null);
+
+  useEffect(() => {
+    setEvent(fetchedEvent);
+  }, [fetchedEvent]);
 
   useEffect(() => {
     console.log("event: ", event);
@@ -53,7 +39,6 @@ const CreateEvent = () => {
   }, []);
 
   return (
-    <AppCreateEvent.Provider value = {{disableDashboard , setDisableDashboard}}>
     <Tab.Container
       defaultActiveKey={"first"}
       onSelect={() => window.scrollTo(0, 0)}
@@ -62,11 +47,11 @@ const CreateEvent = () => {
         <Sidebar eventTitle={eventTitle} />
         <Tab.Content>
           <Tab.Pane eventKey="first">
-            <Basicinfo
+            {event ? <Basicinfo
               event={event}
               setEvent={setEvent}
               setEventTitle={setEventTitle}
-            />
+            /> : null}
           </Tab.Pane>
 
           <Tab.Pane eventKey="second">
@@ -74,7 +59,7 @@ const CreateEvent = () => {
           </Tab.Pane>
 
           <Tab.Pane eventKey="third">
-            <TicketsPage event={event} setEvent={setEvent} />
+            {event ? <TicketsPage event={event} setEvent={setEvent} /> : null}
           </Tab.Pane>
 
           <Tab.Pane eventKey="fourth">
@@ -82,16 +67,19 @@ const CreateEvent = () => {
           </Tab.Pane>
 
           <Tab.Pane eventKey="fifth">
-            <Dashboard />
+            <Dashboard event={event}/>
+          </Tab.Pane>
+          <Tab.Pane eventKey="sixth">
+            <AddAttendees />
           </Tab.Pane>
         </Tab.Content>
       </Container>
 
       {/* <Headerpub data_testid="HDID" /> */}
-      <CreatorHeader />
-      </Tab.Container>
-      </AppCreateEvent.Provider>
+      {/* <CreatorHeader /> */}
+      <Headerpub />
+    </Tab.Container>
   );
 };
 
-export default CreateEvent;
+export default ManageEvent;

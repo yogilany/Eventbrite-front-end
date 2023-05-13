@@ -5,11 +5,10 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button, InputAdornment, TextField } from "@mui/material";
 
-const URLBox = () => {
+const URLBox = ({event}) => {
   const [editURL, setEditURL] = useState(false);
-  const [URL, setURL] = useState(
-    "https://www.eventbrite.com/e/my-testing-event-tickets-618133232137"
-  );
+  const [URL, setURL] = useState(event ? `https://www.eventbrite.com/event/${event.id}` : null );
+   
   return (
     <Container fluid className="mt-5">
       <Row>

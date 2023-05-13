@@ -2,6 +2,8 @@ import React from 'react'
 import './promoCodesInfo.css'
 import { CiMenuKebab } from "react-icons/ci";
 import { useState } from 'react';
+import { useContext } from 'react';
+import { AppEditContext } from '../../TicketsPage';
 /**
  * @author Mahmoud Khaled
  * @description Component to store saved PromoCodes 
@@ -12,34 +14,29 @@ import { useState } from 'react';
  * @param {Status} Status
  * @returns {JSX.Element}
  */
-const PromoCodesInfo = ({ name, codeType, disacount, Uses, Status }) => {
+const PromoCodesInfo = ({ name, codeType, disacount, Uses, Status , btnID , event , setEvent }) => {
   const [showBtnMenu, setShowBtnMenu] = useState(false);
+  const { isEditPromo, setIsEditPromo } = useContext(AppEditContext);
+  const { ID, setID } = useContext(AppEditContext);
+  const deletePromoCode = (id) => {
+    const newEvent = event;
+    newEvent.promocodes.splice(id, 1);
+    setEvent({ ...event, newEvent });
+  }
   return (
-    <div className="promo__codesInfo">
-      <table style={{ width: "900px" }}>
-        <tr className="table__header" style = {{padding:'20px'}}>
-          <th>Name</th>
-          <th>Code type</th>
-          <th>Discount</th>
-          <th>Uses</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-        <tr>
-          <td>{name}</td>
-          <td>{codeType}</td>
-          <td>{disacount}</td>
-          <td>{Uses}</td>
-          <td>{Status}</td>
-          <button className='delete__edit__cancel' onClick = {(e) => setShowBtnMenu(true)}><CiMenuKebab /></button>
-          {showBtnMenu && <div className='PromoCode-edit__delete-ticket'>
-            <button className='Edit__button'>Edit</button>
-            <button className='Delete__button'>Delete</button>
-            <button className='Cancel__button' onClick={() => setShowBtnMenu(false)}>Cancel</button>
-          </div>}
-        </tr>
-      </table>
-    </div>
+          <tr>
+            <td colSpan={1}>{name}</td>
+            <td colSpan={2}>{codeType}</td>
+            <td colSpan={1}>{disacount}</td>
+            <td colSpan={2}>{Uses}</td>
+            <td colSpan={1}>{Status}</td>
+            <button className='delete__edit__cancel' onClick = {(e) => setShowBtnMenu(true)}><CiMenuKebab /></button>
+            {showBtnMenu && <div className='PromoCode-edit__delete-ticket'>
+              <button id={btnID} className='Edit__button' onClick={(e) => { setIsEditPromo(true); setShowBtnMenu(false); setID(e.target.id)}}>Edit</button>
+              <button id={btnID} className='Delete__button' onClick={(e) => { deletePromoCode(e.target.id); setShowBtnMenu(false); }}>Delete</button>
+              <button className='Cancel__button' onClick={() => setShowBtnMenu(false)}>Cancel</button>
+            </div>}
+          </tr>
   );
 }
 

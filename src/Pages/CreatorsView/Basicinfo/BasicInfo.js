@@ -15,6 +15,8 @@ import { Alert, Row, Col } from "react-bootstrap";
  */
 
 function Basicinfo({ event, setEvent, setEventTitle }) {
+
+  console.log("event in basic info: ", event);
   const [tags, setTags] = useState([]);
   const [tagscount, setTagsCount] = useState(0);
   const [tagscharcount, setTagsCharCount] = useState(0);
@@ -24,8 +26,8 @@ function Basicinfo({ event, setEvent, setEventTitle }) {
   const [showlocationcontent, setShowLocationContent] = useState(true);
   const [showmaps, setShowMaps] = useState(false);
   const [issingleevent, setIsSingleEvent] = useState(true);
-  const [title, setTitle] = useState("");
-  const [organizer, setOrganizer] = useState("");
+  const [title, setTitle] = useState(event ? event.basic_info.title : "");
+  const [organizer, setOrganizer] = useState(event ? event.basic_info.organizer : "");
   const [venue, setVenue] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());

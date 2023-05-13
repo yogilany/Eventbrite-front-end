@@ -30,6 +30,7 @@ export default function ValidationTextFields({data_testid , Label , PlaceHolder 
           className="text"
           data-testid={data_testid}
           ref={textRef}
+          value={summary}
           onChange={(e) => { setSummary(e.target.value); setTextValue(e.target.value); e.target.value === "" ? setShowSubmit(false) : setShowSubmit(true)}}
         />
       </div>

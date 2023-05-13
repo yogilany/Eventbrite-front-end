@@ -76,6 +76,8 @@ const AllEvents = ({ toggle }) => {
 
     fetchLocation();
 
+    
+
     const testLocation = {
       hostname: "host-156.215.249.101-static.tedata.net",
       city: "Cairo",

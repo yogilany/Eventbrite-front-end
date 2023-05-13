@@ -44,7 +44,7 @@ const CreatorHeader = ({ MenuShow }) => {
             Publish
           </Link>
         </div>
-        <div className="header__container-link more" onClick = {() => {setShowMore(!showMore)}}>
+        {/* <div className="header__container-link more" onClick = {() => {setShowMore(!showMore)}}>
           <Link to="" >
             {" "}
             More <MdOutlineKeyboardArrowDown className="arrow" />{" "}
@@ -55,7 +55,7 @@ const CreatorHeader = ({ MenuShow }) => {
                 Copy Event
               </div>
             </div>}
-        </div>
+        </div> */}
         <div className="header__container-right" style = {{marginLeft:'-15px'}} onClick = {() => setShowAccountSetting(!showAccountSetting)}>
           <div className="circular__name">MK</div>
           <div className="user__name" style = {{cursor:'pointer'}}>
