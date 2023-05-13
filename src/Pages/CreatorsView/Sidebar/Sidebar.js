@@ -68,7 +68,7 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
         <a href="#">
           <AiOutlineHome className="logo" />
         </a>
-        <a href="#">
+        <a href="/manage-events">
           <BsCalendar2Date className="logo" />
         </a>
         <a href="#">

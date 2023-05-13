@@ -171,7 +171,7 @@ const AllEvents = ({ toggle }) => {
                   
      
           <Row className="">
-          <Col md={3} className=" ">
+          <Col md={3} className="pl-12 ">
             <h1 className=" font-bold  text-2xl">Filters</h1>
             <div class="flex items-center mb-4 mt-4">
     <input id="default-checkbox" type="checkbox" value="" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 border-4 rounded focus:ring-blue-500 focus:ring-2" />

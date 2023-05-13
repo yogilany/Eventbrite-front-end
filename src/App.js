@@ -26,6 +26,7 @@ import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 import Publish from "./Pages/Publishpage/Publish";
 import { ProtectedRoute } from "./app/ProtectedRoute";
 import { Layout } from "./app/layout";
+import MyEvents from "./Pages/CreatorsView/MyEvents/MyEvents";
 function App() {
   return (
     <>
@@ -64,6 +65,7 @@ function App() {
               <Route path="/tickets" element={<Tickets />} />
               <Route path="/manage-events" element={<ManageEvents />} />
               <Route path="/add-attendees" element={<AddAttendees />} />
+
             </Route>
           </Routes>
         </BrowserRouter>
