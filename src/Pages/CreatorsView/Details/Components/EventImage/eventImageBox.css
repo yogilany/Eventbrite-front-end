@@ -678,3 +678,17 @@
     width: 100%;
     height: 100%;
 }
+.uploaded__Image
+{
+    position: absolute;
+    width: 650px;
+    height: 350px;
+    top:45px;
+    /* background-color: yellow; */
+}
+.delete__uploaded-button
+{
+    position: absolute;
+    top: 100px;
+    
+}

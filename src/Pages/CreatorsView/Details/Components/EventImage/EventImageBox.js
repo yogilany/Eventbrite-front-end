@@ -24,11 +24,12 @@ const EventImageBox = (props) => {
           See Examples
         </a>
       </p>
-      <div className="EventImage__fileType">
-        {/* <div className='EventImage__fileType-body'> */}
-        <CgImage className="photo" />
-        <h5 style={{ marginBottom: "15px" }}>Drag and drop an Image or</h5>
-        <div className="buttons__container" data-testid="btsContainer">
+      
+        <div className="EventImage__fileType">
+          {/* <div className='EventImage__fileType-body'> */}
+        {props.imageLink === "" && <CgImage className="photo" />}
+        {props.imageLink === "" && <h5 style={{ marginBottom: "15px" }}>Drag and drop an Image or</h5>}
+        {props.imageLink === "" && <div className="buttons__container" data-testid="btsContainer">
           <UploadButton
             imageLink={props.imageLink}
             setImageLink={props.setImageLink}
@@ -39,9 +40,12 @@ const EventImageBox = (props) => {
               <div className="ml-2">Design With Canvas</div>
             </div>
           </button>
+        </div>}
         </div>
-        <img src={AdelImam} className="uploaded Image" />
-      </div>
+      {props.imageLink !== "" && <div className="uploaded__Image">
+        <img src={props.imageLink} className="uploaded Image" /> <button></button>
+      </div>}
+      {props.imageLink !== "" && <button className="delete__uploaded-button">XX</button>}
       <div className="photo__requirement" data-testid="photo__requirements">
         <p>
           <BsDot className="dot" />
