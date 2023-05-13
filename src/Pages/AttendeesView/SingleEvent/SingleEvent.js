@@ -1,5 +1,12 @@
 import React from "react";
-import { Container, Row, Col, Stack, Spinner } from "react-bootstrap/";
+import {
+  Container,
+  Row,
+  Col,
+  Stack,
+  Spinner,
+  Placeholder,
+} from "react-bootstrap/";
 import { Layout } from "../../../app/layout";
 import event_image from "../../../assets/event_image.png";
 import organizer_avatar from "../../../assets/Organizer/AnasOrg.jpg";
@@ -98,7 +105,7 @@ const SingleEvent = (props) => {
         month: "long",
       }) +
         " " +
-        new Date(event?.date_and_time.start_date_time).getDay()
+        new Date(event?.date_and_time.start_date_time).getDate()
     );
   });
 
@@ -107,7 +114,7 @@ const SingleEvent = (props) => {
       <Header />
       <div style={{ display: "flow" }}>
         <EventImage img_url={event?.image_link} />
-        <Container>
+        <Container className="pl-5 ml-5">
           <Row className="align-items-center overflow-hidden ml-5">
             <Container fluid className="pt-3">
               {event ? (
@@ -153,7 +160,11 @@ const SingleEvent = (props) => {
                       />
                     </Row>
                     <Row>
-                      <EventAbout summary={event?.summary} />
+                      <EventAbout
+                        startDate={event?.date_and_time.start_date_time}
+                        endDate={event?.date_and_time.end_date_time}
+                        summary={event?.summary}
+                      />
                     </Row>
                     <Row className="mb-5 mt-5">
                       <EventShare />
@@ -177,7 +188,60 @@ const SingleEvent = (props) => {
                   </Col>
                 </>
               ) : (
-                <Spinner animation="border" role="status" />
+                <>
+                  <Container>
+                    <Col>
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-50 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-50 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-100 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-100 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                    </Col>
+                  </Container>
+                </>
               )}
             </Container>
           </Row>

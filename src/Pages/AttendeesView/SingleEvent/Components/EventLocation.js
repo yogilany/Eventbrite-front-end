@@ -33,14 +33,14 @@ export const EventLocation = ({ location, date_and_time }) => {
             sx={{ fontSize: 36 }}
           />
         </Col>
-        <Col className="mr">
+        <Col md={4} className="p-0 m-0">
           <h6 style={HeaderStyle}>Date and time</h6>
           <p style={{ color: "#6f7287", fontSize: "small" }}>
             {new Date(date_and_time.start_date_time).toLocaleString("default", {
               month: "long",
             }) +
               " " +
-              new Date(date_and_time.start_date_time).getDay() +
+              new Date(date_and_time.start_date_time).getDate() +
               " • " +
               new Date(date_and_time.start_date_time).toLocaleTimeString(
                 navigator.language,
@@ -51,9 +51,9 @@ export const EventLocation = ({ location, date_and_time }) => {
                 month: "long",
               }) +
               " " +
-              new Date(date_and_time.start_date_time).getDay() +
+              new Date(date_and_time.end_date_time).getDate() +
               " • " +
-              new Date(date_and_time.start_date_time).toLocaleTimeString(
+              new Date(date_and_time.end_date_time).toLocaleTimeString(
                 navigator.language,
                 { hour: "2-digit", minute: "2-digit" }
               )}
@@ -72,7 +72,7 @@ export const EventLocation = ({ location, date_and_time }) => {
             sx={{ fontSize: 36 }}
           />
         </Col>
-        <Col>
+        <Col md={4}>
           <h6 style={HeaderStyle}>Location</h6>
           <p style={{ color: "#6f7287", fontSize: "small" }}>{location.city}</p>
         </Col>
