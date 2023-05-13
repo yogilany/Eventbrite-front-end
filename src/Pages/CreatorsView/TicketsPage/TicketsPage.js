@@ -24,6 +24,7 @@ export const AppEditContext = createContext({});
  */
 const Tickets = ({ event, setEvent }) => {
   const [ID, setID] = useState(0);
+  const [isFree, setIsFree] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [isEditPromo, setIsEditPromo] = useState(false);
   const [ticketName, setTicketName] = useState("");
@@ -99,9 +100,20 @@ const Tickets = ({ event, setEvent }) => {
     }
   };
   const handleSubmitTickets = () => {
-    if (ticketName !== "" && ticketQuantity !== "" && ticketPrice !== "") {
-      saveData();
-      setShowTicket(false);
+    if (ticketName !== "" && ticketQuantity !== "") {
+      if (freeBtn)
+      {
+        saveData();
+        setShowTicket(false);
+      }
+      else
+      {
+        if (ticketPrice !== "")
+        {
+          saveData();
+          setShowTicket(false);
+        }
+      }
     }
   };
   function saveData() {
@@ -263,7 +275,7 @@ const Tickets = ({ event, setEvent }) => {
   }, [success]);
   return (
     <AppEditContext.Provider
-      value={{ isEdit, setIsEdit, ID, setID, isEditPromo, setIsEditPromo }}
+      value={{ isEdit, setIsEdit, ID, setID, isEditPromo, setIsEditPromo , isFree , setIsFree }}
     >
       <div className="tickets__page-container">
         <CreatorHeader />
@@ -446,7 +458,7 @@ const Tickets = ({ event, setEvent }) => {
                   defaultValue={event.tickets[ID].price}
                 />
               )}
-              {ticketPrice === "" && (
+              {(ticketPrice === "" && !freeBtn) && (
                 <p className="required__price">Price is required.</p>
               )}
               {freeBtn && (
@@ -679,7 +691,7 @@ const Tickets = ({ event, setEvent }) => {
                   }}
                 />
               )}
-              {ticketPrice === "" && (
+              {(ticketPrice === "" && !freeBtn) && (
                 <p className="required__price">Price is required.</p>
               )}
               {freeBtn && (
