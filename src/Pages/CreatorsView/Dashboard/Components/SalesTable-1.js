@@ -17,9 +17,9 @@ const SalesTable = () => {
             </thead>
             <tbody>
               <tr>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td className="blue-data">Table cell</td>
+                <td className=" text-left ">Table cell</td>
+                <td className=" text-left ">Table cell</td>
+                <td className="blue-data text-left ">Table cell</td>
               </tr>
               <tr>
                 <td>Table cell</td>

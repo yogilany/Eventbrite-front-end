@@ -23,20 +23,21 @@ const Details = ({ event, setEvent }) => {
   const handleForm = (e) => {
     e.preventDefault();
   };
-  const[isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [showSubmit, setShowSubmit] = useState(false);
   const [success, setSuccess] = useState(false);
   const [imageLink, setImageLink] = useState("");
-  const [summary, setSummary] = useState("");
-  const [description, setDescription] = useState("");
+  const [summary, setSummary] = useState(event ? event.summary : "");
+  const [description, setDescription] = useState(event ? event.description : "");
   const [inputsChanged, setInputsChanged] = useState(false);
 
   function saveData() {
     setEvent({
       ...event,
 
-      image_link: "https://www.example.com/image.png",
+      image_link:
+        imageLink === "" ? "https://picsum.photos/1600/800" : imageLink,
       summary: summary,
       description: description,
     });
