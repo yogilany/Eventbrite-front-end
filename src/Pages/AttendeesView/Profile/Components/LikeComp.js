@@ -59,9 +59,9 @@ const LikeComp = (props) => {
           className="dat_prof"
           style={{ color: "#d1410c", marginBottom: "5px" }}
         >
-          {new Date(likedEvent?.date_and_time?.end_date_time)
+          {/* {new Date(likedEvent?.date_and_time?.end_date_time)
             .toUTCString()
-            .slice(0, -7)}
+            .slice(0, -7)} */}
         </div>
         <div className="det_prof">{likedEvent?.location?.city}</div>
       </div>
