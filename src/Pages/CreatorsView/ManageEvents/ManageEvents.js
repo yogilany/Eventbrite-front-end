@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import Headerpub from "../../Publishpage/Headerpub";
 import OnlyLinksSideBar from "../Sidebar/OnlyLinksSidebar";
 import MainOrangeButton from "src/Components/Buttons/MainOrangeButton";
 import axios from "axios";
@@ -15,6 +14,7 @@ import MainGrayButton from "src/Components/Buttons/MainGrayButton";
 import { CSVLink } from "react-csv";
 import { wait } from "@testing-library/user-event/dist/utils";
 import { useGetCreatedEventsQuery } from "src/features/api/userApi";
+import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
 
 const options = {
   weekday: "long",
@@ -169,7 +169,7 @@ const ManageEvents = () => {
 
   return (
     <>
-      <Headerpub data_testid="HDID" />
+      <CreatorHeader data_testid="HDID" />
       <OnlyLinksSideBar />
 
       <Container fluid className="mt-5 pl-24">
@@ -230,54 +230,52 @@ const ManageEvents = () => {
                 </div>
               ) : (
                 <>
-                <table class="mt-8 mb-8 w-full text-sm text-left text-gray-500 ">
-                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
-                    <tr>
-                      <th scope="col" class="px-6 py-3">
-                        Event
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Sold
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Gross
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Status
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredEvents.map((event) => {
-                      return (
-                        <TableRow
-                          event={event}
-                          setAllData={setAllData}
-                          allData={allData}
-                          csvExport={csvExport}
-                        />
-                      );
-                    })}
-                  </tbody>
-                </table>
+                  <table class="mt-8 mb-8 w-full text-sm text-left text-gray-500 ">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                      <tr>
+                        <th scope="col" class="px-6 py-3">
+                          Event
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                          Sold
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                          Gross
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                          Status
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredEvents.map((event) => {
+                        return (
+                          <TableRow
+                            event={event}
+                            setAllData={setAllData}
+                            allData={allData}
+                            csvExport={csvExport}
+                          />
+                        );
+                      })}
+                    </tbody>
+                  </table>
                   <CSVLink {...csvReport}>
-                  {" "}
-                  <MainGrayButton
-                    onClick={() => {
-                      handleCSV();
-                      // setCsvExport(true);
-                      // // after 3 seconds set the state back to false
-                      // setTimeout(() => {
-                      //     setCsvExport(false);
-                      // }, 3000);
-                    }}
-                    text="Export to CSV"
-                  />
-                </CSVLink>
+                    {" "}
+                    <MainGrayButton
+                      onClick={() => {
+                        handleCSV();
+                        // setCsvExport(true);
+                        // // after 3 seconds set the state back to false
+                        // setTimeout(() => {
+                        //     setCsvExport(false);
+                        // }, 3000);
+                      }}
+                      text="Export to CSV"
+                    />
+                  </CSVLink>
                 </>
               )}
-
-            
             </div>
           </Col>
         </Row>

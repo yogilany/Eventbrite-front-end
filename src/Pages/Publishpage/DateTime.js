@@ -21,14 +21,14 @@ const DateTime = (props) => {
   const day = date.getDate();
   const hour = date.getHours();
   const minute = date.getMinutes();
-  const second = date.getSeconds();
+  // const second = date.getSeconds();
 
   const formattedDate = `${month}/${day}/${year}`;
   const formattedTime = `${hour}:${minute}`;
   //console.log("Date and Time : ", dateandtime);
   const [datee, setDate] = useState(formattedDate);
   const [time, setTime] = useState(formattedTime);
-  
+
   const navigate = useNavigate();
 
   const readorwrite = (event) => {
