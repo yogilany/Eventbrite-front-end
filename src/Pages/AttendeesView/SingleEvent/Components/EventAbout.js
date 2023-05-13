@@ -5,9 +5,6 @@ import "../SingleEvent.scss";
 import "date-fns";
 import { intervalToDuration } from "date-fns";
 export const EventAbout = ({ description, startDate, endDate }) => {
-  const MainHeaderStyle = {
-    color: "#1e0a3c",
-  };
   const AboutParagraphStyle = {
     color: "#6f7287",
     fontSize: "16px",
@@ -22,9 +19,7 @@ export const EventAbout = ({ description, startDate, endDate }) => {
   const hours = eventDuration.hours;
   const minutes = eventDuration.minutes;
   const eventDurationString =
-    (days !== 0 ? `${days} day` : "") +
-    (hours !== 0 ? `${hours} hours` : "") +
-    (minutes !== 0 ? `${minutes} minutes` : "");
+    (days !== 0 ? `${days} days ` : "") + (hours !== 0 ? `${hours} hours` : "");
 
   return (
     <Stack gap={2} style={{ maxWidth: "50vw" }}>
@@ -38,12 +33,11 @@ export const EventAbout = ({ description, startDate, endDate }) => {
               borderRadius: "10%",
               backgroundColor: "#f8f7fa",
               padding: "0.2rem",
+              margin: " 0 0.75rem 0 0",
             }}
-            sx={{ fontSize: 26 }}
+            sx={{ fontSize: 36 }}
           />
-          <strong>
-            {eventDuration.days} days {eventDuration.hours} hours
-          </strong>
+          <strong>{eventDurationString}</strong>
         </div>
         <div>
           <MUIcons.WifiRounded
@@ -53,10 +47,11 @@ export const EventAbout = ({ description, startDate, endDate }) => {
               borderRadius: "10%",
               backgroundColor: "#f8f7fa",
               padding: "0.2rem",
+              margin: " 0 0.75rem 0 0",
             }}
-            sx={{ fontSize: 26 }}
+            sx={{ fontSize: 36 }}
           />
-          <strong>Mobile eTicket</strong>
+          <strong>{"Mobile eTicket"}</strong>
         </div>
       </Stack>
       <p style={AboutParagraphStyle}>{description}</p>

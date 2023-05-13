@@ -144,7 +144,7 @@ const SingleEvent = (props) => {
                             {event?.basic_info.title}
                           </h1>
                         </div>
-                        <p className="mb-5">{event?.description}</p>
+                        <p className="mb-5">{event?.summary}</p>
                       </Stack>
                       <Col>
                         <EventOrganizerCard
@@ -163,7 +163,7 @@ const SingleEvent = (props) => {
                       <EventAbout
                         startDate={event?.date_and_time.start_date_time}
                         endDate={event?.date_and_time.end_date_time}
-                        summary={event?.summary}
+                        description={event?.description}
                       />
                     </Row>
                     <Row className="mb-5 mt-5">

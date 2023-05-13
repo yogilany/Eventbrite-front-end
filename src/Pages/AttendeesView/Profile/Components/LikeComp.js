@@ -46,7 +46,9 @@ const LikeComp = (props) => {
 
       <div style={{ marginTop: 25, paddingLeft: 10 }}>
         <div className="desc_prof">{props.title}</div>
-        <div className="dat_prof">{props.start_date_time}</div>
+        <div className="dat_prof">
+          {new Date(props.start_date_time).toUTCString().slice(0, -7)}
+        </div>
         {/* <div
           className="desc_prof"
           style={{ fontSize: "18px", fontWeight: "600", marginBottom: "5px" }}
@@ -57,7 +59,9 @@ const LikeComp = (props) => {
           className="dat_prof"
           style={{ color: "#d1410c", marginBottom: "5px" }}
         >
-          Thu, Mar 30 ,8:00 PM
+          {new Date(likedEvent?.date_and_time?.end_date_time)
+            .toUTCString()
+            .slice(0, -7)}
         </div>
         <div className="det_prof">{likedEvent?.location?.city}</div>
       </div>
@@ -65,7 +69,7 @@ const LikeComp = (props) => {
         <div className="dfrt_prof">
           {likedEvent?.is_free === true
             ? "Free"
-            : `Starts at ${likedEvent?.price}`}
+            : `Starts at $${likedEvent?.price}`}
         </div>
         {/* <FiShare className="shr_prof" /> */}
       </div>
