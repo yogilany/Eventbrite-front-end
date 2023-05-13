@@ -108,7 +108,7 @@ export const Login = (props) => {
   };
   const handleSocialSubmit = (e) => {
     if (SocialProfile) {
-      dispatch(checkEmailExists(user))
+      dispatch(checkEmailExists(SocialProfile.email))
         .unwrap()
         .then((result) => {
           dispatch(
