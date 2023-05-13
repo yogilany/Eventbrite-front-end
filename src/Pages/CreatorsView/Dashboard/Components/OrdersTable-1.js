@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Col, Row, Table } from "react-bootstrap";
 
-const OrdersTable = () => {
+const OrdersTable = ({orders, event}) => {
   return (
     <Container fluid className="mt-5 mb-5">
       <Row>
@@ -18,33 +18,19 @@ const OrdersTable = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="blue-data">Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
+    
+              {orders.slice(0, 5).map((order) => ( <tr>
+                <td className="blue-data text-left">{order.id}</td>
+                <td className=" text-left ">{order.first_name + " " + order.last_name}</td>
+                <td className=" text-left ">{order.tickets_count}</td>
 
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-              <tr>
-                <td className="blue-data">Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-              <tr>
-                <td className="blue-data">Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
+                <td className=" text-left "> {order.price}</td>
+                <td className=" text-left ">{`${new Date(order.created_date).getMonth() + 1}/${new Date(order.created_date).getDate()}/${new Date(order.created_date).getFullYear()}`}</td>
+              </tr>))
+             }
             </tbody>
           </Table>
-          <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Go to all orders</a>
+          <a href={`/orders-report/${event.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Go to all orders</a>
 
         </Col>
       </Row>

@@ -14,7 +14,7 @@ const DashboardHeader = ({tickets, sold, total}) => {
           <ViewsCard />
         </Col>
         <Col>
-          <Recommendations />
+          {/* <Recommendations /> */}
         </Col>
       </Row>
     </Container>
