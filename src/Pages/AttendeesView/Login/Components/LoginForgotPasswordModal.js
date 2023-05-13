@@ -56,11 +56,15 @@ const LoginForgotPasswordModal = (props) => {
               </span>
             </Row>
             <Row>
-              <span style={{ color: "#6f7287" }}>
+              <span style={{ color: "#6f7287", display: "block" }}>
                 <p>
                   <HiIcons.HiOutlineClock
                     size={20}
-                    style={{ marginRight: "0.3rem", color: "#6f7287" }}
+                    style={{
+                      marginRight: "0.3rem",
+                      display: "inline",
+                      color: "#6f7287",
+                    }}
                   />
                   {"For your security, the link expires in 15 minutes"}
                 </p>

@@ -2,6 +2,7 @@
 {
     margin-top: 25px;
     margin-bottom: 50px;
+    position: relative;
 }
 .EventImage__fileType
 {
@@ -671,4 +672,27 @@
     {
         display: none;
     }
+}
+.uploaded Image
+{
+    width: 100%;
+    height: 100%;
+}
+.uploaded__Image
+{
+    position: absolute;
+    width: 650px;
+    height: 350px;
+    top:45px;
+}
+.delete__uploaded-button
+{
+    color: white;
+    margin-left: 250px;
+    background-color: #c5162e;
+    padding: 10px 30px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    cursor: pointer;
 }

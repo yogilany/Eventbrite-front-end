@@ -48,7 +48,7 @@ const UploadButton = (props) => {
         ref={hiddenFileInput}
         style={{ display: "none" }}
       />
-      <img src={props.imageLink}></img>
+      {/* <img src={props.imageLink}></img> */}
     </>
   );
 };

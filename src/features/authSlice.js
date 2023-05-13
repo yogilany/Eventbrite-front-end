@@ -357,7 +357,8 @@ export const authSlice = createSlice({
     builder
       // Authenticate user
       .addCase(authUser.rejected, (state, action) => {
-        state = initialState;
+        // state = initialState;
+        state.isLoading = false;
       })
       .addCase(authUser.pending, (state, action) => {
         state.isLoading = true;
@@ -372,6 +373,7 @@ export const authSlice = createSlice({
       // Authenticate Google user
       .addCase(authGoogleUser.rejected, (state, action) => {
         state = initialState;
+        state.isLoading = false;
       })
       .addCase(authGoogleUser.pending, (state, action) => {
         state.isLoading = true;
@@ -386,6 +388,7 @@ export const authSlice = createSlice({
       // Register user
       .addCase(registerUser.rejected, (state, action) => {
         state = initialState;
+        state.isLoading = false;
       })
       .addCase(registerUser.pending, (state, action) => {
         state.isLoading = true;
@@ -397,6 +400,7 @@ export const authSlice = createSlice({
       // Register Google user
       .addCase(registerGoogleUser.rejected, (state, action) => {
         state = initialState;
+        state.isLoading = false;
       })
       .addCase(registerGoogleUser.pending, (state, action) => {
         state.isLoading = true;
@@ -409,6 +413,7 @@ export const authSlice = createSlice({
       .addCase(getUserDetails.rejected, (state, action) => {
         console.log("rejected action.payload = ", action.payload);
         state = initialState;
+        state.isLoading = false;
       })
       .addCase(getUserDetails.pending, (state, action) => {
         state.isLoading = true;
