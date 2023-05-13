@@ -17,18 +17,35 @@ import { set } from "date-fns";
 
 const ManageEvent = () => {
   const { id } = useParams();
+  const { data: fetchedEvent, isSuccess: success, isFetching: isFetching } = useGetEventByIdQuery(id);
 
-  console.log(id);
-  const { data: fetchedEvent } = useGetEventByIdQuery(id);
-  console.log("got event", fetchedEvent);
-
-  
   const [eventTitle, setEventTitle] = useState("");
+  // const [isFetching, setIsFetching] = useState(true);
+  console.log(id);
+  console.log("success", success);
+
+
   const [event, setEvent] = useState(fetchedEvent ? fetchedEvent : null);
 
+  
+
+
   useEffect(() => {
+    // setIsFetching(true);
+    console.log("got event", fetchedEvent);   
+    console.log("got event", fetchedEvent);    console.log(" event", event);
     setEvent(fetchedEvent);
-  }, [fetchedEvent]);
+    // setIsFetching(false);
+
+  
+  
+  }, [success]);
+
+ 
+
+  // useEffect(() => {
+  //   setEvent(fetchedEvent);
+  // }, [fetchedEvent]);
 
   useEffect(() => {
     console.log("event: ", event);
@@ -45,7 +62,8 @@ const ManageEvent = () => {
     >
       <Container fluid className="p-0" style={{ overflow: "hidden" }}>
         <Sidebar eventTitle={eventTitle} />
-        <Tab.Content>
+        {isFetching ? <h1>Loading</h1> : null }
+        { event ? <Tab.Content>
           <Tab.Pane eventKey="first">
             {event ? <Basicinfo
               event={event}
@@ -72,7 +90,7 @@ const ManageEvent = () => {
           <Tab.Pane eventKey="sixth">
             <AddAttendees />
           </Tab.Pane>
-        </Tab.Content>
+        </Tab.Content> : null}
       </Container>
 
       {/* <Headerpub data_testid="HDID" /> */}

@@ -229,6 +229,7 @@ const ManageEvents = () => {
                   </h1>
                 </div>
               ) : (
+                <>
                 <table class="mt-8 mb-8 w-full text-sm text-left text-gray-500 ">
                   <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                     <tr>
@@ -259,22 +260,24 @@ const ManageEvents = () => {
                     })}
                   </tbody>
                 </table>
+                  <CSVLink {...csvReport}>
+                  {" "}
+                  <MainGrayButton
+                    onClick={() => {
+                      handleCSV();
+                      // setCsvExport(true);
+                      // // after 3 seconds set the state back to false
+                      // setTimeout(() => {
+                      //     setCsvExport(false);
+                      // }, 3000);
+                    }}
+                    text="Export to CSV"
+                  />
+                </CSVLink>
+                </>
               )}
 
-              <CSVLink {...csvReport}>
-                {" "}
-                <MainGrayButton
-                  onClick={() => {
-                    handleCSV();
-                    // setCsvExport(true);
-                    // // after 3 seconds set the state back to false
-                    // setTimeout(() => {
-                    //     setCsvExport(false);
-                    // }, 3000);
-                  }}
-                  text="Export to CSV"
-                />
-              </CSVLink>
+            
             </div>
           </Col>
         </Row>

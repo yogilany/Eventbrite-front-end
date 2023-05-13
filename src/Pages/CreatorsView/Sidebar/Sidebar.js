@@ -99,7 +99,7 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
         <div className="sidebar__Event-options">
           <a
             className="events__link"
-            href="#"
+            href="/manage-events"
             style={{ marginLeft: "30px", marginBottom: "15px" }}
           >
             <AiOutlineArrowLeft className="arrowLeft" /> Events
@@ -229,7 +229,7 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
         >
           <a
             className="events__link"
-            href="#"
+            href="/manage-events"
             style={{ marginLeft: "35px", marginBottom: "18px" }}
           >
             <AiOutlineArrowLeft className="arrowLeft" /> Events
