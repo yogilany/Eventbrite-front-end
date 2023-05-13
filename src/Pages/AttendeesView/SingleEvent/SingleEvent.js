@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Stack, Spinner } from "react-bootstrap/";
+import React from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Stack,
+  Spinner,
+  Placeholder,
+} from "react-bootstrap/";
 import { Layout } from "../../../app/layout";
 import event_image from "../../../assets/event_image.png";
 import organizer_avatar from "../../../assets/Organizer/AnasOrg.jpg";
@@ -12,16 +19,13 @@ import EventAboutOrganizer from "./Components/EventAboutOrganizer";
 import { EventTicketCard } from "./Components/EventTicketCard";
 import * as HIIcons from "react-icons/hi";
 import "./SingleEvent.scss";
-import testbackground from "../../../assets/adelEv10.png";
 import Header from "../../../Components/header/Header";
 import Footer from "../../../Components/footer/Footer";
 import { useParams } from "react-router";
 import { useGetEventByIdQuery } from "src/features/api/eventApi";
-import {
-  useGetUserQuery,
-  useIsUserFollowedQuery,
-} from "src/features/api/userApi";
 import LikeButton from "src/Components/LikeButton/LikeButton";
+import { useEffect } from "react";
+import { useState } from "react";
 /* 
 ------Get event
 {
@@ -72,117 +76,179 @@ Schema
 }
 
 */
+
+/**
+ * @description Single Event page which displays the event details including:
+ *  - Event image
+ *  - Event name
+ *  - Event organizer
+ *  - Event location
+ *  - Event about
+ *  - Event share
+ *  - Event about organizer
+ *  - Event tickets
+ *  - Checkout with tickets
+ * @date 5/12/2023 - 7:00:49 PM
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {JSX.Element}
+ */
 const SingleEvent = (props) => {
   const { id } = useParams();
   const { data: event } = useGetEventByIdQuery(id);
-  const EventNameHeaderStyle = {
-    color: "#1e0a3c",
-    fontWeight: "bold",
-    fontSize: "48px",
-  };
+  const [eventDate, setEventDate] = useState("");
+
+  useEffect(() => {
+    setEventDate(
+      new Date(event?.date_and_time.start_date_time).toLocaleString("default", {
+        month: "long",
+      }) +
+        " " +
+        new Date(event?.date_and_time.start_date_time).getDate()
+    );
+  });
 
   return (
-    <div className="overflow-hidden">
+    <>
       <Header />
       <div style={{ display: "flow" }}>
-        <Container>
-          <Row>{/* <Layout /> */}</Row>
-          <Row className="align-items-center overflow-hidden">
-            <Col>
-              <Container fluid className="pt-3">
-                {event ? (
-                  <Col>
+        <EventImage img_url={event?.image_link} />
+        <Container className="pl-5 ml-5">
+          <Row className="align-items-center overflow-hidden ml-5">
+            <Container fluid className="pt-3">
+              {event ? (
+                <>
+                  <Col md={8}>
                     <Row className="pb-5 ">
-                      <Col md={12}>
-                        <EventImage img_url={event.image_link} />
+                      <Col md={12} style={{ position: "relative" }}></Col>
+                    </Row>
+                    <Row className="mb-5">
+                      <Stack gap={3}>
+                        <div>
+                          <Container>
+                            <Row>
+                              <Col>
+                                <h3 className="event-date-text">{eventDate}</h3>
+                              </Col>
+                              <Col md={{ offset: 9, span: 1 }}>
+                                <LikeButton id={event?.id} />
+                              </Col>
+                              <Col md={{ span: 1 }}>
+                                <HIIcons.HiOutlineUpload size="2em" />
+                              </Col>
+                            </Row>
+                          </Container>
+
+                          <h1 className="event-name-text">
+                            {event?.basic_info.title}
+                          </h1>
+                        </div>
+                        <p className="mb-5">{event?.summary}</p>
+                      </Stack>
+                      <Col>
+                        <EventOrganizerCard
+                          organizerId={event?.creator_id}
+                          follower_count="1.5k"
+                        />
                       </Col>
                     </Row>
-                    <Row className="">
-                      <Row className="mb-5">
-                        <Stack gap={3}>
-                          <div>
-                            <Container>
-                              <Row>
-                                <Col>
-                                  <h3
-                                    style={{
-                                      fontSize: "1rem",
-                                      fontWeight: "600",
-                                    }}
-                                  >
-                                    {/* {props.event_date}{" "} */}
-                                    {new Date(
-                                      event.date_and_time.start_date_time
-                                    ).toLocaleString("default", {
-                                      month: "long",
-                                    }) +
-                                      " " +
-                                      new Date(
-                                        event.date_and_time.start_date_time
-                                      ).getDay()}
-                                  </h3>
-                                </Col>
-                                <Col md={{ offset: 9, span: 1 }}>
-                                  <LikeButton id={event?.id} />
-                                </Col>
-                                <Col md={{ span: 1 }}>
-                                  <HIIcons.HiOutlineUpload size="2em" />
-                                </Col>
-                              </Row>
-                            </Container>
-
-                            <h1 style={EventNameHeaderStyle}>
-                              {event.basic_info.title}
-                            </h1>
-                          </div>
-                          <p>{event.description}</p>
-                        </Stack>
-                        <Col md={8}>
-                          <EventOrganizerCard
-                            organizerId={event?.creator_id}
-                            follower_count="1.5k"
-                          />
-                        </Col>
-                      </Row>
-                      <Row className="mb-5">
-                        <EventLocation
-                          location={event.location}
-                          date_and_time={event.date_and_time}
-                        />
-                      </Row>
-                      <Row>
-                        <EventAbout summary={event.summary} />
-                      </Row>
-                      <Row className="mb-5 mt-5">
-                        <EventShare />
-                      </Row>
-                      <Row>
-                        <EventAboutOrganizer
-                          organizerId={event?.creator_id}
-                          follower_count="1.4k"
-                        />
-                      </Row>
-                      <Row></Row>
+                    <Row className="mb-5">
+                      <EventLocation
+                        location={event?.location}
+                        date_and_time={event?.date_and_time}
+                      />
+                    </Row>
+                    <Row>
+                      <EventAbout
+                        startDate={event?.date_and_time.start_date_time}
+                        endDate={event?.date_and_time.end_date_time}
+                        description={event?.description}
+                      />
+                    </Row>
+                    <Row className="mb-5 mt-5">
+                      <EventShare />
+                    </Row>
+                    <Row className="mb-5">
+                      <EventAboutOrganizer
+                        organizerId={event?.creator_id}
+                        follower_count="1.4k"
+                      />
                     </Row>
                   </Col>
-                ) : (
-                  <Spinner animation="border" role="status" />
-                )}
-              </Container>
-            </Col>
-            <Col style={{ top: "105%", left: "25%", position: "absolute" }}>
-              {event ? (
-                <EventTicketCard
-                  img_url={event ? event.image_link : null}
-                  event={event}
-                />
-              ) : null}
-            </Col>
+                  <Col
+                    style={{ top: "105%", right: "10%", position: "absolute" }}
+                  >
+                    {event ? (
+                      <EventTicketCard
+                        img_url={event ? event.image_link : null}
+                        event={event}
+                      />
+                    ) : null}
+                  </Col>
+                </>
+              ) : (
+                <>
+                  <Container>
+                    <Col>
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-50 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-50 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-100 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-100 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                      <Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                    </Col>
+                  </Container>
+                </>
+              )}
+            </Container>
           </Row>
         </Container>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </>
   );
 };
 

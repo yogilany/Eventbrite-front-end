@@ -28,12 +28,13 @@ function Basicinfo({ event, setEvent, setEventTitle }) {
   const [organizer, setOrganizer] = useState("");
   const [venue, setVenue] = useState("");
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date() + 24 * 60 * 60 * 1000);
-  const [timezone, setTimezone] = useState("");
-  const [language, setLanguage] = useState("");
-  const [isStartShown, setIsStartShown] = useState(null);
-  const [isEndShown, setIsEndShown] = useState(null);
+  const [endDate, setEndDate] = useState(new Date());
+  const [timezone, setTimezone] = useState("Africa/Cairo");
+  const [language, setLanguage] = useState("en-US");
+  const [isStartShown, setIsStartShown] = useState(true);
+  const [isEndShown, setIsEndShown] = useState(true);
   const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("Auto, Boat & Air");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState([]);
 
@@ -46,12 +47,13 @@ function Basicinfo({ event, setEvent, setEventTitle }) {
         title: title,
         organizer: organizer,
         category: category,
+        sub_category: subCategory,
       },
       date_and_time: {
         start_date_time: startDate,
         end_date_time: endDate,
-        is_display_start_date: true,
-        is_display_end_date: true,
+        is_display_start_date: isStartShown,
+        is_display_end_date: isEndShown,
         time_zone: timezone,
         event_page_language: language,
       },
@@ -259,8 +261,13 @@ function Basicinfo({ event, setEvent, setEventTitle }) {
                       className="input eds-field-styled__select"
                       id="eventType"
                       name="eventType"
+                      onChange={(event) => {
+                        setSubCategory(
+                          event.target.options[event.target.selectedIndex].text
+                        );
+                      }}
                     >
-                      <option value="" data-spec="select-option">
+                      <option value="" data-spec="select-option" defaultChecked>
                         Type
                       </option>
                       <option value="19" data-spec="select-option">
@@ -330,7 +337,6 @@ function Basicinfo({ event, setEvent, setEventTitle }) {
                       className="input eds-field-styled__select"
                       id="eventSubTopic"
                       name="eventTopic"
-                      value={category}
                       onChange={(event) => {
                         setCategory(
                           event.target.options[event.target.selectedIndex].text

@@ -1,12 +1,13 @@
 .box_prof {
   margin-left: 20px;
   width: 47%;
-  height: 360px;
+  min-height: 360px;
   margin-top: 25px;
   cursor: pointer;
   transition: all ease-in-out 0.3s;
   cursor: pointer;
   border-radius: 10px;
+  padding-bottom: 20px;
 }
 
 .box_prof:hover {
@@ -37,6 +38,9 @@
   border-radius: 50%;
   background-color: white;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .cont_prof {

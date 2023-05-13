@@ -8,6 +8,9 @@ import {
   useUnlikeEventMutation,
 } from "src/features/api/userApi";
 import { useDispatch } from "react-redux";
+import LikeButton from "src/Components/LikeButton/LikeButton";
+import { useNavigate } from "react-router";
+import { useGetEventByIdQuery } from "src/features/api/eventApi";
 
 /**
  * @author Ziad Ezzat
@@ -17,62 +20,58 @@ import { useDispatch } from "react-redux";
  */
 const LikeComp = (props) => {
   const [imgSrc, setImgSrc] = React.useState(props.image_link);
-  const [isClicked, setIsClicked] = React.useState(false);
-  const [likeEvent] = useLikeEventMutation();
-  const [unlikeEvent] = useUnlikeEventMutation();
+  const { data: likedEvent } = useGetEventByIdQuery(props.id);
 
-  const handleClick = async () => {
-    setIsClicked(!isClicked);
-    if (isClicked) {
-      console.log("ID with like :", props.id);
-      const res = await likeEvent(props.id).unwrap();
-      console.log(res);
-    } else {
-      console.log("id with unlike :", props.id);
-      const res = await unlikeEvent(props.id).unwrap();
-      console.log(res);
-    }
-  };
-
+  const navigate = useNavigate();
   const handleImgError = () => {
     setImgSrc(eventphoto);
   };
-  const ht_proff = {
-    color: isClicked ? "grey" : "#d10000",
+  const hhh = () => {
+    //const navigate = useNavigate();
+    navigate(`/event/${props.id}`);
   };
   return (
     <div className="box_prof" data-testid={props.data_testid}>
       <div className="cont_prof">
-        <img className="img_prof" src={imgSrc} onError={handleImgError} />
+        <img
+          onClick={hhh}
+          className="img_prof"
+          src={imgSrc}
+          onError={handleImgError}
+        />
         <div className="circle_prof">
-          <BsFillSuitHeartFill
-            className="ht_prof"
-            style={ht_proff}
-            onClick={handleClick}
-          />
+          <LikeButton id={props.id} />
         </div>
       </div>
 
       <div style={{ marginTop: 25, paddingLeft: 10 }}>
         <div className="desc_prof">{props.title}</div>
-        <div className="dat_prof">{props.start_date_time}</div>
-        <div
+        <div className="dat_prof">
+          {new Date(props.start_date_time).toUTCString().slice(0, -7)}
+        </div>
+        {/* <div
           className="desc_prof"
           style={{ fontSize: "18px", fontWeight: "600", marginBottom: "5px" }}
         >
           Demo Day: Present Your Project to get your dream job - GoMyCode Egypt
-        </div>
+        </div> */}
         <div
           className="dat_prof"
           style={{ color: "#d1410c", marginBottom: "5px" }}
         >
-          Thu, Mar 30 ,8:00 PM
+          {new Date(likedEvent?.date_and_time?.end_date_time)
+            .toUTCString()
+            .slice(0, -7)}
         </div>
-        <div className="det_prof">GoMyCode Dokki ,Ad Doqi A</div>
+        <div className="det_prof">{likedEvent?.location?.city}</div>
       </div>
       <div style={{ display: "flex" }}>
-        <div className="dfrt_prof">Free</div>
-        <FiShare className="shr_prof" />
+        <div className="dfrt_prof">
+          {likedEvent?.is_free === true
+            ? "Free"
+            : `Starts at $${likedEvent?.price}`}
+        </div>
+        {/* <FiShare className="shr_prof" /> */}
       </div>
     </div>
   );

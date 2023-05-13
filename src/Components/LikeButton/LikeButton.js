@@ -9,7 +9,7 @@ import {
 const LikeButton = (props) => {
   const [likeEvent] = useLikeEventMutation();
   const [unlikeEvent] = useUnlikeEventMutation();
-  const { data: isEventLiked, isError } = useIsEventLikedQuery(props.id);
+  const { data: isEventLiked } = useIsEventLikedQuery(props.id);
   const likeBtnHandler = () => {
     if (isEventLiked) {
       unlikeEvent(props.id);

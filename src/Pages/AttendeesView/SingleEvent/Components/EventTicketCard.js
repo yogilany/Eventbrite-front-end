@@ -9,20 +9,11 @@ import { useState } from "react";
 export const EventTicketCard = (props) => {
     const [isCheckout, setIsCheckout] = useState(false);
 
-
-    const handleCheckout = () => {
-        setIsCheckout(true);
-    }
+  const handleCheckout = () => {
+    setIsCheckout(true);
+  };
   return (
-    <Container
-      fluid
-      style={{
-        width: "25%",
-        border: "#eeedf2 1px solid",
-        borderRadius: "1.5vmin",
-        padding: "2%",
-      }}
-    >
+    <Container fluid {...props}>
       <Col>
         <Row
         //   style={{
@@ -32,14 +23,13 @@ export const EventTicketCard = (props) => {
         //     marginBottom: "2rem",
         //   }}
         >
-            
           <Row>
             <Col className="text-center mb-4">
-                <h5>
-                    <strong>Exhibition Ticket</strong>
-                </h5>
+              <h5>
+                <strong>Exhibition Ticket</strong>
+              </h5>
             </Col>
-          
+
             {/* <Col className="">
               <button
                 type="button"
@@ -96,11 +86,16 @@ export const EventTicketCard = (props) => {
           </Row> */}
         </Row>
         <Row>
-          <MainOrangeButton text="Reserve a spot" onClick={handleCheckout}/>
+          <MainOrangeButton text="Reserve a spot" onClick={handleCheckout} />
         </Row>
       </Col>
-{
-    isCheckout ? <Checkout setIsCheckout={setIsCheckout} img_url={props.img_url} event={props.event}/> : null
-}    </Container>
+      {isCheckout ? (
+        <Checkout
+          setIsCheckout={setIsCheckout}
+          img_url={props.img_url}
+          event={props.event}
+        />
+      ) : null}{" "}
+    </Container>
   );
 };

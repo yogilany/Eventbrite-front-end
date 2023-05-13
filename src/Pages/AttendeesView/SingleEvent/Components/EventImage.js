@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import default_image from "../../../../assets/adel-full-cover.png";
+import "../SingleEvent.scss";
 const EventImage = (props) => {
   console.log("props.img_url", props.img_url)
   // start off in the loading state
@@ -11,17 +12,26 @@ const EventImage = (props) => {
 
   const DivStyle = {
     borderRadius: "3vmin",
-    height: "65 vh",
     display: "flex",
+    width: "70%",
     justifyContent: "center",
+    alignItems: "center",
     overflow: "hidden",
+  };
+  const ImageStyle = {
+    position: "absolute",
+    maxWidth: "940px",
+    width: "100%",
+    height: "450px",
+    objectFit: "cover",
   };
   const BackgroundStyle = {
     filter: "blur(50px) brightness(0.9)",
     transform: "scale(1.3)",
-    height: "400px",
-    width: "100%",
     objectFit: "cover",
+    width: "100%",
+    height: "450px",
+    overflow: "hidden",
   };
   useEffect(() => {
     fetch(props.img_url).then((res) => {
@@ -31,38 +41,40 @@ const EventImage = (props) => {
   }, []);
   // if still loading or invalid: return fallback image
   if (loading || !isValid) {
-    return;
-
-    <div style={DivStyle}>
-      <img source={default_image} style={BackgroundStyle}></img>
-      <img
-        source={default_image}
-        style={{
-          position: "absolute",
-          maxWidth: "940px",
-          width: "100%",
-          height: "400px",
-          objectFit: "cover",
-        }}
-      ></img>
-    </div>;
+    return (
+      <div style={DivStyle}>
+        <img
+          alt="eventImage"
+          source={default_image}
+          style={BackgroundStyle}
+        ></img>
+        <img
+          alt="eventImage"
+          source={default_image}
+          style={{
+            position: "absolute",
+            maxWidth: "940px",
+            width: "100%",
+            height: "400px",
+            objectFit: "cover",
+          }}
+        ></img>
+      </div>
+    );
   }
   return (
-    <div style={DivStyle}>
-      <img       src={props.img_url}
- source={{ uri: props.img_url }} style={BackgroundStyle}></img>
-      <img
-      src={props.img_url}
-        source={{ uri: props.img_url }}
-        style={{
-          position: "absolute",
-          maxWidth: "940px",
-          width: "100%",
-          height: "400px",
-          objectFit: "cover",
-        }}
-      ></img>
-    </div>
+    <>
+      <div className="event-image-backdrop">
+        <div style={DivStyle}>
+          <img
+            alt="eventImage"
+            src={props.img_url}
+            style={BackgroundStyle}
+          ></img>
+          <img alt="eventImage" src={props.img_url} style={ImageStyle}></img>
+        </div>
+      </div>
+    </>
   );
 };
 export default EventImage;

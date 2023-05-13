@@ -294,6 +294,7 @@ export const getUserDetails = createAsyncThunk(
     } catch (error) {
       // Unauthenticated
       console.log("Error: token = ", thunkAPI.getState().auth.userToken);
+      thunkAPI.dispatch(logOut()); // Log out user
       return thunkAPI.rejectWithValue(error);
     }
   }
