@@ -1,8 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const BASE_API = process.env.REACT_APP_BASE_API;
 
 export const ticketApi = createApi({
-  reducerPath: "ticketApi",
+  reducerPath: "ticket",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_API,
     prepareHeaders: (headers, { getState }) => {
@@ -24,7 +24,7 @@ export const ticketApi = createApi({
       }),
     }),
     getTickets: builder.query({
-      query: (event) => `/tickets/event_id/${event.id}`,
+      query: (eventId) => `/tickets/event_id/${eventId}`,
       providesTags: ["Tickets"],
     }),
     updateTicket: builder.mutation({

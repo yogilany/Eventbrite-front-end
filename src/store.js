@@ -13,6 +13,8 @@ const reducers = combineReducers({
   auth: authReducer,
   [userApi.reducerPath]: userApi.reducer,
   [eventsApi.reducerPath]: eventsApi.reducer,
+  [ticketApi.reducerPath]: ticketApi.reducer,
+  [promocodeApi.reducerPath]: promocodeApi.reducer,
 });
 
 const persistConfig = {

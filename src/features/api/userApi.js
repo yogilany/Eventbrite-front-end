@@ -274,9 +274,9 @@
 // });
 
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import axiosBaseQuery from "./axiosBaseQuery";
 
 const BASE_API = process.env.REACT_APP_BASE_API;
+
 export const userApi = createApi({
   reducerPath: "user",
   baseQuery: fetchBaseQuery({
