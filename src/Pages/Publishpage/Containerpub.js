@@ -21,7 +21,7 @@ const Containerpub = (props) => {
     return (
         <div className='Full__Container' data-testid={props.data_testid}>
             <div >
-                <img src={eventphoto} className='Full__Container_img' />
+                <img src={data.image_link} className='Full__Container_img' />
             </div>
             <div className='rtpart'>
                 <h1 style={{ marginTop: 28, marginLeft: 10, fontSize: 20 }}>{title}</h1>
