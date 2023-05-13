@@ -11,9 +11,23 @@ import { useNavigate } from "react-router";
  */
 const DateTime = (props) => {
   const [val, setval] = useState("now");
-  const [date, setDate] = useState("03/11/2023");
-  const [time, setTime] = useState("2:00PM");
   const [createEvent] = useCreateEventMutation();
+  const event = props.event;
+  const dateandtime = event.date_and_time.start_date_time;
+  const date = new Date(dateandtime);
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+
+  const formattedDate = `${year}/${month}/${day}`;
+  const formattedTime = `${hour}:${minute}:${second}`;
+  //console.log("Date and Time : ", dateandtime);
+  const [datee, setDate] = useState(formattedDate);
+  const [time, setTime] = useState(formattedTime);
   
   const navigate = useNavigate();
 
@@ -93,7 +107,7 @@ const DateTime = (props) => {
               <input
                 type="text"
                 id="Date_id_pub"
-                defaultValue={"03/11/2023"}
+                defaultValue={formattedDate}
                 className="dd"
                 readOnly={val === "now"}
                 onChange={(e) => {
@@ -124,7 +138,7 @@ const DateTime = (props) => {
               <input
                 type="text"
                 id="Time_id_pub"
-                defaultValue={"2:00PM"}
+                defaultValue={formattedTime}
                 className="dd"
                 readOnly={val === "now"}
                 onChange={(e) => {
