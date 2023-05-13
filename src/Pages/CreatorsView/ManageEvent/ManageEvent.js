@@ -24,7 +24,7 @@ const ManageEvent = () => {
 
   
   const [eventTitle, setEventTitle] = useState("");
-  const [event, setEvent] = useState(fetchedEvent);
+  const [event, setEvent] = useState(fetchedEvent ? fetchedEvent : null);
 
   useEffect(() => {
     setEvent(fetchedEvent);
@@ -47,11 +47,11 @@ const ManageEvent = () => {
         <Sidebar eventTitle={eventTitle} />
         <Tab.Content>
           <Tab.Pane eventKey="first">
-            <Basicinfo
+            {event ? <Basicinfo
               event={event}
               setEvent={setEvent}
               setEventTitle={setEventTitle}
-            />
+            /> : null}
           </Tab.Pane>
 
           <Tab.Pane eventKey="second">
@@ -59,7 +59,7 @@ const ManageEvent = () => {
           </Tab.Pane>
 
           <Tab.Pane eventKey="third">
-            <TicketsPage event={event} setEvent={setEvent} />
+            {event ? <TicketsPage event={event} setEvent={setEvent} /> : null}
           </Tab.Pane>
 
           <Tab.Pane eventKey="fourth">

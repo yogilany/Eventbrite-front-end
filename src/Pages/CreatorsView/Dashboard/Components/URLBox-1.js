@@ -7,9 +7,8 @@ import { Button, InputAdornment, TextField } from "@mui/material";
 
 const URLBox = ({event}) => {
   const [editURL, setEditURL] = useState(false);
-  const [URL, setURL] = useState(
-    `https://www.eventbrite.com/event/${event.id}`
-  );
+  const [URL, setURL] = useState(event ? `https://www.eventbrite.com/event/${event.id}` : null );
+   
   return (
     <Container fluid className="mt-5">
       <Row>
