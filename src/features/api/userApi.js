@@ -298,6 +298,7 @@ export const userApi = createApi({
     }),
     fetchLikedEventsNoValidation: builder.query({
       query: () => "/users/me/event/liked",
+      
     }),
     likeEvent: builder.mutation({
       query: (eventId) => ({
@@ -345,6 +346,9 @@ export const userApi = createApi({
       query: (eventId) => `/users/me/event/${eventId}/is_liked`,
       providesTags: ["Liked"],
     }),
+    getorders: builder.query({
+      query: () => `/orders/myorders`,
+    }),
   }),
 });
 
@@ -360,4 +364,5 @@ export const {
   useGetUserQuery,
   useIsUserFollowedQuery,
   useIsEventLikedQuery,
+  useGetordersQuery,
 } = userApi;
