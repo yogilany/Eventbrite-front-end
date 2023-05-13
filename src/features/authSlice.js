@@ -50,8 +50,6 @@ export const authUser = createAsyncThunk(
       );
 
       if (response.data?.access_token !== null) {
-        console.log("heeelo");
-        // localStorage.setItem("userToken", response.data.access_token);
         return response.data;
       } else {
         throw rejectWithValue(response.data.detail);
@@ -107,7 +105,6 @@ export const authGoogleUser = createAsyncThunk(
         username: userData.email,
         password: "aaaaaaaaaaaaa",
       };
-      console.log(x_www_form_data);
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_API}/auth/login-with-google`,
         qs.stringify(x_www_form_data),
@@ -116,7 +113,12 @@ export const authGoogleUser = createAsyncThunk(
         }
       );
       console.log("Auth google user response : ", response);
-      return response.data;
+
+      if (response.data?.access_token !== null) {
+        return response.data;
+      } else {
+        throw rejectWithValue(response.data.detail);
+      }
     } catch (error) {
       console.log(error);
       return rejectWithValue(error?.response?.data?.detail);
@@ -141,34 +143,34 @@ export const registerGoogleUser = createAsyncThunk(
 
       console.log("Register response", response);
 
-      // Login with google to obtain access token
-      const login_response = await thunkAPI.dispatch(
-        authGoogleUser({
-          email: registerData.email,
-          password: registerData.password,
-        })
-      );
+      // // Login with google to obtain access token
+      // const login_response = await thunkAPI.dispatch(
+      //   authGoogleUser({
+      //     email: registerData.email,
+      //     password: registerData.password,
+      //   })
+      // );
 
-      console.log("Login with google response: ", login_response);
+      // console.log("Login with google response: ", login_response);
 
-      // Edit user data to save avatar URL
-      const edit_response = await axios({
-        method: "PUT",
-        url: `${process.env.REACT_APP_BASE_API}/users/me/edit`,
-        headers: {
-          ContentType: "application/json",
-          Authorization: `Bearer ${login_response.payload.access_token}`,
-        },
-        params: {
-          firstname: registerData.firstname,
-          lastname: registerData.lastname,
-          avatar_url: registerData.picture,
-        },
-      });
+      // // Edit user data to save avatar URL
+      // const edit_response = await axios({
+      //   method: "PUT",
+      //   url: `${process.env.REACT_APP_BASE_API}/users/me/edit`,
+      //   headers: {
+      //     ContentType: "application/json",
+      //     Authorization: `Bearer ${login_response.payload.access_token}`,
+      //   },
+      //   params: {
+      //     firstname: registerData.firstname,
+      //     lastname: registerData.lastname,
+      //     avatar_url: registerData.picture,
+      //   },
+      // });
 
-      console.log("Edit with google response: ", edit_response);
+      // console.log("Edit with google response: ", edit_response);
 
-      return { ...registerData, ...edit_response };
+      return { ...registerData, ...response };
     } catch (error) {
       console.log(error.message);
       return thunkAPI.rejectWithValue(error.message);
@@ -372,7 +374,6 @@ export const authSlice = createSlice({
       })
       // Authenticate Google user
       .addCase(authGoogleUser.rejected, (state, action) => {
-        state = initialState;
         state.isLoading = false;
       })
       .addCase(authGoogleUser.pending, (state, action) => {
@@ -387,7 +388,6 @@ export const authSlice = createSlice({
       })
       // Register user
       .addCase(registerUser.rejected, (state, action) => {
-        state = initialState;
         state.isLoading = false;
       })
       .addCase(registerUser.pending, (state, action) => {
@@ -399,7 +399,6 @@ export const authSlice = createSlice({
       })
       // Register Google user
       .addCase(registerGoogleUser.rejected, (state, action) => {
-        state = initialState;
         state.isLoading = false;
       })
       .addCase(registerGoogleUser.pending, (state, action) => {

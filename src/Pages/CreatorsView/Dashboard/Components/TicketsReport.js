@@ -1,13 +1,13 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import Headerpub from "../../../Publishpage/Headerpub";
 import Sidebar from "../../Sidebar/Sidebar";
 import { Table } from "react-bootstrap";
+import CreatorHeader from "../../Details/Components/creatorHeader/CreatorHeader";
 
 const TicketsReport = () => {
   return (
     <>
-      <Headerpub data_testid="HDID" />
+      <CreatorHeader data_testid="HDID" />
       <Sidebar />
 
       <div style={{ marginLeft: 450, marginTop: 20 }}>

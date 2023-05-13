@@ -11,7 +11,6 @@ import {
   checkEmailExists,
   forgotPassword,
   registerGoogleUser,
-  registerUser,
   selectLoggedIn,
 } from "../../../features/authSlice";
 import { HorizontalChip } from "./Components/HorizontalChip";
@@ -25,6 +24,7 @@ import FormMessage from "../../../Components/FormMessage/FormMessage";
 import { Link } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import LoginForgotPasswordModal from "./Components/LoginForgotPasswordModal";
+import VerificationEmailModal from "src/Components/VerificationEmailModal.js/VerificationEmailModal";
 /**
  *
  * @param {name: Name of this element after creation} props
@@ -54,6 +54,8 @@ export const Login = (props) => {
   const [emailExist, setEmailExist] = useState(true);
   const [passwordIncorrect, setPasswordIncorrect] = useState(false);
   const [forgotPasswordModalShow, setForgotPasswordModalShow] = useState(false);
+  const [verificationEmailModalShow, setVerificationEmailModalShow] =
+    useState(false);
   const [SocialProfile, setSocialProfile] = useState(null);
   const isLoggedIn = useSelector(selectLoggedIn);
   const dispatch = useDispatch();
@@ -104,6 +106,57 @@ export const Login = (props) => {
       console.log(err);
     }
   };
+  const handleSocialSubmit = (e) => {
+    if (SocialProfile) {
+      dispatch(checkEmailExists(user))
+        .unwrap()
+        .then((result) => {
+          dispatch(
+            authGoogleUser({
+              email: SocialProfile.email,
+            })
+          )
+            .unwrap()
+            .then((result) => {
+              setSuccess(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setPasswordIncorrect(emailExist === true);
+              setErrMsg(err);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+            });
+        })
+        .catch((err) => {
+          //Email does not exist, create account for user
+          dispatch(
+            registerGoogleUser({
+              email: SocialProfile.email,
+              password: crypto.getRandomValues(new Uint8Array(64)).toString(),
+              firstname: SocialProfile.given_name,
+              lastname: SocialProfile.family_name ?? "",
+              picture: SocialProfile.picture,
+            })
+          )
+            .unwrap()
+            .then(() => {
+              setVerificationEmailModalShow(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setPasswordIncorrect(emailExist === true);
+              setErrMsg(err);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+              return;
+            });
+        });
+    }
+  };
+
   useEffect(() => {
     if (success) {
       navigate("/", { replace: true });
@@ -135,47 +188,7 @@ export const Login = (props) => {
   }, [user]);
 
   useEffect(() => {
-    if (SocialProfile) {
-      const email_exists = dispatch(checkEmailExists(user));
-      if (!email_exists) {
-        //Email does not exist, create account for user
-        dispatch(
-          registerGoogleUser({
-            email: SocialProfile.email,
-            password: crypto.getRandomValues(new Uint8Array(64)).toString(),
-            firstname: SocialProfile.given_name,
-            lastname: SocialProfile.family_name ?? "",
-            picture: SocialProfile.picture,
-          })
-        ).catch((err) => {
-          setSuccess(false);
-          setPasswordIncorrect(emailExist === true);
-          setErrMsg(err);
-          setTimeout(() => {
-            controls.start("start");
-          }, 500);
-          return;
-        });
-      }
-
-      dispatch(
-        authGoogleUser({
-          email: SocialProfile.email,
-        })
-      )
-        .then((result) => {
-          setSuccess(true);
-        })
-        .catch((err) => {
-          setSuccess(false);
-          setPasswordIncorrect(emailExist === true);
-          setErrMsg(err);
-          setTimeout(() => {
-            controls.start("start");
-          }, 500);
-        });
-    }
-
+    handleSocialSubmit();
     return () => {};
   }, [SocialProfile]);
 
@@ -187,6 +200,11 @@ export const Login = (props) => {
         show={forgotPasswordModalShow}
         onHide={() => setForgotPasswordModalShow(false)}
         email={emailInput}
+      />
+      <VerificationEmailModal
+        show={verificationEmailModalShow}
+        onHide={() => setVerificationEmailModalShow(false)}
+        email={SocialProfile?.email}
       />
       <Row>
         <Col

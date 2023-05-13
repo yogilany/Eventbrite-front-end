@@ -81,13 +81,10 @@ const CreateEvent = () => {
               <Publish event={event} setEvent={setEvent} />
             </Tab.Pane>
 
-            <Tab.Pane eventKey="fifth">
-              <Dashboard />
-            </Tab.Pane>
+            <Tab.Pane eventKey="fifth"></Tab.Pane>
           </Tab.Content>
         </Container>
 
-        {/* <Headerpub data_testid="HDID" /> */}
         <CreatorHeader />
       </Tab.Container>
     </AppCreateEvent.Provider>

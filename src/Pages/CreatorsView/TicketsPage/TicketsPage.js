@@ -23,7 +23,6 @@ export const AppEditContext = createContext({});
  * @returns {JSX.Element}
  */
 const Tickets = ({ event, setEvent }) => {
-
   console.log("event in tickets: ", event);
   const [ID, setID] = useState(0);
   const [isFree, setIsFree] = useState(false);
@@ -103,15 +102,11 @@ const Tickets = ({ event, setEvent }) => {
   };
   const handleSubmitTickets = () => {
     if (ticketName !== "" && ticketQuantity !== "") {
-      if (freeBtn)
-      {
+      if (freeBtn) {
         saveData();
         setShowTicket(false);
-      }
-      else
-      {
-        if (ticketPrice !== "")
-        {
+      } else {
+        if (ticketPrice !== "") {
           saveData();
           setShowTicket(false);
         }
@@ -270,7 +265,6 @@ const Tickets = ({ event, setEvent }) => {
     else setErrorStartDate(false);
   };
 
-  
   useEffect(() => {
     setTimeout(() => {
       // After 3 seconds set the show value to false
@@ -279,7 +273,16 @@ const Tickets = ({ event, setEvent }) => {
   }, [success]);
   return (
     <AppEditContext.Provider
-      value={{ isEdit, setIsEdit, ID, setID, isEditPromo, setIsEditPromo , isFree , setIsFree }}
+      value={{
+        isEdit,
+        setIsEdit,
+        ID,
+        setID,
+        isEditPromo,
+        setIsEditPromo,
+        isFree,
+        setIsFree,
+      }}
     >
       <div className="tickets__page-container">
         <CreatorHeader />
@@ -462,7 +465,7 @@ const Tickets = ({ event, setEvent }) => {
                   defaultValue={event.tickets[ID].price}
                 />
               )}
-              {(ticketPrice === "" && !freeBtn) && (
+              {ticketPrice === "" && !freeBtn && (
                 <p className="required__price">Price is required.</p>
               )}
               {freeBtn && (
@@ -497,7 +500,7 @@ const Tickets = ({ event, setEvent }) => {
               </div>
               <div className="start_date-ticket">
                 <input
-                  id={errorStartDate ? "start_date-field" : ''}
+                  id={errorStartDate ? "start_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
                   onChange={(e) => {
@@ -529,7 +532,7 @@ const Tickets = ({ event, setEvent }) => {
               </div>
               <div className="end_date-ticket">
                 <input
-                  id={isPastDate ? "end_date-field" : ''}
+                  id={isPastDate ? "end_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
                   onChange={(e) => {
@@ -695,7 +698,7 @@ const Tickets = ({ event, setEvent }) => {
                   }}
                 />
               )}
-              {(ticketPrice === "" && !freeBtn) && (
+              {ticketPrice === "" && !freeBtn && (
                 <p className="required__price">Price is required.</p>
               )}
               {freeBtn && (
@@ -953,7 +956,7 @@ const Tickets = ({ event, setEvent }) => {
               </div>
               <div className="start_date-ticket">
                 <input
-                  id={errorStartDate ? "promocode_start_date-field" : ''}
+                  id={errorStartDate ? "promocode_start_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
                   onChange={(e) => {
@@ -995,7 +998,7 @@ const Tickets = ({ event, setEvent }) => {
                 style={{ marginBottom: "120px" }}
               >
                 <input
-                  id={isPastDate ? "promocode_end_date-field" : ''}
+                  id={isPastDate ? "promocode_end_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
                   onChange={(e) => {
@@ -1262,7 +1265,7 @@ const Tickets = ({ event, setEvent }) => {
             </div>
           )}
           <div style={{ marginTop: "100px" }}>
-            {/* {event.tickets.map((ticket, id) =>
+            {event.tickets.map((ticket, id) =>
               addmissionBtn ? (
                 <TicketInfo
                   ticketName={ticket.name}
@@ -1285,7 +1288,7 @@ const Tickets = ({ event, setEvent }) => {
               ) : (
                 ""
               )
-            )} */}
+            )}
             {promoCodeBtn && (
               <table style={{ width: "80%" }}>
                 <tr className="data__row-table">
@@ -1295,7 +1298,7 @@ const Tickets = ({ event, setEvent }) => {
                   <th colSpan={2}>Uses</th>
                   <th colSpan={1}>Status</th>
                 </tr>
-                {/* {event.promocodes.map((promocode, id) => (
+                {event.promocodes.map((promocode, id) => (
                   <PromoCodesInfo
                     name={promocode.name}
                     codeType="Applies discount"
@@ -1310,7 +1313,7 @@ const Tickets = ({ event, setEvent }) => {
                     event={event}
                     setEvent={setEvent}
                   />
-                ))} */}
+                ))}
               </table>
             )}
           </div>
