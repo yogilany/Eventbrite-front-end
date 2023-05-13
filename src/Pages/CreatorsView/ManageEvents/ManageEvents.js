@@ -230,36 +230,40 @@ const ManageEvents = () => {
                 </div>
               ) : (
                 <>
-                  <table class="mt-8 mb-8 w-full text-sm text-left text-gray-500 ">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
-                      <tr>
-                        <th scope="col" class="px-6 py-3">
-                          Event
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                          Sold
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                          Gross
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                          Status
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredEvents.map((event) => {
-                        return (
-                          <TableRow
-                            event={event}
-                            setAllData={setAllData}
-                            allData={allData}
-                            csvExport={csvExport}
-                          />
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                <table class="mt-8 mb-8 w-full text-sm text-left text-gray-500 ">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                    <tr>
+                      <th scope="col" class="px-6 py-3">
+                        Event
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Sold
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Gross
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Status
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredEvents.map((event) => {
+                      return (
+                        <TableRow
+                          event={event}
+                          setAllData={setAllData}
+                          allData={allData}
+                          csvExport={csvExport}
+                          fetch={fetchMyevents}
+                        />
+                      );
+                    })}
+                  </tbody>
+                </table>
                   <CSVLink {...csvReport}>
                     {" "}
                     <MainGrayButton

@@ -149,6 +149,7 @@ export const HomePage = () => {
                       placeholder="Location"
                     />
                     <MdOutlineKeyboardArrowDown
+                    style={{cursor:"pointer"}}
                       onClick={fetchEvents}
                       color="#3659e3"
                       className="w-12 h-12"

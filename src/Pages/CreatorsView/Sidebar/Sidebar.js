@@ -207,10 +207,24 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
                 Dashboard
               </Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                eventKey="sixth"
+                className="EventOption"
+                style={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                }}
+              >
+                {" "}
+                Add Attendees
+              </Nav.Link>
+            </Nav.Item>
 
             <Dropdown Name="Order Options" Links={orderOptions} />
             <Dropdown Name="Marketing" Links={Marketing} />
-            <Dropdown Name="Manage Attendes" Links={ManageAttendees} />
+            {/* <Dropdown Name="Manage Attendes" Links={ManageAttendees} /> */}
           </div>
           <div
             className="div__line"
