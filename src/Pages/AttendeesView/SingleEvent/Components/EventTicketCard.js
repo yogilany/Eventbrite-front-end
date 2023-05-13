@@ -14,14 +14,9 @@ export const EventTicketCard = (props) => {
   };
   return (
     <Container fluid {...props}>
-      <Col>
+      <Col className="border-2 rounded-lg p-12"> 
         <Row
-        //   style={{
-        //     border: "#3659e3 3px solid",
-        //     borderRadius: "1.5vmin",
-        //     padding: "3%",
-        //     marginBottom: "2rem",
-        //   }}
+    
         >
           <Row>
             <Col className="text-center mb-4">

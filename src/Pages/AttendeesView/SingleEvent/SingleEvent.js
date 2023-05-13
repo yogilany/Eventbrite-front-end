@@ -114,32 +114,19 @@ const SingleEvent = (props) => {
       <Header />
       <div style={{ display: "flow" }}>
         <EventImage img_url={event?.image_link} />
-        <Container className="pl-5 ml-5">
-          <Row className="align-items-center overflow-hidden ml-5">
-            <Container fluid className="pt-3">
+        <Container className=" mx-5">
+          <Row className="">
+            <Col md={8} className="pl-24">
               {event ? (
                 <>
-                  <Col md={8}>
-                    <Row className="pb-5 ">
-                      <Col md={12} style={{ position: "relative" }}></Col>
-                    </Row>
+                  <Col>
+                    <Col>
+                      <h3 className="event-date-text">{eventDate}</h3>
+                    </Col>
+
                     <Row className="mb-5">
                       <Stack gap={3}>
                         <div>
-                          <Container>
-                            <Row>
-                              <Col>
-                                <h3 className="event-date-text">{eventDate}</h3>
-                              </Col>
-                              <Col md={{ offset: 9, span: 1 }}>
-                                <LikeButton id={event?.id} />
-                              </Col>
-                              <Col md={{ span: 1 }}>
-                                <HIIcons.HiOutlineUpload size="2em" />
-                              </Col>
-                            </Row>
-                          </Container>
-
                           <h1 className="event-name-text">
                             {event?.basic_info.title}
                           </h1>
@@ -175,16 +162,6 @@ const SingleEvent = (props) => {
                         follower_count="1.4k"
                       />
                     </Row>
-                  </Col>
-                  <Col
-                    style={{ top: "105%", right: "10%", position: "absolute" }}
-                  >
-                    {event ? (
-                      <EventTicketCard
-                        img_url={event ? event.image_link : null}
-                        event={event}
-                      />
-                    ) : null}
                   </Col>
                 </>
               ) : (
@@ -243,7 +220,59 @@ const SingleEvent = (props) => {
                   </Container>
                 </>
               )}
-            </Container>
+            </Col>
+            <Col>
+              <div className="flex flex-row justify-end m-2">
+                <button
+                  type="button"
+                  class="transition text-gray-600 bg-gray-0 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center  "
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
+                    ></path>
+                  </svg>
+                  <span class="sr-only">Icon description</span>
+                </button>
+                <button
+                  type="button"
+                  class=" transition text-gray-600 bg-gray-0 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center  "
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                    ></path>
+                  </svg>
+                  <span class="sr-only">Icon description</span>
+                </button>
+              </div>
+              {event ? (
+                <EventTicketCard
+                  img_url={event ? event.image_link : null}
+                  event={event}
+                />
+              ) : null}
+            </Col>
           </Row>
         </Container>
         <Footer />
