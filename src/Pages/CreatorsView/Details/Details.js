@@ -23,6 +23,7 @@ const Details = ({ event, setEvent }) => {
   const handleForm = (e) => {
     e.preventDefault();
   };
+  const[isLoading, setIsLoading] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [showSubmit, setShowSubmit] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -35,12 +36,13 @@ const Details = ({ event, setEvent }) => {
     setEvent({
       ...event,
 
-      image_link:
-        "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F508415919%2F1144043283543%2F1%2Foriginal.20230505-120629?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C60%2C1920%2C960&s=d8fd402e4d59e205dcd67cab6c6dbe83",
+      image_link: "https://www.example.com/image.png",
       summary: summary,
       description: description,
     });
     setSuccess(true);
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 3000);
   }
 
   useEffect(() => {
@@ -60,12 +62,7 @@ const Details = ({ event, setEvent }) => {
 
   return (
     <AppContext.Provider
-      value={{
-        toggleSidebar,
-        setToggleSidebar,
-        showSubmit,
-        setShowSubmit,
-      }}
+      value={{ toggleSidebar, setToggleSidebar, showSubmit, setShowSubmit }}
     >
       <div className="Details__page mt-32">
         <form onSubmit={handleForm}>
@@ -75,6 +72,7 @@ const Details = ({ event, setEvent }) => {
             }`}
             data-testid="Details__contianer"
           >
+            {isLoading && "kkk"}
             <EventImage imageLink={imageLink} setImageLink={setImageLink} />
             <Summary summary={summary} setSummary={setSummary} />
             <Description
@@ -82,14 +80,15 @@ const Details = ({ event, setEvent }) => {
               setDescription={setDescription}
             />
             <AddEvents />
-            {showSubmit && (
+            {isLoading && "kkk"}
+            {/* {showSubmit && (
               <div className="submit__section" data-testid="submit__section">
                 <button className="discard__btn">Discard</button>
-                <button type="submit" className="submit__btn">
+                <button type="submit" className="submit__btn" onClick = {saveData} disabled = {!inputsChanged}>
                   Save
                 </button>
               </div>
-            )}
+            )} */}
           </div>
         </form>
       </div>
