@@ -76,7 +76,7 @@ const Header = ({ location }) => {
     console.log("baseee", newlocation);
     axios
       .get(`${process.env.REACT_APP_BASE_API}/events/search`, {
-        params: { city: newlocation, title: serach ? serach : null},
+        params: { city: newlocation ? newlocation : location, title: serach ? serach : null},
       })
       .then(function (response) {
         console.log("response", response.data);
@@ -436,9 +436,10 @@ const Header = ({ location }) => {
                             return (
                               <EventHorizontal
                                 Title={event.basic_info.title}
-                                Date={event.date_and_time.start_date_time}
+                                date={event.date_and_time.start_date_time}
                                 Organizer={event.basic_info.organizer}
                                 Image={event.image_link}
+                                Id={event.id}
                               ></EventHorizontal>
                             );
                           })

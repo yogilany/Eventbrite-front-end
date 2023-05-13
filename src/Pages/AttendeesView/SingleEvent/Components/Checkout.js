@@ -3,11 +3,13 @@ import TicketCard from "./TicketCard";
 import { useState } from "react";
 import axios from "axios";
 import MainOrangeButton from "../../../../Components/Buttons/MainOrangeButton";
+import { set } from "date-fns";
 import { useForm } from "react-hook-form";
 import { Container, Row, Form } from "react-bootstrap";
 import TextInputStyled from "../../../../Components/TextInput/TextInput";
 import LoginMethodsCSS from "../../../AttendeesView/Login/Components/LoginMethods.module.scss";
 import AttendeeData from "./AttendeeData";
+import { AttachEmail } from "@mui/icons-material";
 import MainGrayButton from "src/Components/Buttons/MainGrayButton";
 import { useSelector } from "react-redux";
 import { selectUserToken } from "src/features/authSlice";
@@ -18,7 +20,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
   const {
     register,
     handleSubmit,
-    // watch,
+    watch,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
@@ -42,9 +44,9 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
 
   const [remainingTime, setRemainingTime] = useState(timerDuration);
 
-  // const handleClose = () => {
-  //   setIsCheckout(false);
-  // };
+  const handleClose = () => {
+    setIsCheckout(false);
+  };
   const fetchTicketsTypes = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`)
@@ -230,7 +232,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
           <div className="relative bg-white   shadow w-full max-w-5xl max-h-3xl  ">
             {!isTimeOut ? (
               <div className="grid grid-cols-3">
-                <div className="bg-white p-4 col-span-2">
+                <div className="bg-white h-full  p-4 col-span-2">
                   <div className="flex flex-col items-center  p-2 border-b rounded-t">
                     <h3 className="text-xl font-light text-gray-900 ">
                       {!isFinalCheckout ? event.basic_info.title : "Checkout"}
@@ -270,7 +272,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
                     </p>
                   </div>
                   <div className="p-6 space-y-6 max-h-96 overflow-scroll">
-                    {!isFinalCheckout ? (
+                    {!isFinalCheckout ?  ticketsTypes.length == 0 ? <div class="h-96">Loading</div> : (
                       ticketsTypes.map((ticket) => (
                         <TicketCard
                           key={ticket.id}

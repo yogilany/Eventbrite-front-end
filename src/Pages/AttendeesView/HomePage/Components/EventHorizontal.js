@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const EventHorizontal = ({ Title, Date, Organizer,Id,Image }) => {
-  return Title && Date && Organizer  && Image ?   <Link to={`/event/${Id}`}  >
+const EventHorizontal = ({ Title, date, Organizer,Id,Image }) => {
+  return Title && date && Organizer  && Image ?   <Link to={`/event/${Id}`}  >
     <div className="grid grid-cols-3 p-4 bg-white hover:drop-shadow-2xl w-max h-auto mb-2">
       <div className="col-span-2 ">
         <h1
@@ -23,7 +23,15 @@ const EventHorizontal = ({ Title, Date, Organizer,Id,Image }) => {
             color: "#d1410c",
             fontSize: ".875rem",
             lineHeight: "1.25rem",
-          }}>{Date}</h2>
+          }}>{new Date(date).toLocaleDateString('en-US', {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            timeZoneName: 'short'
+          })}</h2>
 
 <h2      style={{
             fontWeight: "400",
