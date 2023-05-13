@@ -35,6 +35,7 @@ import SignupFormCSS from "./SignupForm.module.css";
 import "./SignupMethods";
 import SignupMethods from "./SignupMethods";
 import SignupVerifyModal from "./SignupVerifyModal";
+import VerificationEmailModal from "src/Components/VerificationEmailModal.js/VerificationEmailModal";
 /**
  * The signup form which contains the information needed to create a new account.
  * This form validates all inputs before submission.
@@ -53,6 +54,8 @@ export const SignupForm = (props) => {
   // const [submitPosition, setSubmitPosition] = useState("");
   // const [oldSubmitPosition, setOldSubmitPosition] = useState("");
   const [SocialProfile, setSocialProfile] = useState(null);
+  const [verificationEmailModalShow, setVerificationEmailModalShow] =
+    useState(false);
 
   const rowRef = useRef();
   const navigate = useNavigate();
@@ -89,33 +92,42 @@ export const SignupForm = (props) => {
 
   const registerUserHandler = () => {
     if (SocialProfile) {
-      console.log("aaaaaaaaaa", SocialProfile);
+      console.log("Social profile", SocialProfile);
       dispatch(checkEmailExists(SocialProfile.email))
         .unwrap(unwrapResult)
+        .then(() => {
+          //Email exists, auth user
+          dispatch(
+            authGoogleUser({
+              email: SocialProfile.email,
+            })
+          )
+            .unwrap()
+            .then((result) => {
+              setSuccess(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+              return;
+            });
+        })
         .catch((err) => {
           //Email does not exist, create account for user
-          dispatch(registerGoogleUser(SocialProfile)).catch((err) => {
-            setSuccess(false);
-            setTimeout(() => {
-              controls.start("start");
-            }, 500);
-            return;
-          });
-        });
-
-      dispatch(
-        authGoogleUser({
-          email: SocialProfile.email,
-        })
-      )
-        .then((result) => {
-          setSuccess(true);
-        })
-        .catch((err) => {
-          setSuccess(false);
-          setTimeout(() => {
-            controls.start("start");
-          }, 500);
+          dispatch(registerGoogleUser(SocialProfile))
+            .unwrap()
+            .then(() => {
+              setVerificationEmailModalShow(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+              return;
+            });
         });
     } else {
       const data = {
@@ -190,6 +202,14 @@ export const SignupForm = (props) => {
         onCancel={() => {
           setPrivacyPolicyModalShow(false);
         }}
+      />
+      <VerificationEmailModal
+        show={verificationEmailModalShow}
+        onHide={() => {
+          setVerificationEmailModalShow(false);
+          navigate("/login");
+        }}
+        email={SocialProfile?.email}
       />
       <Form
         data-testid={props.data_testid}
