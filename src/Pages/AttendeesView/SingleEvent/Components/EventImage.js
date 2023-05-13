@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import default_image from "../../../../assets/adel-full-cover.png";
 import "../SingleEvent.scss";
 const EventImage = (props) => {
+  console.log("props.img_url", props.img_url)
   // start off in the loading state
   const [loading, setLoading] = useState(true);
 

@@ -61,13 +61,20 @@ const Profile = () => {
     userFirstName + " " + userLastName
   );
   const [imgSrc, setImgSrc] = useState(UserAvatar);
-  const { data: likedEvents } = useFetchLikedEventsQuery();
-  const { data: followingUsers } = useGetFollowingUsersQuery();
-  const {data:Orders} = useGetordersQuery();
+  const { data: likedEvents, refetch: refetchLikedEvents } =
+    useFetchLikedEventsNoValidationQuery();
+  const { data: followingUsers, refetch: refetchFollowingUsers } =
+    useGetFollowingUsersNoValidationQuery();
   const handleImgError = () => {
     setImgSrc(emptyprofile);
   };
-
+  const refetch = () => {
+    refetchFollowingUsers();
+    refetchLikedEvents();
+  };
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <div>
       <Header />

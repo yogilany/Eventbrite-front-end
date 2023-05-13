@@ -5,11 +5,6 @@ import "../SingleEvent.scss";
 import "date-fns";
 import { intervalToDuration } from "date-fns";
 export const EventAbout = ({ description, startDate, endDate }) => {
-  const AboutParagraphStyle = {
-    color: "#6f7287",
-    fontSize: "16px",
-  };
-
   const eventDuration = intervalToDuration({
     start: new Date(startDate),
     end: new Date(endDate),
@@ -17,7 +12,6 @@ export const EventAbout = ({ description, startDate, endDate }) => {
 
   const days = eventDuration.days;
   const hours = eventDuration.hours;
-  const minutes = eventDuration.minutes;
   const eventDurationString =
     (days !== 0 ? `${days} days ` : "") + (hours !== 0 ? `${hours} hours` : "");
 
@@ -54,7 +48,7 @@ export const EventAbout = ({ description, startDate, endDate }) => {
           <strong>{"Mobile eTicket"}</strong>
         </div>
       </Stack>
-      <p style={AboutParagraphStyle}>{description}</p>
+      <p className="paragraph-muted-text">{description}</p>
     </Stack>
   );
 };

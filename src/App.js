@@ -54,7 +54,7 @@ function App() {
 
             <Route element={<ProtectedRoute />} errorElement={<ErrorPage />}>
               <Route path="/likes" element={<Likes />} />
-              <Route path="/all-events" element={<AllEvents />} />
+              <Route path="/browse-events" element={<AllEvents />} />
               <Route path="/details" element={<Details />} />
               <Route path="/following" element={<FollowingOrgEvents />} />
               <Route path="/Publish" element={<Publish />} />

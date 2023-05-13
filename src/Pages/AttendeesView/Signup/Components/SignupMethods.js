@@ -1,15 +1,11 @@
-import { ButtonGroup, Col, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { Col, Container, Row } from "react-bootstrap";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import * as FcIcons from "react-icons/fc";
 import * as TiIcons from "react-icons/ti";
-import "../Signup.scss";
 import WhiteButton from "../../../../Components/Buttons/WhiteButton";
-import { useGoogleLogin } from "@react-oauth/google";
-import { useState } from "react";
-import { useEffect } from "react";
-import axios from "axios";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import "../Signup.scss";
 
 /**
  *

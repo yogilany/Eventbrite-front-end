@@ -4,12 +4,7 @@ import { Avatar } from "@mui/material";
 import * as HIIcons from "react-icons/hi";
 import "../SingleEvent.scss";
 import WhiteButton from "src/Components/Buttons/WhiteButton";
-import {
-  useFollowUserMutation,
-  useGetUserQuery,
-  useIsUserFollowedQuery,
-  useUnfollowUserMutation,
-} from "src/features/api/userApi";
+import { useGetUserQuery } from "src/features/api/userApi";
 import FollowButton from "src/Components/FollowButton/FollowButton";
 import { Link } from "react-router-dom";
 const EventAboutOrganizer = (props) => {

@@ -1,15 +1,13 @@
-import { Link } from "react-router-dom";
-import { Col, Row, Container } from "react-bootstrap";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { Col, Container, Row } from "react-bootstrap";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import * as FcIcons from "react-icons/fc";
 import * as TiIcons from "react-icons/ti";
+import { Link } from "react-router-dom";
+import { WhiteButton } from "../../../../Components/Buttons/WhiteButton";
 import "../Login.scss";
 import LoginMethodsCSS from "./LoginMethods.module.scss";
-import { WhiteButton } from "../../../../Components/Buttons/WhiteButton";
-import { useGoogleLogin } from "@react-oauth/google";
-import { useState } from "react";
-import { useEffect } from "react";
-import axios from "axios";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 /**
  * @description Login button methods for signing in with email, Google, Apple, Facebook
@@ -50,7 +48,7 @@ export const LoginMethods = (props) => {
     console.log(response);
     if (response) {
       console.log(response?.name?.split(" "));
-      const [firstname, lastname] = response?.name?.split(" ");
+      // const [firstname, lastname] = response?.name?.split(" ");
       const data = {
         email: response.email,
       };
