@@ -13,7 +13,7 @@ const DateTime = (props) => {
   const [val, setval] = useState("now");
   const [createEvent] = useCreateEventMutation();
   const event = props.event;
-  const dateandtime = event.date_and_time.start_date_time;
+  const dateandtime = event?.date_and_time?.start_date_time;
   const date = new Date(dateandtime);
 
   const year = date.getFullYear();
@@ -23,8 +23,8 @@ const DateTime = (props) => {
   const minute = date.getMinutes();
   const second = date.getSeconds();
 
-  const formattedDate = `${year}/${month}/${day}`;
-  const formattedTime = `${hour}:${minute}:${second}`;
+  const formattedDate = `${month}/${day}/${year}`;
+  const formattedTime = `${hour}:${minute}`;
   //console.log("Date and Time : ", dateandtime);
   const [datee, setDate] = useState(formattedDate);
   const [time, setTime] = useState(formattedTime);

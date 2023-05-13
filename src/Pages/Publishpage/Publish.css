@@ -75,6 +75,8 @@
     position: absolute;
     top: 0;
     left: 43%;
+    padding-right: 30px;
+    overflow-wrap: break-word;
 }
 
 .hline {
