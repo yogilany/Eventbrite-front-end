@@ -23,6 +23,7 @@ import {
 } from "src/features/api/userApi";
 import eventphoto from "../../../assets/adelEv1.png";
 import { Col, Container, Row } from "react-bootstrap";
+
 /**
  * @author Ziad Ezzat
  * @param {}
@@ -68,6 +69,7 @@ const Profile = () => {
   const handleImgError = () => {
     setImgSrc(emptyprofile);
   };
+  const {data:Orders} = useGetordersQuery();
   const refetch = () => {
     refetchFollowingUsers();
     refetchLikedEvents();
