@@ -1,10 +1,10 @@
-import { Col, Container, Row, Stack } from "react-bootstrap/";
+import { Col, Container, Row } from "react-bootstrap/";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
 import { selectLoggedIn } from "src/features/authSlice";
-import test_image from "../../../assets/side_image.jpg";
 import AboutFooter from "../../../Components/AboutFooter/AboutFooter";
 import Footer from "../../../Components/footer/Footer";
+import test_image from "../../../assets/side_image.jpg";
 import LoginImage from "../Login/Components/LoginImage";
 import LoginTitle from "../Login/Components/Title";
 import SignupForm from "./Components/SignupForm";

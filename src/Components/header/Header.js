@@ -308,7 +308,7 @@ const Header = ({ location }) => {
                   </div>
                 </div>
               </button>
-              <div className="dropdown-content mt-14 translate-x-1">
+              <div className="dropdown-content mt-12 translate-x-1">
                 <a href="/browse-events">Browse events</a>
                 <a href="/manage-events">Manage my events</a>
                 <a href="/profile">Account settings</a>

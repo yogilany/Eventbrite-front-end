@@ -8,7 +8,7 @@ import zxcvbn from "zxcvbn";
  *
  * @type {{}}
  */
-export const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+export const isValidEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
 export const SignupSchema = Yup.object().shape({
   firstName: Yup.string()

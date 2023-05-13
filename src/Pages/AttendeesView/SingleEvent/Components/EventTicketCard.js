@@ -1,23 +1,18 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import { Container, Row, Col } from "react-bootstrap";
-import * as BiIcons from "react-icons/bi";
-import * as AiIcons from "react-icons/ai";
 import MainOrangeButton from "../../../../Components/Buttons/MainOrangeButton";
 import Checkout from "./Checkout";
 import { useState } from "react";
 export const EventTicketCard = (props) => {
-    const [isCheckout, setIsCheckout] = useState(false);
+  const [isCheckout, setIsCheckout] = useState(false);
 
   const handleCheckout = () => {
     setIsCheckout(true);
   };
   return (
     <Container fluid {...props}>
-      <Col className="border-2 rounded-lg p-12"> 
-        <Row
-    
-        >
+      <Col className="border-2 rounded-lg p-12">
+        <Row>
           <Row>
             <Col className="text-center mb-4">
               <h5>

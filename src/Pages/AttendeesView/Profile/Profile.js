@@ -19,9 +19,11 @@ import {
   useFetchLikedEventsQuery,
   useGetFollowingUsersNoValidationQuery,
   useGetFollowingUsersQuery,
+  useGetordersQuery,
 } from "src/features/api/userApi";
 import eventphoto from "../../../assets/adelEv1.png";
 import { Col, Container, Row } from "react-bootstrap";
+
 /**
  * @author Ziad Ezzat
  * @param {}
@@ -60,12 +62,21 @@ const Profile = () => {
     userFirstName + " " + userLastName
   );
   const [imgSrc, setImgSrc] = useState(UserAvatar);
-  const { data: likedEvents } = useFetchLikedEventsNoValidationQuery();
-  const { data: followingUsers } = useGetFollowingUsersNoValidationQuery();
+  const { data: likedEvents, refetch: refetchLikedEvents } =
+    useFetchLikedEventsNoValidationQuery();
+  const { data: followingUsers, refetch: refetchFollowingUsers } =
+    useGetFollowingUsersNoValidationQuery();
   const handleImgError = () => {
     setImgSrc(emptyprofile);
   };
-
+  const {data:Orders} = useGetordersQuery();
+  const refetch = () => {
+    refetchFollowingUsers();
+    refetchLikedEvents();
+  };
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <div>
       <Header />
@@ -103,13 +114,15 @@ const Profile = () => {
                     }}
                   />
                 </div>
-                <div style={{ display: "flex" }}>
-                  <a
-                    href="#"
-                    style={{ marginLeft: 15, color: "grey", fontSize: 15 }}
-                  >
-                    1 order
-                  </a>
+                <div style={{ display: "flex" ,marginLeft:15 }}>
+                <a href="#" style={{ color: "grey", fontSize: 15,display:"flex" }}>
+                      {Orders?.length}
+                      <p
+                      style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
+                    >
+                      Orders
+                    </p>
+                    </a>
                   <a
                     href="#"
                     style={{
@@ -122,14 +135,15 @@ const Profile = () => {
                     .
                   </a>
                   <div style={{ display: "flex" }}>
-                    <a href="#" style={{ color: "grey", fontSize: 15 }}>
+                    <a href="/Likes" style={{ color: "grey", fontSize: 15,display:"flex" }}>
                       {likedEvents?.length}
-                    </a>
-                    <p
+                      <p
                       style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
                     >
                       Likes
                     </p>
+                    </a>
+                    
                   </div>
                   <a
                     href="#"
@@ -159,7 +173,13 @@ const Profile = () => {
           <div className="compon">
             <h5>Orders</h5>
             <div className="orderecss">
-              <OrderComp data_testid="Order-Form-id" />
+            {Orders?.map((order) => (
+                      <OrderComp
+                        data_testid= "Order-Form-id"
+                        id = {order.event_id}
+                        order = {order}
+                      />
+                  ))}
             </div>
             <button id="btn_prof_id" className="btn_prof">
               {" "}
@@ -213,7 +233,7 @@ const Profile = () => {
             </div>
             <hr className="zzz"></hr>
             <div className="follblk_prof">
-              <div style={{ display: "flex", marginTop: 25 }}>
+              <div style={{ display: "flex", marginTop: 25,paddingBottom:20 }}>
                 <p className="intersts_prof">Following</p>
                 <a href="#" className="events_prof">
                   See events

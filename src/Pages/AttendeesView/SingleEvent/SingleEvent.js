@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Stack,
-  Spinner,
-  Placeholder,
-} from "react-bootstrap/";
-import { Layout } from "../../../app/layout";
-import event_image from "../../../assets/event_image.png";
-import organizer_avatar from "../../../assets/Organizer/AnasOrg.jpg";
+import { Container, Row, Col, Stack, Placeholder } from "react-bootstrap/";
 import EventImage from "./Components/EventImage.js";
 import EventOrganizerCard from "./Components/EventOrganizerCard";
 import EventLocation from "./Components/EventLocation.js";
@@ -17,15 +7,14 @@ import EventAbout from "./Components/EventAbout";
 import { EventShare } from "./Components/EventShare";
 import EventAboutOrganizer from "./Components/EventAboutOrganizer";
 import { EventTicketCard } from "./Components/EventTicketCard";
-import * as HIIcons from "react-icons/hi";
 import "./SingleEvent.scss";
 import Header from "../../../Components/header/Header";
 import Footer from "../../../Components/footer/Footer";
 import { useParams } from "react-router";
 import { useGetEventByIdQuery } from "src/features/api/eventApi";
-import LikeButton from "src/Components/LikeButton/LikeButton";
 import { useEffect } from "react";
 import { useState } from "react";
+import LikeButton from "src/Components/LikeButton/LikeButton.js";
 /* 
 ------Get event
 {
@@ -107,7 +96,7 @@ const SingleEvent = (props) => {
         " " +
         new Date(event?.date_and_time.start_date_time).getDate()
     );
-  });
+  }, [event?.date_and_time]);
 
   return (
     <>
@@ -123,7 +112,6 @@ const SingleEvent = (props) => {
                     <Col>
                       <h3 className="event-date-text">{eventDate}</h3>
                     </Col>
-
                     <Row className="mb-5">
                       <Stack gap={3}>
                         <div>
@@ -244,27 +232,7 @@ const SingleEvent = (props) => {
                   </svg>
                   <span class="sr-only">Icon description</span>
                 </button>
-                <button
-                  type="button"
-                  class=" transition text-gray-600 bg-gray-0 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center  "
-                >
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="3"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                    ></path>
-                  </svg>
-                  <span class="sr-only">Icon description</span>
-                </button>
+                <LikeButton id={event?.id} />
               </div>
               {event ? (
                 <EventTicketCard
