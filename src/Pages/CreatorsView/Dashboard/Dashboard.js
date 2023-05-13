@@ -17,6 +17,7 @@ import { selectUserToken } from "src/features/authSlice";
 const Dashboard = ({event}) => {
   const token = useSelector(selectUserToken);
   const [tickets, setTickets] = useState([])
+  const [orders, setOrders] = useState([])
 
   const [totalTickets, setTotalTickets] = React.useState(0);
   const [SoldTickets, setSoldTickets] = React.useState(0);
@@ -52,8 +53,32 @@ console.log("tickets", response.data);
 
       }
 
+      const fetchOrders = async () => {
+        await axios
+          .get(`${process.env.REACT_APP_BASE_API}/orders/event_id/${event.id}`, {
+              headers: {
+                ContentType: "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then(function (response) {
+    console.log("ordders", response.data);
+              setOrders(response.data);
+            
+              
+    
+        
+            })
+            .catch(function (error) {
+              // handle error
+              console.log(error);
+            });
+    
+          }
+
       useEffect(() => {
         fetchTickets()
+        fetchOrders()
       }, [])
 
 
@@ -78,8 +103,8 @@ console.log("tickets", response.data);
 
           <DashboardHeader tickets={tickets} total={totalTickets} sold={SoldTickets} />
           <URLBox event={event} />
-          <SalesTable />
-          <OrdersTable />
+          <SalesTable tickets={tickets} event={event}/>
+          <OrdersTable orders={orders} event={event} />
         </Container>
       </div>
     </>

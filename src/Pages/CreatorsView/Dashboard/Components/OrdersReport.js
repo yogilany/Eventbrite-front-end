@@ -14,24 +14,27 @@ import { selectUserToken } from "src/features/authSlice";
 import { useNavigate } from "react-router";
 
 
-const SalesReport = () => {
+const OrdersReport = () => {
   const { id } = useParams();
   const token = useSelector(selectUserToken);
 
-  const [tickets, setTickets] = useState([])
+  const [orders, setOrders] = useState([])
 
 
-  const fetchTickets = async () => {
+  const fetchOrders = async () => {
     await axios
-      .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${id}`, {
+      .get(`${process.env.REACT_APP_BASE_API}/orders/event_id/${id}`, {
           headers: {
             ContentType: "application/json",
             Authorization: `Bearer ${token}`,
           },
         })
         .then(function (response) {
-console.log("tickets", response.data);
-          setTickets(response.data);
+console.log("ordders", response.data);
+          setOrders(response.data);
+        
+          
+
     
         })
         .catch(function (error) {
@@ -42,23 +45,27 @@ console.log("tickets", response.data);
       }
 
       useEffect(() => {
-        fetchTickets();
+        fetchOrders();
       }, []);
 
 
  
   const headers = [
-    { label: "Ticket Type", key: "type" },
+    { label: "Order #", key: "id" },
+    { label: "First Name", key: "first_name" },
+    { label: "Last Name", key: "last_name" },
+
+    { label: "Quantity", key: "tickets_count" },
     { label: "Price", key: "price" },
-    { label: "Available Quantity", key: "available_quantity" },
-    { label: "Total Quantity", key: "max_quantity" },
+    { label: "Date", key: "created_date" },
+
 
   ];
 
   const csvReport = {
-    data: tickets,
+    data: orders,
     headers: headers,
-    filename: "Sales.csv",
+    filename: "Orders.csv",
   };
   const navigate = useNavigate();
 
@@ -81,27 +88,35 @@ console.log("tickets", response.data);
                 fontWeight: "bold",
               }}
             >
-              Sales Report
+              Orders Report
             </h1>
-            <h3 className="heading3 ">Sales by ticket type</h3>
+            <h3 className="heading3 ">See all the orders for your event, including revenue and fees
 
-            <Table className="sales-table ">
-              <thead>
-                <tr>
-                  <th>Ticket Type</th>
-                  <th>Price</th>
-                  <th>Sold</th>
-                </tr>
-              </thead>
-              <tbody>
-              { tickets.map((ticket) => (<tr>
-                <td className=" text-left ">{ticket.name}</td>
-                <td className=" text-left ">{ticket.price}</td>
-                <td className="blue-data text-left ">{ticket.max_quantity - ticket.available_quantity}</td>
+</h3>
+
+            <Table responsive="sm" className="sales-table">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+    
+              {orders.map((order) => ( <tr>
+                <td className="blue-data text-left">{order.id}</td>
+                <td className=" text-left ">{order.first_name + " " + order.last_name}</td>
+                <td className=" text-left ">{order.tickets_count}</td>
+
+                <td className=" text-left "> {order.price}</td>
+                <td className=" text-left ">{`${new Date(order.created_date).getMonth() + 1}/${new Date(order.created_date).getDate()}/${new Date(order.created_date).getFullYear()}`}</td>
               </tr>))
-            }
-              </tbody>
-            </Table>
+             }
+            </tbody>
+          </Table>
             <CSVLink {...csvReport}   className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Export to CSV</CSVLink>
 
           </Col>
@@ -111,4 +126,4 @@ console.log("tickets", response.data);
   );
 };
 
-export default SalesReport;
+export default OrdersReport;

@@ -28,6 +28,7 @@ import { ProtectedRoute } from "./app/ProtectedRoute";
 import { Layout } from "./app/layout";
 import MyEvents from "./Pages/CreatorsView/MyEvents/MyEvents";
 import ManageEvent from "./Pages/CreatorsView/ManageEvent/ManageEvent";
+import OrdersReport from "./Pages/CreatorsView/Dashboard/Components/OrdersReport";
 function App() {
   return (
     <>
@@ -51,7 +52,9 @@ function App() {
               element={<EventsByCategory />}
             />
             <Route path="/event/:id" element={<SingleEvent />} />
-            <Route path="/sales-report" element={<SalesReport />} />
+            <Route path="/sales-report/:id" element={<SalesReport />} />
+            <Route path="/orders-report/:id" element={<OrdersReport />} />
+
             <Route path="/tickets-report" element={<TicketsReport />} />
 
             <Route element={<ProtectedRoute />} errorElement={<ErrorPage />}>

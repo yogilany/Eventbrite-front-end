@@ -66,7 +66,7 @@ const URLBox = ({event}) => {
           <hr />
         </Col>
         <Col md={4}>
-          <h3 className="heading3 ">Share on</h3>
+          {/* <h3 className="heading3 ">Share on</h3> */}
           <div></div>
         </Col>
       </Row>
