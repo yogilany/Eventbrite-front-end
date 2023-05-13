@@ -43,9 +43,9 @@ const EventImageBox = (props) => {
         </div>}
         </div>
       {props.imageLink !== "" && <div className="uploaded__Image">
-        <img src={props.imageLink} className="uploaded Image" /> <button></button>
+        <img src={props.imageLink} className="uploaded Image" />
       </div>}
-      {props.imageLink !== "" && <button className="delete__uploaded-button">XX</button>}
+      {props.imageLink !== "" && <button className="delete__uploaded-button" onClick={() => { props.setImageLink('');}}>Delete Photo</button>}
       <div className="photo__requirement" data-testid="photo__requirements">
         <p>
           <BsDot className="dot" />

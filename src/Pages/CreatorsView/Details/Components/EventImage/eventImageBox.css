@@ -684,11 +684,15 @@
     width: 650px;
     height: 350px;
     top:45px;
-    /* background-color: yellow; */
 }
 .delete__uploaded-button
 {
-    position: absolute;
-    top: 100px;
-    
+    color: white;
+    margin-left: 250px;
+    background-color: #c5162e;
+    padding: 10px 30px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    cursor: pointer;
 }
