@@ -3,13 +3,11 @@ import TicketCard from "./TicketCard";
 import { useState } from "react";
 import axios from "axios";
 import MainOrangeButton from "../../../../Components/Buttons/MainOrangeButton";
-import { set } from "date-fns";
 import { useForm } from "react-hook-form";
 import { Container, Row, Form } from "react-bootstrap";
 import TextInputStyled from "../../../../Components/TextInput/TextInput";
 import LoginMethodsCSS from "../../../AttendeesView/Login/Components/LoginMethods.module.scss";
 import AttendeeData from "./AttendeeData";
-import { AttachEmail } from "@mui/icons-material";
 import MainGrayButton from "src/Components/Buttons/MainGrayButton";
 import { useSelector } from "react-redux";
 import { selectUserToken } from "src/features/authSlice";
@@ -20,7 +18,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
@@ -44,9 +42,9 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
 
   const [remainingTime, setRemainingTime] = useState(timerDuration);
 
-  const handleClose = () => {
-    setIsCheckout(false);
-  };
+  // const handleClose = () => {
+  //   setIsCheckout(false);
+  // };
   const fetchTicketsTypes = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`)

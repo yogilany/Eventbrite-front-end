@@ -1,9 +1,9 @@
 import React from "react";
-import { Modal, Container, Row, Col, Stack } from "react-bootstrap";
+import { Col, Container, Modal, Row, Stack } from "react-bootstrap";
 import * as BiIcons from "react-icons/bi";
 import { Link } from "react-router-dom";
-import WhiteButton from "../../../../Components/Buttons/WhiteButton";
 import OrangeButton from "../../../../Components/Buttons/OrangeButton";
+import WhiteButton from "../../../../Components/Buttons/WhiteButton";
 import "../Signup.scss";
 import "./SignupVerifyModal.scss";
 

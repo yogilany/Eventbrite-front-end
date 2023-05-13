@@ -1,40 +1,40 @@
-import { IconButton } from "@mui/material";
-import { Link } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Form,
-  InputGroup,
-  Col,
-  Container,
-  Row,
-  FloatingLabel,
-  Stack,
-} from "react-bootstrap";
-import * as TiIcons from "react-icons/ti";
-import HorizontalChip from "../../Login/Components/HorizontalChip";
-import SignupMethods from "./SignupMethods";
-import { useNavigate } from "react-router";
-import SignupFormCSS from "./SignupForm.module.css";
-import "../Signup.scss";
-import "./SignupMethods";
-import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
-import TextInputStyled from "../../../../Components/TextInput/TextInput";
-import OrangeButton from "../../../../Components/Buttons/OrangeButton";
 import { yupResolver } from "@hookform/resolvers/yup";
-import SignupVerifyModal from "./SignupVerifyModal";
+import { IconButton } from "@mui/material";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { motion, useAnimation } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Col,
+  Container,
+  FloatingLabel,
+  Form,
+  InputGroup,
+  Row,
+  Stack,
+} from "react-bootstrap";
+import { useForm } from "react-hook-form";
 import * as BiIcons from "react-icons/bi";
-import LinearProgressWithLabel from "../../../../Components/LinearProgressWithLabel/LinearProgressWithLabel";
-import { SignupSchema, getPasswordState, isValidEmail } from "./Signup-utils";
+import * as TiIcons from "react-icons/ti";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import OrangeButton from "../../../../Components/Buttons/OrangeButton";
 import FormMessage from "../../../../Components/FormMessage/FormMessage";
+import LinearProgressWithLabel from "../../../../Components/LinearProgressWithLabel/LinearProgressWithLabel";
+import TextInputStyled from "../../../../Components/TextInput/TextInput";
 import {
   authGoogleUser,
   checkEmailExists,
   registerGoogleUser,
   registerUser,
 } from "../../../../features/authSlice";
+import HorizontalChip from "../../Login/Components/HorizontalChip";
+import "../Signup.scss";
+import { SignupSchema, getPasswordState, isValidEmail } from "./Signup-utils";
+import SignupFormCSS from "./SignupForm.module.css";
+import "./SignupMethods";
+import SignupMethods from "./SignupMethods";
+import SignupVerifyModal from "./SignupVerifyModal";
 /**
  * The signup form which contains the information needed to create a new account.
  * This form validates all inputs before submission.
@@ -50,8 +50,8 @@ export const SignupForm = (props) => {
   const [successful, setSuccess] = useState(false);
   const [privacyPolicyModalShow, setPrivacyPolicyModalShow] = useState(false);
   const [emailExists, setEmailExists] = useState(false);
-  const [submitPosition, setSubmitPosition] = useState("");
-  const [oldSubmitPosition, setOldSubmitPosition] = useState("");
+  // const [submitPosition, setSubmitPosition] = useState("");
+  // const [oldSubmitPosition, setOldSubmitPosition] = useState("");
   const [SocialProfile, setSocialProfile] = useState(null);
 
   const rowRef = useRef();

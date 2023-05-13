@@ -1,7 +1,5 @@
 import { Col, Row, Container, Stack } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 import { Avatar } from "@mui/material";
-import BlueButton from "src/Components/Buttons/BlueButton";
 import FollowButton from "src/Components/FollowButton/FollowButton";
 import { useGetUserQuery } from "src/features/api/userApi";
 import { Link } from "react-router-dom";

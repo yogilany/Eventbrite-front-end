@@ -1,14 +1,11 @@
-import React from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { logOut, selectLoading, verifyUser } from "../../../features/authSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Link, useSearchParams } from "react-router-dom";
 import Header from "../../../Components/header/Header";
-import LoginTitle from "../Login/Components/Title";
+import { logOut, selectLoading, verifyUser } from "../../../features/authSlice";
 
 /**
  * @description VerifyUser function verifies a user token by dispatching verifyUser action and sets the verification state.
@@ -27,7 +24,7 @@ const VerifyUser = () => {
   const [requestFulfilled, setRequestFulfilled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const isLoading = useSelector(selectLoading);
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
   function getCurrentDimension() {

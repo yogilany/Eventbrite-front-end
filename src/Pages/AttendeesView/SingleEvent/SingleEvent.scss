@@ -1,6 +1,6 @@
 $text-color: #1e0a3c;
-* {
-}
+$muted-text-color: #6f7287;
+
 .floaty-div {
   position: -webkit-sticky;
   position: sticky;
@@ -50,4 +50,9 @@ $text-color: #1e0a3c;
   justify-content: center;
   display: flex;
   height: 500px;
+}
+
+.paragraph-muted-text {
+  color: $muted-text-color;
+  font-size: 16px;
 }
