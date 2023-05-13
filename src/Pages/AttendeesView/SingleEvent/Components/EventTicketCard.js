@@ -7,7 +7,7 @@ import MainOrangeButton from "../../../../Components/Buttons/MainOrangeButton";
 import Checkout from "./Checkout";
 import { useState } from "react";
 export const EventTicketCard = (props) => {
-    const [isCheckout, setIsCheckout] = useState(true);
+    const [isCheckout, setIsCheckout] = useState(false);
 
 
     const handleCheckout = () => {

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import default_image from "../../../../assets/adel-full-cover.png";
 const EventImage = (props) => {
+  console.log("props.img_url", props.img_url)
   // start off in the loading state
   const [loading, setLoading] = useState(true);
 
@@ -48,8 +49,10 @@ const EventImage = (props) => {
   }
   return (
     <div style={DivStyle}>
-      <img source={{ uri: props.img_url }} style={BackgroundStyle}></img>
+      <img       src={props.img_url}
+ source={{ uri: props.img_url }} style={BackgroundStyle}></img>
       <img
+      src={props.img_url}
         source={{ uri: props.img_url }}
         style={{
           position: "absolute",
