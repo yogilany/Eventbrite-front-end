@@ -2,6 +2,7 @@
 {
     margin-top: 25px;
     margin-bottom: 50px;
+    position: relative;
 }
 .EventImage__fileType
 {
@@ -671,4 +672,9 @@
     {
         display: none;
     }
+}
+.uploaded Image
+{
+    width: 100%;
+    height: 100%;
 }

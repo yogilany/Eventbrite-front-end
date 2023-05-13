@@ -4,6 +4,7 @@ import { CgImage } from "react-icons/cg";
 import { BsDot } from "react-icons/bs";
 import UploadButton from "../UploadButton/UploadButton";
 import { SiCanva } from "react-icons/si";
+import AdelImam from '../../../../../assets/adel-10.png'
 /**
  * @author Mahmoud Khaled
  * @param {}
@@ -39,10 +40,7 @@ const EventImageBox = (props) => {
             </div>
           </button>
         </div>
-        {/* <button className='upload-btn'>Upload Image</button> */}
-        {/* <UploadButton />
-                <button className='canvas-btn'>Design With Canvas</button> */}
-        {/* </div> */}
+        <img src={AdelImam} className="uploaded Image" />
       </div>
       <div className="photo__requirement" data-testid="photo__requirements">
         <p>
@@ -58,6 +56,7 @@ const EventImageBox = (props) => {
           Supported image files: JPEG or PNG
         </p>
       </div>
+      {/* <img src = {props.imageLink} /> */}
     </div>
   );
 };
