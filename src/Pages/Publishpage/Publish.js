@@ -11,6 +11,7 @@ import Containerpub from "./Containerpub";
  * @returns {JSX.Element of Publish Page}
  */
 const Publish = ({event , setEvent}) => {
+  console.log("event in publish: ", event);
   return (
     <div>
       <Headerpub data_testid="HDID" />

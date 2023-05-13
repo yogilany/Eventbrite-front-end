@@ -23,6 +23,8 @@ export const AppEditContext = createContext({});
  * @returns {JSX.Element}
  */
 const Tickets = ({ event, setEvent }) => {
+
+  console.log("event in tickets: ", event);
   const [ID, setID] = useState(0);
   const [isEdit, setIsEdit] = useState(false);
   const [isEditPromo, setIsEditPromo] = useState(false);
@@ -255,6 +257,8 @@ const Tickets = ({ event, setEvent }) => {
     if (currentDate >= startDate) setErrorStartDate(true);
     else setErrorStartDate(false);
   };
+
+  
   useEffect(() => {
     setTimeout(() => {
       // After 3 seconds set the show value to false
@@ -1246,7 +1250,7 @@ const Tickets = ({ event, setEvent }) => {
             </div>
           )}
           <div style={{ marginTop: "100px" }}>
-            {event.tickets.map((ticket, id) =>
+            {/* {event.tickets.map((ticket, id) =>
               addmissionBtn ? (
                 <TicketInfo
                   ticketName={ticket.name}
@@ -1269,7 +1273,7 @@ const Tickets = ({ event, setEvent }) => {
               ) : (
                 ""
               )
-            )}
+            )} */}
             {promoCodeBtn && (
               <table style={{ width: "80%" }}>
                 <tr className="data__row-table">
@@ -1279,7 +1283,7 @@ const Tickets = ({ event, setEvent }) => {
                   <th colSpan={2}>Uses</th>
                   <th colSpan={1}>Status</th>
                 </tr>
-                {event.promocodes.map((promocode, id) => (
+                {/* {event.promocodes.map((promocode, id) => (
                   <PromoCodesInfo
                     name={promocode.name}
                     codeType="Applies discount"
@@ -1294,7 +1298,7 @@ const Tickets = ({ event, setEvent }) => {
                     event={event}
                     setEvent={setEvent}
                   />
-                ))}
+                ))} */}
               </table>
             )}
           </div>
