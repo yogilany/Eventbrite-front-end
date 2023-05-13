@@ -12,19 +12,19 @@ import eventphoto from '../../assets/empt.png'
 const Containerpub = (props) => {
     const data = props.event;
     console.log("data ziad: ", data);
-    const title = data.basic_info.title;
+    const title = data?.basic_info?.title;
     //  const price = data?.tickets[0]?.price; // Events don't have tickets in usual case
     //  const quant = data?.tickets[0]?.max_quantity; // Events don't have tickets in usual case
-    const date =data.date_and_time.start_date_time;
+    const date =data?.date_and_time?.start_date_time;
     console.log("date",date);
     console.log("title");
     return (
         <div className='Full__Container' data-testid={props.data_testid}>
             <div >
-                <img src={data.image_link?data.image_link:eventphoto} className='Full__Container_img' />
+                <img src={data?.image_link?data.image_link:eventphoto} className='Full__Container_img' />
             </div>
             <div className='rtpart'>
-                <h1 style={{ marginTop: 28, marginLeft: 10, fontSize: 20 }}>{title}</h1>
+                <h1 style={{ marginTop: 28, marginLeft: 10, fontSize: 18}}>{title}</h1>
                 <div style={{ lineHeight: 1, marginTop: 12 }}>
                     <p style={{ marginLeft: 10, fontSize: 13, width: "150%" }}>{new Date(date).toUTCString().slice(0, -7)}</p>
                     <p style={{ marginLeft: 10, fontSize: 13, width: "150%",marginTop:5 }}>{data?.location?.city}</p>
@@ -38,7 +38,7 @@ const Containerpub = (props) => {
                     </div>
                     <div className='hline'>
                     </div>
-                    <div style={{ display: 'block', marginLeft: '35%' }}>
+                    <div style={{display: 'block', marginLeft: '35%' }}>
                         <div className='prev' style={{ display: 'flex', width: "150%" }}>
                             <p style={{ marginTop: 45, color: 'blue', fontSize: 14, cursor: 'pointer' }}>Preview your event</p>
                             <FiExternalLink style={{ width: 45, height: 20, color: 'blue', textAlign: 'center', marginTop: 40, cursor: 'pointer' }} />
