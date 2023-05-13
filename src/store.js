@@ -6,6 +6,8 @@ import thunk from "redux-thunk";
 import authReducer from "./features/authSlice";
 import { eventsApi } from "./features/api/eventApi";
 import { userApi } from "./features/api/userApi";
+import { ticketApi } from "./features/api/ticketApi";
+import { promocodeApi } from "./features/api/promocodeApi";
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -36,7 +38,9 @@ const store = configureStore({
     })
       .concat(thunk)
       .concat(eventsApi.middleware)
-      .concat(userApi.middleware),
+      .concat(userApi.middleware)
+      .concat(ticketApi.middleware)
+      .concat(promocodeApi.middleware),
 });
 
 /**

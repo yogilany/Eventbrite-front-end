@@ -4,11 +4,7 @@ import EventImage from "./Components/EventImage/EventImageBox";
 import Summary from "./Components/SummaryBox/Summary";
 import Description from "./Components/Description/Description";
 import AddEvents from "./Components/AddEvents/AddEvents";
-import Sidebar from "../Sidebar/Sidebar";
-import Header from "../../../Components/header/Header";
-import CreatorHeader from "./Components/creatorHeader/CreatorHeader";
 import { createContext } from "react";
-import Headerpub from "../../Publishpage/Headerpub";
 import { Alert } from "react-bootstrap";
 import { useEffect } from "react";
 
@@ -29,7 +25,9 @@ const Details = ({ event, setEvent }) => {
   const [success, setSuccess] = useState(false);
   const [imageLink, setImageLink] = useState("");
   const [summary, setSummary] = useState(event ? event.summary : "");
-  const [description, setDescription] = useState(event ? event.description : "");
+  const [description, setDescription] = useState(
+    event ? event.description : ""
+  );
   const [inputsChanged, setInputsChanged] = useState(false);
 
   function saveData() {
