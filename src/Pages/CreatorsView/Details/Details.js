@@ -31,17 +31,22 @@ const Details = ({ event, setEvent }) => {
   const [inputsChanged, setInputsChanged] = useState(false);
 
   function saveData() {
-    setEvent({
-      ...event,
+    if(imageLink !== "" && summary !== "" && description !== "")
+    {
+          setEvent({
+            ...event,
 
-      image_link:
-        imageLink === "" ? "https://picsum.photos/1600/800" : imageLink,
-      summary: summary,
-      description: description,
-    });
-    setSuccess(true);
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 3000);
+            image_link:
+              imageLink === "" ? "https://picsum.photos/1600/800" : imageLink,
+            summary: summary,
+            description: description,
+          });
+          setSuccess(true);
+          setIsLoading(true);
+          setTimeout(() => setIsLoading(false), 3000);
+    }
+    else
+      setSuccess(false);
   }
 
   useEffect(() => {
@@ -71,7 +76,6 @@ const Details = ({ event, setEvent }) => {
             }`}
             data-testid="Details__contianer"
           >
-            {isLoading && "kkk"}
             <EventImage imageLink={imageLink} setImageLink={setImageLink} />
             <Summary summary={summary} setSummary={setSummary} />
             <Description
@@ -103,6 +107,19 @@ const Details = ({ event, setEvent }) => {
             }}
           >
             Data saved successfully.
+          </Alert>
+        ) : null}
+        {!inputsChanged  ? (
+          <Alert
+            variant="danger"
+            style={{
+              width: "70%",
+              position: "fixed",
+              top: "70px",
+              zIndex: "999",
+            }}
+          >
+            Please, Enter full data to go to next step
           </Alert>
         ) : null}
 

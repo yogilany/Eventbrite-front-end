@@ -144,6 +144,7 @@ const Tickets = ({ event, setEvent }) => {
       ],
     });
     setSuccess(true);
+    setFreeBtn(false); setDonationBtn(false); setAddmissionBtn(true);
   }
   function savePromoCode() {
     const dateStart = new Date(promoStartDate);
@@ -176,7 +177,6 @@ const Tickets = ({ event, setEvent }) => {
     });
     setSuccess(true);
     setIsLimited(false);
-    // alert("Saved");
   }
   function updateTicket(id) {
     // console.log(event.tickets[id].sales_end_date_time);
