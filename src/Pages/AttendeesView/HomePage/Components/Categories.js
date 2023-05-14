@@ -9,11 +9,40 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
  * @description This is the taps that a  user can use to filter events by category. It is used in the HomePage and the SearchPage.
  * @returns {JSX.Element}
  */
-export const CategoriesTaps = ({ categorySelector, location }) => {
+export const CategoriesTaps = ({ categorySelector, location, setFree, setOnline, setToday }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
+    // switch case on the new value
     setValue(newValue);
+
+    if (newValue === "All") {
+      setFree(null);
+      setOnline(null);
+      setToday(null);
+    } else if (newValue === "Free") {
+      setFree(true);
+      setOnline(null);
+      setToday(null);
+
+    } else if (newValue === "Online") {
+      setOnline(true);
+      setFree(null);
+      setToday(null);
+    } 
+    else if (newValue === "Today") {
+      setToday(true);
+      setFree(null);
+      setOnline(null);
+    }
+    
+    else {
+      setFree(null);
+      setOnline(null);
+      setToday(null);
+    }
+
+    console.log("new value", newValue);
 
     categorySelector(event.target.innerHTML);
   };
@@ -66,15 +95,16 @@ export const CategoriesTaps = ({ categorySelector, location }) => {
                 variant="scrollable"
                 scrollButtons={false}
                 onChange={handleChange}
+                // onClick={handleChange}
                 aria-label="ant example"
               >
-                <AntTab label="All" />
+                <AntTab label="All" value="All" />
                 <AntTab label="For you" />
-                <AntTab label="Online" />
-                <AntTab label="Today" />
+                <AntTab label="Online" value="Online" />
+                <AntTab label="Today" value="Today" />
                 <AntTab label="St Patrick's Day" />
                 <AntTab label="International Women's Day" />
-                <AntTab label="Free" />
+                <AntTab label="Free" value="Free" />
                 <AntTab label="Music" />
                 <AntTab label="Business" />
                 <AntTab label="Sports" />

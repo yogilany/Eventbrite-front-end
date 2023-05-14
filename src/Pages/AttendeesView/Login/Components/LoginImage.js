@@ -23,7 +23,7 @@ export const LoginImage = (props) => {
                 <Col md={4} className="d-flex 
                 justify-content-end 
                 flex-column ml-3" style={{ marginBottom: "150px" }}>
-                    <div className={` p-3 ${LoginImageCSS.caption_image}`} >
+                    <div className={` p-3  ${LoginImageCSS.caption_image}`} >
                         <div
                             data-testid="img_caption"
                             id="img_caption"

@@ -40,7 +40,7 @@ const CreatorHeader = ({ MenuShow }) => {
       </div>
 
       <div className="header__container-links">
-        <div className="header__responsive-links">
+        {/* <div className="header__responsive-links">
           <button className="event__details" style={{ marginRight: "10px" }}>
             <AiFillEye />
           </button>
@@ -51,8 +51,8 @@ const CreatorHeader = ({ MenuShow }) => {
             <RiMore2Fill className="more-logo" />{" "}
             <span style={{ fontSize: "14px" }}>More</span>
           </button>
-        </div>
-        <div className="header__container-link">
+        </div> */}
+        {/* <div className="header__container-link">
           <Link to="/likes">Preview your Event</Link>
         </div>
         <div className="header__container-link">
@@ -60,7 +60,7 @@ const CreatorHeader = ({ MenuShow }) => {
             {" "}
             Publish
           </Link>
-        </div>
+        </div> */}
         {/* <div className="header__container-link more" onClick = {() => {setShowMore(!showMore)}}>
           <Link to="" >
             {" "}
@@ -95,13 +95,13 @@ const CreatorHeader = ({ MenuShow }) => {
             <div className="account__dropdown">
               <div className="account__dropdown-item">
                 <HiOutlineSwitchHorizontal className="account__logo" />{" "}
-                <a href="#" style={{ fontWeight: "500" }}>
+                <a href="/" style={{ fontWeight: "500" }}>
                   <span>Switching to attending</span>
                 </a>
               </div>
               <div className="account__dropdown-item">
                 <VscAccount className="account__logo" />{" "}
-                <a href="#" style={{ fontWeight: "500" }}>
+                <a href="/profile" style={{ fontWeight: "500" }}>
                   <span>Account Settings</span>
                 </a>
               </div>

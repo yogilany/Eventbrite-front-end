@@ -332,16 +332,17 @@ export const Login = (props) => {
             id="login-image"
             data_testid="login-image"
             img_url={imageLogin}
-            img_caption="Winston Baker"
-            img_credit="Confluence Summit"
-            img_location="San Francisco, CA"
+            img_caption="Adel Emam"
+            img_credit="Software Course"
+            img_location="Giza, EG"
           />
         </Col>
       </Row>
       <Row className="d-none d-lg-block d-md-block">
-        <AboutFooter id="login-aboutfooter" />
       </Row>
       <Row>
+      <AboutFooter id="login-aboutfooter" />
+
         <Footer id="login-footer" data_testid="login-footer" />
       </Row>
     </Container>

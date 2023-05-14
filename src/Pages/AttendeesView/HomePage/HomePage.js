@@ -22,6 +22,11 @@ export const HomePage = () => {
   // console.log("USERR", window.User);
   const [location, setLocation] = useState(null);
   const [events, setEvents] = useState([]);
+  const [online, setOnline] = useState(null);
+  const [free, setFree] = useState(null);
+  const [today, setToday] = useState(null);
+  const [loading, setLoading] = useState(false);
+
 
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
@@ -64,20 +69,34 @@ export const HomePage = () => {
   }));
 
   const fetchEvents = () => {
+    setLoading(true);
     console.log("baseee", location);
+    const date = new Date(2023, 4, 12, 5, 30);
+const formattedDate = date.toISOString();
+console.log("formattedDate", formattedDate);
+
+
     axios
       .get(`${process.env.REACT_APP_BASE_API}/events/search`, {
-        params: { city: location ? location : "Cairo" },
+        params: { city: location ? location : "Cairo", free: free ? free : null, online: online ? online : null, start_date: today ? formattedDate : null },
       })
       .then(function (response) {
         console.log("response", response.data);
         setEvents(response.data);
+        setLoading(false);
       })
       .catch(function (error) {
         // handle error
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    console.log("free", free)
+    console.log("online", online)
+    console.log("today", today)
+    fetchEvents();
+  }, [free, online, today]);
 
   useEffect(() => {
     async function fetchLocation() {
@@ -184,7 +203,7 @@ export const HomePage = () => {
               </Row>
             </Container>
 
-            <Events location={location} events={events} />
+            <Events location={location} events={events} setFree={setFree} setOnline={setOnline} setToday={setToday} loading={loading}/>
             {/* <MoreEvents /> */}
           </Col>
         </Row>
