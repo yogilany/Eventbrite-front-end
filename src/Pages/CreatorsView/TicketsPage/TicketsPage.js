@@ -165,8 +165,8 @@ const Tickets = ({ event, setEvent }) => {
         {
           name: promoCodeName,
           is_limited: isLimited,
-          limited_amount: LimitedAmount,
-          current_amount: LimitedAmount,
+          limited_amount: !isLimited ? LimitedAmount :'0',
+          current_amount: !isLimited ? LimitedAmount :'0',
           is_percentage: isPercentage,
           discount_amount: discountAmount,
           start_date_time: dateStart.toISOString().slice(0, -5),
