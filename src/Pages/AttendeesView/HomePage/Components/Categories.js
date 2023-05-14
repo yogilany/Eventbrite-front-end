@@ -9,7 +9,13 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
  * @description This is the taps that a  user can use to filter events by category. It is used in the HomePage and the SearchPage.
  * @returns {JSX.Element}
  */
-export const CategoriesTaps = ({ categorySelector, location, setFree, setOnline, setToday }) => {
+export const CategoriesTaps = ({
+  categorySelector,
+  location,
+  setFree,
+  setOnline,
+  setToday,
+}) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -24,19 +30,15 @@ export const CategoriesTaps = ({ categorySelector, location, setFree, setOnline,
       setFree(true);
       setOnline(null);
       setToday(null);
-
     } else if (newValue === "Online") {
       setOnline(true);
       setFree(null);
       setToday(null);
-    } 
-    else if (newValue === "Today") {
+    } else if (newValue === "Today") {
       setToday(true);
       setFree(null);
       setOnline(null);
-    }
-    
-    else {
+    } else {
       setFree(null);
       setOnline(null);
       setToday(null);
@@ -80,14 +82,10 @@ export const CategoriesTaps = ({ categorySelector, location, setFree, setOnline,
     })
   );
 
-
-
   return (
     <Container className="mb-2">
       <Row className="justify-content-md-center">
         <Col md={12}>
-      
-
           <Box sx={{ width: "100%" }}>
             <Box sx={{ bgcolor: "#fff" }}>
               <AntTabs
@@ -110,10 +108,6 @@ export const CategoriesTaps = ({ categorySelector, location, setFree, setOnline,
                 <AntTab label="Sports" />
                 <AntTab label="Design" />
                 <AntTab label="Food & Drink" />
-                <AntTab label="Food & Drink" />
-                <AntTab label="Food & Drink" />
-                <AntTab label="Food & Drink" />
-                <AntTab label="Food & Drink" />
               </AntTabs>
               <Box sx={{ p: 2 }} />
             </Box>
@@ -123,3 +117,5 @@ export const CategoriesTaps = ({ categorySelector, location, setFree, setOnline,
     </Container>
   );
 };
+
+export default CategoriesTaps;

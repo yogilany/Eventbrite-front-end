@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/AttendeesView/SingleEvent/SingleEvent.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/AttendeesView/SingleEvent/SingleEvent.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { Container, Row, Col, Stack, Placeholder } from "react-bootstrap/";
+import EventImage from "./Components/EventImage.js";
+import EventOrganizerCard from "./Components/EventOrganizerCard";
+import EventLocation from "./Components/EventLocation.js";
+import EventAbout from "./Components/EventAbout";
+import { EventShare } from "./Components/EventShare";
+import EventAboutOrganizer from "./Components/EventAboutOrganizer";
+import { EventTicketCard } from "./Components/EventTicketCard";
+import "./SingleEvent.scss";
+import Header from "../../../Components/header/Header";
+import Footer from "../../../Components/footer/Footer";
+import { useParams } from "react-router";
+import { useGetEventByIdQuery } from "src/features/api/eventApi";
+import { useEffect } from "react";
+import { useState } from "react";
+import LikeButton from "src/Components/LikeButton/LikeButton.js";
+/* 
+------Get event
+{
+  "creator_id": "2dg3f4g5h6j7k8l9",
+  "basic_info": {
+    "title": "Let's be loyal",
+    "organizer": "Loyalty Organization",
+    "category": "Loyalty",
+    "sub_category": "Loyalty"
+  },
+  "image_link": "https://www.example.com/image.png",
+  "summary": "This is a summary of the event",
+  "description": "This is a description of the event",
+  "state": {
+    "is_public": true,
+    "publish_date_time": "2023-05-01T09:00:00"
+  },
+  "date_and_time": {
+    "start_date_time": "2023-05-01T15:30:00",
+    "end_date_time": "2023-05-01T18:30:00",
+    "is_display_start_date": true,
+    "is_display_end_date": true,
+    "time_zone": "US/Pacific",
+    "event_page_language": "en-US"
+  },
+  "location": {
+    "is_online": false,
+    "city": "San Francisco"
+  },
+  "id": "2dg3f4g5h6j7k8l9",
+  "price": 100,
+  "is_free": false
+}
+
+
+	
+-----get user 
+
+application/json
+Controls Accept header.
+Example Value
+Schema
+{
+  "email": "user@gmail.com",
+  "firstname": "user",
+  "lastname": "user",
+  "avatar_url": "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+}
+
+*/
+
+/**
+ * @description Single Event page which displays the event details including:
+ *  - Event image
+ *  - Event name
+ *  - Event organizer
+ *  - Event location
+ *  - Event about
+ *  - Event share
+ *  - Event about organizer
+ *  - Event tickets
+ *  - Checkout with tickets
+ * @date 5/12/2023 - 7:00:49 PM
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {JSX.Element}
+ */
+const SingleEvent = (props) => {
+  const { id } = useParams();
+  const { data: event } = useGetEventByIdQuery(id);
+  const [eventDate, setEventDate] = useState("");
+
+  useEffect(() => {
+    setEventDate(
+      new Date(event?.date_and_time.start_date_time).toLocaleString("default", {
+        month: "long",
+      }) +
+        " " +
+        new Date(event?.date_and_time.start_date_time).getDate()
+    );
+  }, [event?.date_and_time]);
+
+  return (
+    &lt;>
+      &lt;Header />
+      &lt;div style={{ display: "flow" }}>
+        &lt;EventImage img_url={event?.image_link} />
+        &lt;Container className=" mx-5">
+          &lt;Row className="">
+            &lt;Col md={8} className="pl-24">
+              {event ? (
+                &lt;>
+                  &lt;Col>
+                    &lt;Col>
+                      &lt;h3 className="event-date-text">{eventDate}&lt;/h3>
+                    &lt;/Col>
+                    &lt;Row className="mb-5">
+                      &lt;Stack gap={3}>
+                        &lt;div>
+                          &lt;h1 className="event-name-text">
+                            {event?.basic_info.title}
+                          &lt;/h1>
+                        &lt;/div>
+                        &lt;p className="mb-5">{event?.summary}&lt;/p>
+                      &lt;/Stack>
+                      &lt;Col>
+                        &lt;EventOrganizerCard
+                          organizerId={event?.creator_id}
+                          follower_count="1.5k"
+                        />
+                      &lt;/Col>
+                    &lt;/Row>
+                    &lt;Row className="mb-5">
+                      &lt;EventLocation
+                        location={event?.location}
+                        date_and_time={event?.date_and_time}
+                      />
+                    &lt;/Row>
+                    &lt;Row>
+                      &lt;EventAbout
+                        startDate={event?.date_and_time.start_date_time}
+                        endDate={event?.date_and_time.end_date_time}
+                        description={event?.description}
+                      />
+                    &lt;/Row>
+                    &lt;Row className="mb-5 mt-5">
+                      &lt;EventShare />
+                    &lt;/Row>
+                    &lt;Row className="mb-5">
+                      &lt;EventAboutOrganizer
+                        organizerId={event?.creator_id}
+                        follower_count="1.4k"
+                      />
+                    &lt;/Row>
+                  &lt;/Col>
+                &lt;/>
+              ) : (
+                &lt;>
+                  &lt;Container>
+                    &lt;Col>
+                      &lt;Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-50 mb-3"
+                      />
+                      &lt;Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-50 mb-3"
+                      />
+                      &lt;Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-100 mb-3"
+                      />
+                      &lt;Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                      &lt;Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                      &lt;Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-100 mb-3"
+                      />
+                      &lt;Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                      &lt;Placeholder
+                        size="lg"
+                        bg="secondary"
+                        as="Row"
+                        className="w-40 mb-3"
+                      />
+                    &lt;/Col>
+                  &lt;/Container>
+                &lt;/>
+              )}
+            &lt;/Col>
+            &lt;Col>
+              &lt;div className="flex flex-row justify-end m-2">
+                &lt;button
+                  type="button"
+                  class="transition text-gray-600 bg-gray-0 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center  "
+                >
+                  &lt;svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    &lt;path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
+                    >&lt;/path>
+                  &lt;/svg>
+                  &lt;span class="sr-only">Icon description&lt;/span>
+                &lt;/button>
+                &lt;LikeButton id={event?.id} />
+              &lt;/div>
+              {event ? (
+                &lt;EventTicketCard
+                  img_url={event ? event.image_link : null}
+                  event={event}
+                />
+              ) : null}
+            &lt;/Col>
+          &lt;/Row>
+        &lt;/Container>
+        &lt;Footer />
+      &lt;/div>
+    &lt;/>
+  );
+};
+
+export default SingleEvent;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

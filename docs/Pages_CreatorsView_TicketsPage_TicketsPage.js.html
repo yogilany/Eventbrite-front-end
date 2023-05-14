@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/CreatorsView/TicketsPage/TicketsPage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/CreatorsView/TicketsPage/TicketsPage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import Sidebar from "../Sidebar/Sidebar";
+import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
+import "./ticketsPage.css";
+import { AiOutlineArrowDown } from "react-icons/ai";
+import { useState } from "react";
+import Check from "./Components/Check";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import NativeSelect from "@mui/material/NativeSelect";
+import PromoCodesInfo from "./Components/PromoCodes/PromoCodesInfo";
+import TicketInfo from "./Components/TicketsInfo/TicketInfo";
+import { useEffect } from "react";
+import { createContext } from "react";
+import { Alert } from "react-bootstrap";
+import { MdDone } from "react-icons/md";
+export const AppEditContext = createContext({});
+/**
+ * @author Mahmoud Khaled
+ * @param {}
+ * @description This is Tickets Page contains Add tickets and Add Promo-codes
+ * @returns {JSX.Element}
+ */
+const Tickets = ({ event, setEvent }) => {
+  console.log("event in tickets: ", event);
+  const [ID, setID] = useState(0);
+  const [isFree, setIsFree] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [isEditPromo, setIsEditPromo] = useState(false);
+  const [ticketName, setTicketName] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [ticketStartTime, setTiccketStartTime] = useState("");
+  const [ticketEndTime, setTicketEndTime] = useState("");
+  const [ticketPrice, setTicketPrices] = useState("");
+  const [endTicketDate, setEndTicketDate] = useState(
+    new Date().toISOString().slice(0, -5)
+  );
+  const [startTicketDate, setStartTicketDate] = useState(
+    new Date().toISOString().slice(0, -5)
+  );
+  const [ticketQuantity, setTicketQuantity] = useState("");
+  const [showTicket, setShowTicket] = useState(false);
+  const [paidBtn, setPaidBtn] = useState(true);
+  const [freeBtn, setFreeBtn] = useState(false);
+  const [addmissionBtn, setAddmissionBtn] = useState(true);
+  const [promoCodeBtn, setPromoCodesBtn] = useState(false);
+  const [donationBtn, setDonationBtn] = useState(false);
+  const [showPromoCode, setShowPromoCode] = useState(false);
+  const [ticketIsLimited, setTicketIsLimited] = useState("");
+  const [promoCodeName, setPromoCodeName] = useState("");
+  const [LimitedAmount, setLimitedAmount] = useState("");
+  const [percentageAmount, setPercentageAmount] = useState("");
+  const [discountAmount, setDiscountAmount] = useState("");
+  const [promoStartDate, setPromoStartDate] = useState(
+    new Date().toISOString().slice(0, -5)
+  );
+  const [promoEndDate, setPromoEndDate] = useState(
+    new Date().toISOString().slice(0, -5)
+  );
+  const [isLimited, setIsLimited] = useState(false);
+  const [promoStartTime, setPromoStartTime] = useState("");
+  const [promoEndTime, setPromoEndTime] = useState("");
+  const [isPercentage, setIsPercentage] = useState("");
+  const [errorStartDate, setErrorStartDate] = useState(false);
+  const [isTicketSavedSuccessfully, setIsTicketSavedSuccessfully] =
+    useState(false);
+  const [isPromoCodeSavedSuccessfully, setIsPromoCodeSavedSuccessfully] =
+    useState(false);
+  const [isPastDate, setIsPastDate] = useState(false);
+  const promoCodeData = {
+    name: promoCodeName,
+    is_limited: isLimited,
+    limited_amount: LimitedAmount,
+    current_amount: LimitedAmount,
+    is_percentage: isPercentage,
+    discount_amount: discountAmount,
+    start_date_time: promoStartDate + "T" + promoStartTime,
+    end_date_time: promoEndDate + "T" + promoEndTime,
+  };
+  const data = {
+    name: ticketName,
+    quantity: ticketQuantity,
+    price: ticketPrice,
+    sales_start_date_time: startTicketDate + "T" + ticketStartTime,
+    sales_end_date_time: endTicketDate + "T" + ticketEndTime,
+  };
+  const handleSubmit = () => {
+    console.log(data);
+    setIsTicketSavedSuccessfully(true);
+  };
+  const handleSubmitPromoCode = () => {
+    if (
+      promoCodeName !== "" &amp;&amp;
+      (discountAmount !== "" || percentageAmount !== "")
+    ) {
+      if ((isLimited &amp;&amp; LimitedAmount !== "") || !isLimited) {
+        savePromoCode();
+        setShowPromoCode(false);
+      }
+    }
+  };
+  const handleSubmitTickets = () => {
+    if (ticketName !== "" &amp;&amp; ticketQuantity !== "") {
+      if (freeBtn) {
+        saveData();
+        setShowTicket(false);
+      } else {
+        if (ticketPrice !== "") {
+          saveData();
+          setShowTicket(false);
+        }
+      }
+    }
+  };
+  function saveData() {
+    // spread old state and save new ticket
+    const dateStart = new Date(startTicketDate);
+    dateStart.setHours(
+      ticketStartTime.slice(0, 2),
+      ticketStartTime.slice(3, 5),
+      ticketStartTime.slice(6, 8)
+    );
+    const dateEnd = new Date(endTicketDate);
+    dateEnd.setHours(
+      ticketEndTime.slice(0, 2),
+      ticketEndTime.slice(3, 5),
+      ticketEndTime.slice(6, 8)
+    );
+    console.log(endTicketDate);
+    console.log(ticketEndTime);
+    setEvent({
+      ...event,
+      tickets: [
+        ...event.tickets,
+        {
+          type: "vip",
+          name: ticketName,
+          max_quantity: ticketQuantity,
+          price: ticketPrice,
+          sales_end_date_time: dateEnd.toISOString().slice(0, -5),
+          sales_start_date_time: dateStart.toISOString().slice(0, -5),
+        },
+      ],
+    });
+    setSuccess(true);
+  }
+  function savePromoCode() {
+    const dateStart = new Date(promoStartDate);
+    dateStart.setHours(
+      promoStartTime.slice(0, 2),
+      promoStartTime.slice(3, 5),
+      promoStartTime.slice(6, 8)
+    );
+    const dateEnd = new Date(promoEndDate);
+    dateEnd.setHours(
+      promoEndTime.slice(0, 2),
+      promoEndTime.slice(3, 5),
+      promoEndTime.slice(6, 8)
+    );
+    setEvent({
+      ...event,
+      promocodes: [
+        ...event.promocodes,
+        {
+          name: promoCodeName,
+          is_limited: isLimited,
+          limited_amount: LimitedAmount,
+          current_amount: LimitedAmount,
+          is_percentage: isPercentage,
+          discount_amount: discountAmount,
+          start_date_time: dateStart.toISOString().slice(0, -5),
+          end_date_time: dateEnd.toISOString().slice(0, -5),
+        },
+      ],
+    });
+    setSuccess(true);
+    // alert("Saved");
+  }
+  function updateTicket(id) {
+    console.log(event.tickets[id].sales_end_date_time);
+    const dateStart = new Date(startTicketDate);
+    dateStart.setHours(
+      ticketStartTime.slice(0, 2),
+      ticketStartTime.slice(3, 5),
+      ticketStartTime.slice(6, 8)
+    );
+    const dateEnd = new Date(endTicketDate);
+    dateEnd.setHours(
+      ticketEndTime.slice(0, 2),
+      ticketEndTime.slice(3, 5),
+      ticketEndTime.slice(6, 8)
+    );
+    const newEvent = event;
+    newEvent.tickets[id].name = ticketName;
+    newEvent.tickets[id].max_quantity = ticketQuantity;
+    newEvent.tickets[id].sales_start_date_time = dateStart
+      .toISOString()
+      .slice(0, -5);
+    newEvent.tickets[id].sales_end_date_time = dateEnd
+      .toISOString()
+      .slice(0, -5);
+    newEvent.tickets[id].price = ticketPrice;
+    if (ticketName !== "" &amp;&amp; ticketPrice !== "" &amp;&amp; ticketQuantity !== "") {
+      setEvent({ ...event, newEvent });
+      setIsEdit(false);
+    }
+  }
+  function updatePromoCode(id) {
+    const dateStart = new Date(promoStartDate);
+    dateStart.setHours(
+      promoStartTime.slice(0, 2),
+      promoStartTime.slice(3, 5),
+      promoStartTime.slice(6, 8)
+    );
+    const dateEnd = new Date(promoEndDate);
+    dateEnd.setHours(
+      promoEndTime.slice(0, 2),
+      promoEndTime.slice(3, 5),
+      promoEndTime.slice(6, 8)
+    );
+    const newEvent = event;
+    newEvent.promocodes[id].name = promoCodeName;
+    newEvent.promocodes[id].is_limited = isLimited;
+    newEvent.promocodes[id].limited_amount = LimitedAmount;
+    newEvent.promocodes[id].current_amount = LimitedAmount;
+    newEvent.promocodes[id].is_percentage = isPercentage;
+    newEvent.promocodes[id].discount_amount = discountAmount;
+    newEvent.promocodes[id].start_date_time = dateStart
+      .toISOString()
+      .slice(0, -5);
+    newEvent.promocodes[id].end_date_time = dateEnd.toISOString().slice(0, -5);
+    if (
+      promoCodeName !== "" &amp;&amp;
+      (discountAmount !== "" || percentageAmount !== "")
+    ) {
+      if ((isLimited &amp;&amp; LimitedAmount !== "") || !isLimited) {
+        setEvent({ ...event, newEvent });
+        setIsEditPromo(false);
+      }
+    }
+  }
+  const checkPastDate = () => {
+    const currentDate = new Date();
+    const endDate = new Date(promoEndDate);
+    if (currentDate >= endDate) setIsPastDate(true);
+    else setIsPastDate(false);
+  };
+  const checkStartDate = () => {
+    const currentDate = new Date();
+    const startDate = new Date(promoStartDate);
+    if (currentDate >= startDate) setErrorStartDate(true);
+    else setErrorStartDate(false);
+  };
+  const checkTicketEnd = () => {
+    const currentDate = new Date();
+    const endDate = new Date(endTicketDate);
+    if (currentDate >= endDate) setIsPastDate(true);
+    else setIsPastDate(false);
+  };
+  const checkTicketStart = () => {
+    const currentDate = new Date();
+    const startDate = new Date(startTicketDate);
+    if (currentDate >= startDate) setErrorStartDate(true);
+    else setErrorStartDate(false);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setSuccess(false);
+    }, 3000);
+  }, [success]);
+  return (
+    &lt;AppEditContext.Provider
+      value={{
+        isEdit,
+        setIsEdit,
+        ID,
+        setID,
+        isEditPromo,
+        setIsEditPromo,
+        isFree,
+        setIsFree,
+      }}
+    >
+      &lt;div className="tickets__page-container">
+        &lt;CreatorHeader />
+        &lt;div className="tickets__page-body">
+          &lt;div className="tickets-tab__selection">
+            &lt;h1 className="ticket__title">Tickets&lt;/h1>
+            &lt;div className="btns__selection">
+              &lt;button
+                className={
+                  addmissionBtn ? "addmission-selected__Btn" : "addmission__btn"
+                }
+                onClick={(e) => {
+                  setAddmissionBtn(true);
+                  setPromoCodesBtn(false);
+                }}
+              >
+                Admission
+              &lt;/button>
+              &lt;button
+                className={
+                  promoCodeBtn ? "promocode-selected__Btn" : "promoCodes__btn"
+                }
+                onClick={(e) => {
+                  setPromoCodesBtn(true);
+                  setAddmissionBtn(false);
+                }}
+              >
+                Promo Codes
+              &lt;/button>
+            &lt;/div>
+          &lt;/div>
+          {addmissionBtn &amp;&amp; (
+            &lt;button
+              className="ticket__page-addBtn"
+              onClick={() => {
+                setShowTicket(true);
+                setTicketName("");
+                setTicketPrices("");
+                setTicketQuantity("");
+              }}
+            >
+              Add tickets
+            &lt;/button>
+          )}
+          {promoCodeBtn &amp;&amp; (
+            &lt;button
+              className="ticket__page-addBtn"
+              onClick={() => {
+                setShowPromoCode(true);
+                setPromoCodeName("");
+                setDiscountAmount("");
+                setPercentageAmount("");
+                setIsLimited(false);
+                setIsPercentage(false);
+                setLimitedAmount("");
+              }}
+            >
+              Add a code
+            &lt;/button>
+          )}
+          {isEdit &amp;&amp; (
+            &lt;div className="tickets__creation-sidebar">
+              &lt;div className="tickets__creation-sidebar-title">
+                &lt;h1
+                  style={{
+                    fontSize: "18px",
+                    color: "color: #1e0a3c",
+                    fontWeight: "600",
+                  }}
+                >
+                  Add tickets
+                &lt;/h1>
+                &lt;a
+                  href="#"
+                  style={{
+                    textDecoration: "none",
+                    color: "#3659e3",
+                    fontSize: "15px",
+                    fontWeight: "font-weight: 400;",
+                  }}
+                >
+                  Learn more
+                &lt;/a>
+              &lt;/div>
+              &lt;div className="tickets__sidebar-line">&lt;/div>
+              &lt;div className="pagination__selectionPrices">
+                &lt;button
+                  className={
+                    paidBtn
+                      ? "pagination__selected"
+                      : "pagination__selection-btns"
+                  }
+                  onClick={() => {
+                    setPaidBtn(true);
+                    setFreeBtn(false);
+                    setDonationBtn(false);
+                  }}
+                >
+                  Paid
+                &lt;/button>
+                &lt;button
+                  className={
+                    freeBtn
+                      ? "pagination__selected"
+                      : "pagination__selection-btns"
+                  }
+                  onClick={() => {
+                    setFreeBtn(true);
+                    setPaidBtn(false);
+                    setDonationBtn(false);
+                  }}
+                >
+                  Free
+                &lt;/button>
+                &lt;button
+                  className={
+                    donationBtn
+                      ? "pagination__selected"
+                      : "pagination__selection-btns"
+                  }
+                  onClick={() => {
+                    setDonationBtn(true);
+                    setFreeBtn(false);
+                    setPaidBtn(false);
+                  }}
+                >
+                  Donation
+                &lt;/button>
+              &lt;/div>
+              &lt;input
+                className={
+                  ticketName === ""
+                    ? "ticket_name-input-error"
+                    : "ticket_name-input"
+                }
+                placeholder="Ticket name"
+                style={{ width: "348px", height: "46px" }}
+                onChange={(e) => setTicketName(e.target.value)}
+                defaultValue={event.tickets[ID].name}
+              />{" "}
+              {ticketName === "" &amp;&amp; (
+                &lt;p className="name__required-error">Name is required.&lt;/p>
+              )}
+              &lt;input
+                className={
+                  ticketQuantity === ""
+                    ? "ticket_quantity-input-error"
+                    : "ticket_quantity-input"
+                }
+                placeholder="Available quantity"
+                style={{ width: "348px", height: "46px" }}
+                value={/^\d+$/.test(ticketQuantity) ? ticketQuantity : ""}
+                onChange={(e) => {
+                  /^\d+$/.test(e.target.value)
+                    ? setTicketQuantity(e.target.value)
+                    : setTicketQuantity("");
+                }}
+                defaultValue={event.tickets[ID].max_quantity}
+              />{" "}
+              {ticketQuantity === "" &amp;&amp; (
+                &lt;p className="quantity__required-error">
+                  Quantity is required.
+                &lt;/p>
+              )}
+              {!freeBtn &amp;&amp; !donationBtn &amp;&amp; (
+                &lt;input
+                  className={
+                    ticketPrice === ""
+                      ? "ticket_price-input-error"
+                      : "ticket_price-input"
+                  }
+                  placeholder="Price"
+                  style={{ width: "348px", height: "46px" }}
+                  value={/^\d+$/.test(ticketPrice) ? ticketPrice : ""}
+                  onChange={(e) => {
+                    /^\d+$/.test(e.target.value)
+                      ? setTicketPrices(e.target.value)
+                      : setTicketPrices("");
+                  }}
+                  defaultValue={event.tickets[ID].price}
+                />
+              )}
+              {ticketPrice === "" &amp;&amp; !freeBtn &amp;&amp; (
+                &lt;p className="required__price">Price is required.&lt;/p>
+              )}
+              {freeBtn &amp;&amp; (
+                &lt;input
+                  className="ticket_price-input"
+                  placeholder="Price"
+                  style={{ width: "348px", height: "46px" }}
+                  value="Free"
+                  disabled={true}
+                />
+              )}
+              {donationBtn &amp;&amp; (
+                &lt;input
+                  className="ticket_price-input"
+                  placeholder="Price"
+                  style={{ width: "348px", height: "46px" }}
+                  value="Attendees can donate what they wish"
+                  disabled={true}
+                />
+              )}
+              {donationBtn &amp;&amp; (
+                &lt;Check labelVal="Absorb fees: Ticketing fees are deducted from your donation amount" />
+              )}
+              &lt;div className="tickets__inputs-label-start">
+                &lt;label htmlFor="start_date-field">Sales start:&lt;/label>
+                &lt;label
+                  htmlFor="start_time-field"
+                  style={{ marginRight: "90px" }}
+                >
+                  Start time:
+                &lt;/label>
+              &lt;/div>
+              &lt;div className="start_date-ticket">
+                &lt;input
+                  id={errorStartDate ? "start_date-field" : ""}
+                  type="date"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  onChange={(e) => {
+                    setStartTicketDate(e.target.value);
+                    checkTicketStart();
+                  }}
+                  defaultValue={event.tickets[ID].sales_start_date_time.slice(
+                    0,
+                    -9
+                  )}
+                />
+                &lt;input
+                  id="start_time-field"
+                  type="time"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  onChange={(e) => {
+                    setTiccketStartTime(e.target.value);
+                  }}
+                  defaultValue={event.tickets[ID].sales_start_date_time.slice(
+                    11
+                  )}
+                />
+              &lt;/div>
+              &lt;div className="tickets__inputs-label-end">
+                &lt;label htmlFor="end_date-field">Sales end:&lt;/label>
+                &lt;label htmlFor="end_time-field" style={{ marginRight: "99px" }}>
+                  End time:
+                &lt;/label>
+              &lt;/div>
+              &lt;div className="end_date-ticket">
+                &lt;input
+                  id={isPastDate ? "end_date-field" : ""}
+                  type="date"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  onChange={(e) => {
+                    setEndTicketDate(e.target.value);
+                    checkTicketEnd();
+                  }}
+                  defaultValue={event.tickets[ID].sales_end_date_time.slice(
+                    0,
+                    -9
+                  )}
+                />
+                &lt;input
+                  id="end_time-field"
+                  type="time"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  onChange={(e) => {
+                    setTicketEndTime(e.target.value);
+                  }}
+                  defaultValue={event.tickets[ID].sales_end_date_time.slice(11)}
+                />
+              &lt;/div>
+              &lt;div className="advanced__Setting">
+                &lt;button className="advanced__Setting-btn">
+                  Advanced Setting
+                &lt;/button>
+                &lt;AiOutlineArrowDown className="down-arrow" />
+              &lt;/div>
+              &lt;div className="submition__section">
+                &lt;button
+                  className="submition-cancelBtn"
+                  onClick={() => setIsEdit(false)}
+                >
+                  Cancel
+                &lt;/button>
+                &lt;button
+                  className="submition-saveBtn"
+                  onClick={() => {
+                    updateTicket(ID);
+                  }}
+                >
+                  Save
+                &lt;/button>
+              &lt;/div>
+            &lt;/div>
+          )}
+          {showTicket &amp;&amp; (
+            &lt;div className="tickets__creation-sidebar">
+              &lt;div className="tickets__creation-sidebar-title">
+                &lt;h1
+                  style={{
+                    fontSize: "18px",
+                    color: "color: #1e0a3c",
+                    fontWeight: "600",
+                  }}
+                >
+                  Add tickets
+                &lt;/h1>
+                &lt;a
+                  href="#"
+                  style={{
+                    textDecoration: "none",
+                    color: "#3659e3",
+                    fontSize: "15px",
+                    fontWeight: "font-weight: 400;",
+                  }}
+                >
+                  Learn more
+                &lt;/a>
+              &lt;/div>
+              &lt;div className="tickets__sidebar-line">&lt;/div>
+              &lt;div className="pagination__selectionPrices">
+                &lt;button
+                  className={
+                    paidBtn
+                      ? "pagination__selected"
+                      : "pagination__selection-btns"
+                  }
+                  onClick={() => {
+                    setPaidBtn(true);
+                    setFreeBtn(false);
+                    setDonationBtn(false);
+                  }}
+                >
+                  Paid
+                &lt;/button>
+                &lt;button
+                  className={
+                    freeBtn
+                      ? "pagination__selected"
+                      : "pagination__selection-btns"
+                  }
+                  onClick={() => {
+                    setFreeBtn(true);
+                    setPaidBtn(false);
+                    setDonationBtn(false);
+                  }}
+                >
+                  Free
+                &lt;/button>
+                &lt;button
+                  className={
+                    donationBtn
+                      ? "pagination__selected"
+                      : "pagination__selection-btns"
+                  }
+                  onClick={() => {
+                    setDonationBtn(true);
+                    setFreeBtn(false);
+                    setPaidBtn(false);
+                  }}
+                >
+                  Donation
+                &lt;/button>
+              &lt;/div>
+              &lt;input
+                className={
+                  ticketName === ""
+                    ? "ticket_name-input-error"
+                    : "ticket_name-input"
+                }
+                defaultValue=""
+                placeholder="Ticket name"
+                style={{ width: "348px", height: "46px" }}
+                onChange={(e) => setTicketName(e.target.value)}
+              />{" "}
+              {ticketName === "" &amp;&amp; (
+                &lt;p className="name__required-error">Name is required.&lt;/p>
+              )}
+              &lt;input
+                className={
+                  ticketQuantity === ""
+                    ? "ticket_quantity-input-error"
+                    : "ticket_quantity-input"
+                }
+                defaultValue=""
+                placeholder="Available quantity"
+                style={{ width: "348px", height: "46px" }}
+                onChange={(e) => {
+                  /^\d+$/.test(e.target.value)
+                    ? setTicketQuantity(e.target.value)
+                    : setTicketQuantity("");
+                }}
+              />{" "}
+              {ticketQuantity === "" &amp;&amp; (
+                &lt;p className="quantity__required-error">
+                  Quantity is required.
+                &lt;/p>
+              )}
+              {!freeBtn &amp;&amp; !donationBtn &amp;&amp; (
+                &lt;input
+                  className={
+                    ticketPrice === ""
+                      ? "ticket_price-input-error"
+                      : "ticket_price-input"
+                  }
+                  defaultValue=""
+                  placeholder="Price"
+                  style={{ width: "348px", height: "46px" }}
+                  onChange={(e) => {
+                    /^\d+$/.test(e.target.value)
+                      ? setTicketPrices(e.target.value)
+                      : setTicketPrices("");
+                  }}
+                />
+              )}
+              {ticketPrice === "" &amp;&amp; !freeBtn &amp;&amp; (
+                &lt;p className="required__price">Price is required.&lt;/p>
+              )}
+              {freeBtn &amp;&amp; (
+                &lt;input
+                  className="ticket_price-input"
+                  placeholder="Price"
+                  style={{ width: "348px", height: "46px" }}
+                  value="Free"
+                  disabled={true}
+                />
+              )}
+              {donationBtn &amp;&amp; (
+                &lt;input
+                  className="ticket_price-input"
+                  placeholder="Price"
+                  style={{ width: "348px", height: "46px" }}
+                  value="Attendees can donate what they wish"
+                  disabled={true}
+                />
+              )}
+              {donationBtn &amp;&amp; (
+                &lt;Check labelVal="Absorb fees: Ticketing fees are deducted from your donation amount" />
+              )}
+              &lt;div className="tickets__inputs-label-start">
+                &lt;label htmlFor="start_date-field">Sales start:&lt;/label>
+                &lt;label
+                  htmlFor="start_time-field"
+                  style={{ marginRight: "90px" }}
+                >
+                  Start time:
+                &lt;/label>
+              &lt;/div>
+              &lt;div className="start_date-ticket">
+                &lt;input
+                  id={errorStartDate ? "start_date-field" : ""}
+                  type="date"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  defaultValue="2023-03-04"
+                  onChange={(e) => {
+                    setStartTicketDate(e.target.value);
+                    checkTicketStart();
+                  }}
+                />
+                &lt;input
+                  id="start_time-field"
+                  type="time"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  defaultValue="09:00:00"
+                  onChange={(e) => {
+                    setTiccketStartTime(e.target.value);
+                  }}
+                />
+                {errorStartDate &amp;&amp; (
+                  &lt;div className="error__date">Error start date&lt;/div>
+                )}
+              &lt;/div>
+              &lt;div className="tickets__inputs-label-end">
+                &lt;label htmlFor="end_date-field">Sales end:&lt;/label>
+                &lt;label htmlFor="end_time-field" style={{ marginRight: "99px" }}>
+                  End time:
+                &lt;/label>
+              &lt;/div>
+              &lt;div className="end_date-ticket">
+                &lt;input
+                  id={isPastDate ? "end_date-field" : ""}
+                  type="date"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  defaultValue="2023-03-04"
+                  onChange={(e) => {
+                    setEndTicketDate(e.target.value);
+                    checkTicketEnd();
+                  }}
+                />
+                &lt;input
+                  id="end_time-field"
+                  type="time"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  defaultValue="09:00:00"
+                  onChange={(e) => {
+                    setTicketEndTime(e.target.value);
+                  }}
+                />
+                {isPastDate &amp;&amp; (
+                  &lt;div className="error__date">Error end date&lt;/div>
+                )}
+              &lt;/div>
+              &lt;div className="advanced__Setting">
+                &lt;button className="advanced__Setting-btn">
+                  Advanced Setting
+                &lt;/button>
+                &lt;AiOutlineArrowDown className="down-arrow" />
+              &lt;/div>
+              &lt;div className="submition__section">
+                &lt;button
+                  className="submition-cancelBtn"
+                  onClick={() => setShowTicket(false)}
+                >
+                  Cancel
+                &lt;/button>
+                &lt;button
+                  className="submition-saveBtn"
+                  onClick={handleSubmitTickets}
+                >
+                  Save
+                &lt;/button>
+              &lt;/div>
+            &lt;/div>
+          )}
+          {isEditPromo &amp;&amp; (
+            &lt;div className="tickets__creation-sidebar">
+              &lt;div className="tickets__creation-sidebar-title">
+                &lt;h1
+                  style={{
+                    fontSize: "18px",
+                    color: "color: #1e0a3c",
+                    fontWeight: "600",
+                  }}
+                >
+                  Add code
+                &lt;/h1>
+              &lt;/div>
+              &lt;div className="tickets__sidebar-line">&lt;/div>
+              &lt;input
+                type="text"
+                placeholder="Code name"
+                className={
+                  promoCodeName === ""
+                    ? "input__codeName-error"
+                    : "input__codeName"
+                }
+                onChange={(e) => {
+                  setPromoCodeName(e.target.value);
+                }}
+                defaultValue={event.promocodes[ID].name}
+              />
+              {promoCodeName === "" ? (
+                &lt;p className="required__promoName">Provide a code name&lt;/p>
+              ) : (
+                &lt;p className="description__codeName">
+                  Customers can also access this code via custom URL
+                &lt;/p>
+              )}
+              &lt;div className="Limited__section">
+                &lt;Box sx={{ width: "40%", marginLeft: "30px" }}>
+                  &lt;FormControl fullWidth>
+                    &lt;InputLabel
+                      variant="standard"
+                      htmlFor="uncontrolled-native"
+                    >
+                      Ticket limited
+                    &lt;/InputLabel>
+                    &lt;NativeSelect
+                      defaultValue={
+                        event.promocodes[ID].is_limited
+                          ? "Limited"
+                          : "Unlimited"
+                      }
+                      inputProps={{
+                        name: "age",
+                      }}
+                      onChange={(e) => {
+                        setTicketIsLimited(e.target.value);
+                        e.target.value === "Limited"
+                          ? setIsLimited(true)
+                          : setIsLimited(false);
+                      }}
+                    >
+                      &lt;option value="Limited">Limited&lt;/option>
+                      &lt;option value="Unlimited">Unlimited&lt;/option>
+                    &lt;/NativeSelect>
+                  &lt;/FormControl>
+                &lt;/Box>
+                {ticketIsLimited === "Limited" &amp;&amp; (
+                  &lt;input
+                    type="text"
+                    placeholder="Amount"
+                    className="Limited__tickets"
+                    onChange={(e) => {
+                      setLimitedAmount(e.target.value);
+                    }}
+                    defaultValue={event.promocodes[ID].limited_amount}
+                  />
+                )}
+              &lt;/div>
+              &lt;p
+                className="description__codeName"
+                style={{ marginTop: "10px" }}
+              >
+                Total number of tickets that can be purchased with this code
+              &lt;/p>
+              &lt;div className="discount__section">
+                &lt;label
+                  style={{
+                    marginLeft: "30px",
+                    display: "block",
+                    marginBottom: "5px",
+                  }}
+                >
+                  Discount amount
+                &lt;/label>
+                &lt;input
+                  type="text"
+                  defaultValue={event.promocodes[ID].discount_amount}
+                  value={/^\d+$/.test(discountAmount) ? discountAmount : ""}
+                  className="discount__input"
+                  placeholder="$"
+                  onChange={(e) => {
+                    /^\d+$/.test(e.target.value)
+                      ? setDiscountAmount(e.target.value)
+                      : setDiscountAmount("");
+                  }}
+                  disabled={percentageAmount !== "" ? true : false}
+                />
+                &lt;span style={{ marginLeft: "20px", marginRight: "20px" }}>
+                  or
+                &lt;/span>
+                &lt;input
+                  type="text"
+                  defaultValue=""
+                  value={/^\d+$/.test(percentageAmount) ? percentageAmount : ""}
+                  className="discount__input"
+                  placeholder="%"
+                  style={{ marginLeft: "0px" }}
+                  onChange={(e) => {
+                    e.target.value === ""
+                      ? setIsPercentage(false)
+                      : setIsPercentage(true);
+                    setPercentageAmount(e.target.value);
+                    /^\d+$/.test(e.target.value)
+                      ? setPercentageAmount(e.target.value)
+                      : setPercentageAmount("");
+                  }}
+                  disabled={discountAmount !== "" ? true : false}
+                />
+              &lt;/div>
+              {discountAmount === "" &amp;&amp; percentageAmount === "" &amp;&amp; (
+                &lt;p className="discount__required-error">
+                  Discount amount is required
+                &lt;/p>
+              )}
+              &lt;div
+                className="promocode__inputs-label-start"
+                style={{ marginTop: "15px" }}
+              >
+                &lt;label
+                  htmlFor="promocode_start_date-field"
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "#39364F",
+                  }}
+                >
+                  Promo code starts:
+                &lt;/label>
+              &lt;/div>
+              &lt;div className="start_date-ticket">
+                &lt;input
+                  id={errorStartDate ? "promocode_start_date-field" : ""}
+                  type="date"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  onChange={(e) => {
+                    setPromoStartDate(new Date(e.target.value));
+                    checkStartDate();
+                  }}
+                  defaultValue={event.promocodes[ID].start_date_time.slice(
+                    0,
+                    -9
+                  )}
+                />
+                &lt;input
+                  id="start_time-field"
+                  type="time"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  onChange={(e) => {
+                    setPromoStartTime(e.target.value);
+                  }}
+                  defaultValue={event.promocodes[ID].start_date_time.slice(11)}
+                />
+              &lt;/div>
+              &lt;div
+                className="promocode__inputs-label-start"
+                style={{ marginTop: "15px" }}
+              >
+                &lt;label
+                  htmlFor="promocode_end_date-field"
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "#39364F",
+                  }}
+                >
+                  Promo code Ends:
+                &lt;/label>
+              &lt;/div>
+              &lt;div
+                className="start_date-ticket"
+                style={{ marginBottom: "120px" }}
+              >
+                &lt;input
+                  id={isPastDate ? "promocode_end_date-field" : ""}
+                  type="date"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  onChange={(e) => {
+                    setPromoEndDate(e.target.value);
+                    checkPastDate();
+                  }}
+                  defaultValue={event.promocodes[ID].end_date_time.slice(0, -9)}
+                />
+                &lt;input
+                  id="start_time-field"
+                  type="time"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  onChange={(e) => {
+                    setPromoEndTime(e.target.value);
+                  }}
+                  defaultValue={event.promocodes[ID].end_date_time.slice(11)}
+                />
+              &lt;/div>
+              &lt;div
+                className="submition__section"
+                style={{ paddingBottom: "10px" }}
+              >
+                &lt;button
+                  className="submition-cancelBtn"
+                  onClick={() => setIsEditPromo(false)}
+                >
+                  Cancel
+                &lt;/button>
+                &lt;button
+                  className="submition-saveBtn"
+                  onClick={() => {
+                    updatePromoCode(ID);
+                  }}
+                >
+                  Save
+                &lt;/button>
+              &lt;/div>
+            &lt;/div>
+          )}
+          {showPromoCode &amp;&amp; (
+            &lt;div className="tickets__creation-sidebar">
+              &lt;div className="tickets__creation-sidebar-title">
+                &lt;h1
+                  style={{
+                    fontSize: "18px",
+                    color: "color: #1e0a3c",
+                    fontWeight: "600",
+                  }}
+                >
+                  Add code
+                &lt;/h1>
+              &lt;/div>
+              &lt;div className="tickets__sidebar-line">&lt;/div>
+              &lt;input
+                type="text"
+                placeholder="Code name"
+                className={
+                  promoCodeName === ""
+                    ? "input__codeName-error"
+                    : "input__codeName"
+                }
+                onChange={(e) => {
+                  setPromoCodeName(e.target.value);
+                }}
+              />
+              {promoCodeName === "" ? (
+                &lt;p className="required__promoName">Provide a code name&lt;/p>
+              ) : (
+                &lt;p className="description__codeName">
+                  Customers can also access this code via custom URL
+                &lt;/p>
+              )}
+              &lt;div className="Limited__section">
+                &lt;Box sx={{ width: "40%", marginLeft: "30px" }}>
+                  &lt;FormControl fullWidth>
+                    &lt;InputLabel
+                      variant="standard"
+                      htmlFor="uncontrolled-native"
+                    >
+                      Ticket limited
+                    &lt;/InputLabel>
+                    &lt;NativeSelect
+                      defaultValue="Unlimited"
+                      inputProps={{
+                        name: "age",
+                      }}
+                      onChange={(e) => {
+                        setTicketIsLimited(e.target.value);
+                        e.target.value === "Limited"
+                          ? setIsLimited(true)
+                          : setIsLimited(false);
+                      }}
+                    >
+                      &lt;option value="Limited">Limited&lt;/option>
+                      &lt;option value="Unlimited">Unlimited&lt;/option>
+                    &lt;/NativeSelect>
+                  &lt;/FormControl>
+                &lt;/Box>
+                {ticketIsLimited === "Limited" &amp;&amp; (
+                  &lt;input
+                    type="text"
+                    placeholder="Amount"
+                    className="Limited__tickets"
+                    onChange={(e) => {
+                      setLimitedAmount(e.target.value);
+                    }}
+                  />
+                )}
+              &lt;/div>
+              &lt;p
+                className="description__codeName"
+                style={{ marginTop: "10px" }}
+              >
+                Total number of tickets that can be purchased with this code
+              &lt;/p>
+              &lt;div className="discount__section">
+                &lt;label
+                  style={{
+                    marginLeft: "30px",
+                    display: "block",
+                    marginBottom: "5px",
+                  }}
+                >
+                  Discount amount
+                &lt;/label>
+                &lt;input
+                  type="text"
+                  defaultValue=""
+                  value={/^\d+$/.test(discountAmount) ? discountAmount : ""}
+                  className="discount__input"
+                  placeholder="$"
+                  onChange={(e) => {
+                    /^\d+$/.test(e.target.value)
+                      ? setDiscountAmount(e.target.value)
+                      : setDiscountAmount("");
+                  }}
+                  disabled={percentageAmount !== "" ? true : false}
+                />
+                &lt;span style={{ marginLeft: "20px", marginRight: "20px" }}>
+                  or
+                &lt;/span>
+                &lt;input
+                  type="text"
+                  defaultValue=""
+                  value={/^\d+$/.test(percentageAmount) ? percentageAmount : ""}
+                  className="discount__input"
+                  placeholder="%"
+                  style={{ marginLeft: "0px" }}
+                  onChange={(e) => {
+                    e.target.value === ""
+                      ? setIsPercentage(false)
+                      : setIsPercentage(true);
+                    setPercentageAmount(e.target.value);
+                    /^\d+$/.test(e.target.value)
+                      ? setPercentageAmount(e.target.value)
+                      : setPercentageAmount("");
+                  }}
+                  disabled={discountAmount !== "" ? true : false}
+                />
+              &lt;/div>
+              {discountAmount === "" &amp;&amp; percentageAmount === "" &amp;&amp; (
+                &lt;p className="discount__required-error">
+                  Discount amount is required
+                &lt;/p>
+              )}
+              &lt;div
+                className="promocode__inputs-label-start"
+                style={{ marginTop: "15px" }}
+              >
+                &lt;label
+                  htmlFor="promocode_start_date-field"
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "#39364F",
+                  }}
+                >
+                  Promo code starts:
+                &lt;/label>
+              &lt;/div>
+              &lt;div className="start_date-ticket">
+                &lt;input
+                  id={errorStartDate ? "promocode_start_date-field" : ""}
+                  type="date"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  defaultValue="2023-03-04"
+                  onChange={(e) => {
+                    setPromoStartDate(new Date(e.target.value));
+                    checkStartDate();
+                  }}
+                />
+                &lt;input
+                  id="start_time-field"
+                  type="time"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  defaultValue="09:00:00"
+                  onChange={(e) => {
+                    setPromoStartTime(e.target.value);
+                  }}
+                />
+                {errorStartDate &amp;&amp; (
+                  &lt;div className="error__date">Error start date&lt;/div>
+                )}
+              &lt;/div>
+              &lt;div
+                className="promocode__inputs-label-start"
+                style={{ marginTop: "15px" }}
+              >
+                &lt;label
+                  htmlFor="promocode_end_date-field"
+                  style={{
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    color: "#39364F",
+                  }}
+                >
+                  Promo code Ends:
+                &lt;/label>
+              &lt;/div>
+              &lt;div
+                className="start_date-ticket"
+                style={{ marginBottom: "120px" }}
+              >
+                &lt;input
+                  id={isPastDate ? "promocode_end_date-field" : ""}
+                  type="date"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  defaultValue="2023-03-04"
+                  onChange={(e) => {
+                    setPromoEndDate(e.target.value);
+                    checkPastDate();
+                  }}
+                />
+                &lt;input
+                  id="start_time-field"
+                  type="time"
+                  style={{ width: "166px", height: "48px", padding: "10px" }}
+                  defaultValue="09:00:00"
+                  onChange={(e) => {
+                    setPromoEndTime(e.target.value);
+                  }}
+                />
+                {isPastDate &amp;&amp; (
+                  &lt;div className="errorEndDate">Error end date&lt;/div>
+                )}
+              &lt;/div>
+              &lt;div
+                className="submition__section"
+                style={{ paddingBottom: "10px" }}
+              >
+                &lt;button
+                  className="submition-cancelBtn"
+                  onClick={() => setShowPromoCode(false)}
+                >
+                  Cancel
+                &lt;/button>
+                &lt;button
+                  className="submition-saveBtn"
+                  onClick={handleSubmitPromoCode}
+                >
+                  Save
+                &lt;/button>
+              &lt;/div>
+            &lt;/div>
+          )}
+          &lt;div style={{ marginTop: "100px" }}>
+            {event.tickets.map((ticket, id) =>
+              addmissionBtn ? (
+                &lt;TicketInfo
+                  ticketName={ticket.name}
+                  ticketDate={
+                    "On sale Ends " +
+                    new Date(ticket.sales_end_date_time)
+                      .toISOString()
+                      .slice(0, -14) +
+                    " at " +
+                    new Date(ticket.sales_end_date_time)
+                      .toISOString()
+                      .slice(11, -5)
+                  }
+                  amount={"0 / " + ticket.max_quantity}
+                  Price={"$" + ticket.price}
+                  btnID={id}
+                  event={event}
+                  setEvent={setEvent}
+                />
+              ) : (
+                ""
+              )
+            )}
+            {promoCodeBtn &amp;&amp; (
+              &lt;table style={{ width: "80%" }}>
+                &lt;tr className="data__row-table">
+                  &lt;th colSpan={1}>Name&lt;/th>
+                  &lt;th colSpan={2}>Code type&lt;/th>
+                  &lt;th colSpan={1}>Discount&lt;/th>
+                  &lt;th colSpan={2}>Uses&lt;/th>
+                  &lt;th colSpan={1}>Status&lt;/th>
+                &lt;/tr>
+                {event.promocodes.map((promocode, id) => (
+                  &lt;PromoCodesInfo
+                    name={promocode.name}
+                    codeType="Applies discount"
+                    disacount={"$ " + promocode.discount_amount}
+                    Uses={
+                      promocode.is_limited
+                        ? "0 / " + promocode.limited_amount
+                        : "0 / Unlimites"
+                    }
+                    Status="Ended"
+                    btnID={id}
+                    event={event}
+                    setEvent={setEvent}
+                  />
+                ))}
+              &lt;/table>
+            )}
+          &lt;/div>
+        &lt;/div>
+        {success ? (
+          &lt;Alert
+            variant="success"
+            style={{
+              width: "70%",
+              position: "fixed",
+              top: "70px",
+              zIndex: "999",
+              left: "370px",
+            }}
+          >
+            Data saved successfully.
+          &lt;/Alert>
+        ) : null}
+      &lt;/div>
+    &lt;/AppEditContext.Provider>
+  );
+};
+
+export default Tickets;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

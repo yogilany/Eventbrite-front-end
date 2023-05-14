@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/AttendeesView/Profile/Profile.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/AttendeesView/Profile/Profile.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./Profile.scss";
+import Header from "../../../Components/header/Header";
+import { BiPencil } from "react-icons/bi";
+import emptyprofile from "../../../assets/emptyprofile.png";
+import OrderComp from "./Components/OrderComp";
+import LikeComp from "./Components/LikeComp";
+import FollComp from "./Components/FollComp";
+import { AiOutlineRight } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import {
+  selectUserAvatarURL,
+  selectUserFirstName,
+  selectUserLastName,
+} from "src/features/authSlice";
+import {
+  useFetchLikedEventsNoValidationQuery,
+  useFetchLikedEventsQuery,
+  useGetFollowingUsersNoValidationQuery,
+  useGetFollowingUsersQuery,
+  useGetordersQuery,
+} from "src/features/api/userApi";
+import eventphoto from "../../../assets/adelEv1.png";
+import { Col, Container, Row } from "react-bootstrap";
+
+/**
+ * @author Ziad Ezzat
+ * @param {}
+ * @description This is container of Profile Page which shows profile of user showing some data like name ,orders,likes and following Pges.
+ * @returns {JSX.Element of Profile Page}
+ */
+const Profile = () => {
+  const dummtdata = [
+    {
+      id: 1,
+      title: "7oda Algin?",
+      start_date_time: "2:00 pm Thursday",
+      image_link: "",
+      is_online: true,
+    },
+    {
+      id: 2,
+      title: "Mr hazem",
+      start_date_time: "2:00 pm sunday",
+      image_link: eventphoto,
+      is_online: true,
+    },
+    {
+      id: 2,
+      title: "Gilany",
+      start_date_time: "2:00 pm friday",
+      image_link:
+        "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200",
+      is_online: true,
+    },
+  ];
+  const UserAvatar = useSelector(selectUserAvatarURL);
+  const userFirstName = useSelector(selectUserFirstName);
+  const userLastName = useSelector(selectUserLastName);
+  const [userFullName, setUserFullName] = useState(
+    userFirstName + " " + userLastName
+  );
+  const [imgSrc, setImgSrc] = useState(UserAvatar);
+  const { data: likedEvents, refetch: refetchLikedEvents } =
+    useFetchLikedEventsNoValidationQuery();
+  const { data: followingUsers, refetch: refetchFollowingUsers } =
+    useGetFollowingUsersNoValidationQuery();
+  const handleImgError = () => {
+    setImgSrc(emptyprofile);
+  };
+  const {data:Orders} = useGetordersQuery();
+  const refetch = () => {
+    refetchFollowingUsers();
+    refetchLikedEvents();
+  };
+  useEffect(() => {
+    refetch();
+  }, []);
+  return (
+    &lt;div>
+      &lt;Header />
+      &lt;div className="full_body_prof">
+        &lt;div className="form_proff">
+          &lt;div className="greyform-prof">
+            &lt;div style={{ marginTop: 50, marginLeft: 50, display: "flex" }}>
+              &lt;img
+                className="prof_img"
+                onError={handleImgError}
+                src={imgSrc}
+                alt="profilelogo"
+                style={{ width: 120, height: 120 }}
+              />
+              &lt;div style={{ display: "block" }}>
+                &lt;div style={{ display: "flex" }}>
+                  &lt;h1
+                    style={{
+                      fontSize: 30,
+                      marginLeft: 15,
+                      marginTop: 20,
+                      fontWeight: 600,
+                      color: "black",
+                    }}
+                  >
+                    {userFullName}
+                  &lt;/h1>
+                  &lt;BiPencil
+                    style={{
+                      marginLeft: 18,
+                      marginTop: 33,
+                      width: 20,
+                      height: 20,
+                      cursor: "pointer",
+                    }}
+                  />
+                &lt;/div>
+                &lt;div style={{ display: "flex" ,marginLeft:15 }}>
+                &lt;a href="#" style={{ color: "grey", fontSize: 15,display:"flex" }}>
+                      {Orders?.length}
+                      &lt;p
+                      style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
+                    >
+                      Orders
+                    &lt;/p>
+                    &lt;/a>
+                  &lt;a
+                    href="#"
+                    style={{
+                      marginLeft: 8,
+                      color: "grey",
+                      width: 15,
+                      fontWeight: 600,
+                    }}
+                  >
+                    .
+                  &lt;/a>
+                  &lt;div style={{ display: "flex" }}>
+                    &lt;a href="/Likes" style={{ color: "grey", fontSize: 15,display:"flex" }}>
+                      {likedEvents?.length}
+                      &lt;p
+                      style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
+                    >
+                      Likes
+                    &lt;/p>
+                    &lt;/a>
+                    
+                  &lt;/div>
+                  &lt;a
+                    href="#"
+                    style={{
+                      marginLeft: 8,
+                      color: "grey",
+                      width: 15,
+                      fontWeight: 600,
+                    }}
+                  >
+                    .
+                  &lt;/a>
+                  &lt;div style={{ display: "flex" }}>
+                    &lt;a href="#" style={{ color: "grey", fontSize: 15 }}>
+                      {followingUsers?.length}
+                    &lt;/a>
+                    &lt;p
+                      style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
+                    >
+                      Following
+                    &lt;/p>
+                  &lt;/div>
+                &lt;/div>
+              &lt;/div>
+            &lt;/div>
+          &lt;/div>
+          &lt;div className="compon">
+            &lt;h5>Orders&lt;/h5>
+            &lt;div className="orderecss">
+            {Orders?.map((order) => (
+                      &lt;OrderComp
+                        data_testid= "Order-Form-id"
+                        id = {order.event_id}
+                        order = {order}
+                      />
+                  ))}
+            &lt;/div>
+            &lt;button id="btn_prof_id" className="btn_prof">
+              {" "}
+              See past Orders
+            &lt;/button>
+            &lt;hr className="zzz">&lt;/hr>
+            &lt;div style={{ display: "flex" }}>
+              &lt;a href="#" className="intersts_prof">
+                Interests
+              &lt;/a>
+              &lt;AiOutlineRight
+                style={{ marginLeft: 10, marginTop: 10 }}
+                className="arr_prof"
+              />
+            &lt;/div>
+            &lt;hr className="zzz">&lt;/hr>
+            &lt;div style={{ display: "flex" }}>
+              &lt;a href="#" className="intersts_prof">
+                Collections
+              &lt;/a>
+              &lt;AiOutlineRight
+                style={{ marginLeft: 10, marginTop: 10 }}
+                className="arr_prof"
+              />
+            &lt;/div>
+            &lt;hr className="zzz">&lt;/hr>
+            &lt;div style={{ display: "flex" }}>
+              &lt;a href="#" className="intersts_prof">
+                Likes
+              &lt;/a>
+              &lt;AiOutlineRight
+                style={{ marginLeft: 10, marginTop: 10 }}
+                className="arr_prof"
+              />
+            &lt;/div>
+            &lt;div className="likeblk_prof">
+              {likedEvents?.map((event) => (
+                &lt;LikeComp
+                  key={event.id}
+                  event={event}
+                  id={event.id}
+                  title={event.title}
+                  start_date_time={event.start_date_time}
+                  image_link={event.image_link}
+                />
+              ))}
+              {/* &lt;LikeComp data_testid="Like-Form-id" />
+              &lt;LikeComp data_testid="Like-Form-id" />
+              &lt;LikeComp data_testid="Like-Form-id" />
+              &lt;LikeComp data_testid="Like-Form-id" /> */}
+            &lt;/div>
+            &lt;hr className="zzz">&lt;/hr>
+            &lt;div className="follblk_prof">
+              &lt;div style={{ display: "flex", marginTop: 25,paddingBottom:20 }}>
+                &lt;p className="intersts_prof">Following&lt;/p>
+                &lt;a href="#" className="events_prof">
+                  See events
+                &lt;/a>
+                &lt;AiOutlineRight
+                  style={{ marginLeft: 10, marginTop: 10 }}
+                  className="arr_prof"
+                />
+              &lt;/div>
+              {/* &lt;div className="follblk_prof"> */}
+              &lt;Container>
+                &lt;Row>
+                  {followingUsers?.map((person) => (
+                    &lt;Col md={6}>
+                      &lt;FollComp
+                        key={person.id}
+                        id={person.id}
+                        email={person.email}
+                        firstname={person.firstname}
+                        lastname={person.lastname}
+                        avatar_url={person.avatar_url}
+                        className="mr-5"
+                      />
+                    &lt;/Col>
+                  ))}
+                &lt;/Row>
+              &lt;/Container>
+              {/* &lt;/div> */}
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+export default Profile;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

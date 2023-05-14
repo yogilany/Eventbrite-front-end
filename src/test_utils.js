@@ -1,23 +1,70 @@
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { render } from "@testing-library/react";
 import React from "react";
 import { Provider } from "react-redux";
-import { render } from "@testing-library/react";
-import { configureStore } from "@reduxjs/toolkit";
 import { BrowserRouter } from "react-router-dom";
 // As a basic setup, import your same slice reducers
-import { authSlice } from "./features/authSlice";
-import { eventSlice } from "./features/api/eventApi";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { PersistGate } from "redux-persist/lib/integration/react";
+import thunk from "redux-thunk";
+import { eventsApi } from "./features/api/eventApi";
+import { promocodeApi } from "./features/api/promocodeApi";
+import { ticketApi } from "./features/api/ticketApi";
+import { userApi } from "./features/api/userApi";
+import { authSlice } from "./features/authSlice";
 import { persistor } from "./store";
+
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+import { default as authReducer } from "./features/authSlice";
+
+const reducers = combineReducers({
+  auth: authReducer,
+  [userApi.reducerPath]: userApi.reducer,
+  [eventsApi.reducerPath]: eventsApi.reducer,
+  [ticketApi.reducerPath]: ticketApi.reducer,
+  [promocodeApi.reducerPath]: promocodeApi.reducer,
+});
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, reducers);
+
 export function renderWithProviders(
   ui,
   {
-    preloadedState = {},
-    store = configureStore({
-      reducer: {
-        auth: authSlice.reducer,
-        event: eventSlice.reducer,
+    preloadedState = {
+      auth: {
+        userEmail: null,
+        userFirstName: "",
+        userLastName: "",
+        userAvatarURL: "",
+        userToken: null,
+        userID: "",
+        isLoading: false,
+        emailExists: false,
+        isLoggedIn: false,
       },
+      user: null,
+      events: [],
+      tickets: [],
+      promocodes: [],
+    },
+    store = configureStore({
+      reducer: persistedReducer,
+      middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+          serializableCheck: false,
+        })
+          .concat(thunk)
+          .concat(eventsApi.middleware)
+          .concat(userApi.middleware)
+          .concat(ticketApi.middleware)
+          .concat(promocodeApi.middleware),
     }),
     ...renderOptions
   } = {}

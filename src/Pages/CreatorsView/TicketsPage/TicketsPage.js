@@ -736,7 +736,7 @@ const Tickets = ({ event, setEvent }) => {
                   id={errorStartDate ? "start_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
-                  defaultValue="2023-03-04"
+                  defaultValue={new Date().toISOString().slice(0, -14)}
                   onChange={(e) => {
                     setStartTicketDate(e.target.value);
                     checkTicketStart();
@@ -766,7 +766,7 @@ const Tickets = ({ event, setEvent }) => {
                   id={isPastDate ? "end_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
-                  defaultValue="2023-03-04"
+                  defaultValue={new Date().toISOString().slice(0, -14)}
                   onChange={(e) => {
                     setEndTicketDate(e.target.value);
                     checkTicketEnd();

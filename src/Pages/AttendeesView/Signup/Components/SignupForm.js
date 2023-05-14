@@ -31,7 +31,7 @@ import {
 import HorizontalChip from "../../Login/Components/HorizontalChip";
 import "../Signup.scss";
 import { SignupSchema, getPasswordState, isValidEmail } from "./Signup-utils";
-import SignupFormCSS from "./SignupForm.module.css";
+import SignupFormCSS from "./SignupForm.module.scss";
 import "./SignupMethods";
 import SignupMethods from "./SignupMethods";
 import SignupVerifyModal from "./SignupVerifyModal";
@@ -50,7 +50,7 @@ export const SignupForm = (props) => {
   const [showSignUpInfo, setShowSignUpInfo] = useState(false);
   const [successful, setSuccess] = useState(false);
   const [privacyPolicyModalShow, setPrivacyPolicyModalShow] = useState(false);
-  const [emailExists, setEmailExists] = useState(false);
+  const [emailExists, setEmailExists] = useState(true);
   // const [submitPosition, setSubmitPosition] = useState("");
   // const [oldSubmitPosition, setOldSubmitPosition] = useState("");
   const [SocialProfile, setSocialProfile] = useState(null);
@@ -140,7 +140,7 @@ export const SignupForm = (props) => {
       dispatch(registerUser(data))
         .unwrap()
         .then(() => {
-          navigate("/login");
+          setVerificationEmailModalShow(true);
           setSuccess(true);
           // window.location.reload();
         })
@@ -252,7 +252,7 @@ export const SignupForm = (props) => {
               ) : null}
               <InputGroup className="p-0">
                 <Form.Group className="p-0" style={{ width: "100%" }}>
-                  <Form.Floating>
+                  <Form.Floating className={SignupFormCSS["form-floating"]}>
                     <TextInputStyled
                       isInvalid={errors.email}
                       disabled={showSignUpInfo}
@@ -261,7 +261,7 @@ export const SignupForm = (props) => {
                       id="email-input"
                       {...register("email", { required: "Field required" })}
                     />
-                    <label>Email Address</label>
+                    <label htmlFor="email-input">Email Address</label>
                   </Form.Floating>
                   {errors.email && (
                     <Form.Text className="text-danger">
@@ -298,15 +298,17 @@ export const SignupForm = (props) => {
               }}
             >
               <Form.Group className="p-0">
-                <FloatingLabel label="Confirm Email">
+                <Form.Floating className={SignupFormCSS["form-floating"]}>
                   <TextInputStyled
                     type="email"
+                    placeholder="name@example.com"
                     data-testid="emailconfirm-input"
                     id="emailConfirm"
                     {...register("emailConfirm", { required: "Required" })}
                     isInvalid={errors?.emailConfirm}
                   />
-                </FloatingLabel>
+                  <label htmlFor="emailconfirm-input">Confirm Email</label>
+                </Form.Floating>
                 {errors.emailConfirm && (
                   <Form.Text className="text-danger">
                     {errors.emailConfirm.message}
@@ -323,20 +325,19 @@ export const SignupForm = (props) => {
             >
               <Stack direction="horizontal" gap={3} className="p-0">
                 <Col>
-                  <FloatingLabel
-                    className={SignupFormCSS["floating-label"]}
-                    label="First name"
-                  >
+                  <Form.Floating className={SignupFormCSS["form-floating"]}>
                     <TextInputStyled
+                      type="text"
+                      placeholder="John"
                       data-testid="firstname-input"
                       id="firstName-input"
-                      type="text"
                       isInvalid={errors?.firstName}
                       {...register("firstName", {
                         required: "First name is required",
                       })}
                     />
-                  </FloatingLabel>
+                    <label htmlFor="firstname-input">First name</label>
+                  </Form.Floating>
                   <Form.Text
                     className="text-danger"
                     style={{
@@ -347,13 +348,11 @@ export const SignupForm = (props) => {
                   </Form.Text>
                 </Col>
                 <Col>
-                  <FloatingLabel
-                    className={SignupFormCSS["floating-label"]}
-                    label="Last name"
-                  >
+                  <Form.Floating className={SignupFormCSS["form-floating"]}>
                     <TextInputStyled
                       data-testid="lastname-input"
                       type="text"
+                      placeholder="Doe"
                       id="lastName-input"
                       name="lastName-input"
                       isInvalid={errors?.lastName}
@@ -361,7 +360,8 @@ export const SignupForm = (props) => {
                         required: "Last name is required",
                       })}
                     />
-                  </FloatingLabel>
+                    <label htmlFor="lastName-input">Last name</label>
+                  </Form.Floating>
                   <Form.Text
                     className="text-danger"
                     style={{
@@ -380,9 +380,10 @@ export const SignupForm = (props) => {
               }}
             >
               <Form.Group className="mb-3 p-0">
-                <FloatingLabel label="Password">
+                <Form.Floating className={SignupFormCSS["form-floating"]}>
                   <TextInputStyled
                     type="password"
+                    placeholder="Password"
                     data-testid="password-input"
                     id="password-input"
                     name="password"
@@ -394,7 +395,8 @@ export const SignupForm = (props) => {
                       {errors.password.message}
                     </Form.Text>
                   )}
-                </FloatingLabel>
+                  <label htmlFor="password-input">Password</label>
+                </Form.Floating>
               </Form.Group>
               <LinearProgressWithLabel
                 defaultLabel="Your password must be at least 8 characters"
@@ -466,6 +468,7 @@ export const SignupForm = (props) => {
                 </div>
               </motion.div> */}
               <OrangeButton
+                disabled={emailExists || errors.email}
                 data-testid="submit-button"
                 id="submit-button"
                 as="button"

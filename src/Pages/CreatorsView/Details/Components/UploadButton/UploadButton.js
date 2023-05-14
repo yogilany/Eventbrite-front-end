@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import axios from "axios";
 const UploadButton = (props) => {
-  const hiddenFileInput = useRef(null);
+  const hiddenFileInput = useRef();
   const handleClick = () => {
     hiddenFileInput.current.click();
   };

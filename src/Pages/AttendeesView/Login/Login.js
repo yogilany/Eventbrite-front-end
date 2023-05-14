@@ -25,15 +25,11 @@ import { Link } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import LoginForgotPasswordModal from "./Components/LoginForgotPasswordModal";
 import VerificationEmailModal from "src/Components/VerificationEmailModal.js/VerificationEmailModal";
-/**
- *
- * @param {name: Name of this element after creation} props
- * @returns Login page
- */
+
 const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
 /**
- * This is the login page for attendees where they can log in using
+ * @description This is the login page for attendees where they can log in using
  * their email & passwords.
  * This page is redirected to by signup after a successful sign up
  * @date 3/29/2023 - 2:46:54 AM
@@ -277,7 +273,7 @@ export const Login = (props) => {
                 >
                   <FormMessage>
                     <div></div>
-                    <p>{"Password is incorrect."}</p>
+                    <p>{errMsg}</p>
                   </FormMessage>
                 </motion.div>
               ) : null}

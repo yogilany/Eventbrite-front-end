@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/CreatorsView/Details/Components/creatorHeader/CreatorHeader.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/CreatorsView/Details/Components/creatorHeader/CreatorHeader.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useContext } from "react";
+import "./creatorHeader.css";
+import Logo from "../../../../../assets/logo.png";
+import { AiOutlineMenu, AiFillEye } from "react-icons/ai";
+import { MdOutlineKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { AppContext } from "../../Details";
+import { HiOutlineSwitchHorizontal } from "react-icons/hi";
+import { VscAccount } from "react-icons/vsc";
+import { BiLogOut } from "react-icons/bi";
+import { MdApps } from "react-icons/md";
+import { IoMdMore } from "react-icons/io";
+import { RiMore2Fill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  logOut,
+  selectUserFirstName,
+  selectUserLastName,
+} from "src/features/authSlice";
+/**
+ * @author Mahmoud Khaled
+ * @description This is Creator Header which will be displayed on Details Page
+ * @param {Boolean} MenuShow This Prop used to check whether we need menubar that will be displayed in responsive mood (&lt; 600px) or not
+ * @returns {JSX.Element}
+ */
+const CreatorHeader = ({ MenuShow }) => {
+  const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
+  const [showAccountSetting, setShowAccountSetting] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+  const userFirstName = useSelector(selectUserFirstName);
+  const userLastName = useSelector(selectUserLastName);
+  const userFullname = `${userFirstName} ${userLastName}`;
+  const dispatch = useDispatch();
+  return (
+    &lt;div className="header__container">
+      &lt;div className="header__container-left">
+        &lt;a href="/">
+          &lt;img src={Logo} alt="headerLogo" />
+        &lt;/a>
+      &lt;/div>
+
+      &lt;div className="header__container-links">
+        &lt;div className="header__responsive-links">
+          &lt;button className="event__details" style={{ marginRight: "10px" }}>
+            &lt;AiFillEye />
+          &lt;/button>
+          &lt;button className="sidebar__details" style={{ marginRight: "10px" }}>
+            &lt;MdApps />
+          &lt;/button>
+          &lt;button className="header__more-btn" style={{ marginRight: "45px" }}>
+            &lt;RiMore2Fill className="more-logo" />{" "}
+            &lt;span style={{ fontSize: "14px" }}>More&lt;/span>
+          &lt;/button>
+        &lt;/div>
+        &lt;div className="header__container-link">
+          &lt;Link to="/likes">Preview your Event&lt;/Link>
+        &lt;/div>
+        &lt;div className="header__container-link">
+          &lt;Link to="/publish" style={{ marginLeft: "30px" }}>
+            {" "}
+            Publish
+          &lt;/Link>
+        &lt;/div>
+        {/* &lt;div className="header__container-link more" onClick = {() => {setShowMore(!showMore)}}>
+          &lt;Link to="" >
+            {" "}
+            More &lt;MdOutlineKeyboardArrowDown className="arrow" />{" "}
+          &lt;/Link>
+          {showMore &amp;&amp;
+            &lt;div className="account__dropdown" style={{ height: '56px' }}>
+              &lt;div className="account__dropdown-item">
+                Copy Event
+              &lt;/div>
+            &lt;/div>}
+        &lt;/div> */}
+        &lt;div
+          className="header__container-right"
+          style={{ marginLeft: "-15px" }}
+          onClick={() => setShowAccountSetting(!showAccountSetting)}
+        >
+          &lt;div className="circular__name">
+            {" "}
+            {userFirstName[0]}
+            {userLastName[0]}
+          &lt;/div>
+          &lt;div className="user__name" style={{ cursor: "pointer" }}>
+            &lt;span className="login__name-header pr-10"> {userFullname}&lt;/span>{" "}
+            {showAccountSetting ? (
+              &lt;MdKeyboardArrowUp className="arrow" />
+            ) : (
+              &lt;MdOutlineKeyboardArrowDown className="arrow" />
+            )}
+          &lt;/div>
+          {showAccountSetting &amp;&amp; (
+            &lt;div className="account__dropdown">
+              &lt;div className="account__dropdown-item">
+                &lt;HiOutlineSwitchHorizontal className="account__logo" />{" "}
+                &lt;a href="#" style={{ fontWeight: "500" }}>
+                  &lt;span>Switching to attending&lt;/span>
+                &lt;/a>
+              &lt;/div>
+              &lt;div className="account__dropdown-item">
+                &lt;VscAccount className="account__logo" />{" "}
+                &lt;a href="#" style={{ fontWeight: "500" }}>
+                  &lt;span>Account Settings&lt;/span>
+                &lt;/a>
+              &lt;/div>
+              &lt;hr style={{ marginBottom: "3px", marginTop: "5px" }}>&lt;/hr>
+              &lt;div className="account__dropdown-item">
+                &lt;BiLogOut className="account__logo" />{" "}
+                &lt;a
+                  onClick={() => dispatch(logOut())}
+                  href="/login"
+                  style={{ fontWeight: "500" }}
+                >
+                  &lt;span>Log out&lt;/span>
+                &lt;/a>
+              &lt;/div>
+            &lt;/div>
+          )}
+        &lt;/div>
+      &lt;/div>
+      {MenuShow &amp;&amp; (
+        &lt;div className="details-menu">
+          &lt;button
+            className="menu"
+            onClick={() => setToggleSidebar(!toggleSidebar)}
+          >
+            &lt;AiOutlineMenu className="menu-logo" />
+          &lt;/button>{" "}
+          Details{" "}
+        &lt;/div>
+      )}
+    &lt;/div>
+  );
+};
+
+export default CreatorHeader;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

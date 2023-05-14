@@ -69,15 +69,15 @@ const Profile = () => {
   const handleImgError = () => {
     setImgSrc(emptyprofile);
   };
+  const { data: Orders } = useGetordersQuery(undefined, {
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
   const refetch = () => {
     refetchFollowingUsers();
     refetchLikedEvents();
   };
 
-  const { data: Orders } = useGetordersQuery(undefined, {
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  });
   useEffect(() => {
     refetch();
   }, []);
@@ -118,15 +118,18 @@ const Profile = () => {
                     }}
                   />
                 </div>
-                <div style={{ display: "flex" ,marginLeft:15 }}>
-                <a href="#" style={{ color: "grey", fontSize: 15,display:"flex" }}>
-                      {Orders?.length}
-                      <p
+                <div style={{ display: "flex", marginLeft: 15 }}>
+                  <a
+                    href="#"
+                    style={{ color: "grey", fontSize: 15, display: "flex" }}
+                  >
+                    {Orders?.length}
+                    <p
                       style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
                     >
                       Orders
                     </p>
-                    </a>
+                  </a>
                   <a
                     href="#"
                     style={{
@@ -139,15 +142,21 @@ const Profile = () => {
                     .
                   </a>
                   <div style={{ display: "flex" }}>
-                    <a href="/Likes" style={{ color: "grey", fontSize: 15,display:"flex" }}>
+                    <a
+                      href="/Likes"
+                      style={{ color: "grey", fontSize: 15, display: "flex" }}
+                    >
                       {likedEvents?.length}
                       <p
-                      style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
-                    >
-                      Likes
-                    </p>
+                        style={{
+                          color: "grey",
+                          fontSize: 15,
+                          marginLeft: "13%",
+                        }}
+                      >
+                        Likes
+                      </p>
                     </a>
-                    
                   </div>
                   <a
                     href="#"
@@ -177,13 +186,13 @@ const Profile = () => {
           <div className="compon">
             <h5>Orders</h5>
             <div className="orderecss">
-            {Orders?.map((order) => (
-                      <OrderComp
-                        data_testid= "Order-Form-id"
-                        id = {order.event_id}
-                        order = {order}
-                      />
-                  ))}
+              {Orders?.map((order) => (
+                <OrderComp
+                  data_testid="Order-Form-id"
+                  id={order.event_id}
+                  order={order}
+                />
+              ))}
             </div>
             <button id="btn_prof_id" className="btn_prof">
               {" "}
@@ -237,7 +246,9 @@ const Profile = () => {
             </div>
             <hr className="zzz"></hr>
             <div className="follblk_prof">
-              <div style={{ display: "flex", marginTop: 25,paddingBottom:20 }}>
+              <div
+                style={{ display: "flex", marginTop: 25, paddingBottom: 20 }}
+              >
                 <p className="intersts_prof">Following</p>
                 <a href="#" className="events_prof">
                   See events

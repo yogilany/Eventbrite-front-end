@@ -12,10 +12,12 @@ export const isValidEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
 export const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
+    .matches(/^[a-zA-Z]+$/, "Only alphabets are allowed")
     .required("First name is required")
     .min(2, "Too Short!")
     .max(50, "Too Long!"),
   lastName: Yup.string()
+    .matches(/^[a-zA-Z]+$/, "Only alphabets are allowed")
     .required("Last name is required")
     .min(2, "Too Short!")
     .max(50, "Too Long!"),

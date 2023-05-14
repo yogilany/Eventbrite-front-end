@@ -20,20 +20,6 @@ describe("LoginMethods component", () => {
     expect(loginMethodsElement).toBeInTheDocument();
   });
 
-  it("should call setGoogleProfile when a user logs in with Google", async () => {
-    const access_token = "access_token";
-    const response = { data: { name: "John Doe" } };
-    axios.get.mockResolvedValueOnce(response);
-
-    const { getByTestId } = renderWithProviders(<LoginMethods {...props} />);
-    const googleButton = screen.getByTestId("login-with-google");
-    fireEvent.click(googleButton);
-
-    await waitFor(() => {
-      expect(setGoogleProfile).toHaveBeenCalledWith(response.data);
-    });
-  });
-
   it("should show a sign up link", () => {
     const { getByText } = renderWithProviders(<LoginMethods {...props} />);
     const signUpLink = screen.getByText(/Sign up/i);

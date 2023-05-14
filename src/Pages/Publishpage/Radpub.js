@@ -12,13 +12,13 @@ const Radpub = (props) => {
   const [isPublic, setIsPublic] = useState(true);
   const [eventDate, setEventDate] = useState(props.date);
   const [eventTime, setEventTime] = useState(props.time);
-  
+
   const renderaudience = (event) => {
+    console.log(event.target.value, "aaaaaa ", isPublic);
     setval(event.target.value);
-    if (val === "public")
-      setIsPublic(true);
-    else
-      setIsPublic(false);
+    if (val === "public") setIsPublic(false);
+    else setIsPublic(true);
+    console.log(event.target.value, "aaaaaa ", isPublic);
   };
   return (
     <div data-testid={props.data_testid} className={props.className}>

@@ -28,8 +28,4 @@ $unselected-text-color: #6f7287;
   :invalid:focus + label {
     color: $error-text-color;
   }
-  // :valid:focus + label {
-  //   color: $selected-text-color;
-  // }
-
 }

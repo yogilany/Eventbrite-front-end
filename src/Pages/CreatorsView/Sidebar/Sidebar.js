@@ -63,89 +63,50 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
   //   }
   // })
   return (
-    <div className="sidebar">
-      <div className="sidebar__links">
-        <OverlayTrigger
-          placement="right"
-          overlay={
-            <Tooltip >
-              Home
-            </Tooltip>
-          }
-        >
-          <a href="#" >
+    <div className="sidebar" data-testid="sidebar">
+      <div className="sidebar__links" data-testid="sidebar-links">
+        <OverlayTrigger placement="right" overlay={<Tooltip>Home</Tooltip>}>
+          <a href="#">
             <AiOutlineHome className="logo" />
           </a>
         </OverlayTrigger>
-        <OverlayTrigger
-          placement="right"
-          overlay={
-            <Tooltip >
-              Events
-            </Tooltip>
-          }
-        >
-        <a href="/manage-events">
-          <BsCalendar2Date className="logo" />
-        </a>
+        <OverlayTrigger placement="right" overlay={<Tooltip>Events</Tooltip>}>
+          <a href="/manage-events">
+            <BsCalendar2Date className="logo" />
+          </a>
+        </OverlayTrigger>
+
+        <OverlayTrigger placement="right" overlay={<Tooltip>Orders</Tooltip>}>
+          <a href="#">
+            <HiOutlineClipboardList className="logo" />
+          </a>
         </OverlayTrigger>
 
         <OverlayTrigger
           placement="right"
-          overlay={
-            <Tooltip >
-              Orders
-            </Tooltip>
-          }
+          overlay={<Tooltip>Marketing</Tooltip>}
         >
-        <a href="#">
-          <HiOutlineClipboardList className="logo" />
-        </a>
+          <a href="#">
+            <TfiAnnouncement className="logo" />
+          </a>
         </OverlayTrigger>
 
-        <OverlayTrigger
-          placement="right"
-          overlay={
-            <Tooltip >
-              Marketing
-            </Tooltip>
-          }
-        >
-        <a href="#">
-          <TfiAnnouncement className="logo" />
-        </a>
+        <OverlayTrigger placement="right" overlay={<Tooltip>Reports</Tooltip>}>
+          <a href="#">
+            <SiSimpleanalytics className="logo" />
+          </a>
         </OverlayTrigger>
 
-        <OverlayTrigger
-          placement="right"
-          overlay={
-            <Tooltip >
-              Reports
-            </Tooltip>
-          }
-        >
-        <a href="#">
-          <SiSimpleanalytics className="logo" />
-        </a>
-        </OverlayTrigger>
-
-        <OverlayTrigger
-          placement="right"
-          overlay={
-            <Tooltip >
-              Finance
-            </Tooltip>
-          }
-        >
-        <a href="#">
-          <SiEsphome className="logo" />
-        </a>
+        <OverlayTrigger placement="right" overlay={<Tooltip>Finance</Tooltip>}>
+          <a href="#">
+            <SiEsphome className="logo" />
+          </a>
         </OverlayTrigger>
 
         <a href="#">
           <FiSettings className="logo" />
         </a>
-        <div className="footer">
+        <div className="footer" data-testid="footer">
           <a href="#">
             <AiOutlineAppstore className="logo" />
           </a>
@@ -155,7 +116,10 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
         </div>
       </div>
       {(windowWidth > 792 && !toggleSidebar) || !HideMenu ? (
-        <div className="sidebar__Event-options">
+        <div
+          className="sidebar__Event-options"
+          data-testid="sidebar-event-options"
+        >
           <a
             className="events__link"
             href="/manage-events"
