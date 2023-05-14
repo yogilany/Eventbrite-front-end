@@ -19,7 +19,6 @@ import axios from "axios";
  */
 
 export const HomePage = () => {
-  window.scrollTo(0, 0)
 
   // console.log("USERR", window.User);
   const [location, setLocation] = useState(null);
@@ -38,6 +37,11 @@ export const HomePage = () => {
       height: window.innerHeight,
     };
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+
+  }, [])
 
   useEffect(() => {
     const updateDimension = () => {
