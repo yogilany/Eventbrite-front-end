@@ -18,7 +18,7 @@ const DateTime = (props) => {
   // const date = new Date(dateandtime);
 
   const [dateInput, setDate] = useState(new Date().toISOString().slice(0, -14));
-  const [timeInput, setTime] = useState(new Date().getTime());
+  const [timeInput, setTime] = useState("12:30");
   const publicevent = props.public;
 
   const navigate = useNavigate();
