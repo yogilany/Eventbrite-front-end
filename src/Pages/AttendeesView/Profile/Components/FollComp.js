@@ -11,8 +11,12 @@ import { Avatar } from "@mui/material";
 import FollowButton from "src/Components/FollowButton/FollowButton";
 /**
  * @author Ziad Ezzat
- * @param {string} props.text
- * @param {string} props.data_testid
+ * @param {string} props.className    @description Pass the ClassName To update the styling in CSS
+ * @param {string} props.firstname    @description First Name of The followed User
+ * @param {string} props.lastname     @description Last Name of The followed User
+ * @param {string} props.avatar_url   @description Image of The followed User
+ * @param {string} props.data_testid  @description used in unit testing
+ * @param {string} props.id           @description ID of followed User
  * @description This is container for Following box found in Profile page showing following pages and it takes text as props to show name of the page that user is following
  * @returns {JSX.Element of following component used in Profile Page}
  */

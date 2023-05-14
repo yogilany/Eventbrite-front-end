@@ -5,7 +5,9 @@ import { useGetEventByIdQuery } from "src/features/api/eventApi";
 import EventImage from "src/Pages/AttendeesView/SingleEvent/Components/EventImage";
 /**
  * @author Ziad Ezzat
- * @param {string} props.data_testid
+ * @param {string} props.data_testid @description Used in Testing
+ * @param {string} props.id          @description ID of order
+ * @param {string} props.order       @description To get the order itself
  * @description This container shows the order component used in profile page showing The ordered event with some information of this event like date and location.
  * @returns {JSX.Element of order component found in profile page}
  */

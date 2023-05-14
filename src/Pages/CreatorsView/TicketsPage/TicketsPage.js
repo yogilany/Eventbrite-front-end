@@ -137,7 +137,7 @@ const Tickets = ({ event, setEvent }) => {
           type: "vip",
           name: ticketName,
           max_quantity: ticketQuantity,
-          price: ticketPrice,
+          price: !freeBtn ? ticketPrice :'0',
           sales_end_date_time: dateEnd.toISOString().slice(0, -5),
           sales_start_date_time: dateStart.toISOString().slice(0, -5),
         },

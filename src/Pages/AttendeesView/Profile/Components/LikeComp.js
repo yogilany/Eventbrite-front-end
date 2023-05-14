@@ -14,12 +14,16 @@ import { useGetEventByIdQuery } from "src/features/api/eventApi";
 
 /**
  * @author Ziad Ezzat
- * @param {string} props.data_testid
+ * @param {string} props.image_link       @description Image of the liked event
+ * @param {string} props.id               @description ID of the liked event
+ * @param {string} props.data_testid      @description Used in unit testing
+ * @param {string} props.title            @description Title of the liked event
+ * @param {string} props.start_date_time  @description Start time of the liked event
  * @description This container shows the like component used in profile page showing The liked event with some information of this event like date and location.
  * @returns {JSX.Element of like component found in profile page}
  */
 const LikeComp = (props) => {
-  const [imgSrc, setImgSrc] = React.useState(props.image_link);
+  const [imgSrc, setImgSrc] = React.useState(props?.image_link);
   const { data: likedEvent } = useGetEventByIdQuery(props.id);
 
   const navigate = useNavigate();
@@ -31,9 +35,10 @@ const LikeComp = (props) => {
     navigate(`/event/${props.id}`);
   };
   return (
-    <div className="box_prof" data-testid={props.data_testid} onClick={hhh}>
+    <div className="box_prof" data-testid={props.data_testid} >
       <div className="cont_prof">
         <img
+          onClick={hhh}
           className="img_prof"
           src={imgSrc}
           onError={handleImgError}
