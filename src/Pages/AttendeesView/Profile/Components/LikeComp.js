@@ -31,10 +31,9 @@ const LikeComp = (props) => {
     navigate(`/event/${props.id}`);
   };
   return (
-    <div className="box_prof" data-testid={props.data_testid}>
+    <div className="box_prof" data-testid={props.data_testid} onClick={hhh}>
       <div className="cont_prof">
         <img
-          onClick={hhh}
           className="img_prof"
           src={imgSrc}
           onError={handleImgError}

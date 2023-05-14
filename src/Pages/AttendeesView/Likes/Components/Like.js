@@ -4,11 +4,16 @@ import { FiShare } from "react-icons/fi"
 import { BsFillSuitHeartFill } from "react-icons/bs"
 import { useGetEventByIdQuery } from "src/features/api/eventApi";
 import LikeButton from "src/Components/LikeButton/LikeButton";
+import { useNavigate } from "react-router";
 const Like = ({event}) => {
   const { data: likedEvent } = useGetEventByIdQuery(event.id);
+  const navigate = useNavigate();
+  const hhh = () => {
+    navigate(`/event/${event.id}`);
+  };
   return (
-    <div className="like__container">
-      <div className="like__container-left">
+    <div className="like__container" onClick={hhh} style={{cursor:"pointer"}}>
+      <div className="like__container-left" >
         <p className="title">{event.title}</p>
         <div className="date" style = {{marginLeft:'0px'}}>{new Date(likedEvent?.date_and_time?.end_date_time)
             .toUTCString()

@@ -10,7 +10,8 @@ const LikeButton = (props) => {
   const [likeEvent] = useLikeEventMutation();
   const [unlikeEvent] = useUnlikeEventMutation();
   const { data: isEventLiked } = useIsEventLikedQuery(props.id);
-  const likeBtnHandler = () => {
+  const likeBtnHandler = (event) => {
+    event.stopPropagation();
     if (isEventLiked) {
       unlikeEvent(props.id);
     } else {

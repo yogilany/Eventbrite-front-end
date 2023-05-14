@@ -250,7 +250,7 @@ const Profile = () => {
                 style={{ display: "flex", marginTop: 25, paddingBottom: 20 }}
               >
                 <p className="intersts_prof">Following</p>
-                <a href="#" className="events_prof">
+                <a href="/following" className="events_prof">
                   See events
                 </a>
                 <AiOutlineRight
