@@ -43,8 +43,8 @@ const ManageEvents = () => {
   const [gross, setGross] = useState(0);
 
   const handleCSV = () => {
-    filteredEvents.map(async (event) => {
-      await axios
+    filteredEvents.map( (event) => {
+       axios
         .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`, {
           headers: {
             ContentType: "application/json",
@@ -170,7 +170,7 @@ const ManageEvents = () => {
   return (
     <>
       <CreatorHeader data_testid="HDID" />
-      <OnlyLinksSideBar />
+      {/* <OnlyLinksSideBar /> */}
 
       <Container fluid className="mt-5 pl-24">
         <Row>
@@ -194,7 +194,7 @@ const ManageEvents = () => {
                 <option value="past">Past</option>
               </select>
               <MainOrangeButton
-                onClick={() => Navigate("./create-event")}
+                onClick={() => Navigate("/create-event")}
                 text="Create Event"
               />
             </div>

@@ -6,14 +6,19 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react';
 import axios from 'axios';
 import { is } from 'date-fns/locale';
+import { useSelector } from 'react-redux';
+import { selectUserToken } from 'src/features/authSlice';
 
-const AttendeeData = ({index, ticket, sendData, isPlaceorder,event, token, orderID,setIsCheckoutDone, isCheckoutDone, setIsCheckout,total}) => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+const AttendeeData = ({setIsSuccess,index, ticket, sendData, isPlaceorder,event, orderID,setIsCheckoutDone, isCheckoutDone, setIsCheckout,total}) => {
+    console.log("orderrrrr idddd", orderID)
+    const token = useSelector(selectUserToken);
+
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [email, setEmail] = useState("");
     const [firstname, setFisrtName] = useState("");
     const [lastName, setLastName] = useState("");
     const [ attendee, setAttendee] = useState({})
-    console.log("attendee ticket",ticket)
+    // console.log("attendee ticket",ticket)
 
     const handleChangeAttendee = (e) => {
         e.preventDefault();
@@ -35,20 +40,24 @@ const AttendeeData = ({index, ticket, sendData, isPlaceorder,event, token, order
     }
 
     const handleAddAttendee = async () => {
+      console.log("trying to add attendee event", event)
 
+      console.log("trying to add attendee", orderID)
 
       const Finalattendee = {
         "first_name": firstname,
         "last_name": lastName,
         "email": email,
-        "type_of_reseved_ticket": ticket.ticket_info.name,
+        "type_of_reseved_ticket": ticket.ticket.type,
         "order_id": orderID,
         "event_id": event.id
       }
+
       console.log("Finalattendee",Finalattendee)
 
 
       try {
+        console.log("trying to add attendee")
         const response = await axios.post(
           `${process.env.REACT_APP_BASE_API}/attendees/${event.id}/add_attendee`,
           Finalattendee,
@@ -58,7 +67,9 @@ const AttendeeData = ({index, ticket, sendData, isPlaceorder,event, token, order
           }
         );
         console.log("Res : ", response);
-        console.log("index -- total : ", index, total);
+        if(response.status === 200){
+          setIsSuccess(true)
+        }
         if(index === total ){
           setIsCheckout(false)
         }

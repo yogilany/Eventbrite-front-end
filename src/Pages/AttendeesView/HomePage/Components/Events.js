@@ -74,7 +74,7 @@ const Events = ({ location, events, setFree, setOnline, setToday, loading}) => {
             </div>
           </div> :   <Row className="justify-content-md-right">
             {events
-              ? events.map((event, index) => (
+              ? events.slice(0,12).map((event, index) => (
                   <EventCard
                     key={index}
                     eventTitle={event.basic_info.title}
@@ -88,8 +88,15 @@ const Events = ({ location, events, setFree, setOnline, setToday, loading}) => {
                     eventID={event.id}
                   />
                 ))
+                
               : "Loading..."}
           </Row>}
+          <Link to="/browse-events">
+                  <button className="darkOutlineBtn font-semibold " id="seeMoreEventsBtn">
+                    See More
+                  </button>
+                </Link>
+          
         </Container>
       ) : (
         <Container className="pt-5">
@@ -100,9 +107,11 @@ const Events = ({ location, events, setFree, setOnline, setToday, loading}) => {
               <h6 className="heading6">Try another location</h6>
             </Col>
           </Row>
+      
         </Container>
+        
       )}
-      {events.length != 0 ? (
+      {/* {events.length != 0 ? (
         <>
           <Hr />
           <Container className=" pl-5 pr-5 mb-5 mt-5" id="moreEventsSection">
@@ -139,7 +148,7 @@ const Events = ({ location, events, setFree, setOnline, setToday, loading}) => {
             </Row>
           </Container>
         </>
-      ) : null}
+      ) : null} */}
     </>
   );
 };

@@ -16,7 +16,7 @@ import { TbNumber1, TbNumber2, TbNumber3, TbNumber4 } from "react-icons/tb";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useContext, useEffect, useState, useRef } from "react";
 import { AppContext } from "../Details/Details";
-import { Nav } from "react-bootstrap";
+import { Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
 // console.log(window.innerWidth);
 /**
  * @author Mahmoud Khaled
@@ -34,11 +34,11 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
     "Tracking Pixels",
   ];
   const ManageAttendees = [
-    {name: "Orders", link: "/orders"},
-    {name: "Add Attendees", link: "/add-attendees"},
-    {name: "Emails to Attendees" , link: "/emails-to-attendees"},
-    {name: "Attendee List", link: "/attendee-list"},
-    {name: "Check-in", link: "/check-in"},
+    { name: "Orders", link: "/orders" },
+    { name: "Add Attendees", link: "/add-attendees" },
+    { name: "Emails to Attendees", link: "/emails-to-attendees" },
+    { name: "Attendee List", link: "/attendee-list" },
+    { name: "Check-in", link: "/check-in" },
   ];
   const sidebarOptions = useRef();
   const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
@@ -65,24 +65,83 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
   return (
     <div className="sidebar">
       <div className="sidebar__links">
-        <a href="#">
-          <AiOutlineHome className="logo" />
-        </a>
+        <OverlayTrigger
+          placement="right"
+          overlay={
+            <Tooltip >
+              Home
+            </Tooltip>
+          }
+        >
+          <a href="#" >
+            <AiOutlineHome className="logo" />
+          </a>
+        </OverlayTrigger>
+        <OverlayTrigger
+          placement="right"
+          overlay={
+            <Tooltip >
+              Events
+            </Tooltip>
+          }
+        >
         <a href="/manage-events">
           <BsCalendar2Date className="logo" />
         </a>
+        </OverlayTrigger>
+
+        <OverlayTrigger
+          placement="right"
+          overlay={
+            <Tooltip >
+              Orders
+            </Tooltip>
+          }
+        >
         <a href="#">
           <HiOutlineClipboardList className="logo" />
         </a>
+        </OverlayTrigger>
+
+        <OverlayTrigger
+          placement="right"
+          overlay={
+            <Tooltip >
+              Marketing
+            </Tooltip>
+          }
+        >
         <a href="#">
           <TfiAnnouncement className="logo" />
         </a>
+        </OverlayTrigger>
+
+        <OverlayTrigger
+          placement="right"
+          overlay={
+            <Tooltip >
+              Reports
+            </Tooltip>
+          }
+        >
         <a href="#">
           <SiSimpleanalytics className="logo" />
         </a>
+        </OverlayTrigger>
+
+        <OverlayTrigger
+          placement="right"
+          overlay={
+            <Tooltip >
+              Finance
+            </Tooltip>
+          }
+        >
         <a href="#">
           <SiEsphome className="logo" />
         </a>
+        </OverlayTrigger>
+
         <a href="#">
           <FiSettings className="logo" />
         </a>
@@ -136,14 +195,12 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
               marginTop: "2px",
               fontWeight: "600",
             }}
-          >
-           
-          </p>
+          ></p>
           <a
             href="#"
             style={{
               marginLeft: "30px",
-              marginTop: "-8px",
+              marginTop: "8px",
               marginBottom: "15px",
             }}
             className="preview__link"
@@ -193,36 +250,39 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
           ></div>
           {/* <hr className='line' /> */}
           <div>
-            { inCreateEvent ? <Nav.Item>
-              <Nav.Link
-                eventKey="fifth"
-                className="EventOption"
+            {!inCreateEvent ? (
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="fifth"
+                  className="EventOption"
+                  style={{
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                  }}
+                >
+                  {" "}
+                  Dashboard
+                </Nav.Link>
+              </Nav.Item>
+            ) : null}
 
-                style={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                }}
-              >
-                {" "}
-                Dashboard
-              </Nav.Link>
-            </Nav.Item> : null}
-
-            { inCreateEvent ? <Nav.Item>
-              <Nav.Link
-                eventKey="sixth"
-                className="EventOption"
-                style={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                }}
-              >
-                {" "}
-                Add Attendees
-              </Nav.Link>
-            </Nav.Item> : null}
+            {!inCreateEvent ? (
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="sixth"
+                  className="EventOption"
+                  style={{
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                  }}
+                >
+                  {" "}
+                  Add Attendees
+                </Nav.Link>
+              </Nav.Item>
+            ) : null}
 
             <Dropdown Name="Order Options" Links={orderOptions} />
             <Dropdown Name="Marketing" Links={Marketing} />

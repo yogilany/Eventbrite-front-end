@@ -3,9 +3,9 @@ import TicketCard from "./TicketCard";
 import { useState } from "react";
 import axios from "axios";
 import MainOrangeButton from "../../../../Components/Buttons/MainOrangeButton";
-import { set } from "date-fns";
+import { add, set } from "date-fns";
 import { useForm } from "react-hook-form";
-import { Container, Row, Form } from "react-bootstrap";
+import { Container, Row, Form, Modal } from "react-bootstrap";
 import TextInputStyled from "../../../../Components/TextInput/TextInput";
 import LoginMethodsCSS from "../../../AttendeesView/Login/Components/LoginMethods.module.scss";
 import AttendeeData from "./AttendeeData";
@@ -13,6 +13,7 @@ import { AttachEmail } from "@mui/icons-material";
 import MainGrayButton from "src/Components/Buttons/MainGrayButton";
 import { useSelector } from "react-redux";
 import { selectUserToken } from "src/features/authSlice";
+import { Button } from "bootstrap";
 
 const Checkout = ({ setIsCheckout, img_url, event }) => {
   const token = useSelector(selectUserToken);
@@ -37,28 +38,72 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
 
   const [selectedTicket, setSelectedTicket] = useState([]);
   const [ticketsTypes, setTicketsTypes] = useState([]);
+  const [promocodes, setPromocodes] = useState([]);
+  const [promocode, setPromocode] = useState("");
+  const [addedPromocodes, setAddedPromocodes] = useState(null);
+
   const [totalTickets, setTotal] = useState(0);
   const [isFinalCheckout, setIsFinalCheckout] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const timerDuration = 1000;
   var count = 0;
 
   const [remainingTime, setRemainingTime] = useState(timerDuration);
 
-  const handleClose = () => {
-    setIsCheckout(false);
-  };
-  const fetchTicketsTypes = () => {
+  // const handleClose = () => {
+  //   setIsCheckout(false);
+  // };
+
+  const fetchPromocodes = () => {
     axios
-      .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`)
+      .get(`${process.env.REACT_APP_BASE_API}/promocodes/event_id/${event.id}`)
       .then(function (response) {
-        console.log("tickets", response);
-        setTicketsTypes(response.data);
+        console.log("promocodes", response.data);
+        setPromocodes(response.data);
       })
       .catch(function (error) {
         // handle error
         console.log("error", error);
       });
   };
+
+  const fetchTicketsTypes = () => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`)
+      .then(function (response) {
+        console.log("tickets", response);
+        setTicketsTypes(response.data);
+        updateTicketsQuantity();
+
+
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("error", error);
+      });
+  };
+
+  const updateTicketsQuantity = async () => {
+    // update the quantity of tickets
+    ticketsTypes.map(async (ticket) => {
+      axios
+      .put(`${process.env.REACT_APP_BASE_API}/tickets/ticket_id/${ticket.id}/quantity/${-1}`,{quantity: -1})
+      .then(function (response) {
+        console.log("tickets u[date", response);
+        setTicketsTypes(response.data);
+
+
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("error", error);
+      });
+    });
+  }
+
 
   const handleAddTicket = (ticket, quantity) => {
     const newTicket = {
@@ -109,6 +154,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
 
   useEffect(() => {
     fetchTicketsTypes();
+    fetchPromocodes();
   }, []);
 
   useEffect(() => {
@@ -156,6 +202,46 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
     }
   };
 
+  const handlePromocode =  () => {
+    // check if promocode is found the promocodes array 
+    console.log("promocode", promocode)
+
+    // check if promo code is found in the added promocodes array
+    if(addedPromocodes){
+      console.log("promocode already added");
+      return;
+    }
+
+
+    const index = promocodes.findIndex((pc) => pc.name == promocode);
+    if (index != -1) {
+      
+      console.log("promocode found" , promocodes[index]);
+      // update the total price
+      const promocode = promocodes[index];
+      if(promocode.is_percentage){
+        const discount = totalTickets * promocode.discount / 100;
+        setTotal(totalTickets - discount);
+        setAddedPromocodes(discount);
+
+      }
+      else{
+        setTotal(totalTickets - promocode.discount_amount);
+        setAddedPromocodes(promocode);
+
+
+      }
+
+
+      // finalOrder.price = finalOrder.price - promocodes[index].discount;
+    }
+    else{
+      console.log("promocode not found");
+
+    }
+  };
+
+
   const handlePlaceOrder = async () => {
     setIsPlaceOrder(true);
     const finalOrder = {
@@ -169,6 +255,8 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
     };
 
     console.log("finalOrder", finalOrder, token);
+
+    
 
     try {
       const response = await axios.post(
@@ -217,6 +305,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
   //       }  }, [isPlaceorder]);
   return (
     <>
+    
       <div
         className="fixed inset-0 z-40"
         style={{ backgroundColor: "#39364f", opacity: "0.7" }}
@@ -282,6 +371,32 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
                       ))
                     ) : (
                       <div>
+                        <div className="mb-4">
+                                 <h2 className="font-bold text-2xl mb-4">
+                          Promocodes
+                        </h2>
+                        <Form.Floating
+                                    className={LoginMethodsCSS["form-floating"]}
+                                  >
+                                    <TextInputStyled
+                                    className="mb-2"
+                                      id="login-email-input"
+                                      data-testid="login-email-input"
+                                     
+                                      autoComplete="off"
+                                      name="promocode"
+                                      type="text"
+                                      value={promocode}
+                                      onChange={(e) =>
+                                        setPromocode(e.target.value)
+                                      }
+                                      isInvalid={errors?.email}
+                                      required
+                                    />
+                                    <label>Promocode</label>
+                                  </Form.Floating>
+                                  <MainOrangeButton  text="Apply" className="mt-2" onClick={handlePromocode}/>
+                                  </div>
                         <h2 className="font-bold text-2xl mb-4">
                           Contact information
                         </h2>
@@ -301,11 +416,14 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
                             //   data-testid={propdata_testid}
                           >
                             <Row className="mb-3 overflow-scroll">
+                              
                               <Form.Group
                                 className="p-0"
                                 style={{ width: "100%" }}
                               >
                                 <div className=" grid grid-cols-2 gap-2 my-2">
+                       
+
                                   <Form.Floating
                                     className={LoginMethodsCSS["form-floating"]}
                                   >
@@ -399,6 +517,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
                             </Row>
                           </Container>
                         </form>
+                        
                       </div>
                     )}
                   </div>
@@ -482,6 +601,17 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
                       ))}
 
                       <div>
+                    { addedPromocodes ? <div
+                          className="flex justify-between"
+                          style={{
+                            fontSize: "0.825rem",
+                            lineHeight: "22px",
+                            // fontWeight: "600",
+                          }}
+                        >
+                          <span>Discount</span>
+                          <span>${addedPromocodes.discount_amount}</span>
+                        </div> : null}
                         <div
                           className="flex justify-between"
                           style={{
@@ -553,6 +683,8 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
           </div>
         </div>
       </div>
+
+
     </>
   );
 };

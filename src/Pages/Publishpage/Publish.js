@@ -15,7 +15,6 @@ const Publish = ({ event, setEvent }) => {
   return (
     <div>
       <CreatorHeader data_testid="HDID" />
-      {/* <Sidebar /> */}
 
       <div className="ppt">
         <h1 className="pubhead">Publish Your Event</h1>
