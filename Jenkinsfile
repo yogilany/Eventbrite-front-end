@@ -1,23 +1,23 @@
-pipeline 
-{
-    agent any
-    stages { 
-        stage('Test') {
+pipeline {
+     agent any
+     stages {
+           stage('Fetch code') {
             steps {
-                echo "we need to install dependancies first This step tests the project"
-               sh "pwd"
+                git branch: 'dev',
+                credentialsId: 'Elmeselhy',
+                url: 'https://github.com/AliKhalaf1/Eventbrite-front-end.git'
             }
         }
-        
-        stage('Deploy') {
+        stage("Build") {
             steps {
-                echo "This stage deploys the project"
+                sh "sudo npm install"
+                sh "sudo npm run build"
             }
-        }        
-        stage('Report') {
+        }
+        stage("Deploy") {
             steps {
-                echo "This stage generates a report"
-                
+                sh "sudo rm -rf /var/www/jenkins-react-app"
+                sh "sudo cp -r ${WORKSPACE}/build/ /var/www/jenkins-react-app/"
             }
         }
     }
