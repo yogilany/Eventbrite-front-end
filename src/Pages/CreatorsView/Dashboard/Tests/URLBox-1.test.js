@@ -7,7 +7,7 @@ describe("URLBox", () => {
   test("renders event URL", () => {
     render(<URLBox event={{ id: "123" }} />);
     expect(
-      screen.getByText("https://www.eventbrite.com/event/123")
+      screen.getByText("https://www.bort2an.com/event/123")
     ).toBeInTheDocument();
   });
 });
