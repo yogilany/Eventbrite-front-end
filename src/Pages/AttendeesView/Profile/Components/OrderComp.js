@@ -11,7 +11,9 @@ import EventImage from "src/Pages/AttendeesView/SingleEvent/Components/EventImag
  */
 const OrderComp = (props) => {
   const {data:event} = useGetEventByIdQuery(props.id);
-  const [imgSrc, setImgSrc] = React.useState(props.order.image_link);
+  //console.log("zeft",event);
+  const [imgSrc, setImgSrc] = React.useState(event?.image_link);
+  //console.log("data:",props.order); 
   const handleImgError = () => {
     setImgSrc(eventphoto);
   };
