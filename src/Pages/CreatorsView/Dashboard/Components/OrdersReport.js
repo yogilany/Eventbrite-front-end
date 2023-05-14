@@ -19,6 +19,11 @@ const OrdersReport = () => {
 
   const [orders, setOrders] = useState([]);
 
+  /**
+ * @author Yousef Gilany
+ * @description This is orders report page that shows the orders of the tickets of the event, it also contains the sidebar.
+ * @returns {React.FC}
+ */
   const fetchOrders = async () => {
     await axios
       .get(`${process.env.REACT_APP_BASE_API}/orders/event_id/${id}`, {

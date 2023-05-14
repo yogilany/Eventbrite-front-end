@@ -10,8 +10,6 @@ function Singleevent(props) {
   const startTimeRef = useRef(null);
   const endTimeRef = useRef(null);
   const setDateAtStart = () => {
-    // console.log(startDateRef.current.value);
-    // console.log(endDateRef.current.value);
     props.setStartDate(startDateRef.current.value);
     props.setEndDate(endDateRef.current.value);
   };

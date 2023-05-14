@@ -11,6 +11,15 @@ import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
 import TicketsPage from "../../../Pages/CreatorsView/TicketsPage/TicketsPage";
 import { createContext } from "react";
 export const AppCreateEvent = createContext({});
+
+
+
+
+/**
+ * @author Yousef Gilany
+ * @description This is the page that shows the create event page process and it contains the sidebar and the tabs of the create event page
+ * @returns {React.FC}
+ */
 const CreateEvent = () => {
   window.scrollTo(0, 0)
 

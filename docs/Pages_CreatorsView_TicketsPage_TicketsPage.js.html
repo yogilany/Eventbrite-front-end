@@ -51,7 +51,7 @@ export const AppEditContext = createContext({});
  * @returns {JSX.Element}
  */
 const Tickets = ({ event, setEvent }) => {
-  console.log("event in tickets: ", event);
+  // console.log("event in tickets: ", event);
   const [ID, setID] = useState(0);
   const [isFree, setIsFree] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -114,7 +114,7 @@ const Tickets = ({ event, setEvent }) => {
     sales_end_date_time: endTicketDate + "T" + ticketEndTime,
   };
   const handleSubmit = () => {
-    console.log(data);
+    // console.log(data);
     setIsTicketSavedSuccessfully(true);
   };
   const handleSubmitPromoCode = () => {
@@ -155,8 +155,8 @@ const Tickets = ({ event, setEvent }) => {
       ticketEndTime.slice(3, 5),
       ticketEndTime.slice(6, 8)
     );
-    console.log(endTicketDate);
-    console.log(ticketEndTime);
+    // console.log(endTicketDate);
+    // console.log(ticketEndTime);
     setEvent({
       ...event,
       tickets: [
@@ -165,13 +165,14 @@ const Tickets = ({ event, setEvent }) => {
           type: "vip",
           name: ticketName,
           max_quantity: ticketQuantity,
-          price: ticketPrice,
+          price: !freeBtn ? ticketPrice :'0',
           sales_end_date_time: dateEnd.toISOString().slice(0, -5),
           sales_start_date_time: dateStart.toISOString().slice(0, -5),
         },
       ],
     });
     setSuccess(true);
+    setFreeBtn(false); setDonationBtn(false); setAddmissionBtn(true);
   }
   function savePromoCode() {
     const dateStart = new Date(promoStartDate);
@@ -193,8 +194,8 @@ const Tickets = ({ event, setEvent }) => {
         {
           name: promoCodeName,
           is_limited: isLimited,
-          limited_amount: LimitedAmount,
-          current_amount: LimitedAmount,
+          limited_amount: isLimited ? LimitedAmount :'1',
+          current_amount: isLimited ? LimitedAmount :'1',
           is_percentage: isPercentage,
           discount_amount: discountAmount,
           start_date_time: dateStart.toISOString().slice(0, -5),
@@ -203,10 +204,10 @@ const Tickets = ({ event, setEvent }) => {
       ],
     });
     setSuccess(true);
-    // alert("Saved");
+    setIsLimited(false);
   }
   function updateTicket(id) {
-    console.log(event.tickets[id].sales_end_date_time);
+    // console.log(event.tickets[id].sales_end_date_time);
     const dateStart = new Date(startTicketDate);
     dateStart.setHours(
       ticketStartTime.slice(0, 2),
@@ -764,7 +765,7 @@ const Tickets = ({ event, setEvent }) => {
                   id={errorStartDate ? "start_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
-                  defaultValue="2023-03-04"
+                  defaultValue={new Date().toISOString().slice(0, -14)}
                   onChange={(e) => {
                     setStartTicketDate(e.target.value);
                     checkTicketStart();
@@ -794,7 +795,7 @@ const Tickets = ({ event, setEvent }) => {
                   id={isPastDate ? "end_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
-                  defaultValue="2023-03-04"
+                  defaultValue={new Date().toISOString().slice(0, -14)}
                   onChange={(e) => {
                     setEndTicketDate(e.target.value);
                     checkTicketEnd();
@@ -1376,13 +1377,13 @@ export default Tickets;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

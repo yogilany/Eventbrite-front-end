@@ -44,7 +44,7 @@ import { TbNumber1, TbNumber2, TbNumber3, TbNumber4 } from "react-icons/tb";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useContext, useEffect, useState, useRef } from "react";
 import { AppContext } from "../Details/Details";
-import { Nav } from "react-bootstrap";
+import { Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
 // console.log(window.innerWidth);
 /**
  * @author Mahmoud Khaled
@@ -52,7 +52,7 @@ import { Nav } from "react-bootstrap";
  * @description This is sidebar which displayed in Creator Pages (Publish , Details , Basic Info)
  * @returns {JSX.Element}
  */
-const Sidebar = ({ HideMenu, eventTitle }) => {
+const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
   const orderOptions = ["Order Form", "Order Confirmation", "Waitlist"];
   const Marketing = [
     "Add to Facebook",
@@ -62,11 +62,11 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
     "Tracking Pixels",
   ];
   const ManageAttendees = [
-    {name: "Orders", link: "/orders"},
-    {name: "Add Attendees", link: "/add-attendees"},
-    {name: "Emails to Attendees" , link: "/emails-to-attendees"},
-    {name: "Attendee List", link: "/attendee-list"},
-    {name: "Check-in", link: "/check-in"},
+    { name: "Orders", link: "/orders" },
+    { name: "Add Attendees", link: "/add-attendees" },
+    { name: "Emails to Attendees", link: "/emails-to-attendees" },
+    { name: "Attendee List", link: "/attendee-list" },
+    { name: "Check-in", link: "/check-in" },
   ];
   const sidebarOptions = useRef();
   const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
@@ -91,30 +91,50 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
   //   }
   // })
   return (
-    &lt;div className="sidebar">
-      &lt;div className="sidebar__links">
-        &lt;a href="#">
-          &lt;AiOutlineHome className="logo" />
-        &lt;/a>
-        &lt;a href="/manage-events">
-          &lt;BsCalendar2Date className="logo" />
-        &lt;/a>
-        &lt;a href="#">
-          &lt;HiOutlineClipboardList className="logo" />
-        &lt;/a>
-        &lt;a href="#">
-          &lt;TfiAnnouncement className="logo" />
-        &lt;/a>
-        &lt;a href="#">
-          &lt;SiSimpleanalytics className="logo" />
-        &lt;/a>
-        &lt;a href="#">
-          &lt;SiEsphome className="logo" />
-        &lt;/a>
+    &lt;div className="sidebar" data-testid="sidebar">
+      &lt;div className="sidebar__links" data-testid="sidebar-links">
+        &lt;OverlayTrigger placement="right" overlay={&lt;Tooltip>Home&lt;/Tooltip>}>
+          &lt;a href="#">
+            &lt;AiOutlineHome className="logo" />
+          &lt;/a>
+        &lt;/OverlayTrigger>
+        &lt;OverlayTrigger placement="right" overlay={&lt;Tooltip>Events&lt;/Tooltip>}>
+          &lt;a href="/manage-events">
+            &lt;BsCalendar2Date className="logo" />
+          &lt;/a>
+        &lt;/OverlayTrigger>
+
+        &lt;OverlayTrigger placement="right" overlay={&lt;Tooltip>Orders&lt;/Tooltip>}>
+          &lt;a href="#">
+            &lt;HiOutlineClipboardList className="logo" />
+          &lt;/a>
+        &lt;/OverlayTrigger>
+
+        &lt;OverlayTrigger
+          placement="right"
+          overlay={&lt;Tooltip>Marketing&lt;/Tooltip>}
+        >
+          &lt;a href="#">
+            &lt;TfiAnnouncement className="logo" />
+          &lt;/a>
+        &lt;/OverlayTrigger>
+
+        &lt;OverlayTrigger placement="right" overlay={&lt;Tooltip>Reports&lt;/Tooltip>}>
+          &lt;a href="#">
+            &lt;SiSimpleanalytics className="logo" />
+          &lt;/a>
+        &lt;/OverlayTrigger>
+
+        &lt;OverlayTrigger placement="right" overlay={&lt;Tooltip>Finance&lt;/Tooltip>}>
+          &lt;a href="#">
+            &lt;SiEsphome className="logo" />
+          &lt;/a>
+        &lt;/OverlayTrigger>
+
         &lt;a href="#">
           &lt;FiSettings className="logo" />
         &lt;/a>
-        &lt;div className="footer">
+        &lt;div className="footer" data-testid="footer">
           &lt;a href="#">
             &lt;AiOutlineAppstore className="logo" />
           &lt;/a>
@@ -124,7 +144,10 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
         &lt;/div>
       &lt;/div>
       {(windowWidth > 792 &amp;&amp; !toggleSidebar) || !HideMenu ? (
-        &lt;div className="sidebar__Event-options">
+        &lt;div
+          className="sidebar__Event-options"
+          data-testid="sidebar-event-options"
+        >
           &lt;a
             className="events__link"
             href="/manage-events"
@@ -164,14 +187,12 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
               marginTop: "2px",
               fontWeight: "600",
             }}
-          >
-           
-          &lt;/p>
+          >&lt;/p>
           &lt;a
             href="#"
             style={{
               marginLeft: "30px",
-              marginTop: "-8px",
+              marginTop: "8px",
               marginBottom: "15px",
             }}
             className="preview__link"
@@ -221,34 +242,39 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
           >&lt;/div>
           {/* &lt;hr className='line' /> */}
           &lt;div>
-            &lt;Nav.Item>
-              &lt;Nav.Link
-                eventKey="fifth"
-                className="EventOption"
-                style={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                }}
-              >
-                {" "}
-                Dashboard
-              &lt;/Nav.Link>
-            &lt;/Nav.Item>
-            &lt;Nav.Item>
-              &lt;Nav.Link
-                eventKey="sixth"
-                className="EventOption"
-                style={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                }}
-              >
-                {" "}
-                Add Attendees
-              &lt;/Nav.Link>
-            &lt;/Nav.Item>
+            {!inCreateEvent ? (
+              &lt;Nav.Item>
+                &lt;Nav.Link
+                  eventKey="fifth"
+                  className="EventOption"
+                  style={{
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                  }}
+                >
+                  {" "}
+                  Dashboard
+                &lt;/Nav.Link>
+              &lt;/Nav.Item>
+            ) : null}
+
+            {!inCreateEvent ? (
+              &lt;Nav.Item>
+                &lt;Nav.Link
+                  eventKey="sixth"
+                  className="EventOption"
+                  style={{
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                  }}
+                >
+                  {" "}
+                  Add Attendees
+                &lt;/Nav.Link>
+              &lt;/Nav.Item>
+            ) : null}
 
             &lt;Dropdown Name="Order Options" Links={orderOptions} />
             &lt;Dropdown Name="Marketing" Links={Marketing} />
@@ -383,13 +409,13 @@ export default Sidebar;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

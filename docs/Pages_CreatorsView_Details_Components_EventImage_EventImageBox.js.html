@@ -32,7 +32,7 @@ import { CgImage } from "react-icons/cg";
 import { BsDot } from "react-icons/bs";
 import UploadButton from "../UploadButton/UploadButton";
 import { SiCanva } from "react-icons/si";
-import AdelImam from '../../../../../assets/adel-10.png'
+import AdelImam from "../../../../../assets/adel-10.png";
 /**
  * @author Mahmoud Khaled
  * @param {}
@@ -52,28 +52,49 @@ const EventImageBox = (props) => {
           See Examples
         &lt;/a>
       &lt;/p>
-      
-        &lt;div className="EventImage__fileType">
-          {/* &lt;div className='EventImage__fileType-body'> */}
+      &lt;div className="EventImage__fileType">
+        {/* &lt;div className='EventImage__fileType-body'> */}
         {props.imageLink === "" &amp;&amp; &lt;CgImage className="photo" />}
-        {props.imageLink === "" &amp;&amp; &lt;h5 style={{ marginBottom: "15px" }}>Drag and drop an Image or&lt;/h5>}
-        {props.imageLink === "" &amp;&amp; &lt;div className="buttons__container" data-testid="btsContainer">
-          &lt;UploadButton
-            imageLink={props.imageLink}
-            setImageLink={props.setImageLink}
+        {props.imageLink === "" &amp;&amp; (
+          &lt;h5 style={{ marginBottom: "15px" }}>Drag and drop an Image or&lt;/h5>
+        )}
+        {props.imageLink === "" &amp;&amp; (
+          &lt;div className="buttons__container" data-testid="btsContainer">
+            &lt;UploadButton
+              imageLink={props.imageLink}
+              setImageLink={props.setImageLink}
+            />
+            &lt;button className="canvas-btn">
+              &lt;div className="flex flex-row ">
+                &lt;SiCanva className="canvas__logo" />
+                &lt;div className="ml-2">Design With Canvas&lt;/div>
+              &lt;/div>
+            &lt;/button>
+          &lt;/div>
+        )}
+      &lt;/div>
+      {props.imageLink !== "" &amp;&amp; (
+        &lt;div className="uploaded__Image">
+          &lt;img
+            alt="uploadedImage"
+            id="uploadedImage"
+            data-testid="uploadedImage"
+            src={props.imageLink}
+            className="uploaded Image"
+            style={{ width: "100%", height: "100%" }}
           />
-          &lt;button className="canvas-btn">
-            &lt;div className="flex flex-row ">
-              &lt;SiCanva className="canvas__logo" />
-              &lt;div className="ml-2">Design With Canvas&lt;/div>
-            &lt;/div>
-          &lt;/button>
-        &lt;/div>}
         &lt;/div>
-      {props.imageLink !== "" &amp;&amp; &lt;div className="uploaded__Image">
-        &lt;img src={props.imageLink} className="uploaded Image" />
-      &lt;/div>}
-      {props.imageLink !== "" &amp;&amp; &lt;button className="delete__uploaded-button" onClick={() => { props.setImageLink('');}}>Delete Photo&lt;/button>}
+      )}
+      {props.imageLink !== "" &amp;&amp; (
+        &lt;button
+          className="delete__uploaded-button"
+          onClick={() => {
+            props.setImageLink("");
+          }}
+        >
+          Delete Photo
+        &lt;/button>
+      )}
       &lt;div className="photo__requirement" data-testid="photo__requirements">
         &lt;p>
           &lt;BsDot className="dot" />
@@ -104,13 +125,13 @@ export default EventImageBox;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -9,7 +9,7 @@ import EventImage from "src/Pages/AttendeesView/SingleEvent/Components/EventImag
  * @param {string} props.id          @description ID of order
  * @param {string} props.order       @description To get the order itself
  * @description This container shows the order component used in profile page showing The ordered event with some information of this event like date and location.
- * @returns {JSX.Element of order component found in profile page}
+ * @returns {React.FC}
  */
 const OrderComp = (props) => {
   const { data: event } = useGetEventByIdQuery(props.id);

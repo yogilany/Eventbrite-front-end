@@ -2,6 +2,14 @@ import { set } from 'date-fns';
 import React from 'react'
 import { useState } from 'react'
 
+
+/**
+ * @author Anas Sherif
+ * @param {}
+ * @description This is the row component that shows the ticket data in the table.
+ * @returns {JSX.Element}
+ */
+
 const RowInput = ({ticket, tickets, setTickets}) => {
     const [quantity, setQuantity] = useState(0);
     const [facevalue, setFaceValue] = useState(0);

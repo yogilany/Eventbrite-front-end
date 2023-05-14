@@ -5,6 +5,11 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button, InputAdornment, TextField } from "@mui/material";
 
+  /**
+ * @author Yousef Gilany
+ * @description This is the component that shows the url of the event, it also contains the copy buttons.
+ * @returns {React.FC}
+ */
 const URLBox = ({ event }) => {
   const [editURL, setEditURL] = useState(false);
   const [URL, setURL] = useState(

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/AttendeesView/BrowseEvents/Event.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/AttendeesView/BrowseEvents/Event.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { Link } from "react-router-dom";
+
+
+/**
+ * @author Yousef Gilany
+ * @description This is the event card component that is used in the browse events page
+ * @returns {React.FC}
+ */
+
+const Event = ({ Title, Date, Organizer, Id, Image, Location, Price }) => {
+  return Title &amp;&amp; Date &amp;&amp; Organizer &amp;&amp; Image ? (
+    &lt;Link to={`/event/${Id}`}>
+      &lt;div className="grid grid-cols-3 p-4 bg-white hover:drop-shadow-xl  rounded w-full h-auto mb-2 transition">
+        &lt;div className="col-span-2 ">
+          &lt;h1
+            style={{
+              fontWeight: "600",
+              color: "#39364f",
+              fontSize: "1.125rem",
+              marginBottom: ".5rem",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              width: "280px",
+            }}
+          >
+            {Title}
+          &lt;/h1>
+          &lt;h2
+            style={{
+              fontWeight: "600",
+              color: "#d1410c",
+              fontSize: ".875rem",
+              lineHeight: "1.25rem",
+            }}
+          >
+            {Date}
+          &lt;/h2>
+          &lt;h2
+            style={{
+              fontWeight: "400",
+              color: "#6f7287",
+              fontSize: ".875rem",
+              lineHeight: "1.25rem",
+            }}
+          >
+            {Location}
+          &lt;/h2>
+          &lt;h2
+            style={{
+              fontWeight: "400",
+              color: "#6f7287",
+              fontSize: ".875rem",
+              lineHeight: "1.25rem",
+            }}
+          >
+            {Price == 0 ? "" : "$"}
+            {Price == 0 ? "Free" : Price}
+          &lt;/h2>
+
+          &lt;h2
+            style={{
+              marginTop: "1rem",
+              fontWeight: "600",
+              color: "#6f7287",
+              fontSize: ".875rem",
+              lineHeight: "1.25rem",
+            }}
+          >
+            {Organizer}
+          &lt;/h2>
+          &lt;div className="flex flex-row ">
+            &lt;svg
+              className="w-4 h-4 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.5}
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              &lt;path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+              />
+            &lt;/svg>
+            &lt;h2
+              style={{
+                fontWeight: "600",
+                color: "#6f7287",
+                fontSize: ".8rem",
+                lineHeight: "1.25rem",
+              }}
+            >
+              {" "}
+              100 Followers
+            &lt;/h2>
+          &lt;/div>
+        &lt;/div>
+        &lt;div className="col-span-1 text-right self-end ml-auto">
+          &lt;img className=" object-cover w-48 h-24" src={Image} alt="event" />
+          &lt;div className="flex flex-row justify-end mt-2">
+            &lt;button
+              type="button"
+              class="transition text-gray-600 bg-gray-0 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center  "
+            >
+              &lt;svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                &lt;path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
+                >&lt;/path>
+              &lt;/svg>
+              &lt;span class="sr-only">Icon description&lt;/span>
+            &lt;/button>
+            &lt;button
+              type="button"
+              class=" transition text-gray-600 bg-gray-0 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center  "
+            >
+              &lt;svg
+                              class="w-4 h-4"
+
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                &lt;path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                >&lt;/path>
+              &lt;/svg>
+              &lt;span class="sr-only">Icon description&lt;/span>
+            &lt;/button>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    &lt;/Link>
+  ) : (
+    &lt;Link to={`/event/${Id}`}  >
+    &lt;div className="grid grid-cols-3 p-4 bg-white hover:drop-shadow-2xl w-max h-auto mb-2">
+      &lt;div className="col-span-2">
+        &lt;h1
+          style={{
+            fontWeight: "600",
+            color: "#39364f",
+            fontSize: "1.125rem",
+            lineHeight: "1.5rem",
+            marginBottom: ".5rem",
+          }}
+        >
+          Title
+        &lt;/h1>
+        &lt;h2
+          style={{
+            fontWeight: "600",
+            color: "#d1410c",
+            fontSize: ".875rem",
+            lineHeight: "1.25rem",
+          }}
+        >
+          Date
+        &lt;/h2>
+        &lt;h2
+          style={{
+            fontWeight: "600",
+            color: "#d1410c",
+            fontSize: ".875rem",
+            lineHeight: "1.25rem",
+          }}
+        >
+          Location
+        &lt;/h2>
+
+        &lt;h2
+          style={{
+            fontWeight: "400",
+            color: "#6f7287",
+            fontSize: ".875rem",
+            lineHeight: "1.25rem",
+          }}
+        >
+          Organizer
+        &lt;/h2>
+      &lt;/div>
+      &lt;div className="col-span-1">
+        {/* &lt;img className=" object-cover w-48 h-24" src={Image} alt="event" /> */}
+      &lt;/div>
+    &lt;/div>
+    &lt;/Link>
+
+  );
+};
+
+export default Event;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

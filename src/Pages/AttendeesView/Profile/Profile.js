@@ -28,7 +28,7 @@ import { Col, Container, Row } from "react-bootstrap";
  * @author Ziad Ezzat
  * @param {}
  * @description This is container of Profile Page which shows profile of user showing some data like name ,orders,likes and following Pges.
- * @returns {JSX.Element of Profile Page}
+ * @returns {React.FC}
  */
 const Profile = () => {
   window.scrollTo(0, 0)

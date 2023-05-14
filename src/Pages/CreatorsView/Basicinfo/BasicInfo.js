@@ -15,9 +15,9 @@ import { Alert, Row, Col } from "react-bootstrap";
  */
 
 function Basicinfo({ event, setEvent, setEventTitle }) {
-  window.scrollTo(0, 0)
 
 
+  
   console.log("event in basic info: ", event);
 
   const [tags, setTags] = useState([]);
@@ -67,6 +67,10 @@ function Basicinfo({ event, setEvent, setEventTitle }) {
 
     setSuccess(true);
   }
+  useEffect(() => {
+    window.scrollTo(0, 0)
+
+  },[])
 
   useEffect(() => {
     setTimeout(() => {

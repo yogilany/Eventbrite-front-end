@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
+/**
+ * @author Yousef Gilany
+ * @description This is the event card component that is used in the browse events page
+ * @returns {React.FC}
+ */
+
 const Event = ({ Title, Date, Organizer, Id, Image, Location, Price }) => {
   return Title && Date && Organizer && Image ? (
     <Link to={`/event/${Id}`}>

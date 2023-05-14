@@ -1,6 +1,6 @@
 /**
  * @author Yousef Gilany
- * @description This is the tile component used for searching .
+ * @description This is the tile component used for reaching to the page that shows events by specific category.
  * @returns {React.FC}
  *
  *

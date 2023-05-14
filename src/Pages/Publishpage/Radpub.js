@@ -8,7 +8,7 @@ import DateTime from "./DateTime";
  * @param {string} props.time        @description Show time
  * @param {string} props.classname   @description Used in styling
  * @description This container shows the radio button container component used in publish page showing if you can make your event public or private.
- * @returns {JSX.Element of Radio buttons component found in publish page}
+ * @returns {JSX.Element}
  */
 const Radpub = (props) => {
   const [val, setval] = useState("public");

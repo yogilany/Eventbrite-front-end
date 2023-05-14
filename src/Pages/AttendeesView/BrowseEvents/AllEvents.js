@@ -24,12 +24,12 @@ import mapImage from "../../../assets/map.png";
 
 
 /**
- *
- * @param {*} param0
- * @returns
+ * @author Yousef Gilany
+ * @description This is the page that shows all events in the website
+ * @returns {React.FC}
  */
 
-const AllEvents = ({ toggle }) => {
+const AllEvents = () => {
   window.scrollTo(0, 0)
 
   const [location, setLocation] = React.useState(null);

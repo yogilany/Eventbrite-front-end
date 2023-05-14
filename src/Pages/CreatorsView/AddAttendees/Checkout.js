@@ -14,6 +14,13 @@ import { useSelector } from "react-redux";
 import { selectUserToken } from "src/features/authSlice";
 import AddAttendeesList from "./AddAttendeesList";
 
+/**
+ * @author Anas Sherif
+ * @param {}
+ * @description This is the same checkout component used in booking an event or a similar one.
+ * @returns {JSX.Element}
+ */
+
 const Checkout = ({ setIsCheckout, img_url, event, tickets, totalvalue }) => {
   const token = useSelector(selectUserToken);
 

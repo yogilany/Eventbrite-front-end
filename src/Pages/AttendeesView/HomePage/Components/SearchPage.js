@@ -14,10 +14,6 @@ import { Modal, Button } from "react-bootstrap";
  * @author Yousef Gilany
  * @description This is the Search modal to search for events.
  * @returns {React.FC}
- * @todo create the search input component.
- * @todo create the search results component.
- * @todo create the search filters component.
- * @todo create the advertised collection component.
  *
  */
 const SearchPage = ({ toggle, location }) => {

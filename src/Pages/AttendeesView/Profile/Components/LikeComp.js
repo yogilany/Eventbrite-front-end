@@ -20,7 +20,7 @@ import { useGetEventByIdQuery } from "src/features/api/eventApi";
  * @param {string} props.title            @description Title of the liked event
  * @param {string} props.start_date_time  @description Start time of the liked event
  * @description This container shows the like component used in profile page showing The liked event with some information of this event like date and location.
- * @returns {JSX.Element of like component found in profile page}
+ * @returns {React.FC}
  */
 const LikeComp = (props) => {
   const [imgSrc, setImgSrc] = React.useState(props?.image_link);

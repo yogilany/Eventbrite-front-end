@@ -13,6 +13,12 @@ import { Breadcrumbs, Link, Typography } from "@mui/material";
 import "./index.css"
 import { set } from "date-fns";
 
+/**
+ * @author Anas Sherif
+ * @param {}
+ * @description This is the page where we shows the events of a specific category.
+ * @returns {JSX.Element}
+ */
 const EventsByCategory = () => {
   window.scrollTo(0, 0)
 

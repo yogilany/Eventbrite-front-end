@@ -1,6 +1,13 @@
 import React from 'react'
 import AttendeeData from './AttendeeData'
 
+/**
+ * @author Anas Sherif
+ * @param {}
+ * @description This is the the component that renders the list of attendees based on the number of selected tickets.
+ * @returns {JSX.Element}
+ */
+
 const AddAttendeesList = ({ticketType,order_id, event, setIsSuccess}) => {
     console.log("order_id ",order_id)
     // console.log("ticketType",ticketType)

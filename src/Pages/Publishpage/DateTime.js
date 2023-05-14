@@ -6,11 +6,14 @@ import { useNavigate } from "react-router";
 import { useEffect } from "react";
 /**
  * @author Ziad Ezzat
- * @param {string} props.data_testid @description Used for testing
- * @param {string} props.public      @description Boolean to see if event is public or private
- * @param {string} props.event       @description Event itself
+ * @param {string} props.data_testid 
+ * @description Used for testing
+ * @param {string} props.public      
+ * @description Boolean to see if event is public or private
+ * @param {string} props.event       
+ * @description Event itself
  * @description This container shows the radio button container component used in publish page showing some data related to date and time of your event.
- * @returns {JSX.Element of Date and Tome component found in publish page}
+ * @returns {JSX.Element}
  */
 const DateTime = (props) => {
   const [val, setval] = useState("now");

@@ -35,6 +35,13 @@ import { changePassword, selectLoading } from "../../../features/authSlice";
 import * as Yup from "yup";
 import { useMemo } from "react";
 
+/**
+ * @description This is the Reset password page for the users view of the app
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {JSX.Element}
+ */
 const ResetPassword = (props) => {
   const {
     register,

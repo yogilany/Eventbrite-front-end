@@ -5,6 +5,12 @@ import "./tickets.css";
 import { RiPagesLine } from "react-icons/ri";
 import { AiOutlineArrowDown } from "react-icons/ai";
 import { useState } from "react";
+
+/**
+ * @author Ziad Ezzat
+ * @param {*} 
+ * @returns {JSX.Element}
+ */
 const Tickets = () => {
   const [ticketName, setTicketName] = useState("");
   const [ticketStartTime, setTiccketStartTime] = useState("");

@@ -9,6 +9,13 @@ import { is } from "date-fns/locale";
 import { useSelector } from "react-redux";
 import { selectUserToken } from "src/features/authSlice";
 
+/**
+ * @author Anas Sherif
+ * @param {}
+ * @description This is the the component that renders the attendee data for reserving a ticket.
+ * @returns {JSX.Element}
+ */
+
 const AttendeeData = ({
   setIsSuccess,
   index,

@@ -16,12 +16,12 @@ import { TbNumber1, TbNumber2, TbNumber3, TbNumber4 } from "react-icons/tb";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useContext, useEffect, useState, useRef } from "react";
 import { AppContext } from "../Details/Details";
-import { Nav } from "react-bootstrap";
+import { Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
 // console.log(window.innerWidth);
 /**
  * @author Mahmoud Khaled
  * @param {}
- * @description This is sidebar which displayed in Creator Pages (Publish , Details , Basic Info)
+ * @description This is sidebar which  contains only links
  * @returns {JSX.Element}
  */
 const OnlyLinksSideBar = ({ HideMenu }) => {
@@ -65,28 +65,48 @@ const OnlyLinksSideBar = ({ HideMenu }) => {
   return (
     <div className="sidebar">
       <div className="sidebar__links">
-        <a href="#">
-          <AiOutlineHome className="logo" />
-        </a>
-        <a href="#">
-          <BsCalendar2Date className="logo" />
-        </a>
-        <a href="#">
-          <HiOutlineClipboardList className="logo" />
-        </a>
-        <a href="#">
-          <TfiAnnouncement className="logo" />
-        </a>
-        <a href="#">
-          <SiSimpleanalytics className="logo" />
-        </a>
-        <a href="#">
-          <SiEsphome className="logo" />
-        </a>
+      <OverlayTrigger placement="right" overlay={<Tooltip>Home</Tooltip>}>
+          <a href="#">
+            <AiOutlineHome className="logo" />
+          </a>
+        </OverlayTrigger>
+        <OverlayTrigger placement="right" overlay={<Tooltip>Events</Tooltip>}>
+          <a href="/manage-events">
+            <BsCalendar2Date className="logo" />
+          </a>
+        </OverlayTrigger>
+
+        <OverlayTrigger placement="right" overlay={<Tooltip>Orders</Tooltip>}>
+          <a href="#">
+            <HiOutlineClipboardList className="logo" />
+          </a>
+        </OverlayTrigger>
+
+        <OverlayTrigger
+          placement="right"
+          overlay={<Tooltip>Marketing</Tooltip>}
+        >
+          <a href="#">
+            <TfiAnnouncement className="logo" />
+          </a>
+        </OverlayTrigger>
+
+        <OverlayTrigger placement="right" overlay={<Tooltip>Reports</Tooltip>}>
+          <a href="#">
+            <SiSimpleanalytics className="logo" />
+          </a>
+        </OverlayTrigger>
+
+        <OverlayTrigger placement="right" overlay={<Tooltip>Finance</Tooltip>}>
+          <a href="#">
+            <SiEsphome className="logo" />
+          </a>
+        </OverlayTrigger>
+
         <a href="#">
           <FiSettings className="logo" />
         </a>
-        <div className="footer">
+        <div className="footer" data-testid="footer">
           <a href="#">
             <AiOutlineAppstore className="logo" />
           </a>

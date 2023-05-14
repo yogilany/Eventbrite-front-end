@@ -28,6 +28,11 @@ const options = {
 };
 const formatter = new Intl.DateTimeFormat("en-US", options);
 
+/**
+ * @author Yousef Gilany
+ * @description This is the page that shows the manage event page process and it contains the sidebar and the tabs of the create event page. You can also export the events to a CSV file, and you can filter the events by upcoming and past events.
+ * @returns {React.FC}
+ */
 const ManageEvents = () => {
   const token = useSelector(selectUserToken);
   const Navigate = useNavigate();
@@ -164,7 +169,7 @@ const ManageEvents = () => {
   return (
     <>
       <CreatorHeader data_testid="HDID" />
-      {/* <OnlyLinksSideBar /> */}
+      <OnlyLinksSideBar />
 
       <Container fluid className="mt-5 pl-24">
         <Row>

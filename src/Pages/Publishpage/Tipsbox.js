@@ -5,7 +5,7 @@ import { AiOutlineRight } from "react-icons/ai";
  * @author Ziad Ezzat
  * @param {string} props.data_testid
  * @description This container shows the Tipsbox container component used in publish page showing some tips you can use like making promocodes for your ev ent.
- * @returns {JSX.Element of Tipsbox component found in publish page}
+ * @returns {JSX.Element}
  */
 const Tipsbox = (props) => {
   return (

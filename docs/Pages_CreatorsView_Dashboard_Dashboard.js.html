@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/CreatorsView/Dashboard/Dashboard.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/CreatorsView/Dashboard/Dashboard.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Importing Dependencies
+import React from "react";
+import Sidebar from "../Sidebar/Sidebar";
+import { Col, Container, Row } from "react-bootstrap";
+import "./Dashboard.scss";
+import URLBox from "./Components/URLBox-1";
+import SalesTable from "./Components/SalesTable-1";
+import OrdersTable from "./Components/OrdersTable-1";
+import DashboardHeader from "./Components/DashboardHeader-1";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUserToken } from "src/features/authSlice";
+import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
+
+/**
+ * @author Yousef Gilany
+ * @description This is the dashboard page that shows the sales and orders of the event, it also shows the url of the event, and the tickets of the event, it also contains the sidebar.
+ * @returns {React.FC}
+ */
+const Dashboard = ({ event }) => {
+  window.scrollTo(0, 0)
+
+  // console.log("event in dashhhhhh", event);
+  const token = useSelector(selectUserToken);
+  const [tickets, setTickets] = useState([]);
+  const [orders, setOrders] = useState([]);
+
+  const [totalTickets, setTotalTickets] = React.useState(0);
+  const [SoldTickets, setSoldTickets] = React.useState(0);
+  const [gross, setGross] = React.useState(0);
+
+  const fetchTickets = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`, {
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(function (response) {
+        // console.log("tickets", response.data);
+        setTickets(response.data);
+        // console.log("ticketssss", tickets);
+        setTotalTickets(0);
+        setSoldTickets(0);
+        setGross(0);
+        response.data.map((ticket) => {
+          setTotalTickets(totalTickets + ticket.max_quantity);
+          setSoldTickets(
+            SoldTickets + (ticket.max_quantity - ticket.available_quantity)
+          );
+          setGross(
+            gross +
+              (ticket.max_quantity - ticket.available_quantity) * ticket.price
+          );
+        });
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  };
+
+  const fetchOrders = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_BASE_API}/orders/event_id/${event.id}`, {
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(function (response) {
+        // console.log("ordders", response.data);
+        setOrders(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchTickets();
+    fetchOrders();
+  }, []);
+
+  return (
+    &lt;>
+      &lt;CreatorHeader data_testid="HDID" />
+      {/* &lt;Sidebar /> */}
+      &lt;div style={{ marginLeft: 450, marginTop: 20 }}>
+        &lt;Container fluid>
+          &lt;Container>
+            &lt;Row>
+              &lt;Col>
+                &lt;h1
+                  className="pubhead"
+                  style={{
+                    fontSize: "52px",
+                    fontFamily: "Neue Plak Bold !important",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Dashboard
+                &lt;/h1>
+              &lt;/Col>
+            &lt;/Row>
+          &lt;/Container>
+
+          &lt;DashboardHeader
+            tickets={tickets}
+            total={totalTickets}
+            sold={SoldTickets}
+          />
+          &lt;URLBox event={event} />
+          &lt;SalesTable tickets={tickets} event={event} />
+          &lt;OrdersTable orders={orders} event={event} />
+        &lt;/Container>
+      &lt;/div>
+    &lt;/>
+  );
+};
+
+export default Dashboard;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

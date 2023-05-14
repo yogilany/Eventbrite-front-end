@@ -13,8 +13,12 @@ import { useSelector } from "react-redux";
 import { selectUserToken } from "src/features/authSlice";
 import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
 
+/**
+ * @author Yousef Gilany
+ * @description This is the dashboard page that shows the sales and orders of the event, it also shows the url of the event, and the tickets of the event, it also contains the sidebar.
+ * @returns {React.FC}
+ */
 const Dashboard = ({ event }) => {
-  window.scrollTo(0, 0)
 
   // console.log("event in dashhhhhh", event);
   const token = useSelector(selectUserToken);
@@ -56,7 +60,10 @@ const Dashboard = ({ event }) => {
         console.log(error);
       });
   };
+  useEffect(() => {
+    window.scrollTo(0, 0)
 
+  },[])
   const fetchOrders = async () => {
     await axios
       .get(`${process.env.REACT_APP_BASE_API}/orders/event_id/${event.id}`, {

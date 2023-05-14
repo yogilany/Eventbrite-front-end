@@ -17,7 +17,7 @@ import {
  * @author Ziad Ezzat
  * @param {string} props.data_testid
  * @description This container shows header of the page.
- * @returns {JSX.Element of Header component found in publish page}
+ * @returns {JSX.Element}
  */
 const Headerpub = (props) => {
   const [showAccountSetting, setShowAccountSetting] = useState(false);

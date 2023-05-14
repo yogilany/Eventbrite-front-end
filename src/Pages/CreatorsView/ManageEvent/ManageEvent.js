@@ -16,8 +16,12 @@ import { set } from "date-fns";
 import { useGetTicketsQuery } from "src/features/api/ticketApi";
 import { useGetPromocodesQuery } from "src/features/api/promocodeApi";
 
+/**
+ * @author Yousef Gilany
+ * @description This is the page where you can manage the event and it contains the sidebar and the tabs of the manage event page
+ * @returns {React.FC}
+ */
 const ManageEvent = () => {
-  window.scrollTo(0, 0)
 
   const { id } = useParams();
   const {
@@ -42,6 +46,11 @@ const ManageEvent = () => {
 
   const [event, setEvent] = useState(null);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+
+  },[])
+  
   useEffect(() => {
     if (success && success2 && success3) {
       // setIsFetching(true);

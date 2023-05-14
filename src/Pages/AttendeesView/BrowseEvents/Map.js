@@ -4,7 +4,7 @@ import GoogleMapReact from "google-map-react";
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 /**
- * @description This is the Map component of the HomePage.
+ * @description This is the Map component of the HomePage. But it is not working right now
  * @date 5/9/2023 - 8:11:34 PM
  * @author Yousef Gilany
  *

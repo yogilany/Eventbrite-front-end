@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+/**
+ * @author Yousef Gilany
+ * @description The event card component used in the search page. 
+ * It shows the event's image, title, date, location, price, and the organizer's name and followers.
+ * @returns {React.FC}
+ *
+ */
 const EventHorizontal = ({ Title, date, Organizer,Id,Image }) => {
   return Title && date && Organizer  && Image ?   <Link to={`/event/${Id}`}  >
     <div className="grid grid-cols-3 p-4 bg-white hover:drop-shadow-2xl w-max h-auto mb-2">

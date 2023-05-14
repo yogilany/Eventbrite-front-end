@@ -9,12 +9,10 @@ import { WhiteButton } from "../../../../Components/Buttons/WhiteButton";
 import "../Login.scss";
 import LoginMethodsCSS from "./LoginMethods.module.scss";
 
-/**
+ /**
  * @description Login button methods for signing in with email, Google, Apple, Facebook
  * @date 5/8/2023 - 11:41:40 AM
  * @author h4z3m
- *
- * @param  {name: Name of this element after creation} props
  * @returns {*}
  */
 export const LoginMethods = (props) => {

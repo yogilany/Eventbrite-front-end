@@ -8,7 +8,7 @@ import CreatorHeader from "../CreatorsView/Details/Components/creatorHeader/Crea
  * @author Ziad Ezzat
  * @param {*} props
  * @description This is container of Publish Page which shows the events publised with some data related to this data,Choosing if it can be public or private and if you want to publish now or wait for scheduling it.
- * @returns {JSX.Element of Publish Page}
+ * @returns {JSX.Element}
  */
 const Publish = ({ event, setEvent }) => {
   window.scrollTo(0, 0)

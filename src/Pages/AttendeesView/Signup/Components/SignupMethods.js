@@ -8,10 +8,13 @@ import WhiteButton from "../../../../Components/Buttons/WhiteButton";
 import "../Signup.scss";
 
 /**
+ * @author h4z3m
  *
- * @param {name: Name of this element after creation} props
- * @returns Login button methods for signing in with email, Google, Apple, Facebook
+ * @param {*} props
+ * @returns {JSX.Element}
  */
+
+
 export const SignupMethods = (props) => {
   const signupGoogle = useGoogleLogin({
     onSuccess: (codeResponse) => {

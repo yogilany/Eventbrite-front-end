@@ -32,38 +32,8 @@ import { Alert, Row, Col, Container } from "react-bootstrap";
 import RowInput from "./RowInput";
 import MainOrangeButton from "src/Components/Buttons/MainOrangeButton";
 import Checkout from "./Checkout";
+import axios from "axios";
 
-const testEvent = {
-  creator_id: "2dg3f4g5h6j7k8l9",
-  basic_info: {
-    title: "Let's be loyal",
-    organizer: "Loyalty Organization",
-    category: "Loyalty",
-    sub_category: "Loyalty",
-  },
-  image_link: "https://www.example.com/image.png",
-  summary: "This is a summary of the event",
-  description: "This is a description of the event",
-  state: {
-    is_public: true,
-    publish_date_time: "2023-05-01T09:00:00",
-  },
-  date_and_time: {
-    start_date_time: "2023-05-01T15:30:00",
-    end_date_time: "2023-05-01T18:30:00",
-    is_display_start_date: true,
-    is_display_end_date: true,
-    time_zone: "US/Pacific",
-    event_page_language: "en-US",
-  },
-  location: {
-    is_online: false,
-    city: "San Francisco",
-  },
-  id: "2dg3f4g5h6j7k8l9",
-  price: 100,
-  is_free: false,
-};
 /**
  * @author Anas Sherif
  * @param {}
@@ -72,19 +42,38 @@ const testEvent = {
  */
 
 function AddAttendees({ event, setEvent }) {
+  const [ticketTypes, setTicketTypes] = useState(null);
+
   // define an array of ticket types to be used in the table
-  const [ticketTypes, setTicketTypes] = useState([
-    {
-      type: "General Admission",
-      sold: "0/200",
-      price: 5.0,
-    },
-    {
-      type: "VIP",
-      sold: "0/100",
-      price: 10.0,
-    },
-  ]);
+
+  const fetchTicketsTypes = () => {
+    setIsLoading(true);
+    axios
+      .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`)
+      .then(function (response) {
+        // console.log("tickets in add", response.data);
+
+        setTicketTypes(response.data);
+        setIsLoading(false);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("error", error);
+      });
+  };
+
+  // const [ticketTypes, setTicketTypes] = useState([
+  //   {
+  //     type: "General Admission",
+  //     sold: "0/200",
+  //     price: 5.0,
+  //   },
+  //   {
+  //     type: "VIP",
+  //     sold: "0/100",
+  //     price: 10.0,
+  //   },
+  // ]);
 
   const [orderType, setOrderType] = useState("check");
   const [totalvalue, setTotalValue] = useState(0);
@@ -92,6 +81,7 @@ function AddAttendees({ event, setEvent }) {
   const [error, setError] = useState([]);
   const [tickets, setTickets] = useState([]);
   const [isCheckOut, setIsCheckOut] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function saveData() {
     if (error.length !== 0) return;
@@ -118,8 +108,12 @@ function AddAttendees({ event, setEvent }) {
     });
     setTotalValue(total);
 
-    console.log("new ticketssss", tickets, total);
+    // console.log("new ticketssss", tickets, total);
   }, [tickets]);
+
+  useEffect(() => {
+    fetchTicketsTypes();
+  }, []);
 
   function quantityupdatehandler(e) {
     // set the total value of the tickets to the sume of each ticket type price * quantity
@@ -133,39 +127,45 @@ function AddAttendees({ event, setEvent }) {
               &lt;Container>
                 &lt;Row>
                   &lt;Col>
-                    {isCheckOut ? &lt;>&lt;a
-                    onClick={() => setIsCheckOut(false)}
-                      href="#"
-                      class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                        &lt;svg
-                        className="w-4 h-4 mr-2"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                      >
-                        &lt;path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                        >&lt;/path>
-                      &lt;/svg>
-                      Back to Add Attendees section
+                    {isCheckOut ? (
+                      &lt;>
+                        &lt;a
+                          onClick={() => setIsCheckOut(false)}
+                          href="#"
+                          class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        >
+                          &lt;svg
+                            className="w-4 h-4 mr-2"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                          >
+                            &lt;path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+                            >&lt;/path>
+                          &lt;/svg>
+                          Back to Add Attendees section
+                        &lt;/a>
+                        &lt;h1 className="eds-text-hm">
+                          Registration Information
+                        &lt;/h1>
+                      &lt;/>
+                    ) : (
+                      &lt;>
+                        {" "}
+                        &lt;h1 className="eds-text-hm">Add Attendees&lt;/h1>
+                        &lt;p className="eds-text-bm eds-l-mar-top-2">
+                          Manually add attendees info for complimentary tickets
+                          or offline payments
+                        &lt;/p>
+                      &lt;/>
+                    )}
 
-                    
-                    &lt;/a>
-                     &lt;h1 className="eds-text-hm">Registration Information
-&lt;/h1>
-                   &lt;/>: &lt;> &lt;h1 className="eds-text-hm">Add Attendees&lt;/h1>
-                    &lt;p className="eds-text-bm eds-l-mar-top-2">
-                      Manually add attendees info for complimentary tickets or
-                      offline payments
-                    &lt;/p>&lt;/>}
-
-                   
                     &lt;hr className="line" />
 
                     {!isCheckOut ? (
@@ -210,35 +210,61 @@ function AddAttendees({ event, setEvent }) {
                           * Eventbrite does not charge any fees for manual
                           orders.
                         &lt;/p>
-                        &lt;table className="l-mar-left-2 responsive-table js-d-table-stacked responsive-table--stacked mt-4">
-                          &lt;thead>
-                            &lt;tr>
-                              &lt;th>Ticket Type&lt;/th>
-                              &lt;th align="center">Sold&lt;/th>
-                              &lt;th align="center">Price *&lt;/th>
-                              &lt;th width="20%" align="center">
-                                Quantity
-                              &lt;/th>
-                              &lt;th width="20%" align="center">
-                                Face Value
-                              &lt;/th>
-                            &lt;/tr>
-                          &lt;/thead>
-                          &lt;tbody>
-                            {ticketTypes.map((ticketType) => (
+                        {!isLoading ? (
+                          &lt;table className="l-mar-left-2 responsive-table js-d-table-stacked responsive-table--stacked mt-4">
+                            &lt;thead>
                               &lt;tr>
-                                &lt;td>{ticketType.type}&lt;/td>
-                                &lt;td align="center">{ticketType.sold}&lt;/td>
-                                &lt;td align="center">{ticketType.price}&lt;/td>
-                                &lt;RowInput
-                                  ticket={ticketType}
-                                  setTickets={setTickets}
-                                  tickets={tickets}
-                                />
+                                &lt;th>Ticket Type&lt;/th>
+                                &lt;th align="center">Sold&lt;/th>
+                                &lt;th align="center">Price *&lt;/th>
+                                &lt;th width="20%" align="center">
+                                  Quantity
+                                &lt;/th>
+                                &lt;th width="20%" align="center">
+                                  Face Value
+                                &lt;/th>
                               &lt;/tr>
-                            ))}
-                          &lt;/tbody>
-                        &lt;/table>
+                            &lt;/thead>
+                            &lt;tbody>
+                              {ticketTypes
+                                ? ticketTypes.map((ticketType) => (
+                                    &lt;tr>
+                                      &lt;td>{ticketType.name}&lt;/td>
+                                      &lt;td align="center">{ticketType.sold}&lt;/td>
+                                      &lt;td align="center">{ticketType.price}&lt;/td>
+                                      &lt;RowInput
+                                        ticket={ticketType}
+                                        setTickets={setTickets}
+                                        tickets={tickets}
+                                      />
+                                    &lt;/tr>
+                                  ))
+                                : null}
+                            &lt;/tbody>
+                          &lt;/table>
+                        ) : (
+                          &lt;div class="flex items-center justify-center rounded-lg mb-36">
+                            &lt;div role="status">
+                              &lt;svg
+                                aria-hidden="true"
+                                class="w-12 h-12 mr-2 text-gray-200 animate-spin  fill-blue-600"
+                                viewBox="0 0 100 101"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                &lt;path
+                                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                  fill="currentColor"
+                                />
+                                &lt;path
+                                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                  fill="currentFill"
+                                />
+                              &lt;/svg>
+                              &lt;span class="sr-only">Loading...&lt;/span>
+                            &lt;/div>
+                          &lt;/div>
+                        )}
                         &lt;div className="flex flex-row justify-end m-0">
                           &lt;label
                             htmlFor="gross"
@@ -271,7 +297,12 @@ function AddAttendees({ event, setEvent }) {
                         &lt;/div>
                       &lt;/>
                     ) : (
-                      &lt;Checkout event={testEvent} setIsCheckOut={setIsCheckOut} tickets={tickets} totalvalue={totalvalue}/>
+                      &lt;Checkout
+                        event={event}
+                        setIsCheckOut={setIsCheckOut}
+                        tickets={tickets}
+                        totalvalue={totalvalue}
+                      />
                     )}
                   &lt;/Col>
                 &lt;/Row>
@@ -295,13 +326,13 @@ export default AddAttendees;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

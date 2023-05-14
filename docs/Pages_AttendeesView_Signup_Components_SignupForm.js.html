@@ -59,7 +59,7 @@ import {
 import HorizontalChip from "../../Login/Components/HorizontalChip";
 import "../Signup.scss";
 import { SignupSchema, getPasswordState, isValidEmail } from "./Signup-utils";
-import SignupFormCSS from "./SignupForm.module.css";
+import SignupFormCSS from "./SignupForm.module.scss";
 import "./SignupMethods";
 import SignupMethods from "./SignupMethods";
 import SignupVerifyModal from "./SignupVerifyModal";
@@ -78,7 +78,7 @@ export const SignupForm = (props) => {
   const [showSignUpInfo, setShowSignUpInfo] = useState(false);
   const [successful, setSuccess] = useState(false);
   const [privacyPolicyModalShow, setPrivacyPolicyModalShow] = useState(false);
-  const [emailExists, setEmailExists] = useState(false);
+  const [emailExists, setEmailExists] = useState(true);
   // const [submitPosition, setSubmitPosition] = useState("");
   // const [oldSubmitPosition, setOldSubmitPosition] = useState("");
   const [SocialProfile, setSocialProfile] = useState(null);
@@ -120,7 +120,7 @@ export const SignupForm = (props) => {
 
   const registerUserHandler = () => {
     if (SocialProfile) {
-      console.log("Social profile", SocialProfile);
+      // console.log("Social profile", SocialProfile);
       dispatch(checkEmailExists(SocialProfile.email))
         .unwrap(unwrapResult)
         .then(() => {
@@ -168,7 +168,7 @@ export const SignupForm = (props) => {
       dispatch(registerUser(data))
         .unwrap()
         .then(() => {
-          navigate("/login");
+          setVerificationEmailModalShow(true);
           setSuccess(true);
           // window.location.reload();
         })
@@ -280,7 +280,7 @@ export const SignupForm = (props) => {
               ) : null}
               &lt;InputGroup className="p-0">
                 &lt;Form.Group className="p-0" style={{ width: "100%" }}>
-                  &lt;Form.Floating>
+                  &lt;Form.Floating className={SignupFormCSS["form-floating"]}>
                     &lt;TextInputStyled
                       isInvalid={errors.email}
                       disabled={showSignUpInfo}
@@ -289,7 +289,7 @@ export const SignupForm = (props) => {
                       id="email-input"
                       {...register("email", { required: "Field required" })}
                     />
-                    &lt;label>Email Address&lt;/label>
+                    &lt;label htmlFor="email-input">Email Address&lt;/label>
                   &lt;/Form.Floating>
                   {errors.email &amp;&amp; (
                     &lt;Form.Text className="text-danger">
@@ -326,15 +326,17 @@ export const SignupForm = (props) => {
               }}
             >
               &lt;Form.Group className="p-0">
-                &lt;FloatingLabel label="Confirm Email">
+                &lt;Form.Floating className={SignupFormCSS["form-floating"]}>
                   &lt;TextInputStyled
                     type="email"
+                    placeholder="name@example.com"
                     data-testid="emailconfirm-input"
                     id="emailConfirm"
                     {...register("emailConfirm", { required: "Required" })}
                     isInvalid={errors?.emailConfirm}
                   />
-                &lt;/FloatingLabel>
+                  &lt;label htmlFor="emailconfirm-input">Confirm Email&lt;/label>
+                &lt;/Form.Floating>
                 {errors.emailConfirm &amp;&amp; (
                   &lt;Form.Text className="text-danger">
                     {errors.emailConfirm.message}
@@ -351,20 +353,19 @@ export const SignupForm = (props) => {
             >
               &lt;Stack direction="horizontal" gap={3} className="p-0">
                 &lt;Col>
-                  &lt;FloatingLabel
-                    className={SignupFormCSS["floating-label"]}
-                    label="First name"
-                  >
+                  &lt;Form.Floating className={SignupFormCSS["form-floating"]}>
                     &lt;TextInputStyled
+                      type="text"
+                      placeholder="John"
                       data-testid="firstname-input"
                       id="firstName-input"
-                      type="text"
                       isInvalid={errors?.firstName}
                       {...register("firstName", {
                         required: "First name is required",
                       })}
                     />
-                  &lt;/FloatingLabel>
+                    &lt;label htmlFor="firstname-input">First name&lt;/label>
+                  &lt;/Form.Floating>
                   &lt;Form.Text
                     className="text-danger"
                     style={{
@@ -375,13 +376,11 @@ export const SignupForm = (props) => {
                   &lt;/Form.Text>
                 &lt;/Col>
                 &lt;Col>
-                  &lt;FloatingLabel
-                    className={SignupFormCSS["floating-label"]}
-                    label="Last name"
-                  >
+                  &lt;Form.Floating className={SignupFormCSS["form-floating"]}>
                     &lt;TextInputStyled
                       data-testid="lastname-input"
                       type="text"
+                      placeholder="Doe"
                       id="lastName-input"
                       name="lastName-input"
                       isInvalid={errors?.lastName}
@@ -389,7 +388,8 @@ export const SignupForm = (props) => {
                         required: "Last name is required",
                       })}
                     />
-                  &lt;/FloatingLabel>
+                    &lt;label htmlFor="lastName-input">Last name&lt;/label>
+                  &lt;/Form.Floating>
                   &lt;Form.Text
                     className="text-danger"
                     style={{
@@ -408,9 +408,10 @@ export const SignupForm = (props) => {
               }}
             >
               &lt;Form.Group className="mb-3 p-0">
-                &lt;FloatingLabel label="Password">
+                &lt;Form.Floating className={SignupFormCSS["form-floating"]}>
                   &lt;TextInputStyled
                     type="password"
+                    placeholder="Password"
                     data-testid="password-input"
                     id="password-input"
                     name="password"
@@ -422,7 +423,8 @@ export const SignupForm = (props) => {
                       {errors.password.message}
                     &lt;/Form.Text>
                   )}
-                &lt;/FloatingLabel>
+                  &lt;label htmlFor="password-input">Password&lt;/label>
+                &lt;/Form.Floating>
               &lt;/Form.Group>
               &lt;LinearProgressWithLabel
                 defaultLabel="Your password must be at least 8 characters"
@@ -494,6 +496,7 @@ export const SignupForm = (props) => {
                 &lt;/div>
               &lt;/motion.div> */}
               &lt;OrangeButton
+                disabled={emailExists || errors.email}
                 data-testid="submit-button"
                 id="submit-button"
                 as="button"
@@ -543,13 +546,13 @@ export default SignupForm;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

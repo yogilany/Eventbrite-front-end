@@ -5,10 +5,12 @@ import "./Publish.css";
 import eventphoto from "../../assets/empt.png";
 /**
  * @author Ziad Ezzat
- * @param {string} props.data_testid @description Used in testing
- * @param {string} props.event       @description return the event from higher pages
+ * @param {string} props.data_testid 
+ * @description Used in testing
+ * @param {string} props.event       
+ * @description return the event from higher pages
  * @description This component shows the actual event that you want to publish
- * @returns {JSX.Element of event you want to create found in publish page}
+ * @returns {JSX.Element}
  */
 const Containerpub = (props) => {
   const data = props.event;

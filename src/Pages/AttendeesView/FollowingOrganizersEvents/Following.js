@@ -6,6 +6,13 @@ import FollowImage from "../../../assets/follow1.jpeg";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Header from "../../../Components/header/Header";
 import { useState } from "react";
+
+/**
+ * @author Mahmoud Khalid>
+ * @description This is the page where you can see only the events created by organizers you follow.
+ * @returns {React.FC}
+ */
+
 const FollowingOrgEvents = () => {
   const [counter, setCounter] = useState(1);
   return (

@@ -14,6 +14,11 @@ import { useNavigate } from "react-router";
 import Containerpub from "src/Pages/Publishpage/Containerpub";
 import CreatorHeader from "../../Details/Components/creatorHeader/CreatorHeader";
 
+/**
+ * @author Yousef Gilany
+ * @description This is sales report page that shows the sales of the tickets of the event, it also contains the sidebar.
+ * @returns {React.FC}
+ */
 const SalesReport = () => {
   const { id } = useParams();
   const token = useSelector(selectUserToken);

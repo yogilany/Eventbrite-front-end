@@ -9,7 +9,14 @@ import { Container } from "react-bootstrap";
 import { useParams } from "react-router";
 import { useGetUserQuery } from "src/features/api/userApi";
 
-// make function
+
+/**
+ *  
+ * @author Anas Sherif
+ * @returns {JSX.Element}
+ * @description This is the Organizer page for the users view of the app
+ * @param {*} props
+  */
 
 function Organizer() {
   const { id } = useParams();

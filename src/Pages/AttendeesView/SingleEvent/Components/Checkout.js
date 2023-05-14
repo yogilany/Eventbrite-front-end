@@ -15,6 +15,14 @@ import { useSelector } from "react-redux";
 import { selectUserToken } from "src/features/authSlice";
 import { Button } from "bootstrap";
 
+/**
+ * @description Checkout popup to book an event
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {JSX.Element}
+ */
+
 const Checkout = ({ setIsCheckout, img_url, event }) => {
   const token = useSelector(selectUserToken);
 

@@ -2,6 +2,7 @@ import react from 'react';
 import { useState } from 'react';
 import './Loctype.scss';
 
+
 function Loctype(props) {
     return (
         <div className="wrapper">
