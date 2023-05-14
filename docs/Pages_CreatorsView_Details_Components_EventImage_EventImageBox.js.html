@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/CreatorsView/Details/Components/EventImage/EventImageBox.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/CreatorsView/Details/Components/EventImage/EventImageBox.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import "./eventImageBox.css";
+import { CgImage } from "react-icons/cg";
+import { BsDot } from "react-icons/bs";
+import UploadButton from "../UploadButton/UploadButton";
+import { SiCanva } from "react-icons/si";
+import AdelImam from '../../../../../assets/adel-10.png'
+/**
+ * @author Mahmoud Khaled
+ * @param {}
+ * @description This is Main Event Image section in detials Page that used to upload an image or Design canvas
+ * @returns {JSX.Element}
+ */
+const EventImageBox = (props) => {
+  return (
+    &lt;div className="EventImage__container" data-testid="eventImage">
+      &lt;CgImage className="photo__header" />
+      &lt;h1 className="title__upload">Main Event Image&lt;/h1>
+      &lt;p style={{ fontSize: "14px" }}>
+        Add photos to show what your event will be about. You can upload up to
+        10 images.
+        &lt;a href="#" className="see__examples">
+          {" "}
+          See Examples
+        &lt;/a>
+      &lt;/p>
+      
+        &lt;div className="EventImage__fileType">
+          {/* &lt;div className='EventImage__fileType-body'> */}
+        {props.imageLink === "" &amp;&amp; &lt;CgImage className="photo" />}
+        {props.imageLink === "" &amp;&amp; &lt;h5 style={{ marginBottom: "15px" }}>Drag and drop an Image or&lt;/h5>}
+        {props.imageLink === "" &amp;&amp; &lt;div className="buttons__container" data-testid="btsContainer">
+          &lt;UploadButton
+            imageLink={props.imageLink}
+            setImageLink={props.setImageLink}
+          />
+          &lt;button className="canvas-btn">
+            &lt;div className="flex flex-row ">
+              &lt;SiCanva className="canvas__logo" />
+              &lt;div className="ml-2">Design With Canvas&lt;/div>
+            &lt;/div>
+          &lt;/button>
+        &lt;/div>}
+        &lt;/div>
+      {props.imageLink !== "" &amp;&amp; &lt;div className="uploaded__Image">
+        &lt;img src={props.imageLink} className="uploaded Image" />
+      &lt;/div>}
+      {props.imageLink !== "" &amp;&amp; &lt;button className="delete__uploaded-button" onClick={() => { props.setImageLink('');}}>Delete Photo&lt;/button>}
+      &lt;div className="photo__requirement" data-testid="photo__requirements">
+        &lt;p>
+          &lt;BsDot className="dot" />
+          Recommended image size: 2160 x 1080px
+        &lt;/p>
+        &lt;p>
+          &lt;BsDot className="dot" />
+          Maximum file size: 10MB
+        &lt;/p>
+        &lt;p>
+          &lt;BsDot className="dot" />
+          Supported image files: JPEG or PNG
+        &lt;/p>
+      &lt;/div>
+      {/* &lt;img src = {props.imageLink} /> */}
+    &lt;/div>
+  );
+};
+
+export default EventImageBox;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

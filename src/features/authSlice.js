@@ -55,8 +55,20 @@ export const authUser = createAsyncThunk(
         throw rejectWithValue(response.data.detail);
       }
     } catch (error) {
-      console.log(error);
-      return rejectWithValue(error?.response?.data?.detail);
+      switch (error.response.status) {
+        case 400:
+          return thunkAPI.rejectWithValue("Invalid email.");
+        case 401:
+          return thunkAPI.rejectWithValue(
+            "Wrong password or email is not verified."
+          );
+        case 404:
+          return thunkAPI.rejectWithValue("Email not found.");
+        case 422:
+          return thunkAPI.rejectWithValue("Validation error.");
+        default:
+          return thunkAPI.rejectWithValue("Unknown error.");
+      }
     }
   }
 );

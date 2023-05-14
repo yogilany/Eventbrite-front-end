@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/AttendeesView/BrowseEvents/AllEvents.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/AttendeesView/BrowseEvents/AllEvents.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+import { Container, Col, Row } from "react-bootstrap";
+import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import Header from "../../../Components/header/Header";
+import { useEffect } from "react";
+import { useState } from "react";
+import EventHorizontal from "../HomePage/Components/EventHorizontal";
+import { Placeholder, Card } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { selectLoading } from "../../../features/authSlice";
+import axios from "axios";
+import MainGrayButton from "src/Components/Buttons/MainGrayButton";
+import OutlineGrayButton from "src/Components/Buttons/OutlineGrayButton";
+import Event from "./Event";
+import GoogleMapReact from 'google-map-react';
+import mapImage from "../../../assets/map.png";
+
+
+
+
+
+
+
+
+/**
+ *
+ * @param {*} param0
+ * @returns
+ */
+
+const AllEvents = ({ toggle }) => {
+  const [location, setLocation] = React.useState(null);
+  const [events, setEvents] = React.useState([]);
+  const [serach, setSearch] = React.useState("");
+  const [newlocation, setNewLocation] = useState(location ? location : "Cairo");
+  const [loading, setLoading] = React.useState(true);
+
+  const fetchEvents = () => {
+    console.log("baseee location", location);
+
+    console.log("baseee", newlocation);
+    axios
+      .get(`${process.env.REACT_APP_BASE_API}/events/search`, {
+        params: { city: newlocation ? newlocation : location, title: serach ? serach : null},
+      })
+      .then(function (response) {
+        console.log("response", response.data);
+        setLoading(false);
+        setEvents(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+
+  useEffect(() => { 
+    setLoading(true);
+    fetchEvents();
+  }, [serach, newlocation]);
+
+
+  useEffect(() => {
+    async function fetchLocation() {
+      let url = "https://ipinfo.io/json?token=89085807858d6e";
+      let response = await fetch(url);
+      let data = await response.json();
+      console.log("locaation", data);
+      setLocation(data.city);
+    }
+
+    fetchLocation();
+
+    
+
+    const testLocation = {
+      hostname: "host-156.215.249.101-static.tedata.net",
+      city: "Cairo",
+      region: "Cairo",
+      country: "EG",
+      loc: "30.0626,31.2497",
+      org: "AS8452 TE-AS",
+      timezone: "Africa/Cairo",
+    };
+
+    setLocation(testLocation.city);
+  }, []);
+
+  const navigate = useNavigate();
+
+  const defaultProps = {
+    center: {
+      lat: 10.99835602,
+      lng: 77.01502627
+    },
+    zoom: 11
+  };
+  const AnyReactComponent = ({ text }) => &lt;div>{text}&lt;/div>;
+
+
+  return (&lt;>
+    &lt;Header location={location} />
+
+    &lt;Container fluid  className=" ">
+
+      &lt;Row className="">
+        
+        &lt;Col  md={9} >
+        &lt;div className="">
+                      &lt;div className="flex flex-row  p-6 pb-2">
+                        &lt;svg
+                          className="w-6 h-6 text-gray-600 mr-4"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                          aria-hidden="true"
+                        >
+                          &lt;path
+                            clipRule="evenodd"
+                            fillRule="evenodd"
+                            d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                          />
+                        &lt;/svg>
+                        &lt;input
+                          value={serach}
+                          onChange={(e) => {
+                            setSearch(e.target.value);
+                          }}
+                          type="search"
+                          id="default-search"
+                          className="  w-full text-xl mr-4  font-semibold  text-gary-700 focus:ring-0 focus:outline-none "
+                          placeholder="Serach for anything"
+                        />
+                        &lt;OutlineGrayButton text="Search"  />
+
+                     
+                      &lt;/div>
+                      &lt;div className="flex flex-row p-6 pt-2 ">
+                        &lt;svg
+                          className="w-6 h-6 text-gray-600 mr-4"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                          aria-hidden="true"
+                        >
+                          &lt;path
+                            clipRule="evenodd"
+                            fillRule="evenodd"
+                            d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z"
+                          />
+                        &lt;/svg>
+                        &lt;input
+                          defaultValue={location}
+                          value={newlocation}
+                          onChange={(e) => {
+                            setNewLocation(e.target.value);
+                          }}
+                          type="search"
+                          // id="default-search"
+                          className="   w-full text-xl font-semibold  text-gary-700   focus:ring-0 focus:outline-none "
+                          placeholder="location"
+                        />
+                      &lt;/div>
+                    &lt;/div>
+                    &lt;hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+
+                    
+                  
+     
+          &lt;Row className="">
+          &lt;Col md={3} className="pl-12 ">
+            &lt;h1 className=" font-bold  text-2xl">Filters&lt;/h1>
+            &lt;div class="flex items-center mb-4 mt-4">
+    &lt;input id="default-checkbox" type="checkbox" value="" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 border-4 rounded focus:ring-blue-500 focus:ring-2" />
+    &lt;label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 ">Default checkbox&lt;/label>
+&lt;/div>
+&lt;div class="flex items-center mb-4">
+    &lt;input id="default-checkbox" type="checkbox" value="" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 border-4 rounded focus:ring-blue-500 focus:ring-2" />
+    &lt;label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 ">Default checkbox&lt;/label>
+&lt;/div>
+&lt;h3 className=" font-semibold text-md">Date&lt;/h3>
+&lt;div class="flex items-center mb-2">
+    &lt;input id="default-radio-1" type="radio" value="" name="default-radio" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+    &lt;label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 ">Today&lt;/label>
+&lt;/div>
+&lt;div class="flex items-center mb-2">
+    &lt;input id="default-radio-1" type="radio" value="" name="default-radio" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+    &lt;label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 ">Tomorrow&lt;/label>
+&lt;/div>
+&lt;div class="flex items-center mb-2">
+    &lt;input id="default-radio-1" type="radio" value="" name="default-radio" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+    &lt;label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 ">This weekend&lt;/label>
+&lt;/div>
+&lt;div class="flex items-center">
+    &lt;input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+    &lt;label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 ">pick a date&lt;/label>
+&lt;/div>
+
+&lt;h3 className=" font-semibold text-md mt-4">Price&lt;/h3>
+&lt;div class="flex items-center mb-2">
+    &lt;input id="default-radio-1" type="radio" value="" name="default-price" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+    &lt;label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 ">Free&lt;/label>
+&lt;/div>
+&lt;div class="flex items-center mb-2">
+    &lt;input id="default-radio-1" type="radio" value="" name="default-price" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+    &lt;label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 ">Paid&lt;/label>
+&lt;/div>
+
+  
+              
+
+        &lt;/Col>
+        &lt;Col md={9} className="">
+       
+                    &lt;div style={{}}>
+                        {!loading ? events.length != 0 ? (
+                          events.map((event, index) => {
+                            return (
+                              &lt;Event
+                                Title={event.basic_info.title}
+                                Date={event.date_and_time.start_date_time}
+                                Organizer={event.basic_info.organizer}
+                                Image={event.image_link}
+                                Location={event.location.city}
+                                Price={event.price}
+                                Id={event.id}
+                              >&lt;/Event>
+                            );
+                          })
+                        ) : &lt;h2 className=" font-medium  text-2xl">No results found &lt;/h2>: (
+                          &lt;div className="grid grid-cols-3 p-4 bg-white hover:drop-shadow-2xl w-max h-auto mb-2">
+                            &lt;div className="col-span-2">
+                              &lt;h1
+                                style={{
+                                  fontWeight: "600",
+                                  color: "#39364f",
+                                  fontSize: "1.125rem",
+                                  lineHeight: "1.5rem",
+                                  marginBottom: ".5rem",
+                                }}
+                              >
+                                &lt;Placeholder as={Card.Title} animation="glow">
+                                  &lt;Placeholder xs={6} />
+                                  &lt;Placeholder className="w-75" /> 
+                                  &lt;Placeholder className="w-50" /> 
+                                &lt;/Placeholder>
+                              &lt;/h1>
+                     
+
+                         
+                            &lt;/div>
+                            &lt;div className="col-span-1">
+                              &lt;div class="flex items-center justify-center w-36 h-24  bg-gray-300 rounded ">
+                                &lt;svg
+                                  class="w-6 h-6 text-gray-200"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  aria-hidden="true"
+                                  fill="currentColor"
+                                  viewBox="0 0 640 512"
+                                >
+                                  &lt;path d="M480 80C480 35.82 515.8 0 560 0C604.2 0 640 35.82 640 80C640 124.2 604.2 160 560 160C515.8 160 480 124.2 480 80zM0 456.1C0 445.6 2.964 435.3 8.551 426.4L225.3 81.01C231.9 70.42 243.5 64 256 64C268.5 64 280.1 70.42 286.8 81.01L412.7 281.7L460.9 202.7C464.1 196.1 472.2 192 480 192C487.8 192 495 196.1 499.1 202.7L631.1 419.1C636.9 428.6 640 439.7 640 450.9C640 484.6 612.6 512 578.9 512H55.91C25.03 512 .0006 486.1 .0006 456.1L0 456.1z" />
+                                &lt;/svg>
+                              &lt;/div>
+                            &lt;/div>
+                          &lt;/div>
+                        )}
+                      &lt;/div>
+        &lt;/Col>
+            &lt;/Row>
+       
+        &lt;/Col>
+        &lt;Col md={3} className=" bg-white  overflow-hidden" >
+
+          
+   
+       
+          &lt;/Col>
+     
+      &lt;/Row>
+    &lt;/Container>
+    &lt;/>
+  );
+};
+
+export default AllEvents;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

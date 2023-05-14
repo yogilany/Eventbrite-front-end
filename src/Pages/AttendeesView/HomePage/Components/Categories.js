@@ -14,7 +14,6 @@ export const CategoriesTaps = ({ categorySelector, location }) => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-
     categorySelector(event.target.innerHTML);
   };
 
@@ -51,14 +50,10 @@ export const CategoriesTaps = ({ categorySelector, location }) => {
     })
   );
 
-
-
   return (
     <Container className="mb-2">
       <Row className="justify-content-md-center">
         <Col md={12}>
-      
-
           <Box sx={{ width: "100%" }}>
             <Box sx={{ bgcolor: "#fff" }}>
               <AntTabs
@@ -80,10 +75,6 @@ export const CategoriesTaps = ({ categorySelector, location }) => {
                 <AntTab label="Sports" />
                 <AntTab label="Design" />
                 <AntTab label="Food & Drink" />
-                <AntTab label="Food & Drink" />
-                <AntTab label="Food & Drink" />
-                <AntTab label="Food & Drink" />
-                <AntTab label="Food & Drink" />
               </AntTabs>
               <Box sx={{ p: 2 }} />
             </Box>
@@ -93,3 +84,5 @@ export const CategoriesTaps = ({ categorySelector, location }) => {
     </Container>
   );
 };
+
+export default CategoriesTaps;

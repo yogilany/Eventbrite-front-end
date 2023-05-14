@@ -84,7 +84,7 @@ const Events = ({ location, events }) => {
           </Row>
         </Container>
       )}
-      {events.length != 0 ? (
+      {events?.length != 0 ? (
         <>
           <Hr />
           <Container className=" pl-5 pr-5 mb-5 mt-5" id="moreEventsSection">

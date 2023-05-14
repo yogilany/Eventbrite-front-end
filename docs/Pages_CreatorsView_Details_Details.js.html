@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/CreatorsView/Details/Details.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/CreatorsView/Details/Details.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from "react";
+import "./Details.css";
+import EventImage from "./Components/EventImage/EventImageBox";
+import Summary from "./Components/SummaryBox/Summary";
+import Description from "./Components/Description/Description";
+import AddEvents from "./Components/AddEvents/AddEvents";
+import { createContext } from "react";
+import { Alert } from "react-bootstrap";
+import { useEffect } from "react";
+
+export const AppContext = createContext({});
+/**
+ * @author Mahmoud Khaled
+ * @param {}
+ * @description This is Container of Detials Page that Contains Main Event Image , Summary , Description and Add Event Sections
+ * @returns {JSX.Element}
+ */
+const Details = ({ event, setEvent }) => {
+  const handleForm = (e) => {
+    e.preventDefault();
+  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [toggleSidebar, setToggleSidebar] = useState(false);
+  const [showSubmit, setShowSubmit] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [imageLink, setImageLink] = useState("");
+  const [summary, setSummary] = useState(event ? event.summary : "");
+  const [description, setDescription] = useState(
+    event ? event.description : ""
+  );
+  const [inputsChanged, setInputsChanged] = useState(false);
+
+  function saveData() {
+    setEvent({
+      ...event,
+
+      image_link:
+        imageLink === "" ? "https://picsum.photos/1600/800" : imageLink,
+      summary: summary,
+      description: description,
+    });
+    setSuccess(true);
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 3000);
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setSuccess(false);
+    }, 3000);
+  }, [success]);
+
+  useEffect(() => {
+    if (summary === "" &amp;&amp; description === "" &amp;&amp; imageLink === "") {
+      setInputsChanged(false);
+    } else {
+      setInputsChanged(true);
+    }
+  }, [imageLink, summary, description]);
+
+  return (
+    &lt;AppContext.Provider
+      value={{ toggleSidebar, setToggleSidebar, showSubmit, setShowSubmit }}
+    >
+      &lt;div className="Details__page mt-32">
+        &lt;form onSubmit={handleForm}>
+          &lt;div
+            className={`Details__container ${
+              toggleSidebar ? "details__opacity" : ""
+            }`}
+            data-testid="Details__contianer"
+          >
+            {isLoading &amp;&amp; "kkk"}
+            &lt;EventImage imageLink={imageLink} setImageLink={setImageLink} />
+            &lt;Summary summary={summary} setSummary={setSummary} />
+            &lt;Description
+              description={description}
+              setDescription={setDescription}
+            />
+            &lt;AddEvents />
+            {isLoading &amp;&amp; "kkk"}
+            {/* {showSubmit &amp;&amp; (
+              &lt;div className="submit__section" data-testid="submit__section">
+                &lt;button className="discard__btn">Discard&lt;/button>
+                &lt;button type="submit" className="submit__btn" onClick = {saveData} disabled = {!inputsChanged}>
+                  Save
+                &lt;/button>
+              &lt;/div>
+            )} */}
+          &lt;/div>
+        &lt;/form>
+      &lt;/div>
+      &lt;div className="basic-info-footer">
+        {success ? (
+          &lt;Alert
+            variant="success"
+            style={{
+              width: "70%",
+              position: "fixed",
+              top: "70px",
+              zIndex: "999",
+            }}
+          >
+            Data saved successfully.
+          &lt;/Alert>
+        ) : null}
+
+        &lt;button
+          className="savebtn"
+          onClick={saveData}
+          disabled={!inputsChanged}
+        >
+          Save
+        &lt;/button>
+      &lt;/div>
+    &lt;/AppContext.Provider>
+  );
+};
+export default Details;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -38,7 +38,6 @@ import { IoMdHeartDislike } from "react-icons/io";
 import EventHorizontal from "src/Pages/AttendeesView/HomePage/Components/EventHorizontal";
 
 const Header = ({ location }) => {
-
   const [toggleSearch, setToggleSearch] = useState(false);
   const [isOrganizer, setIsOrganizer] = useState(false);
   const [show, setShow] = useState(false);
@@ -63,7 +62,7 @@ const Header = ({ location }) => {
   const navigate = useNavigate();
 
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
-  console.log("locococ", location)
+  console.log("locococ", location);
 
   function getCurrentDimension() {
     return {
@@ -76,7 +75,10 @@ const Header = ({ location }) => {
     console.log("baseee", newlocation);
     axios
       .get(`${process.env.REACT_APP_BASE_API}/events/search`, {
-        params: { city: newlocation ? newlocation : location, title: serach ? serach : null},
+        params: {
+          city: newlocation ? newlocation : location,
+          title: serach ? serach : null,
+        },
       })
       .then(function (response) {
         console.log("response", response.data);
@@ -132,7 +134,7 @@ const Header = ({ location }) => {
     return () => {};
   }, []);
 
-  useEffect(() => { 
+  useEffect(() => {
     setLoading(true);
     fetchEvents();
   }, [serach, newlocation]);
@@ -194,7 +196,7 @@ const Header = ({ location }) => {
                 <div className="dropdown-content">
                   <a href="#">Find your tickets</a>
                   <a href="#">Contact your event organizer</a>
-                  <a href="#">Visit the help center3</a>
+                  <a href="#">Visit the help center</a>
                 </div>
               </div>
               <div className="button">
@@ -267,7 +269,7 @@ const Header = ({ location }) => {
                       />
                     </svg>
                   </div>{" "}
-                  Tickets
+                  <Link to="/profile">Tickets</Link>
                 </div>
               </Link>
             </>
@@ -430,20 +432,32 @@ const Header = ({ location }) => {
                       <h1 className=" text-6xl font-extrabold text-blue-950 mb-12">
                         Top Matches
                       </h1>
-                      <div style={{ height: "500px", overflow: "scroll", width:"900px" }}>
-                        {!loading ? events.length != 0 ? (
-                          events.map((event, index) => {
-                            return (
-                              <EventHorizontal
-                                Title={event.basic_info.title}
-                                date={event.date_and_time.start_date_time}
-                                Organizer={event.basic_info.organizer}
-                                Image={event.image_link}
-                                Id={event.id}
-                              ></EventHorizontal>
-                            );
-                          })
-                        ) : <h2 className=" font-medium  text-2xl">No results found </h2>: (
+                      <div
+                        style={{
+                          height: "500px",
+                          overflow: "scroll",
+                          width: "900px",
+                        }}
+                      >
+                        {!loading ? (
+                          events.length != 0 ? (
+                            events.map((event, index) => {
+                              return (
+                                <EventHorizontal
+                                  Title={event.basic_info.title}
+                                  date={event.date_and_time.start_date_time}
+                                  Organizer={event.basic_info.organizer}
+                                  Image={event.image_link}
+                                  Id={event.id}
+                                ></EventHorizontal>
+                              );
+                            })
+                          ) : (
+                            <h2 className=" font-medium  text-2xl">
+                              No results found{" "}
+                            </h2>
+                          )
+                        ) : (
                           <div className="grid grid-cols-3 p-4 bg-white hover:drop-shadow-2xl w-max h-auto mb-2">
                             <div className="col-span-2">
                               <h1
@@ -457,13 +471,10 @@ const Header = ({ location }) => {
                               >
                                 <Placeholder as={Card.Title} animation="glow">
                                   <Placeholder xs={6} />
-                                  <Placeholder className="w-75" /> 
-                                  <Placeholder className="w-50" /> 
+                                  <Placeholder className="w-75" />
+                                  <Placeholder className="w-50" />
                                 </Placeholder>
                               </h1>
-                     
-
-                         
                             </div>
                             <div className="col-span-1">
                               <div class="flex items-center justify-center w-36 h-24  bg-gray-300 rounded ">

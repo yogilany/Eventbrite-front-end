@@ -1,151 +1,144 @@
-*
-{
-    font-family: "Neue Plak" !important;
+* {
+  font-family: "Neue Plak" !important;
 }
 .pubhead {
-    margin-top: 95px;
-    font-size: 1.75rem;
-    line-height: 2.25rem;
-    letter-spacing: .75px;
-    margin-left: 10px;
-    font-weight: 700;
-    color: #1e0a3c;
+  margin-top: 95px;
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  letter-spacing: 0.75px;
+  margin-left: 10px;
+  font-weight: 700;
+  color: #1e0a3c;
 }
 
 .rdh {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    letter-spacing: .25px;
-    margin-right: -0.25px;
-    font-weight: 600;
-
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  letter-spacing: 0.25px;
+  margin-right: -0.25px;
+  font-weight: 600;
 }
 
 .r1 {
-    color: #39364f;
+  color: #39364f;
 }
 
 .r2 {
-    color: #4b4d63;
+  color: #4b4d63;
 }
 
 .bulb-btn {
-    font-size: 20px;
-    padding: 1px;
-    border-radius: 50%;
-    background-color: #fff58c;
+  font-size: 20px;
+  padding: 1px;
+  border-radius: 50%;
+  background-color: #fff58c;
 }
 
 .tpyp {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    letter-spacing: .25px;
-    margin-left: 10px;
-    font-weight: 600;
-    margin-top: 2px;
-
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  letter-spacing: 0.25px;
+  margin-left: 10px;
+  font-weight: 600;
+  margin-top: 2px;
 }
 
 .grpart {
-    margin-top: 12;
-    background-color: '#f8f7fa';
-    width: 500;
-    height: 125;
-    padding: 8 8 8 0;
+  margin-top: 12;
+  background-color: "#f8f7fa";
+  width: 500;
+  height: 125;
+  padding: 8 8 8 0;
 }
 
 .Full__Container {
-    display: flex;
-    margin-top: 40px;
-    border: 1px solid #eeedf2;
-    height: 209px;
-    width: 90%;
-    box-shadow: 1px 1px 1px 1px #f4f4f5;
-    position: relative;
+  display: flex;
+  margin-top: 40px;
+  border: 1px solid #eeedf2;
+  height: 209px;
+  width: 90%;
+  box-shadow: 1px 1px 1px 1px #f4f4f5;
+  position: relative;
 }
 
 .Full__Container_img {
-    width: 41%;
-    height: 209px;
-    position: absolute;
+  width: 41%;
+  height: 209px;
+  position: absolute;
 }
 
 .rtpart {
-    width: 59%;
-    position: absolute;
-    top: 0;
-    left: 43%;
-    padding-right: 30px;
-    overflow-wrap: break-word;
+  width: 59%;
+  position: absolute;
+  top: 0;
+  left: 43%;
+  padding-right: 30px;
+  overflow-wrap: break-word;
 }
 
 .hline {
-    position: absolute;
-    border-bottom: 2px solid #ededee;
-    width: 90%;
-    margin-left: 10px;
-    margin-top: 20px;
+  position: absolute;
+  border-bottom: 2px solid #ededee;
+  width: 90%;
+  margin-left: 10px;
+  margin-top: 20px;
 }
 
 .dd {
-    outline: none;
-    font-size: 0.9rem;
-    height: 14px;
-    margin-left: 10px;
-    border: none;
-    background-color: #f2f2f5;
-    margin-top: 12px;
+  outline: none;
+  font-size: 0.9rem;
+  height: 14px;
+  margin-left: 10px;
+  border: none;
+  background-color: #f2f2f5;
 }
 
 .cir {
-    margin-right: 3px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    line-height: 30px;
-    font-size: 10px;
-    color: #fff;
-    text-align: center;
-    background: #0f12d4
+  margin-right: 3px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  line-height: 30px;
+  font-size: 10px;
+  color: #fff;
+  text-align: center;
+  background: #0f12d4;
 }
 
 .radtipp {
-    width: auto;
-    height: auto;
-    margin-Top: 30px;
-    display: flex;
-    padding-right: 20%;
+  width: auto;
+  height: auto;
+  margin-top: 30px;
+  display: flex;
+  padding-right: 20%;
 }
 
 .tipp {
-    margin-left: 32%;
-    position: absolute;
+  margin-left: 32%;
+  position: absolute;
 }
 
 .ppt {
-    margin-left: 30%;
-    margin-top: 20;
+  margin-left: 30%;
+  margin-top: 20;
 }
 
 @media screen and (max-width: 1200px) {
-    .ppt {
-        margin-left: 100px;
-    }
+  .ppt {
+    margin-left: 100px;
+  }
 
-    .radtipp {
-        display: block;
-        height: 750px;
-    }
+  .radtipp {
+    display: block;
+    height: 750px;
+  }
 
-    .tipp {
-        margin-left: -1%;
-        margin-top: -5%;
-        z-index: -1;
-    }
-
+  .tipp {
+    margin-left: -1%;
+    margin-top: -5%;
+    z-index: -1;
+  }
 }
-
-
 
 /* @media screen and (max-width: 1300px) and (min-width: 1100px) {
     .radd {
@@ -166,121 +159,116 @@
 } */
 
 .radd {
-    width: 400px;
-    height: auto;
+  width: 400px;
+  height: auto;
 }
 
 .ver {
-    margin-top: 10px;
-    width: 400px;
-    height: 40px;
-    font-size: small;
-    cursor: pointer;
+  margin-top: 10px;
+  width: 400px;
+  height: 40px;
+  font-size: small;
+  cursor: pointer;
 }
 
 .audbox {
-    margin-top: 15px;
-    height: 400px;
-    transition: all 1s ease-in-out;
+  margin-top: 15px;
+  height: 400px;
+  transition: all 1s ease-in-out;
 }
 
 .dtt {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .ft {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: white;
-    color: white;
-    text-align: center;
-    height: 75px;
-    border: 1px solid #ececec;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color: white;
+  text-align: center;
+  height: 75px;
+  border: 1px solid #ececec;
 }
 
 .ftbtn {
-    background-color: #D1410C;
-    height: 45px;
-    width: 110px;
-    border-radius: 5px;
-    color: white;
-    font-size: 15px;
-    border: none;
-    border-color: #D1410C;
-    margin-top: 15px;
-    margin-left: 87%;
+  background-color: #d1410c;
+  height: 45px;
+  width: 110px;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-color: #d1410c;
+  margin-top: 15px;
+  margin-left: 87%;
 }
 @media screen and (max-width: 770px) {
-    
-    .radtipp {
-        display: block;
-        height: 790px;
-        margin-left: 10px;
-    }
+  .radtipp {
+    display: block;
+    height: 790px;
+    margin-left: 10px;
+  }
 
-    .ppt {
-        margin-left: -1px;
-    }
+  .ppt {
+    margin-left: -1px;
+  }
 
-    .Full__Container {
-        height: 409px;
-        margin-left: 10px;
-    }
+  .Full__Container {
+    height: 409px;
+    margin-left: 10px;
+  }
 
-    .Full__Container_img {
-        width: 100%;
-    }
+  .Full__Container_img {
+    width: 100%;
+  }
 
-    .rtpart {
-        position: absolute;
-        left: 0;
-        top: 50%;
-    }
+  .rtpart {
+    position: absolute;
+    left: 0;
+    top: 50%;
+  }
 
-    .hline {
-        position: absolute;
-        width: 150%;
-        margin-left: 30px;
-    }
+  .hline {
+    position: absolute;
+    width: 150%;
+    margin-left: 30px;
+  }
 
-    .prev {
-        margin-left: 30%;
-    }
-    .ftbtn
-    {
-        margin-left: -20px;
-        width: 95%;
-        
-    }
+  .prev {
+    margin-left: 30%;
+  }
+  .ftbtn {
+    margin-left: -20px;
+    width: 95%;
+  }
 }
 @media screen and (max-width: 855px) {
-    .header__container-right {
-        width: 30%;
-    }
-    .header__responsive-links{
-        margin-left: -20px;
-    }
+  .header__container-right {
+    width: 30%;
+  }
+  .header__responsive-links {
+    margin-left: -20px;
+  }
 }
 
 @media screen and (max-width: 515px) {
-    
-
 }
 
 @media screen and (max-width: 1200px) and (min-width: 770px) {
-    .sidebar__Event-options {
-        display: none;
-    }
+  .sidebar__Event-options {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 769px) and (min-width: 400px) {
-    .sidebar__Event-options {
-        display: none;
-    }
+  .sidebar__Event-options {
+    display: none;
+  }
 
-    .sidebar__links {
-        display: none;
-    }
+  .sidebar__links {
+    display: none;
+  }
 }

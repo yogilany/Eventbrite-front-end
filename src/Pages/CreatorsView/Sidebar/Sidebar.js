@@ -34,11 +34,11 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
     "Tracking Pixels",
   ];
   const ManageAttendees = [
-    {name: "Orders", link: "/orders"},
-    {name: "Add Attendees", link: "/add-attendees"},
-    {name: "Emails to Attendees" , link: "/emails-to-attendees"},
-    {name: "Attendee List", link: "/attendee-list"},
-    {name: "Check-in", link: "/check-in"},
+    { name: "Orders", link: "/orders" },
+    { name: "Add Attendees", link: "/add-attendees" },
+    { name: "Emails to Attendees", link: "/emails-to-attendees" },
+    { name: "Attendee List", link: "/attendee-list" },
+    { name: "Check-in", link: "/check-in" },
   ];
   const sidebarOptions = useRef();
   const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
@@ -63,8 +63,8 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
   //   }
   // })
   return (
-    <div className="sidebar">
-      <div className="sidebar__links">
+    <div className="sidebar" data-testid="sidebar">
+      <div className="sidebar__links" data-testid="sidebar-links">
         <a href="#">
           <AiOutlineHome className="logo" />
         </a>
@@ -86,7 +86,7 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
         <a href="#">
           <FiSettings className="logo" />
         </a>
-        <div className="footer">
+        <div className="footer" data-testid="footer">
           <a href="#">
             <AiOutlineAppstore className="logo" />
           </a>
@@ -96,7 +96,10 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
         </div>
       </div>
       {(windowWidth > 792 && !toggleSidebar) || !HideMenu ? (
-        <div className="sidebar__Event-options">
+        <div
+          className="sidebar__Event-options"
+          data-testid="sidebar-event-options"
+        >
           <a
             className="events__link"
             href="/manage-events"
@@ -136,9 +139,7 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
               marginTop: "2px",
               fontWeight: "600",
             }}
-          >
-           
-          </p>
+          ></p>
           <a
             href="#"
             style={{

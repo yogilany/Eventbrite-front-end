@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: features/authSlice.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: features/authSlice.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+/**
+ * @description Query string for sending to backend x-www-form-urlencoded
+ * @date 5/4/2023 - 7:28:44 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+const qs = require("qs");
+
+/**
+ * Authentication state object
+ * @date 5/4/2023 - 7:27:51 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+const initialState = {
+  userEmail: null,
+  userFirstName: "",
+  userLastName: "",
+  userAvatarURL: "",
+  userToken: null,
+  userID: "",
+  isLoading: false,
+  emailExists: false,
+  isLoggedIn: false,
+};
+
+/**
+ * @description Login user
+ * @date 5/4/2023 - 7:30:59 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+export const authUser = createAsyncThunk(
+  "auth/login",
+  async (userData, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_API}/auth/login`,
+        qs.stringify(userData),
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      );
+
+      if (response.data?.access_token !== null) {
+        return response.data;
+      } else {
+        throw rejectWithValue(response.data.detail);
+      }
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.response?.data?.detail);
+    }
+  }
+);
+
+/**
+ * @description Register user
+ * @date 5/4/2023 - 7:30:48 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+export const registerUser = createAsyncThunk(
+  "auth/signup",
+  async (registerData, thunkAPI) => {
+    try {
+      console.log(registerData);
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_API}/auth/signup`,
+        JSON.stringify(registerData),
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      console.log("Register user response : ", response);
+      return { ...registerData, ...response };
+    } catch (error) {
+      console.log(error.message);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+/**
+ * @description Login Google/FB user
+ * @date 5/11/2023 - 9:36:34 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+export const authGoogleUser = createAsyncThunk(
+  "auth/login-with-google",
+  async (userData, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const x_www_form_data = {
+        username: userData.email,
+        password: "aaaaaaaaaaaaa",
+      };
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_API}/auth/login-with-google`,
+        qs.stringify(x_www_form_data),
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      );
+      console.log("Auth google user response : ", response);
+
+      if (response.data?.access_token !== null) {
+        return response.data;
+      } else {
+        throw rejectWithValue(response.data.detail);
+      }
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error?.response?.data?.detail);
+    }
+  }
+);
+
+/**
+ * @description Register Google/FB user
+ * @date 5/11/2023 - 9:36:10 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+export const registerGoogleUser = createAsyncThunk(
+  "auth/signup-google",
+  async (registerData, thunkAPI) => {
+    try {
+      console.log("Register data = ", registerData);
+      // Register user data
+      const response = await thunkAPI.dispatch(registerUser(registerData));
+
+      console.log("Register response", response);
+
+      // // Login with google to obtain access token
+      // const login_response = await thunkAPI.dispatch(
+      //   authGoogleUser({
+      //     email: registerData.email,
+      //     password: registerData.password,
+      //   })
+      // );
+
+      // console.log("Login with google response: ", login_response);
+
+      // // Edit user data to save avatar URL
+      // const edit_response = await axios({
+      //   method: "PUT",
+      //   url: `${process.env.REACT_APP_BASE_API}/users/me/edit`,
+      //   headers: {
+      //     ContentType: "application/json",
+      //     Authorization: `Bearer ${login_response.payload.access_token}`,
+      //   },
+      //   params: {
+      //     firstname: registerData.firstname,
+      //     lastname: registerData.lastname,
+      //     avatar_url: registerData.picture,
+      //   },
+      // });
+
+      // console.log("Edit with google response: ", edit_response);
+
+      return { ...registerData, ...response };
+    } catch (error) {
+      console.log(error.message);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+/**
+ * @description Checks if email already exists, used for login &amp; signup pages
+ * @date 5/4/2023 - 7:30:28 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+export const checkEmailExists = createAsyncThunk(
+  "auth/check-email-exists",
+  async (email, thunkAPI) => {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_BASE_API}/users/emails/check`,
+        params: { email: email },
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(checkEmailExists.name, " Response = ", response);
+      // if (response.status !== 200) throw new Error(response?.data);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(false);
+    }
+  }
+);
+
+/**
+ * @description Forgot password query, sends email to user to reset their password
+ * @date 5/4/2023 - 7:29:38 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+export const forgotPassword = createAsyncThunk(
+  "auth/forgot-password",
+  async (email, thunkAPI) => {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_BASE_API}/auth/forgot-password`,
+        params: { email: email },
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(checkEmailExists.name, " Response = ", response);
+      if (response.status !== 200) throw new Error(response?.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(false);
+    }
+  }
+);
+
+/**
+ * @description Verify user email through JWT token
+ * @date 5/4/2023 - 7:29:38 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+export const verifyUser = createAsyncThunk(
+  "auth/verify-email",
+  async (token, thunkAPI) => {
+    try {
+      const response = await axios({
+        method: "PUT",
+        url: `${process.env.REACT_APP_BASE_API}/auth/verify-email`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(" Verify response = ", response);
+      return "Verified successfully";
+    } catch (error) {
+      console.log("Error = ", error);
+      switch (error.response.status) {
+        case 401:
+          return thunkAPI.rejectWithValue("Invalid or expired token");
+        case 422:
+          return thunkAPI.rejectWithValue("Validation error");
+        case 404:
+          return thunkAPI.rejectWithValue("Email not found");
+        case 500:
+          return thunkAPI.rejectWithValue("Can't verify email");
+        default:
+          return thunkAPI.rejectWithValue("Unknown error");
+      }
+    }
+  }
+);
+
+/**
+ * @description Get user details using JWT token
+ * @date 5/5/2023 - 1:00:16 AM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+export const getUserDetails = createAsyncThunk(
+  "users/me/info",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_API}/users/me/info`,
+        {
+          headers: {
+            ContentType: "application/json",
+            Authorization: `Bearer ${thunkAPI.getState().auth.userToken}`,
+          },
+        }
+      );
+      console.log(getUserDetails.name, " Response = ", response);
+      if (response.status !== 200) throw new Error(response?.data);
+      return response.data;
+    } catch (error) {
+      // Unauthenticated
+      console.log("Error: token = ", thunkAPI.getState().auth.userToken);
+      thunkAPI.dispatch(logOut()); // Log out user
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+/**
+ * @description Change password for the user
+ * @date 5/8/2023 - 7:57:17 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+export const changePassword = createAsyncThunk(
+  "auth/change-password",
+  async (data, thunkAPI) => {
+    try {
+      const response = await axios({
+        method: "PUT",
+        url: `${process.env.REACT_APP_BASE_API}/auth/change-password`,
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${data.token}`,
+        },
+        data: data,
+      });
+      console.log("Change Password Response = ", response);
+      return response.data;
+    } catch (error) {
+      console.log("Error = ", error);
+      switch (error.response.status) {
+        case 401:
+          return thunkAPI.rejectWithValue("Invalid token");
+        case 422:
+          return thunkAPI.rejectWithValue("Validation error");
+        default:
+          return thunkAPI.rejectWithValue("Unknown error");
+      }
+    }
+  }
+);
+
+/**
+ * @description Authenticate user via JWT
+ * @date 5/4/2023 - 7:31:18 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
+export const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    logOut: (state, action) => {
+      localStorage.removeItem("persist:root");
+      localStorage.removeItem("userToken");
+      state = initialState;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      // Authenticate user
+      .addCase(authUser.rejected, (state, action) => {
+        // state = initialState;
+        state.isLoading = false;
+      })
+      .addCase(authUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(authUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log("action.payload = ", action.payload);
+        state.userToken = action.payload.access_token;
+        console.log("state.userToken = ", state.userToken);
+        state.isLoggedIn = true;
+      })
+      // Authenticate Google user
+      .addCase(authGoogleUser.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(authGoogleUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(authGoogleUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log("action.payload = ", action.payload);
+        state.userToken = action.payload.access_token;
+        console.log("state.userToken = ", state.userToken);
+        state.isLoggedIn = true;
+      })
+      // Register user
+      .addCase(registerUser.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(registerUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.emailExists = action.payload["exists"] ? true : false;
+      })
+      // Register Google user
+      .addCase(registerGoogleUser.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(registerGoogleUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(registerGoogleUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.emailExists = action.payload["exists"] ? true : false;
+      })
+      // Get user details
+      .addCase(getUserDetails.rejected, (state, action) => {
+        console.log("rejected action.payload = ", action.payload);
+        state = initialState;
+        state.isLoading = false;
+      })
+      .addCase(getUserDetails.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserDetails.fulfilled, (state, action) => {
+        console.log("fulfilled action.payload = ", action.payload);
+        state.isLoading = false;
+        state.userEmail = action.payload.email;
+        state.userFirstName = action.payload.firstname;
+        state.userLastName = action.payload.lastname;
+        state.userAvatarURL = action.payload.avatar_url;
+        state.userID = action.payload.id;
+      })
+      // Verify user
+      .addCase(verifyUser.rejected, (state, action) => {
+        console.log("rejected action.payload = ", action.payload);
+        state.isLoading = false;
+      })
+      .addCase(verifyUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(verifyUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      // Change password
+      .addCase(changePassword.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(changePassword.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(changePassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+      });
+  },
+});
+
+export const { logOut } = authSlice.actions;
+
+export const selectLoading = (state) => state.auth.isLoading;
+export const selectUserToken = (state) => state.auth.userToken;
+export const selectUserEmail = (state) => state.auth.userEmail;
+export const selectUserFirstName = (state) => state.auth.userFirstName;
+export const selectUserLastName = (state) => state.auth.userLastName;
+export const selectUserAvatarURL = (state) => state.auth.userAvatarURL;
+export const selectLoggedIn = (state) => state.auth.isLoggedIn;
+export default authSlice.reducer;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 13 2023 23:13:30 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

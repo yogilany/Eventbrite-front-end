@@ -32,7 +32,7 @@ const CreatorHeader = ({ MenuShow }) => {
   const userFullname = `${userFirstName} ${userLastName}`;
   const dispatch = useDispatch();
   return (
-    <div className="header__container">
+    <div data-testid="HDID" className="header__container">
       <div className="header__container-left">
         <a href="/">
           <img src={Logo} alt="headerLogo" />
