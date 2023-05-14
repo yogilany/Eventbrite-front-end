@@ -34,8 +34,8 @@ export const SignupMethods = (props) => {
               lastname: response.data.family_name ?? "",
               picture: response.data.picture,
             };
-            console.log(response.data);
-            console.log(data);
+            // console.log(response.data);
+            // console.log(data);
             props.setSocialProfile(data);
           })
           .catch((err) => console.log(err));
@@ -46,7 +46,7 @@ export const SignupMethods = (props) => {
 
   const signupFacebook = (response) => {
     if (response) {
-      console.log(response?.name?.split(" "));
+      // console.log(response?.name?.split(" "));
       const [firstname, lastname] = response?.name?.split(" ");
       const data = {
         email: response.email,
@@ -55,8 +55,8 @@ export const SignupMethods = (props) => {
         lastname: lastname,
         picture: response.data?.picture?.data?.url,
       };
-      console.log(response);
-      console.log(data);
+      // console.log(response);
+      // console.log(data);
       props.setSocialProfile(data);
     }
   };

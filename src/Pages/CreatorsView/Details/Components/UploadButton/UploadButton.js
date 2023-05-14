@@ -24,7 +24,7 @@ const UploadButton = (props) => {
         },
       })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           props.setImageLink(res.data.data.display_url);
         })
         .catch((err) => {

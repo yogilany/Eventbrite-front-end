@@ -23,7 +23,7 @@ export const AppEditContext = createContext({});
  * @returns {JSX.Element}
  */
 const Tickets = ({ event, setEvent }) => {
-  console.log("event in tickets: ", event);
+  // console.log("event in tickets: ", event);
   const [ID, setID] = useState(0);
   const [isFree, setIsFree] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -86,7 +86,7 @@ const Tickets = ({ event, setEvent }) => {
     sales_end_date_time: endTicketDate + "T" + ticketEndTime,
   };
   const handleSubmit = () => {
-    console.log(data);
+    // console.log(data);
     setIsTicketSavedSuccessfully(true);
   };
   const handleSubmitPromoCode = () => {
@@ -127,8 +127,8 @@ const Tickets = ({ event, setEvent }) => {
       ticketEndTime.slice(3, 5),
       ticketEndTime.slice(6, 8)
     );
-    console.log(endTicketDate);
-    console.log(ticketEndTime);
+    // console.log(endTicketDate);
+    // console.log(ticketEndTime);
     setEvent({
       ...event,
       tickets: [
@@ -178,7 +178,7 @@ const Tickets = ({ event, setEvent }) => {
     // alert("Saved");
   }
   function updateTicket(id) {
-    console.log(event.tickets[id].sales_end_date_time);
+    // console.log(event.tickets[id].sales_end_date_time);
     const dateStart = new Date(startTicketDate);
     dateStart.setHours(
       ticketStartTime.slice(0, 2),

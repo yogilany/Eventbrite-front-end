@@ -22,6 +22,11 @@ export const HomePage = () => {
   // console.log("USERR", window.User);
   const [location, setLocation] = useState(null);
   const [events, setEvents] = useState([]);
+  const [online, setOnline] = useState(null);
+  const [free, setFree] = useState(null);
+  const [today, setToday] = useState(null);
+  const [loading, setLoading] = useState(false);
+
 
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
@@ -64,14 +69,21 @@ export const HomePage = () => {
   }));
 
   const fetchEvents = () => {
-    console.log("baseee", location);
+    setLoading(true);
+    // console.log("baseee", location);
+    const date = new Date(2023, 4, 12, 5, 30);
+const formattedDate = date.toISOString();
+// console.log("formattedDate", formattedDate);
+
+
     axios
       .get(`${process.env.REACT_APP_BASE_API}/events/search`, {
-        params: { city: location ? location : "Cairo" },
+        params: { city: location ? location : "Cairo", free: free ? free : null, online: online ? online : null, start_date: today ? formattedDate : null },
       })
       .then(function (response) {
-        console.log("response", response.data);
+        // console.log("response", response.data);
         setEvents(response.data);
+        setLoading(false);
       })
       .catch(function (error) {
         // handle error
@@ -80,27 +92,34 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
+    // console.log("free", free)
+    // console.log("online", online)
+    // console.log("today", today)
+    fetchEvents();
+  }, [free, online, today]);
+
+  useEffect(() => {
     async function fetchLocation() {
       let url = "https://ipinfo.io/json?token=89085807858d6e";
       let response = await fetch(url);
       let data = await response.json();
-      console.log("locaation", data);
+      // console.log("locaation", data);
       setLocation(data.city);
     }
 
     fetchLocation();
 
-    const testLocation = {
-      hostname: "host-156.215.249.101-static.tedata.net",
-      city: "Cairo",
-      region: "Cairo",
-      country: "EG",
-      loc: "30.0626,31.2497",
-      org: "AS8452 TE-AS",
-      timezone: "Africa/Cairo",
-    };
+    // const testLocation = {
+    //   hostname: "host-156.215.249.101-static.tedata.net",
+    //   city: "Cairo",
+    //   region: "Cairo",
+    //   country: "EG",
+    //   loc: "30.0626,31.2497",
+    //   org: "AS8452 TE-AS",
+    //   timezone: "Africa/Cairo",
+    // };
 
-    setLocation(testLocation.city);
+    // setLocation(testLocation.city);
     fetchEvents();
   }, []);
 
@@ -184,7 +203,7 @@ export const HomePage = () => {
               </Row>
             </Container>
 
-            <Events location={location} events={events} />
+            <Events location={location} events={events} setFree={setFree} setOnline={setOnline} setToday={setToday} loading={loading}/>
             {/* <MoreEvents /> */}
           </Col>
         </Row>

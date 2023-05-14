@@ -245,7 +245,7 @@ const Header = ({ location }) => {
                   Likes
                 </div>
               </Link>
-              <Link to="/likes">
+              <Link to="/profile">
                 <div className="header-button flex flex-col items-center font-semibold">
                   {" "}
                   <div

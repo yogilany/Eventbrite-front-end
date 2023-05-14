@@ -71,12 +71,12 @@
   display: flex;
   align-items: center;
   background-color: #f8f7fa;
-  width: 186px;
+  /* width: 186px; */
   height: 40px;
   border-radius: 30px;
   margin: 10px 8px 10px 24px;
   padding-right: 8px;
-  padding-left: 10px;
+  padding-left: 8px;
   position: relative;
 }
 .more
@@ -90,6 +90,8 @@
   justify-content: center;
   width: 32px;
   height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   border-radius: 50%;
   background-color: #3659e3;
   text-align: center;

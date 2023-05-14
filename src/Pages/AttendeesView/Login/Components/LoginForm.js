@@ -15,9 +15,10 @@ export const LoginSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),
 });
 /**
+ * @author h4z3m
  *
- * @param {name: Name of this element after creation} props
- * @returns Login form containing email, password forms & log in submit button
+ * @param {*} props
+ * @returns {*}
  */
 export const LoginForm = (props) => {
   const {

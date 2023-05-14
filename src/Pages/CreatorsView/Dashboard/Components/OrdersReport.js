@@ -28,7 +28,7 @@ const OrdersReport = () => {
         },
       })
       .then(function (response) {
-        console.log("ordders", response.data);
+        // console.log("ordders", response.data);
         setOrders(response.data);
       })
       .catch(function (error) {

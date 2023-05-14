@@ -2,35 +2,23 @@ import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import TextInputStyled from "../../../Components/TextInput/TextInput";
 // import LoginMethodsCSS from "../../../AttendeesView/Login/Components/LoginMethods.module.scss";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import axios from "axios";
-import { is } from "date-fns/locale";
+import { useForm } from 'react-hook-form'
+import { useState } from 'react';
+import axios from 'axios';
+import { is } from 'date-fns/locale';
+import { useSelector } from 'react-redux';
+import { selectUserToken } from 'src/features/authSlice';
 
-const AttendeeData = ({
-  index,
-  ticket,
-  sendData,
-  isPlaceorder,
-  event,
-  token,
-  orderID,
-  setIsCheckoutDone,
-  isCheckoutDone,
-  setIsCheckout,
-  total,
-}) => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-  const [email, setEmail] = useState("");
-  const [firstname, setFisrtName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [attendee, setAttendee] = useState({});
-  console.log("attendee ticket", ticket);
+const AttendeeData = ({setIsSuccess,index, ticket, sendData, isPlaceorder,event, orderID,setIsCheckoutDone, isCheckoutDone, setIsCheckout,total}) => {
+    // console.log("orderrrrr idddd", orderID)
+    const token = useSelector(selectUserToken);
+
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const [email, setEmail] = useState("");
+    const [firstname, setFisrtName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [ attendee, setAttendee] = useState({})
+    // console.log("attendee ticket",ticket)
 
   const handleChangeAttendee = (e) => {
     e.preventDefault();
@@ -44,47 +32,64 @@ const AttendeeData = ({
       setEmail(e.target.value);
     }
 
-    // detect the event key and target and add the value to the state
-    setAttendee({ ...attendee, [e.target.name]: e.target.value });
-  };
+    const handleAddAttendee = async () => {
+      // console.log("trying to add attendee event", event)
 
-  const handleAddAttendee = async () => {
-    const Finalattendee = {
-      first_name: firstname,
-      last_name: lastName,
-      email: email,
-      type_of_reseved_ticket: ticket.ticket_info.name,
-      order_id: orderID,
-      event_id: event.id,
-    };
-    console.log("Finalattendee", Finalattendee);
+      // console.log("trying to add attendee", orderID)
 
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_API}/attendees/${event.id}/add_attendee`,
-        Finalattendee,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log("Res : ", response);
-      console.log("index -- total : ", index, total);
-      if (index === total) {
-        setIsCheckout(false);
+      const Finalattendee = {
+        "first_name": firstname,
+        "last_name": lastName,
+        "email": email,
+        "type_of_reseved_ticket": ticket.ticket.type,
+        "order_id": orderID,
+        "event_id": event.id
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  useEffect(() => {
-    if (orderID) {
-      handleAddAttendee();
+      // console.log("Finalattendee",Finalattendee)
+
+
+      try {
+        // console.log("trying to add attendee")
+        const response = await axios.post(
+          `${process.env.REACT_APP_BASE_API}/attendees/${event.id}/add_attendee`,
+          Finalattendee,
+          {
+            headers: { "Content-Type": "application/json" ,
+            Authorization: `Bearer ${token}`}
+          }
+        );
+        // console.log("Res : ", response);
+        if(response.status === 200){
+          setIsSuccess(true)
+        }
+        if(index === total ){
+          setIsCheckout(false)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
     }
-  }, [orderID]);
+
+   
+useEffect( () => {
+
+  if(orderID){
+
+ 
+
+    handleAddAttendee();
+
+   
+  }
+
+}, [orderID])
+
+
+
+
+  
 
   return (
     <Form.Group className="p-0" style={{ width: "100%" }}>

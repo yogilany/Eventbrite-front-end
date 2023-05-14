@@ -77,6 +77,7 @@ const Profile = () => {
     refetchFollowingUsers();
     refetchLikedEvents();
   };
+
   useEffect(() => {
     refetch();
   }, []);

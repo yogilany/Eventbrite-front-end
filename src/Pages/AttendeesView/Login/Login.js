@@ -63,7 +63,7 @@ export const Login = (props) => {
       dispatch(forgotPassword(emailInput))
         .unwrap(unwrapResult)
         .then((result) => {
-          console.log("success", result);
+          // console.log("success", result);
         })
         .catch((err) => {
           console.log("error", err);
@@ -83,7 +83,7 @@ export const Login = (props) => {
       // Save email for forget password modal
       setEmailInput(e.email);
 
-      console.log(data);
+      // console.log(data);
 
       dispatch(authUser(data))
         .unwrap(unwrapResult)
@@ -328,16 +328,17 @@ export const Login = (props) => {
             id="login-image"
             data_testid="login-image"
             img_url={imageLogin}
-            img_caption="Winston Baker"
-            img_credit="Confluence Summit"
-            img_location="San Francisco, CA"
+            img_caption="Adel Emam"
+            img_credit="Software Course"
+            img_location="Giza, EG"
           />
         </Col>
       </Row>
       <Row className="d-none d-lg-block d-md-block">
-        <AboutFooter id="login-aboutfooter" />
       </Row>
       <Row>
+      <AboutFooter id="login-aboutfooter" />
+
         <Footer id="login-footer" data_testid="login-footer" />
       </Row>
     </Container>

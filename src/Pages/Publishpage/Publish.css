@@ -65,6 +65,7 @@
   width: 41%;
   height: 209px;
   position: absolute;
+  object-fit: cover;
 }
 
 .rtpart {

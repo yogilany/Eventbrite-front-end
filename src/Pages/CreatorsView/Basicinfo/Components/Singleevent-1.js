@@ -10,8 +10,8 @@ function Singleevent(props) {
   const startTimeRef = useRef(null);
   const endTimeRef = useRef(null);
   const setDateAtStart = () => {
-    console.log(startDateRef.current.value);
-    console.log(endDateRef.current.value);
+    // console.log(startDateRef.current.value);
+    // console.log(endDateRef.current.value);
     props.setStartDate(startDateRef.current.value);
     props.setEndDate(endDateRef.current.value);
   };
@@ -24,7 +24,7 @@ function Singleevent(props) {
       props.setStartDate(null);
       props.setEndDate(null);
       setshowwarning(true);
-      console.log("empty");
+      // console.log("empty");
       const e = props.error.slice();
       props.setError([...props.error, "1"]);
     } else {
@@ -35,8 +35,8 @@ function Singleevent(props) {
       const full_end_date = new Date(
         endDateRef.current.value + " " + endTimeRef.current.value
       );
-      console.log("full_start_date: ", full_start_date);
-      console.log("full_end_date: ", full_end_date);
+      // console.log("full_start_date: ", full_start_date);
+      // console.log("full_end_date: ", full_end_date);
       // Check end date is after start date
       if (full_end_date < full_start_date) {
         setshowwarning(true);

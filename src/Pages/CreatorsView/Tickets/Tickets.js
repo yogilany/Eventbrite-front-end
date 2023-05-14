@@ -25,7 +25,7 @@ const Tickets = () => {
     sales_end_date_time: endTicketDate,
   };
   const handleSubmit = () => {
-    console.log(data);
+    // console.log(data);
   };
   return (
     <div className="tickets__page-container">

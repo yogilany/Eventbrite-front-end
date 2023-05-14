@@ -28,13 +28,13 @@ const SearchPage = ({ toggle, location }) => {
  
 
   const fetchEvents = () => {
-    console.log("baseee", location);
+    // console.log("baseee", location);
     axios
       .get(`${process.env.REACT_APP_BASE_API}/events/search`, {
         params: { city: location ? location : "Cairo" },
       })
       .then(function (response) {
-        console.log("response", response.data);
+        // console.log("response", response.data);
         setEvents(response.data);
       })
       .catch(function (error) {

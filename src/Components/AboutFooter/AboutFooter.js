@@ -30,7 +30,7 @@ export const AboutFooter = (props) => {
     }
     return (
 
-        <Container style={ContainerStyle} data-testid={props.data_testid} className=" ">
+        <Container fluid style={ContainerStyle} data-testid={props.data_testid} className=" ">
             <Row className="pt-4 w-full">
                 <Col>
                     <Container >

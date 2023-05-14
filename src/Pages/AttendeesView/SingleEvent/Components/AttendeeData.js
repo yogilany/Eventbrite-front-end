@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import TextInputStyled from "../../../../Components/TextInput/TextInput";
 import LoginMethodsCSS from "../../../AttendeesView/Login/Components/LoginMethods.module.scss";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
+import { Button } from "bootstrap";
 
 const AttendeeData = ({
   index,
@@ -29,6 +30,7 @@ const AttendeeData = ({
   const [firstname, setFisrtName] = useState("");
   const [lastName, setLastName] = useState("");
   const [attendee, setAttendee] = useState({});
+  
 
   const handleChangeAttendee = (e) => {
     e.preventDefault();
@@ -55,7 +57,7 @@ const AttendeeData = ({
       order_id: orderID,
       event_id: event.id,
     };
-    console.log("Finalattendee", Finalattendee);
+    // console.log("Finalattendee", Finalattendee);
 
     try {
       const response = await axios.post(
@@ -68,10 +70,12 @@ const AttendeeData = ({
           },
         }
       );
-      console.log("Res : ", response);
-      console.log("index -- total : ", index, total);
+      // console.log("Res : ", response);
+      // console.log("index -- total : ", index, total);
       if (index === total) {
         setIsCheckout(false);
+        alert("Your order has been placed successfully");
+        // setShow(true);
       }
     } catch (error) {
       console.log(error);
@@ -120,6 +124,7 @@ const AttendeeData = ({
           <label>Last Name</label>
         </Form.Floating>
       </div>
+  
 
       <Form.Floating className={LoginMethodsCSS["form-floating"]}>
         <TextInputStyled
@@ -135,7 +140,10 @@ const AttendeeData = ({
         />
         <label>Email Address</label>
       </Form.Floating>
+
     </Form.Group>
+
+    
   );
 };
 
