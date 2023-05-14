@@ -165,8 +165,8 @@ const Tickets = ({ event, setEvent }) => {
         {
           name: promoCodeName,
           is_limited: isLimited,
-          limited_amount: !isLimited ? LimitedAmount :'0',
-          current_amount: !isLimited ? LimitedAmount :'0',
+          limited_amount: isLimited ? LimitedAmount :'1',
+          current_amount: isLimited ? LimitedAmount :'1',
           is_percentage: isPercentage,
           discount_amount: discountAmount,
           start_date_time: dateStart.toISOString().slice(0, -5),
@@ -175,6 +175,7 @@ const Tickets = ({ event, setEvent }) => {
       ],
     });
     setSuccess(true);
+    setIsLimited(false);
     // alert("Saved");
   }
   function updateTicket(id) {
