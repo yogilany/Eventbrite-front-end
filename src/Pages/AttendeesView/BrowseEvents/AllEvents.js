@@ -37,15 +37,15 @@ const AllEvents = ({ toggle }) => {
   const [loading, setLoading] = React.useState(true);
 
   const fetchEvents = () => {
-    console.log("baseee location", location);
+    // console.log("baseee location", location);
 
-    console.log("baseee", newlocation);
+    // console.log("baseee", newlocation);
     axios
       .get(`${process.env.REACT_APP_BASE_API}/events/search`, {
         params: { city: newlocation ? newlocation : location, title: serach ? serach : null},
       })
       .then(function (response) {
-        console.log("response", response.data);
+        // console.log("response", response.data);
         setLoading(false);
         setEvents(response.data);
       })

@@ -4,7 +4,7 @@ import './Dropdown.css'
 import { useState } from 'react'
 const Dropdown = ({Name , Links}) => {
   const [toggleBtn, setToggleBtn] = useState(false);
-  console.log(Links)
+  // console.log(Links)
   return (
     <div className = "Dropdown">
       <a data-testid = "dropdownLink" href="#" className='drop__btn' onClick={() => setToggleBtn(!toggleBtn)}>{Name} {toggleBtn ? <AiOutlineArrowUp className = "arrow__Logo"  /> : <AiOutlineArrowDown className = "arrow__Logo" />}</a>

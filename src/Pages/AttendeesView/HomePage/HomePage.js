@@ -70,10 +70,10 @@ export const HomePage = () => {
 
   const fetchEvents = () => {
     setLoading(true);
-    console.log("baseee", location);
+    // console.log("baseee", location);
     const date = new Date(2023, 4, 12, 5, 30);
 const formattedDate = date.toISOString();
-console.log("formattedDate", formattedDate);
+// console.log("formattedDate", formattedDate);
 
 
     axios
@@ -81,7 +81,7 @@ console.log("formattedDate", formattedDate);
         params: { city: location ? location : "Cairo", free: free ? free : null, online: online ? online : null, start_date: today ? formattedDate : null },
       })
       .then(function (response) {
-        console.log("response", response.data);
+        // console.log("response", response.data);
         setEvents(response.data);
         setLoading(false);
       })
@@ -92,9 +92,9 @@ console.log("formattedDate", formattedDate);
   };
 
   useEffect(() => {
-    console.log("free", free)
-    console.log("online", online)
-    console.log("today", today)
+    // console.log("free", free)
+    // console.log("online", online)
+    // console.log("today", today)
     fetchEvents();
   }, [free, online, today]);
 
@@ -103,7 +103,7 @@ console.log("formattedDate", formattedDate);
       let url = "https://ipinfo.io/json?token=89085807858d6e";
       let response = await fetch(url);
       let data = await response.json();
-      console.log("locaation", data);
+      // console.log("locaation", data);
       setLocation(data.city);
     }
 

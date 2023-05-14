@@ -22,8 +22,8 @@ const TicketInfo = ({ticketName,ticketDate,amount,Price,btnID,event,setEvent}) =
   const deleteTicket = (id) => {
     const newEvent = event;
     newEvent.tickets.splice(id, 1);
-    console.log("id " + id);
-    console.log(newEvent);
+    // console.log("id " + id);
+    // console.log(newEvent);
     setEvent({...event, newEvent});
   }
   return (

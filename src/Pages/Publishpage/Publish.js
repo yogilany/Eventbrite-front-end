@@ -11,7 +11,7 @@ import CreatorHeader from "../CreatorsView/Details/Components/creatorHeader/Crea
  * @returns {JSX.Element of Publish Page}
  */
 const Publish = ({ event, setEvent }) => {
-  console.log("event in publish: ", event);
+  // console.log("event in publish: ", event);
   return (
     <div>
       <CreatorHeader data_testid="HDID" />

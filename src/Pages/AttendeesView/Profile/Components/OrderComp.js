@@ -15,7 +15,7 @@ const OrderComp = (props) => {
   const handleImgError = () => {
     setImgSrc(eventphoto);
   };
-  console.log("orders :",event);
+  // console.log("orders :",event);
   return (
     <div className="MainComp_prof" data-testid={props.data_testid}>
       <div className="Datee_prof">

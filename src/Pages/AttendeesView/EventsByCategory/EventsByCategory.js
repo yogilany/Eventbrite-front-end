@@ -15,8 +15,8 @@ import { set } from "date-fns";
 
 const EventsByCategory = () => {
   const { category, location } = useParams();
-  console.log("categorycategory", category);
-  console.log("locationlocation", location);
+  // console.log("categorycategory", category);
+  // console.log("locationlocation", location);
   const [subcategories, setSubcategories] = useState([]);
   const [events, setEvents] = useState([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
@@ -43,7 +43,7 @@ const EventsByCategory = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_API}/events/search`,{ params: { city: location, category: category } })
       .then(function (response) {
-        console.log("responseeee", response.data);
+        // console.log("responseeee", response.data);
         setLoadingEvents(false);
         setEvents(response.data);
       })

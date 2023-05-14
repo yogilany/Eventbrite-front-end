@@ -86,7 +86,7 @@ const ManageEvents = () => {
             (row) => row.event === newReportRow.event
           );
           if (index === -1) {
-            console.log("allDataallData", allData);
+            // console.log("allDataallData", allData);
             setAllData([...allData, newReportRow]);
           }
 
@@ -113,7 +113,7 @@ const ManageEvents = () => {
         },
       })
       .then(function (response) {
-        console.log("my events", response.data);
+        // console.log("my events", response.data);
         setEvents(response.data);
         setFilteredEvents(response.data);
         setLoading(false);
@@ -164,7 +164,7 @@ const ManageEvents = () => {
   };
 
   useEffect(() => {
-    console.log("allData", allData);
+    // console.log("allData", allData);
   }, [allData]);
 
   return (

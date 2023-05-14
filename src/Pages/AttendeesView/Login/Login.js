@@ -67,7 +67,7 @@ export const Login = (props) => {
       dispatch(forgotPassword(emailInput))
         .unwrap(unwrapResult)
         .then((result) => {
-          console.log("success", result);
+          // console.log("success", result);
         })
         .catch((err) => {
           console.log("error", err);
@@ -87,7 +87,7 @@ export const Login = (props) => {
       // Save email for forget password modal
       setEmailInput(e.email);
 
-      console.log(data);
+      // console.log(data);
 
       dispatch(authUser(data))
         .unwrap(unwrapResult)

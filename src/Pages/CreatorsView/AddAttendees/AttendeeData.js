@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { selectUserToken } from 'src/features/authSlice';
 
 const AttendeeData = ({setIsSuccess,index, ticket, sendData, isPlaceorder,event, orderID,setIsCheckoutDone, isCheckoutDone, setIsCheckout,total}) => {
-    console.log("orderrrrr idddd", orderID)
+    // console.log("orderrrrr idddd", orderID)
     const token = useSelector(selectUserToken);
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -40,9 +40,9 @@ const AttendeeData = ({setIsSuccess,index, ticket, sendData, isPlaceorder,event,
     }
 
     const handleAddAttendee = async () => {
-      console.log("trying to add attendee event", event)
+      // console.log("trying to add attendee event", event)
 
-      console.log("trying to add attendee", orderID)
+      // console.log("trying to add attendee", orderID)
 
       const Finalattendee = {
         "first_name": firstname,
@@ -53,11 +53,11 @@ const AttendeeData = ({setIsSuccess,index, ticket, sendData, isPlaceorder,event,
         "event_id": event.id
       }
 
-      console.log("Finalattendee",Finalattendee)
+      // console.log("Finalattendee",Finalattendee)
 
 
       try {
-        console.log("trying to add attendee")
+        // console.log("trying to add attendee")
         const response = await axios.post(
           `${process.env.REACT_APP_BASE_API}/attendees/${event.id}/add_attendee`,
           Finalattendee,
@@ -66,7 +66,7 @@ const AttendeeData = ({setIsSuccess,index, ticket, sendData, isPlaceorder,event,
             Authorization: `Bearer ${token}`}
           }
         );
-        console.log("Res : ", response);
+        // console.log("Res : ", response);
         if(response.status === 200){
           setIsSuccess(true)
         }

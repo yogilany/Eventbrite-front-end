@@ -29,7 +29,7 @@ const SalesReport = () => {
         },
       })
       .then(function (response) {
-        console.log("tickets", response.data);
+        // console.log("tickets", response.data);
         setTickets(response.data);
       })
       .catch(function (error) {

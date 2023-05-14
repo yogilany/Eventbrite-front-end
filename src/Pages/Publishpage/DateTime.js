@@ -44,7 +44,7 @@ const DateTime = (props) => {
     });
     try {
       const response = await createEvent(props.event).unwrap();
-      console.log("response: ", response);
+      // console.log("response: ", response);
       navigate(`/event/${response.id}`, { replace: true });
     } catch (error) {
       console.log("Error creating event : ", error);

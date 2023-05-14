@@ -14,7 +14,7 @@ import { useGetUserQuery } from "src/features/api/userApi";
 function Organizer() {
   const { id } = useParams();
   const { data: organizerData } = useGetUserQuery(id);
-  console.log(organizerData);
+  // console.log(organizerData);
   return (
     <Container>
       <div className="bg">

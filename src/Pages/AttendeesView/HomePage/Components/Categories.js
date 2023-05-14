@@ -42,7 +42,7 @@ export const CategoriesTaps = ({ categorySelector, location, setFree, setOnline,
       setToday(null);
     }
 
-    console.log("new value", newValue);
+    // console.log("new value", newValue);
 
     categorySelector(event.target.innerHTML);
   };

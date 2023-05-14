@@ -92,7 +92,7 @@ export const SignupForm = (props) => {
 
   const registerUserHandler = () => {
     if (SocialProfile) {
-      console.log("Social profile", SocialProfile);
+      // console.log("Social profile", SocialProfile);
       dispatch(checkEmailExists(SocialProfile.email))
         .unwrap(unwrapResult)
         .then(() => {

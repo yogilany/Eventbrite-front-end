@@ -147,8 +147,8 @@ const Checkout = ({ setIsCheckout, img_url, event, tickets, totalvalue }) => {
       image_link: "https://www.example.com/image.png",
     };
 
-    console.log("finalOrder", finalOrder, token);
-    console.log("event.id", event.id);
+    // console.log("finalOrder", finalOrder, token);
+    // console.log("event.id", event.id);
 
     try {
       const response = await axios.post(
@@ -161,7 +161,7 @@ const Checkout = ({ setIsCheckout, img_url, event, tickets, totalvalue }) => {
           },
         }
       );
-      console.log("Order Res : ", response);
+      // console.log("Order Res : ", response);
       setOrderID(response.data.id);
     } catch (error) {
       console.log(error);
@@ -185,7 +185,7 @@ const Checkout = ({ setIsCheckout, img_url, event, tickets, totalvalue }) => {
   };
 
   useEffect(() => {
-    console.log("attendees", attendees);
+    // console.log("attendees", attendees);
   }, [attendees]);
 
   //   useEffect(() => {

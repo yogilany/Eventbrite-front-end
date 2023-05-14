@@ -74,13 +74,13 @@ const TableRow = ({ event, csvExport, fetch }) => {
       })
       .catch(function (error) {
         // handle error
-        console.log(error);
+        // console.log(error);
       });
   };
 
     const handleDelete = (id) => {
         setShow(true)
-        console.log("id", id)
+        // console.log("id", id)
         
       
       }
@@ -95,7 +95,7 @@ const TableRow = ({ event, csvExport, fetch }) => {
           },
         })
         .then(function (response) {
-          console.log("response", response);
+        //   console.log("response", response);
             fetch();
           setShow(false)
 

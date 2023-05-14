@@ -47,7 +47,7 @@ const VerifyUser = () => {
   useEffect(() => {
     // get parameters from url
     const token = searchParams.get("token");
-    console.log("Token = ", token);
+    // console.log("Token = ", token);
     dispatch(verifyUser(token))
       .unwrap(unwrapResult)
       .then((result) => {

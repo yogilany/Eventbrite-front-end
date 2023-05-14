@@ -11,13 +11,13 @@ import eventphoto from "../../assets/empt.png";
  */
 const Containerpub = (props) => {
   const data = props.event;
-  console.log("data ziad: ", data);
+//   console.log("data ziad: ", data);
   const title = data?.basic_info?.title;
   //  const price = data?.tickets[0]?.price; // Events don't have tickets in usual case
   //  const quant = data?.tickets[0]?.max_quantity; // Events don't have tickets in usual case
   const date = data?.date_and_time?.start_date_time;
-  console.log("date", date);
-  console.log("title");
+//   console.log("date", date);
+//   console.log("title");
   return (
     <div className="Full__Container" data-testid={props.data_testid}>
       <div>

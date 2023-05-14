@@ -31,7 +31,7 @@ const Events = ({ location, events, setFree, setOnline, setToday, loading}) => {
 
 
   useEffect(() => {
-    console.log("events: ", events);
+    // console.log("events: ", events);
   }, [events]);
 
   return (

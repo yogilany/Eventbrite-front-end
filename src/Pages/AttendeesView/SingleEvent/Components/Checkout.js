@@ -61,12 +61,12 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
     axios
       .get(`${process.env.REACT_APP_BASE_API}/promocodes/event_id/${event.id}`)
       .then(function (response) {
-        console.log("promocodes", response.data);
+        // console.log("promocodes", response.data);
         setPromocodes(response.data);
       })
       .catch(function (error) {
         // handle error
-        console.log("error", error);
+        // console.log("error", error);
       });
   };
 
@@ -74,7 +74,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
     axios
       .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`)
       .then(function (response) {
-        console.log("tickets", response);
+        // console.log("tickets", response);
         setTicketsTypes(response.data);
         updateTicketsQuantity();
 
@@ -82,7 +82,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
       })
       .catch(function (error) {
         // handle error
-        console.log("error", error);
+        // console.log("error", error);
       });
   };
 
@@ -92,14 +92,14 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
       axios
       .put(`${process.env.REACT_APP_BASE_API}/tickets/ticket_id/${ticket.id}/quantity/${-1}`,{quantity: -1})
       .then(function (response) {
-        console.log("tickets u[date", response);
+        // console.log("tickets u[date", response);
         setTicketsTypes(response.data);
 
 
       })
       .catch(function (error) {
         // handle error
-        console.log("error", error);
+        // console.log("error", error);
       });
     });
   }
@@ -158,7 +158,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
   }, []);
 
   useEffect(() => {
-    console.log("selectedTicket", selectedTicket);
+    // console.log("selectedTicket", selectedTicket);
   }, [selectedTicket]);
 
   // Format the remaining time as mm:ss
@@ -204,11 +204,11 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
 
   const handlePromocode =  () => {
     // check if promocode is found the promocodes array 
-    console.log("promocode", promocode)
+    // console.log("promocode", promocode)
 
     // check if promo code is found in the added promocodes array
     if(addedPromocodes){
-      console.log("promocode already added");
+      // console.log("promocode already added");
       return;
     }
 
@@ -216,7 +216,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
     const index = promocodes.findIndex((pc) => pc.name == promocode);
     if (index != -1) {
       
-      console.log("promocode found" , promocodes[index]);
+      // console.log("promocode found" , promocodes[index]);
       // update the total price
       const promocode = promocodes[index];
       if(promocode.is_percentage){
@@ -236,7 +236,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
       // finalOrder.price = finalOrder.price - promocodes[index].discount;
     }
     else{
-      console.log("promocode not found");
+      // console.log("promocode not found");
 
     }
   };
@@ -254,7 +254,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
       image_link: "https://www.example.com/image.png",
     };
 
-    console.log("finalOrder", finalOrder, token);
+    // console.log("finalOrder", finalOrder, token);
 
     
 
@@ -269,7 +269,7 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
           },
         }
       );
-      console.log("Res : ", response);
+      // console.log("Res : ", response);
 
       setOrderID(response.data.id);
     } catch (error) {

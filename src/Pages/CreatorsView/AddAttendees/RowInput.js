@@ -14,11 +14,11 @@ const RowInput = ({ticket, tickets, setTickets}) => {
             quantity: e.target.value,
             facevalue: e.target.value * ticket.price,
         }
-        console.log(newTicket);
+        // console.log(newTicket);
 
         // check if the ticket type of the new ticket is not in tickets array, then add it.
         // else, update the quantity and facevalue of the ticket type in the tickets array
-        console.log("tickets2",tickets)
+        // console.log("tickets2",tickets)
         const index = tickets.findIndex((ticket) => ticket.ticket.type === newTicket.ticket.type);
         if(index === -1){
              // if the quantity of the ticket type is 0, then remove it from the tickets array

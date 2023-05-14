@@ -57,7 +57,7 @@ const AttendeeData = ({
       order_id: orderID,
       event_id: event.id,
     };
-    console.log("Finalattendee", Finalattendee);
+    // console.log("Finalattendee", Finalattendee);
 
     try {
       const response = await axios.post(
@@ -70,8 +70,8 @@ const AttendeeData = ({
           },
         }
       );
-      console.log("Res : ", response);
-      console.log("index -- total : ", index, total);
+      // console.log("Res : ", response);
+      // console.log("index -- total : ", index, total);
       if (index === total) {
         setIsCheckout(false);
         alert("Your order has been placed successfully");

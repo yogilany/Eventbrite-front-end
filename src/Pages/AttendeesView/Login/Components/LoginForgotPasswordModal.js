@@ -5,6 +5,14 @@ import * as HiIcons from "react-icons/hi";
 import "../Login.scss";
 import "./LoginForgotPasswordModal.scss";
 
+/**
+ * Horizontal chip with the word 'or' in a pill and 2 lines on both sides of the pill
+ * @date 3/29/2023 - 2:52:24 AM
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {*}
+ */
 const LoginForgotPasswordModal = (props) => {
   return (
     <Modal

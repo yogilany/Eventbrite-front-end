@@ -14,7 +14,7 @@ import { selectUserToken } from "src/features/authSlice";
 import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
 
 const Dashboard = ({ event }) => {
-  console.log("event in dashhhhhh", event);
+  // console.log("event in dashhhhhh", event);
   const token = useSelector(selectUserToken);
   const [tickets, setTickets] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -32,9 +32,9 @@ const Dashboard = ({ event }) => {
         },
       })
       .then(function (response) {
-        console.log("tickets", response.data);
+        // console.log("tickets", response.data);
         setTickets(response.data);
-        console.log("ticketssss", tickets);
+        // console.log("ticketssss", tickets);
         setTotalTickets(0);
         setSoldTickets(0);
         setGross(0);
@@ -64,7 +64,7 @@ const Dashboard = ({ event }) => {
         },
       })
       .then(function (response) {
-        console.log("ordders", response.data);
+        // console.log("ordders", response.data);
         setOrders(response.data);
       })
       .catch(function (error) {

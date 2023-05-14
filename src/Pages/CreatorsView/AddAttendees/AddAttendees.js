@@ -25,7 +25,7 @@ function AddAttendees({ event, setEvent }) {
     axios
       .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`)
       .then(function (response) {
-        console.log("tickets in add", response.data);
+        // console.log("tickets in add", response.data);
 
         setTicketTypes(response.data);
         setIsLoading(false);
@@ -83,7 +83,7 @@ function AddAttendees({ event, setEvent }) {
     });
     setTotalValue(total);
 
-    console.log("new ticketssss", tickets, total);
+    // console.log("new ticketssss", tickets, total);
   }, [tickets]);
 
   useEffect(() => {

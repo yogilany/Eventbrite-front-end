@@ -32,7 +32,7 @@ export const LoginMethods = (props) => {
             }
           )
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             props.setSocialProfile(res.data);
           })
           .catch((err) => console.log(err));
@@ -45,15 +45,15 @@ export const LoginMethods = (props) => {
   });
 
   const loginFacebook = (response) => {
-    console.log(response);
+    // console.log(response);
     if (response) {
-      console.log(response?.name?.split(" "));
+      // console.log(response?.name?.split(" "));
       // const [firstname, lastname] = response?.name?.split(" ");
       const data = {
         email: response.email,
       };
-      console.log(response);
-      console.log(data);
+      // console.log(response);
+      // console.log(data);
       props.setSocialProfile(data);
     } else {
       props.setSocialProfile(null);

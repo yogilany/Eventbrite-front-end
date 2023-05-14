@@ -36,21 +36,21 @@ const ManageEvent = () => {
   const [eventTitle, setEventTitle] = useState("");
   // const [isFetching, setIsFetching] = useState(true);
   console.log(id);
-  console.log("success", success);
+  // console.log("success", success);
 
   const [event, setEvent] = useState(null);
 
   useEffect(() => {
     if (success && success2 && success3) {
       // setIsFetching(true);
-      console.log("got event", fetchedEvent);
-      console.log(" event", event);
+      // console.log("got event", fetchedEvent);
+      // console.log(" event", event);
       setEvent({
         ...fetchedEvent,
         tickets: fetchedTickets,
         promocodes: fetchedPromocodes,
       });
-      console.log("event: ", event);
+      // console.log("event: ", event);
     }
     // setIsFetching(false);
   }, [success, success2, success3]);
@@ -60,7 +60,7 @@ const ManageEvent = () => {
   // }, [fetchedEvent]);
 
   useEffect(() => {
-    console.log("event: ", event);
+    // console.log("event: ", event);
   }, [event]);
 
   useEffect(() => {
