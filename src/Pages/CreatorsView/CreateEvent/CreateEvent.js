@@ -12,6 +12,8 @@ import TicketsPage from "../../../Pages/CreatorsView/TicketsPage/TicketsPage";
 import { createContext } from "react";
 export const AppCreateEvent = createContext({});
 const CreateEvent = () => {
+  window.scrollTo(0, 0)
+
   const [eventTitle, setEventTitle] = useState("");
   const [disableDashboard, setDisableDashboard] = useState(true);
   const [event, setEvent] = useState({

@@ -84,6 +84,8 @@ Schema
  * @returns {JSX.Element}
  */
 const SingleEvent = (props) => {
+  window.scrollTo(0, 0)
+
   const { id } = useParams();
   const { data: event } = useGetEventByIdQuery(id);
   const [eventDate, setEventDate] = useState("");

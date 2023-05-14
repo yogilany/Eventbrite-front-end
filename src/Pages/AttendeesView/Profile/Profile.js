@@ -31,6 +31,8 @@ import { Col, Container, Row } from "react-bootstrap";
  * @returns {JSX.Element of Profile Page}
  */
 const Profile = () => {
+  window.scrollTo(0, 0)
+
   const dummtdata = [
     {
       id: 1,

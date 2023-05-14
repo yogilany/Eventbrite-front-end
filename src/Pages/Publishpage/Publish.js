@@ -11,6 +11,8 @@ import CreatorHeader from "../CreatorsView/Details/Components/creatorHeader/Crea
  * @returns {JSX.Element of Publish Page}
  */
 const Publish = ({ event, setEvent }) => {
+  window.scrollTo(0, 0)
+
   // console.log("event in publish: ", event);
   return (
     <div>

@@ -30,6 +30,8 @@ import mapImage from "../../../assets/map.png";
  */
 
 const AllEvents = ({ toggle }) => {
+  window.scrollTo(0, 0)
+
   const [location, setLocation] = React.useState(null);
   const [events, setEvents] = React.useState([]);
   const [serach, setSearch] = React.useState("");

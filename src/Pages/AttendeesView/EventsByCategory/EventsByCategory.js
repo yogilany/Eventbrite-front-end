@@ -14,6 +14,8 @@ import "./index.css"
 import { set } from "date-fns";
 
 const EventsByCategory = () => {
+  window.scrollTo(0, 0)
+
   const { category, location } = useParams();
   // console.log("categorycategory", category);
   // console.log("locationlocation", location);

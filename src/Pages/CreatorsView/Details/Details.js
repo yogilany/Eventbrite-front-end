@@ -16,6 +16,8 @@ export const AppContext = createContext({});
  * @returns {JSX.Element}
  */
 const Details = ({ event, setEvent }) => {
+  window.scrollTo(0, 0)
+
   const handleForm = (e) => {
     e.preventDefault();
   };

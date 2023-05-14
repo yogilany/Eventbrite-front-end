@@ -17,6 +17,8 @@ import { useGetTicketsQuery } from "src/features/api/ticketApi";
 import { useGetPromocodesQuery } from "src/features/api/promocodeApi";
 
 const ManageEvent = () => {
+  window.scrollTo(0, 0)
+
   const { id } = useParams();
   const {
     data: fetchedTickets,

@@ -19,6 +19,8 @@ import axios from "axios";
  */
 
 export const HomePage = () => {
+  window.scrollTo(0, 0)
+
   // console.log("USERR", window.User);
   const [location, setLocation] = useState(null);
   const [events, setEvents] = useState([]);

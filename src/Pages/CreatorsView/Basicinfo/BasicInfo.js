@@ -15,9 +15,11 @@ import { Alert, Row, Col } from "react-bootstrap";
  */
 
 function Basicinfo({ event, setEvent, setEventTitle }) {
+  window.scrollTo(0, 0)
+
 
   console.log("event in basic info: ", event);
-  
+
   const [tags, setTags] = useState([]);
   const [tagscount, setTagsCount] = useState(0);
   const [tagscharcount, setTagsCharCount] = useState(0);
