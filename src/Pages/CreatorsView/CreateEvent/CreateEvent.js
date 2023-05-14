@@ -59,7 +59,7 @@ const CreateEvent = () => {
         onSelect={() => window.scrollTo(0, 0)}
       >
         <Container fluid className="p-0" style={{ overflow: "hidden" }}>
-          <Sidebar eventTitle={eventTitle} />
+          <Sidebar eventTitle={eventTitle} inCreateEvent={true} />
           <Tab.Content>
             <Tab.Pane eventKey="first">
               <Basicinfo

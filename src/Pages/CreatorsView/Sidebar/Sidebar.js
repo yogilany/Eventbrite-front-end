@@ -24,7 +24,7 @@ import { Nav } from "react-bootstrap";
  * @description This is sidebar which displayed in Creator Pages (Publish , Details , Basic Info)
  * @returns {JSX.Element}
  */
-const Sidebar = ({ HideMenu, eventTitle }) => {
+const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
   const orderOptions = ["Order Form", "Order Confirmation", "Waitlist"];
   const Marketing = [
     "Add to Facebook",
@@ -193,10 +193,11 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
           ></div>
           {/* <hr className='line' /> */}
           <div>
-            <Nav.Item>
+            { inCreateEvent ? <Nav.Item>
               <Nav.Link
                 eventKey="fifth"
                 className="EventOption"
+
                 style={{
                   fontWeight: "500",
                   fontSize: "14px",
@@ -206,8 +207,9 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
                 {" "}
                 Dashboard
               </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
+            </Nav.Item> : null}
+
+            { inCreateEvent ? <Nav.Item>
               <Nav.Link
                 eventKey="sixth"
                 className="EventOption"
@@ -220,7 +222,7 @@ const Sidebar = ({ HideMenu, eventTitle }) => {
                 {" "}
                 Add Attendees
               </Nav.Link>
-            </Nav.Item>
+            </Nav.Item> : null}
 
             <Dropdown Name="Order Options" Links={orderOptions} />
             <Dropdown Name="Marketing" Links={Marketing} />

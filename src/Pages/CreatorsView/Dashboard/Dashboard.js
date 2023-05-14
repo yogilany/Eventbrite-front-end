@@ -14,6 +14,7 @@ import { selectUserToken } from "src/features/authSlice";
 import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
 
 const Dashboard = ({ event }) => {
+  console.log("event in dashhhhhh", event);
   const token = useSelector(selectUserToken);
   const [tickets, setTickets] = useState([]);
   const [orders, setOrders] = useState([]);
