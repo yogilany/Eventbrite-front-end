@@ -52,6 +52,9 @@ const Events = ({
       {/* {isCategoriesShown ? (
       ): null} */}
       <CategoriesCards location={location} id="categoriesCards" />
+      {/* {isCategoriesShown ? (
+      ): null} */}
+      <CategoriesCards location={location} id="categoriesCards" />
 
       {events.length != 0 ? (
         <Container className=" pl-5 pr-5 mb-5" id="eventsByLocationSection">
@@ -132,17 +135,17 @@ const Events = ({
             <Row className="justify-content-md-right">
               {moreEvents
                 ? moreEvents.map((event2, index) => (
-                    <EventCard
-                      key={index}
-                      eventTitle={event2.eventName}
-                      eventDate={event2.eventDate}
-                      eventTime={event2.eventTime}
-                      eventLocation={event2.eventLocation}
-                      eventPrice={event2.eventPrice}
-                      eventOrganizer={event2.eventOrganizer}
-                      organizerFollowers={event2.organizerFollowers}
-                    />
-                  ))
+                  <EventCard
+                    key={index}
+                    eventTitle={event2.eventName}
+                    eventDate={event2.eventDate}
+                    eventTime={event2.eventTime}
+                    eventLocation={event2.eventLocation}
+                    eventPrice={event2.eventPrice}
+                    eventOrganizer={event2.eventOrganizer}
+                    organizerFollowers={event2.organizerFollowers}
+                  />
+                ))
                 : "Loading..."}
             </Row>
             <Row className="justify-content-md-center">

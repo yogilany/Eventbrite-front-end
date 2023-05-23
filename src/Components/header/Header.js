@@ -178,10 +178,10 @@ const Header = ({ location }) => {
                   </div>
                 </button>
                 <div className="dropdown-content">
-                  <a href="#">Create events</a>
-                  <a href="#">Pricing</a>
-                  <a href="#">Resources</a>
-                  <a href="#">Contact Sales</a>
+                  <a href="google.com">Create events</a>
+                  <a href="google.com">Pricing</a>
+                  <a href="google.com">Resources</a>
+                  <a href="google.com">Contact Sales</a>
                 </div>
               </div>
               <div className="dropdown">
@@ -281,18 +281,18 @@ const Header = ({ location }) => {
                 {userFullName} <MdKeyboardArrowUp className="arrow" />
               </button>
               <div className="dropdown-content">
-                <a href="#" style={{ fontWeight: "500" }}>
+                <a href="google.com" style={{ fontWeight: "500" }}>
                   <HiOutlineSwitchHorizontal fontSize="25px" color="black" />{" "}
                   <span style={{ marginLeft: "10px" }}>
                     Switching to attending
                   </span>
                 </a>
-                <a href="#" style={{ fontWeight: "500" }}>
+                <a href="google.com" style={{ fontWeight: "500" }}>
                   <VscAccount fontSize="25px" color="black" />{" "}
                   <span style={{ marginLeft: "10px" }}>Account Settings</span>
                 </a>
 
-                <a href="#" style={{ fontWeight: "500" }}>
+                <a href="google.com" style={{ fontWeight: "500" }}>
                   <BiLogOut fontSize="25px" color="black" />{" "}
                   <span style={{ marginLeft: "10px" }}>Log out</span>
                 </a>

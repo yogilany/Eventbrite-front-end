@@ -10,3 +10,4 @@ const FormMessage = (props) => {
 }
 
 export default FormMessage
+export default FormMessage

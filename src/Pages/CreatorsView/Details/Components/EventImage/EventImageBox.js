@@ -87,3 +87,7 @@ const EventImageBox = (props) => {
 };
 
 export default EventImageBox;
+  );
+};
+
+export default EventImageBox;

@@ -62,6 +62,8 @@ export const SignupForm = (props) => {
   const dispatch = useDispatch();
   const controls = useAnimation();
 
+  const controls = useAnimation();
+
   const {
     register,
     handleSubmit,
@@ -72,6 +74,8 @@ export const SignupForm = (props) => {
     setError,
     reset,
     setValue,
+    reset,
+    setValue,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -80,6 +84,7 @@ export const SignupForm = (props) => {
   });
 
   const watchPassword = watch("password");
+  const watchEmail = watch("email");
   const watchEmail = watch("email");
 
   const onSubmit = (values) => {
@@ -259,6 +264,7 @@ export const SignupForm = (props) => {
                       type="email"
                       data-testid="email-input"
                       id="email-input"
+                      id="email-input"
                       {...register("email", { required: "Field required" })}
                     />
                     <label htmlFor="email-input">Email Address</label>
@@ -376,15 +382,15 @@ export const SignupForm = (props) => {
             <Row
               className="mb-2"
               style={{
-                display: showSignUpInfo ? "block" : "none",
-              }}
-            >
+                display: showSignUpInfo ? "block" : "none"
+              }}>
               <Form.Group className="mb-3 p-0">
                 <Form.Floating className={SignupFormCSS["form-floating"]}>
                   <TextInputStyled
                     type="password"
                     placeholder="Password"
                     data-testid="password-input"
+                    id="password-input"
                     id="password-input"
                     name="password"
                     isInvalid={errors?.password}
@@ -502,8 +508,8 @@ export const SignupForm = (props) => {
               </Link>
             </Row>
           </Col>
-        </Container>
-      </Form>
+        </Container >
+      </Form >
     </>
   );
 };

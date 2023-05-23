@@ -37,8 +37,7 @@ const initialState = {
  * @type {*}
  */
 export const authUser = createAsyncThunk(
-  "auth/login",
-  async (userData, thunkAPI) => {
+  "auth/login", async (userData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
       const response = await axios.post(
@@ -464,6 +463,14 @@ export const authSlice = createSlice({
 
 export const { logOut } = authSlice.actions;
 
+/**
+ * Description placeholder
+ * @date 4/18/2023 - 4:44:32 AM
+ * @author h4z3m
+ *
+ * @param {*} state
+ * @returns {*}
+ */
 export const selectLoading = (state) => state.auth.isLoading;
 export const selectUserToken = (state) => state.auth.userToken;
 export const selectUserEmail = (state) => state.auth.userEmail;

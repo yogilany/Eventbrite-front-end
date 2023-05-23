@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
-import './Dropdown.css'
-import { useState } from 'react'
-const Dropdown = ({Name , Links}) => {
+import "./Dropdown.css";
+import { useState } from "react";
+const Dropdown = ({ Name, Links }) => {
   const [toggleBtn, setToggleBtn] = useState(false);
   // console.log(Links)
   return (
@@ -13,7 +13,6 @@ const Dropdown = ({Name , Links}) => {
           {/* {Links.map((Link, i) => { return <a  >{Link}</a>})} */}
         </div>}
     </div>
-  )
-}
-export default Dropdown
-
+  );
+};
+export default Dropdown;

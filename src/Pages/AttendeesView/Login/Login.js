@@ -57,6 +57,7 @@ export const Login = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const controls = useAnimation();
+  const controls = useAnimation();
 
   const forgotPasswordHandler = () => {
     try {
@@ -181,6 +182,7 @@ export const Login = (props) => {
           setPasswordIncorrect(false);
         });
     }
+
   }, [user]);
 
   useEffect(() => {
@@ -210,6 +212,7 @@ export const Login = (props) => {
           sm={12}
           style={{
             display: "block",
+            display: "block",
             justifyContent: "center",
             alignContent: "center",
           }}
@@ -222,6 +225,7 @@ export const Login = (props) => {
                 <LoginTitle className="login-title" />
                 <h1
                   data-testid="login-header"
+                  id="login-header"
                   id="login-header"
                   className="mb-5"
                   style={{ minWidth: "200px" }}

@@ -51,8 +51,8 @@ function Head(props) {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         ></link>
-        <a href="#" className="fa fa-facebook"></a>
-        <a href="#" className="fa fa-twitter"></a>
+        <a href="google.com" className="fa fa-facebook"></a>
+        <a href="google.com" className="fa fa-twitter"></a>
       </div>
     </div>
   );

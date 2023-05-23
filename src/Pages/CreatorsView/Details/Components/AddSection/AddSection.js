@@ -15,11 +15,13 @@ const AddSection = ({ Title, Logo }) => {
     <div className="add__section-agenda">
       <div className="add__section-agenda-left">
         <div className="agenda__icon">{Logo}</div>
-        <h4 style={{ fontSize: "18px" , fontWeight:'700' , marginTop:'10px' }}>{Title}</h4>
+        <h4 style={{ fontSize: "18px", fontWeight: "700", marginTop: "10px" }}>
+          {Title}
+        </h4>
       </div>
       <div className="add__section-agenda-right">
         <a
-          href="#"
+          href="google.com"
           style={{
             marginRight: "30px",
             textDecoration: "none",
@@ -29,7 +31,7 @@ const AddSection = ({ Title, Logo }) => {
           How it works
         </a>
         <button
-          id = "add__btn"
+          id="add__btn"
           className="add__btn"
           onClick={() => {
             setAddAgendaBtn(!addAgendaBtn);

@@ -117,6 +117,7 @@ export const LoginForm = (props) => {
             as="button"
             type="submit"
             value=""
+            value=""
             variant="flat btn-flat"
             spinner={true}
           >

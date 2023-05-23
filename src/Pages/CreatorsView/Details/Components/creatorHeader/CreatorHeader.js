@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import "./creatorHeader.css";
 import Logo from "../../../../../assets/logo.png";
 import { AiOutlineMenu, AiFillEye } from "react-icons/ai";
+import Logo from "../../../../../assets/logo.png";
+import { AiOutlineMenu, AiFillEye } from "react-icons/ai";
 import { MdOutlineKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../Details";
@@ -20,6 +22,7 @@ import {
 /**
  * @author Mahmoud Khaled
  * @description This is Creator Header which will be displayed on Details Page
+ * @param {Boolean} MenuShow This Prop used to check whether we need menubar that will be displayed in responsive mood (< 600px) or not
  * @param {Boolean} MenuShow This Prop used to check whether we need menubar that will be displayed in responsive mood (< 600px) or not
  * @returns {JSX.Element}
  */
@@ -117,6 +120,7 @@ const CreatorHeader = ({ MenuShow }) => {
                 </a>
               </div>
             </div>
+          )}
           )}
         </div>
       </div>

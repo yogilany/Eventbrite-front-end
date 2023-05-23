@@ -1,10 +1,10 @@
-import React, { useState , useContext } from 'react'
-import './description.css'
-import { MdTextFields } from 'react-icons/md'
-import { MdDelete } from 'react-icons/md'
-import UploadBox from '../UploadBox/UploadBox'
-import { IoMdInformationCircleOutline } from 'react-icons/io'
-import { AppContext } from '../../Details'
+import React, { useState, useContext } from "react";
+import "./description.css";
+import { MdTextFields } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import UploadBox from "../UploadBox/UploadBox";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import { AppContext } from "../../Details";
 /**
  * @author Mahmoud Khaled
  * @param {}
@@ -33,6 +33,6 @@ const Description = ({description , setDescription}) => {
       </div>
     </div>
   );
-}
+};
 
-export default Description
+export default Description;
