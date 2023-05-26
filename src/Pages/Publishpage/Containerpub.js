@@ -86,4 +86,3 @@ const Containerpub = (props) => {
 };
 
 export default Containerpub;
-export default Containerpub;
