@@ -50,5 +50,3 @@ function Venue(props) {
 }
 
 export default Venue;
-
-export default Venue;
