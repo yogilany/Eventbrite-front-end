@@ -15,8 +15,6 @@ export const LoginImage = (props) => {
             style={{ backgroundImage: `url(${props.img_url})` }}
             data-testid={props.data_testid}
             >
-            data-testid={props.data_testid}
-            >
             <Row style={{ height: "100vh" }}>
                 <Col md={4} >
                 </Col>
@@ -38,16 +36,8 @@ export const LoginImage = (props) => {
                             data-testid="img_credit"
                             id="img_credit"
                         >
-                        <div
-                            data-testid="img_credit"
-                            id="img_credit"
-                        >
                             {props.img_credit}
                         </div>
-                        <div
-                            data-testid="img_location"
-                            id="img_location"
-                        >
                         <div
                             data-testid="img_location"
                             id="img_location"
