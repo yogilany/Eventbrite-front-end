@@ -41,7 +41,6 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
     { name: "Check-in", link: "/check-in" },
   ];
   const sidebarOptions = useRef();
-  const { disableDashboard, setDisableDashbaord } = useContext(AppCreateEvent);
   const { toggleSidebar, setToggleSidebar } = useContext(AppContext);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
@@ -53,6 +52,16 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
       window.removeEventListener("resize", handleWindowSize);
     };
   });
+  // useEffect(() => {
+  //   let handler = (e) => {
+  //     if (!sidebarOptions.current.contains(e.target))
+  //       setToggleSidebar(!toggleSidebar);
+  //   }
+  //   document.addEventListener('mousedown', handler);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handler);
+  //   }
+  // })
   return (
     <div className="sidebar" data-testid="sidebar">
       <div className="sidebar__links" data-testid="sidebar-links">
@@ -95,21 +104,13 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
         </OverlayTrigger>
 
         <a href="#">
-          <Tooltip title="Organization Setting">
-            <IconButton className="Icon__Button">
-              <FiSettings className="logo" />
-            </IconButton>
-          </Tooltip>
+          <FiSettings className="logo" />
         </a>
         <div className="footer" data-testid="footer">
           <a href="#">
-            <Tooltip title="App marketplace">
-              <IconButton className="Icon__Button">
-                <AiOutlineAppstore className="logo" />
-              </IconButton>
-            </Tooltip>
+            <AiOutlineAppstore className="logo" />
           </a>
-          <a href="google.com">
+          <a href="#">
             <FiHelpCircle className="logo" />
           </a>
         </div>
@@ -131,18 +132,18 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
             style={{ borderTop: "2px solid grey", width: "100%" }}
           ></div>
           {/* <hr className='line' /> */}
-          <a className="draft__btn" href="google.com">
+          <a className="draft__btn">
             Draft <MdOutlineKeyboardArrowDown className="arrow__down" />
           </a>
           <a
             style={{ textDecoration: "none", marginTop: "15px" }}
-            href="google.com"
+            href="#"
             className="event__name"
           >
             <h2
               style={{
                 marginLeft: "30px",
-                color: "google.com1E0A3C",
+                color: "#1E0A3C",
                 fontSize: "24px",
                 fontWeight: "700",
               }}
@@ -154,13 +155,13 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
             style={{
               marginLeft: "30px",
               fontSize: "14px",
-              color: "google.com4b4d63",
+              color: "#4b4d63",
               marginTop: "2px",
               fontWeight: "600",
             }}
           ></p>
           <a
-            href="google.com"
+            href="#"
             style={{
               marginLeft: "30px",
               marginTop: "8px",
@@ -280,13 +281,13 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
           ></div>
           <a
             style={{ textDecoration: "none", marginTop: "15px" }}
-            href="google.com"
+            href="#"
             className="event__name"
           >
             <h2
               style={{
                 marginLeft: "35px",
-                color: "google.com1E0A3C",
+                color: "#1E0A3C",
                 marginTop: "15px",
                 fontWeight: "700",
               }}
@@ -298,7 +299,7 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
             style={{
               marginLeft: "35px",
               fontSize: "14px",
-              color: "google.com4b4d63",
+              color: "#4b4d63",
               marginTop: "2px",
               fontWeight: "600",
             }}
@@ -306,7 +307,7 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
             Sun, Apr 16, 2023 7:00 PM
           </p>
           <a
-            href="google.com"
+            href="#"
             style={{
               marginLeft: "35px",
               marginTop: "-8px",
@@ -322,19 +323,19 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
             style={{ borderTop: "2px solid grey", width: "100%" }}
           ></div>
           <div className="routing__options">
-            <a href="google.com" className="EventOption">
+            <a href="#" className="EventOption">
               <TbNumber1 className="number" />
               Basic Info
             </a>
-            <a href="google.com" className="EventOption">
+            <a href="#" className="EventOption">
               <TbNumber2 className="number" />
               Details
             </a>
-            <a href="google.com" className="EventOption">
+            <a href="#" className="EventOption">
               <TbNumber3 className="number" />
               Tickets
             </a>
-            <a href="google.com" className="EventOption">
+            <a href="#" className="EventOption">
               <TbNumber4 className="number" />
               Publish
             </a>
@@ -345,15 +346,13 @@ const Sidebar = ({ HideMenu, eventTitle, inCreateEvent }) => {
             style={{ borderTop: "2px solid grey", width: "100%" }}
           ></div>
           <div>
-            <button disabled={DashoboardStatus}>
-              <a
-                href="/dashboard"
-                className="EventOption"
-                style={{ fontWeight: "500" }}
-              >
-                Dashboard
-              </a>
-            </button>
+            <a
+              href="/dashboard"
+              className="EventOption"
+              style={{ fontWeight: "500" }}
+            >
+              Dashboardd
+            </a>
             <Dropdown Name="Order Options" Links={orderOptions} />
             <Dropdown Name="Marketing" Links={Marketing} />
             {/* <Dropdown Name="Manage Attendes" Links={ManageAttendees} /> */}
