@@ -14,6 +14,7 @@ test("quantity input updates state correctly", () => {
   expect(quantityInput.value).toBe("5");
 });
 
+
 test("facevalue input updates state correctly", () => {
   const ticket = { name: "Test Ticket", price: 10 };
   const setTickets = jest.fn();

@@ -21,3 +21,4 @@ describe("AddAttendees component", () => {
     expect(select.value).toBe("cash");
   });
 });
+
