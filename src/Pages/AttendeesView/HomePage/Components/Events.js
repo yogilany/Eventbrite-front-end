@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
  * It shows the events on a specific city depending on the user's location.
  * It can be changed to show events on another city. It shows 8 events at a time.
  * @returns {React.FC}
- *
+
  * @todo Get data from API and show it.
  * @todo Styling headings
  */
