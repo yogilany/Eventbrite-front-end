@@ -54,7 +54,7 @@ const Events = ({
       <CategoriesCards location={location} id="categoriesCards" />
       {/* {isCategoriesShown ? (
       ): null} */}
-      <CategoriesCards location={location} id="categoriesCards" />
+      {/* <CategoriesCards location={location} id="categoriesCards" /> */}
 
       {events.length != 0 ? (
         <Container className=" pl-5 pr-5 mb-5" id="eventsByLocationSection">
