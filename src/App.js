@@ -26,7 +26,6 @@ import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 import Publish from "./Pages/Publishpage/Publish";
 import { ProtectedRoute } from "./app/ProtectedRoute";
 import { Layout } from "./app/layout";
-import MyEvents from "./Pages/CreatorsView/MyEvents/MyEvents";
 import ManageEvent from "./Pages/CreatorsView/ManageEvent/ManageEvent";
 import OrdersReport from "./Pages/CreatorsView/Dashboard/Components/OrdersReport";
 function App() {
