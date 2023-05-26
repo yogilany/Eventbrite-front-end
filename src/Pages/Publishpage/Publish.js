@@ -34,10 +34,5 @@ const Publish = ({ event, setEvent }) => {
     </div>
   );
 };
-      </div>
-    </div>
-  );
-};
 
-export default Publish;
 export default Publish;
