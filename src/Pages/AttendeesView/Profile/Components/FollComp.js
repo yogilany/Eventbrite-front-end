@@ -1,54 +1,50 @@
 import React from "react";
 import "./FollComp.css";
-import eventphoto from "../../../../assets/like3.jpeg";
 import emptyprofile from "../../../../assets/emptyprofile.png";
-import { useSelector } from "react-redux";
-import { getUserDetails, logOut, selectUserAvatarURL, selectUserEmail, selectUserFirstName, selectUserLastName, selectUserToken } from "../../../../features/authSlice";
-import {FollowEvent,unFollowEvent} from "../../../../features/userprofSlice";
+import { useDispatch } from "react-redux";
+import {
+  useFollowUserMutation,
+  useUnfollowUserMutation,
+} from "src/features/api/userApi";
+import { useState } from "react";
+import { Avatar } from "@mui/material";
+import FollowButton from "src/Components/FollowButton/FollowButton";
 /**
  * @author Ziad Ezzat
- * @param {string} props.text
- * @param {string} props.data_testid
+ * @param {string} props.className    
+ * @description Pass the ClassName To update the styling in CSS
+ * @param {string} props.firstname    
+ * @description First Name of The followed User
+ * @param {string} props.lastname     
+ * @description Last Name of The followed User
+ * @param {string} props.avatar_url   
+ * @description Image of The followed User
+ * @param {string} props.data_testid  
+ * @description used in unit testing
+ * @param {string} props.id           
+ * @description ID of followed User
  * @description This is container for Following box found in Profile page showing following pages and it takes text as props to show name of the page that user is following
- * @returns {JSX.Element of following component used in Profile Page}
+ * @returns {React.FC}
  */
 const FollComp = (props) => {
-  const token = useSelector(selectUserToken);
-  const [userFullName, setUserFullName] = React.useState(props.firstname + " " + props.lastname)
-  const [imgSrc, setImgSrc] = React.useState(props.avatar);
-  const handleImgError = () => {
-    setImgSrc(emptyprofile);
-  };
-  const [isfollowing, setisfollowing] = React.useState("Following");
-  const handleClick = () => {
-    if (isfollowing==="Following")
-    {
-      setisfollowing("Follow");
-      console.log("ID with unfollow :",props.id);
-      console.log("Token with unfollow :",token);
-      unFollowEvent(token,props.id);
-
-    }
-    else{
-      setisfollowing("Following");
-      //console.log("Token with unlike :",token);
-      //console.log("id with unlike :",props.id);
-      FollowEvent(token,props.id);
-    }
-  };
+  const [userFullName, setUserFullName] = useState(
+    props.firstname + " " + props.lastname
+  );
   return (
     <div
-      style={{ display: "flex", marginTop: 10}}
+      className={props.className}
+      style={{ display: "flex", marginTop: 10 }}
       data-testid={props.data_testid}
     >
-      <img
-        onError={handleImgError}
-        src={imgSrc}
+      <Avatar
+        src={props.avatar_url}
         alt="profilelogo"
-        style={{ width: 65, height: 65 , borderRadius:"50%" }}
+        style={{ width: 36, height: 36, borderRadius: "50%" }}
       />
-      <h5 style={{ marginTop: 20, fontSize: 17 , width:'200px' }}>{userFullName}</h5>
-      <button id="btnfol_prof_id" onClick={handleClick} className="btnfol_prof">{isfollowing}</button>
+      <h5 style={{ marginTop: 7, marginLeft: 10, fontSize: 17, width: "100%" }}>
+        {userFullName}
+      </h5>
+      <FollowButton className="btnfol_prof" id={props.id}></FollowButton>
     </div>
   );
 };

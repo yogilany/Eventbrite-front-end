@@ -1,3 +1,218 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Organizer should render the component correctly 1`] = `undefined`;
+exports[`Organizer should render the component correctly 1`] = `
+<div>
+  <div
+    class="container"
+  >
+    <div
+      class="bg"
+    >
+      <div
+        class="content"
+      >
+        <div
+          class="profilecard"
+        >
+          <div
+            class="avatar"
+          >
+            <div
+              style="background: rgb(27, 61, 80); width: 180px; height: 180px; border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: all 0.5s ease; box-shadow: inherit;"
+            >
+              <img
+                style="width: 180px; height: 180px; border-radius: 50%;"
+              />
+            </div>
+          </div>
+          <div
+            class="Orgname"
+          >
+            <p>
+              undefined undefined
+            </p>
+          </div>
+          <div
+            class="Btns"
+          >
+            <button
+              class="follow btn btn-outline-primary btn-lg"
+              type="button"
+            >
+              Follow
+            </button>
+             
+            <button
+              class="contact btn btn-outline-secondary btn-lg"
+              type="button"
+            >
+              Contact
+            </button>
+             
+          </div>
+          <div
+            class="nums"
+          >
+            <div
+              class="followers"
+            >
+              <span>
+                <strong>
+                  120
+                </strong>
+              </span>
+              <p>
+                Followers
+              </p>
+            </div>
+            <div
+              class="totalevents"
+            >
+              <span>
+                <strong>
+                  2
+                </strong>
+              </span>
+              <p>
+                Total Events
+              </p>
+            </div>
+          </div>
+          <div
+            class="orginfo"
+          >
+            <p>
+              This is Anas Organization for mastering sorcery around the world, our goal here is to develop newborn sorcerers with magical abilities, join us in our journey and we promise, you wont regret it :)
+            </p>
+          </div>
+          <div
+            class="socialmedia"
+          >
+            <link
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+              rel="stylesheet"
+            />
+            <a
+              class="fa fa-facebook"
+              href="#"
+            />
+            <a
+              class="fa fa-twitter"
+              href="#"
+            />
+          </div>
+        </div>
+        <div
+          class="lowersection"
+        >
+          <div
+            class="scrollmenu"
+          >
+            <a
+              href="#"
+            >
+              Events
+            </a>
+          </div>
+          <p
+            class="select"
+          >
+            Events
+          </p>
+          <div
+            class="uporpast"
+          >
+            <div
+              class="btn-group"
+              role="group"
+            >
+              <input
+                autocomplete="off"
+                checked=""
+                class="btn-check"
+                id="tbg-radio-1"
+                name="options"
+                type="radio"
+                value="1"
+              />
+              <label
+                class="btn btn-primary"
+                data-testid="tbg-radio-1"
+                for="tbg-radio-1"
+                tabindex="0"
+              >
+                Upcoming (1)
+              </label>
+              <input
+                autocomplete="off"
+                class="btn-check"
+                id="tbg-radio-2"
+                name="options"
+                type="radio"
+                value="2"
+              />
+              <label
+                class="btn btn-primary"
+                data-testid="tbg-radio-2"
+                for="tbg-radio-2"
+                tabindex="0"
+              >
+                Past (1)
+              </label>
+            </div>
+          </div>
+          <div
+            class="Cards"
+          >
+            <div
+              class="wholecard"
+            >
+              <div
+                class="bgimg"
+              >
+                <div
+                  class="likebtn"
+                >
+                  <a
+                    class="btn lovebtn"
+                    href="#"
+                    title="Add to Favourites"
+                  >
+                    <span>
+                      ❤
+                    </span>
+                  </a>
+                </div>
+                <div
+                  class="content"
+                >
+                  <p
+                    class="title"
+                  >
+                    Dr Stephen Strange
+                  </p>
+                  <p
+                    class="date"
+                  >
+                    Sunday, March 12, 2023
+                  </p>
+                  <p
+                    class="location"
+                  >
+                    Earth 616
+                  </p>
+                  <p
+                    class="price"
+                  >
+                    Starts from 12.5 EGP
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

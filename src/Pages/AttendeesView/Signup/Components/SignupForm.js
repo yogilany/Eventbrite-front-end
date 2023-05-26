@@ -1,40 +1,41 @@
-import { IconButton } from "@mui/material";
-import { Link } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Form,
-  InputGroup,
-  Col,
-  Container,
-  Row,
-  FloatingLabel,
-  Stack,
-} from "react-bootstrap";
-import * as TiIcons from "react-icons/ti";
-import HorizontalChip from "../../Login/Components/HorizontalChip";
-import SignupMethods from "./SignupMethods";
-import { useNavigate } from "react-router";
-import SignupFormCSS from "./SignupForm.module.css";
-import "../Signup.scss";
-import "./SignupMethods";
-import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
-import TextInputStyled from "../../../../Components/TextInput/TextInput";
-import OrangeButton from "../../../../Components/Buttons/OrangeButton";
 import { yupResolver } from "@hookform/resolvers/yup";
-import SignupVerifyModal from "./SignupVerifyModal";
+import { IconButton } from "@mui/material";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { motion, useAnimation } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Col,
+  Container,
+  FloatingLabel,
+  Form,
+  InputGroup,
+  Row,
+  Stack,
+} from "react-bootstrap";
+import { useForm } from "react-hook-form";
 import * as BiIcons from "react-icons/bi";
-import LinearProgressWithLabel from "../../../../Components/LinearProgressWithLabel/LinearProgressWithLabel";
-import { SignupSchema, getPasswordState, isValidEmail } from "./Signup-utils";
+import * as TiIcons from "react-icons/ti";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import OrangeButton from "../../../../Components/Buttons/OrangeButton";
 import FormMessage from "../../../../Components/FormMessage/FormMessage";
+import LinearProgressWithLabel from "../../../../Components/LinearProgressWithLabel/LinearProgressWithLabel";
+import TextInputStyled from "../../../../Components/TextInput/TextInput";
 import {
   authGoogleUser,
   checkEmailExists,
   registerGoogleUser,
   registerUser,
 } from "../../../../features/authSlice";
+import HorizontalChip from "../../Login/Components/HorizontalChip";
+import "../Signup.scss";
+import { SignupSchema, getPasswordState, isValidEmail } from "./Signup-utils";
+import SignupFormCSS from "./SignupForm.module.scss";
+import "./SignupMethods";
+import SignupMethods from "./SignupMethods";
+import SignupVerifyModal from "./SignupVerifyModal";
+import VerificationEmailModal from "src/Components/VerificationEmailModal.js/VerificationEmailModal";
 /**
  * The signup form which contains the information needed to create a new account.
  * This form validates all inputs before submission.
@@ -49,10 +50,12 @@ export const SignupForm = (props) => {
   const [showSignUpInfo, setShowSignUpInfo] = useState(false);
   const [successful, setSuccess] = useState(false);
   const [privacyPolicyModalShow, setPrivacyPolicyModalShow] = useState(false);
-  const [emailExists, setEmailExists] = useState(false);
-  const [submitPosition, setSubmitPosition] = useState("");
-  const [oldSubmitPosition, setOldSubmitPosition] = useState("");
-  const [GoogleProfile, setGoogleProfile] = useState(null);
+  const [emailExists, setEmailExists] = useState(true);
+  // const [submitPosition, setSubmitPosition] = useState("");
+  // const [oldSubmitPosition, setOldSubmitPosition] = useState("");
+  const [SocialProfile, setSocialProfile] = useState(null);
+  const [verificationEmailModalShow, setVerificationEmailModalShow] =
+    useState(false);
 
   const rowRef = useRef();
   const navigate = useNavigate();
@@ -88,49 +91,44 @@ export const SignupForm = (props) => {
   };
 
   const registerUserHandler = () => {
-    if (GoogleProfile) {
-      if (!GoogleProfile.email_verified) {
-        setSuccess(false);
-        setTimeout(() => {
-          controls.start("start");
-        }, 500);
-      } else {
-        dispatch(checkEmailExists(GoogleProfile.email))
-          .unwrap(unwrapResult)
-          .catch((err) => {
-            //Email does not exist, create account for user
-            dispatch(
-              registerGoogleUser({
-                email: GoogleProfile.email,
-                password: crypto.getRandomValues(new Uint8Array(64)).toString(),
-                firstname: GoogleProfile.given_name,
-                lastname: GoogleProfile.family_name ?? "",
-                picture: GoogleProfile.picture,
-              })
-            ).catch((err) => {
+    if (SocialProfile) {
+      // console.log("Social profile", SocialProfile);
+      dispatch(checkEmailExists(SocialProfile.email))
+        .unwrap(unwrapResult)
+        .then(() => {
+          //Email exists, auth user
+          dispatch(
+            authGoogleUser({
+              email: SocialProfile.email,
+            })
+          )
+            .unwrap()
+            .then((result) => {
+              setSuccess(true);
+            })
+            .catch((err) => {
               setSuccess(false);
               setTimeout(() => {
                 controls.start("start");
               }, 500);
               return;
             });
-          });
-
-        dispatch(
-          authGoogleUser({
-            email: GoogleProfile.email,
-          })
-        )
-          .then((result) => {
-            setSuccess(true);
-          })
-          .catch((err) => {
-            setSuccess(false);
-            setTimeout(() => {
-              controls.start("start");
-            }, 500);
-          });
-      }
+        })
+        .catch((err) => {
+          //Email does not exist, create account for user
+          dispatch(registerGoogleUser(SocialProfile))
+            .unwrap()
+            .then(() => {
+              setVerificationEmailModalShow(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+              return;
+            });
+        });
     } else {
       const data = {
         email: getValues("email"),
@@ -142,7 +140,7 @@ export const SignupForm = (props) => {
       dispatch(registerUser(data))
         .unwrap()
         .then(() => {
-          navigate("/login");
+          setVerificationEmailModalShow(true);
           setSuccess(true);
           // window.location.reload();
         })
@@ -189,8 +187,8 @@ export const SignupForm = (props) => {
   }, [watchEmail, dispatch, getValues]);
 
   useEffect(() => {
-    if (GoogleProfile) setPrivacyPolicyModalShow(true);
-  }, [GoogleProfile]);
+    if (SocialProfile) registerUserHandler();
+  }, [SocialProfile]);
 
   return (
     <>
@@ -204,6 +202,14 @@ export const SignupForm = (props) => {
         onCancel={() => {
           setPrivacyPolicyModalShow(false);
         }}
+      />
+      <VerificationEmailModal
+        show={verificationEmailModalShow}
+        onHide={() => {
+          setVerificationEmailModalShow(false);
+          navigate("/login");
+        }}
+        email={SocialProfile?.email}
       />
       <Form
         data-testid={props.data_testid}
@@ -246,7 +252,7 @@ export const SignupForm = (props) => {
               ) : null}
               <InputGroup className="p-0">
                 <Form.Group className="p-0" style={{ width: "100%" }}>
-                  <Form.Floating>
+                  <Form.Floating className={SignupFormCSS["form-floating"]}>
                     <TextInputStyled
                       isInvalid={errors.email}
                       disabled={showSignUpInfo}
@@ -255,7 +261,7 @@ export const SignupForm = (props) => {
                       id="email-input"
                       {...register("email", { required: "Field required" })}
                     />
-                    <label>Email Address</label>
+                    <label htmlFor="email-input">Email Address</label>
                   </Form.Floating>
                   {errors.email && (
                     <Form.Text className="text-danger">
@@ -292,15 +298,17 @@ export const SignupForm = (props) => {
               }}
             >
               <Form.Group className="p-0">
-                <FloatingLabel label="Confirm Email">
+                <Form.Floating className={SignupFormCSS["form-floating"]}>
                   <TextInputStyled
                     type="email"
+                    placeholder="name@example.com"
                     data-testid="emailconfirm-input"
                     id="emailConfirm"
                     {...register("emailConfirm", { required: "Required" })}
                     isInvalid={errors?.emailConfirm}
                   />
-                </FloatingLabel>
+                  <label htmlFor="emailconfirm-input">Confirm Email</label>
+                </Form.Floating>
                 {errors.emailConfirm && (
                   <Form.Text className="text-danger">
                     {errors.emailConfirm.message}
@@ -317,20 +325,19 @@ export const SignupForm = (props) => {
             >
               <Stack direction="horizontal" gap={3} className="p-0">
                 <Col>
-                  <FloatingLabel
-                    className={SignupFormCSS["floating-label"]}
-                    label="First name"
-                  >
+                  <Form.Floating className={SignupFormCSS["form-floating"]}>
                     <TextInputStyled
+                      type="text"
+                      placeholder="John"
                       data-testid="firstname-input"
                       id="firstName-input"
-                      type="text"
                       isInvalid={errors?.firstName}
                       {...register("firstName", {
                         required: "First name is required",
                       })}
                     />
-                  </FloatingLabel>
+                    <label htmlFor="firstname-input">First name</label>
+                  </Form.Floating>
                   <Form.Text
                     className="text-danger"
                     style={{
@@ -341,13 +348,11 @@ export const SignupForm = (props) => {
                   </Form.Text>
                 </Col>
                 <Col>
-                  <FloatingLabel
-                    className={SignupFormCSS["floating-label"]}
-                    label="Last name"
-                  >
+                  <Form.Floating className={SignupFormCSS["form-floating"]}>
                     <TextInputStyled
                       data-testid="lastname-input"
                       type="text"
+                      placeholder="Doe"
                       id="lastName-input"
                       name="lastName-input"
                       isInvalid={errors?.lastName}
@@ -355,7 +360,8 @@ export const SignupForm = (props) => {
                         required: "Last name is required",
                       })}
                     />
-                  </FloatingLabel>
+                    <label htmlFor="lastName-input">Last name</label>
+                  </Form.Floating>
                   <Form.Text
                     className="text-danger"
                     style={{
@@ -374,9 +380,10 @@ export const SignupForm = (props) => {
               }}
             >
               <Form.Group className="mb-3 p-0">
-                <FloatingLabel label="Password">
+                <Form.Floating className={SignupFormCSS["form-floating"]}>
                   <TextInputStyled
                     type="password"
+                    placeholder="Password"
                     data-testid="password-input"
                     id="password-input"
                     name="password"
@@ -388,7 +395,8 @@ export const SignupForm = (props) => {
                       {errors.password.message}
                     </Form.Text>
                   )}
-                </FloatingLabel>
+                  <label htmlFor="password-input">Password</label>
+                </Form.Floating>
               </Form.Group>
               <LinearProgressWithLabel
                 defaultLabel="Your password must be at least 8 characters"
@@ -460,6 +468,7 @@ export const SignupForm = (props) => {
                 </div>
               </motion.div> */}
               <OrangeButton
+                disabled={emailExists || errors.email}
                 data-testid="submit-button"
                 id="submit-button"
                 as="button"
@@ -478,7 +487,7 @@ export const SignupForm = (props) => {
                     data-testid="HorizontalChip"
                     id="HorizontalChip"
                   />
-                  <SignupMethods setGoogleProfile={setGoogleProfile} />
+                  <SignupMethods setSocialProfile={setSocialProfile} />
                 </>
               )}
             </Row>

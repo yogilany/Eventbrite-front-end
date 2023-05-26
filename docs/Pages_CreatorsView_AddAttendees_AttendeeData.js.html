@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/CreatorsView/AddAttendees/AttendeeData.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/CreatorsView/AddAttendees/AttendeeData.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect } from "react";
+import { Form } from "react-bootstrap";
+import TextInputStyled from "../../../Components/TextInput/TextInput";
+// import LoginMethodsCSS from "../../../AttendeesView/Login/Components/LoginMethods.module.scss";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import axios from "axios";
+import { is } from "date-fns/locale";
+import { useSelector } from "react-redux";
+import { selectUserToken } from "src/features/authSlice";
+
+/**
+ * @author Anas Sherif
+ * @param {}
+ * @description This is the the component that renders the attendee data for reserving a ticket.
+ * @returns {JSX.Element}
+ */
+
+const AttendeeData = ({
+  setIsSuccess,
+  index,
+  ticket,
+  sendData,
+  isPlaceorder,
+  event,
+  orderID,
+  setIsCheckoutDone,
+  isCheckoutDone,
+  setIsCheckout,
+  total,
+}) => {
+  // console.log("orderrrrr idddd", orderID)
+  const token = useSelector(selectUserToken);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const [email, setEmail] = useState("");
+  const [firstname, setFisrtName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [attendee, setAttendee] = useState({});
+  // console.log("attendee ticket",ticket)
+
+  const handleChangeAttendee = (e) => {
+    e.preventDefault();
+    if (e.target.name === "firstname") {
+      setFisrtName(e.target.value);
+    }
+    if (e.target.name === "lastname") {
+      setLastName(e.target.value);
+    }
+    if (e.target.name === "email") {
+      setEmail(e.target.value);
+    }
+  };
+
+  const handleAddAttendee = async () => {
+    // console.log("trying to add attendee event", event)
+
+    // console.log("trying to add attendee", orderID)
+
+    const Finalattendee = {
+      first_name: firstname,
+      last_name: lastName,
+      email: email,
+      type_of_reseved_ticket: ticket.ticket.type,
+      order_id: orderID,
+      event_id: event.id,
+    };
+
+    // console.log("Finalattendee",Finalattendee)
+
+    try {
+      // console.log("trying to add attendee")
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_API}/attendees/${event.id}/add_attendee`,
+        Finalattendee,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log("Res : ", response);
+      if (response.status === 200) {
+        setIsSuccess(true);
+      }
+      if (index === total) {
+        setIsCheckout(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (orderID) {
+      handleAddAttendee();
+    }
+  }, [orderID]);
+
+  return (
+    &lt;Form.Group className="p-0" style={{ width: "100%" }}>
+      &lt;h2 className="font-bold text-xl mb-2 mt-3">
+        Ticket {index} • {ticket.ticket.type}
+      &lt;/h2>
+      &lt;div className=" grid grid-cols-2 gap-2 my-2">
+        &lt;Form.Floating
+        // className={LoginMethodsCSS["form-floating"]}
+        >
+          &lt;TextInputStyled
+            id="login-email-input"
+            data-testid="login-email-input"
+            // {...register("email", { required: "Required" })}
+            autoComplete="off"
+            name="firstname"
+            required
+            value={firstname}
+            onChange={handleChangeAttendee}
+            type="text"
+            isInvalid={errors?.email}
+          />
+          &lt;label>First Name&lt;/label>
+        &lt;/Form.Floating>
+        &lt;Form.Floating
+        // className={LoginMethodsCSS["form-floating"]}
+        >
+          &lt;TextInputStyled
+            id="login-email-input"
+            data-testid="login-email-input"
+            autoComplete="off"
+            required
+            name="lastname"
+            value={lastName}
+            onChange={handleChangeAttendee}
+            type="text"
+            isInvalid={errors?.email}
+          />
+          &lt;label>Last Name&lt;/label>
+        &lt;/Form.Floating>
+      &lt;/div>
+
+      &lt;Form.Floating
+      // className={LoginMethodsCSS["form-floating"]}
+      >
+        &lt;TextInputStyled
+          id="login-email-input"
+          data-testid="login-email-input"
+          autoComplete="off"
+          name="email"
+          type="email"
+          value={email}
+          onChange={handleChangeAttendee}
+          required
+          isInvalid={errors?.email}
+        />
+        &lt;label>Email Address&lt;/label>
+      &lt;/Form.Floating>
+    &lt;/Form.Group>
+  );
+};
+
+export default AttendeeData;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

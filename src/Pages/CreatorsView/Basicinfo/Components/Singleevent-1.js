@@ -1,21 +1,28 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import "./Singleevent.scss";
 
 function Singleevent(props) {
   const [showwarning, setshowwarning] = useState(false);
-
+  const [warningMessage, setwarningMessage] = useState("");
   const startDateRef = useRef(null);
   const endDateRef = useRef(null);
   const startTimeRef = useRef(null);
   const endTimeRef = useRef(null);
+  const setDateAtStart = () => {
+    props.setStartDate(startDateRef.current.value);
+    props.setEndDate(endDateRef.current.value);
+  };
+  useEffect(() => {
+    setDateAtStart();
+  }, []);
 
   function changehandler(e) {
     if (e.target.value === "") {
       props.setStartDate(null);
       props.setEndDate(null);
       setshowwarning(true);
-      console.log("empty");
+      // console.log("empty");
       const e = props.error.slice();
       props.setError([...props.error, "1"]);
     } else {
@@ -26,23 +33,40 @@ function Singleevent(props) {
       const full_end_date = new Date(
         endDateRef.current.value + " " + endTimeRef.current.value
       );
-      console.log("full_start_date: ", full_start_date);
-      console.log("full_end_date: ", full_end_date);
+      // console.log("full_start_date: ", full_start_date);
+      // console.log("full_end_date: ", full_end_date);
       // Check end date is after start date
       if (full_end_date < full_start_date) {
-        console.log("after");
-
         setshowwarning(true);
+        setwarningMessage("End date must be after start date");
+        props.setStartDate(null);
+        props.setEndDate(null);
+        props.setError(true);
+        const e = props.error.slice();
+        props.setError([...props.error, "1"]);
+      } else if (
+        full_start_date < new Date(new Date().toISOString().slice(0, -14))
+      ) {
+        setshowwarning(true);
+        setwarningMessage("Start date must be after current date");
+        props.setStartDate(null);
+        props.setEndDate(null);
+        props.setError(true);
+        const e = props.error.slice();
+        props.setError([...props.error, "1"]);
+      } else if (
+        full_end_date < new Date(new Date().toISOString().slice(0, -14))
+      ) {
+        setshowwarning(true);
+        setwarningMessage("End date must be after current date");
         props.setStartDate(null);
         props.setEndDate(null);
         props.setError(true);
         const e = props.error.slice();
         props.setError([...props.error, "1"]);
       } else {
-        console.log("correct");
-
-        props.setStartDate(full_start_date);
-        props.setEndDate(full_end_date);
+        props.setStartDate(full_start_date.toISOString().slice(0, -5));
+        props.setEndDate(full_end_date.toISOString().slice(0, -5));
         if (props.error.length !== 0) {
           // Pop element from error list
           const e = props.error.slice();
@@ -79,7 +103,7 @@ function Singleevent(props) {
             className={showwarning ? "inputwarning" : "inputregular"}
             type="date"
             name="startdate"
-            defaultValue={"2023-05-01"}
+            defaultValue={new Date().toISOString().slice(0, -14)}
             onChange={changehandler}
           />
         </div>
@@ -151,7 +175,7 @@ function Singleevent(props) {
             className={showwarning ? "inputwarning" : "inputregular"}
             type="date"
             name="enddate"
-            defaultValue={"2023-05-03"}
+            defaultValue={new Date().toISOString().slice(0, -14)}
             onChange={changehandler}
           />
         </div>
@@ -203,9 +227,7 @@ function Singleevent(props) {
       </div>
       <div>
         {showwarning ? (
-          <label className="warning-label">
-            End date must be after start date.
-          </label>
+          <label className="warning-label">{warningMessage}</label>
         ) : null}
       </div>
       <label className="displaybox-container">

@@ -3,86 +3,80 @@ import "./LikeComp.css";
 import eventphoto from "../../../../assets/like3.jpeg";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import { FiShare } from "react-icons/fi";
-import { BorderColor, Token } from "@mui/icons-material";
-import { likeEvent, unlikeEvent } from "../../../../features/userprofSlice";
-import { useSelector } from "react-redux";
 import {
-  getUserDetails,
-  logOut,
-  selectUserAvatarURL,
-  selectUserEmail,
-  selectUserFirstName,
-  selectUserLastName,
-  selectUserToken,
-} from "../../../../features/authSlice";
-import { useNavigate } from "react-router-dom";
+  useLikeEventMutation,
+  useUnlikeEventMutation,
+} from "src/features/api/userApi";
+import { useDispatch } from "react-redux";
+import LikeButton from "src/Components/LikeButton/LikeButton";
+import { useNavigate } from "react-router";
+import { useGetEventByIdQuery } from "src/features/api/eventApi";
+
 /**
  * @author Ziad Ezzat
- * @param {string : data_test_id} props
+ * @param {string} props.image_link       @description Image of the liked event
+ * @param {string} props.id               @description ID of the liked event
+ * @param {string} props.data_testid      @description Used in unit testing
+ * @param {string} props.title            @description Title of the liked event
+ * @param {string} props.start_date_time  @description Start time of the liked event
  * @description This container shows the like component used in profile page showing The liked event with some information of this event like date and location.
- * @returns {JSX.Element of like component found in profile page}
+ * @returns {React.FC}
  */
 const LikeComp = (props) => {
-  const [imgSrc, setImgSrc] = React.useState(props.image_link);
-  const token = useSelector(selectUserToken);
-  const [isClicked, setIsClicked] = React.useState(false);
+  const [imgSrc, setImgSrc] = React.useState(props?.image_link);
+  const { data: likedEvent } = useGetEventByIdQuery(props.id);
+
   const navigate = useNavigate();
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-    if (isClicked) {
-      console.log("ID with like :", props.id);
-      console.log("Token with like :", token);
-      likeEvent(token, props.id);
-    } else {
-      console.log("Token with unlike :", token);
-      console.log("id with unlike :", props.id);
-      unlikeEvent(token, props.id);
-    }
-  };
   const handleImgError = () => {
     setImgSrc(eventphoto);
   };
   const hhh = () => {
     //const navigate = useNavigate();
-    navigate(`/event/${props.id}`, { replace: true });
-  };
-  const ht_proff = {
-    color: isClicked ? "grey" : "#d10000",
+    navigate(`/event/${props.id}`);
   };
 
   return (
-    <div onClick={hhh} className="box_prof" data-testid={props.data_testid}>
+    <div className="box_prof" data-testid={props.data_testid} >
       <div className="cont_prof">
-        <img className="img_prof" src={imgSrc} onError={handleImgError} />
+        <img
+          onClick={hhh}
+          className="img_prof"
+          src={imgSrc}
+          onError={handleImgError}
+        />
         <div className="circle_prof">
-          <BsFillSuitHeartFill
-            className="ht_prof"
-            style={ht_proff}
-            onClick={handleClick}
-          />
+          <LikeButton id={props.id} />
         </div>
       </div>
 
       <div style={{ marginTop: 25, paddingLeft: 10 }}>
         <div className="desc_prof">{props.title}</div>
-        <div className="dat_prof">{props.start_date_time}</div>
-        <div
+        <div className="dat_prof">
+          {new Date(props.start_date_time).toUTCString().slice(0, -7)}
+        </div>
+        {/* <div
           className="desc_prof"
           style={{ fontSize: "18px", fontWeight: "600", marginBottom: "5px" }}
         >
           Demo Day: Present Your Project to get your dream job - GoMyCode Egypt
-        </div>
+        </div> */}
         <div
           className="dat_prof"
           style={{ color: "#d1410c", marginBottom: "5px" }}
         >
-          Thu, Mar 30 ,8:00 PM
+          {/* {new Date(likedEvent?.date_and_time?.end_date_time)
+            .toUTCString()
+            .slice(0, -7)} */}
         </div>
-        <div className="det_prof">GoMyCode Dokki ,Ad Doqi A</div>
+        <div className="det_prof">{likedEvent?.location?.city}</div>
       </div>
       <div style={{ display: "flex" }}>
-        <div className="dfrt_prof">Free</div>
-        <FiShare className="shr_prof" />
+        <div className="dfrt_prof">
+          {likedEvent?.is_free === true
+            ? "Free"
+            : `Starts at $${likedEvent?.price}`}
+        </div>
+        {/* <FiShare className="shr_prof" /> */}
       </div>
     </div>
   );

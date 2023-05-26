@@ -1,50 +1,69 @@
-import { ButtonGroup, Col, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { Col, Container, Row } from "react-bootstrap";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import * as FcIcons from "react-icons/fc";
 import * as TiIcons from "react-icons/ti";
-import "../Signup.scss";
 import WhiteButton from "../../../../Components/Buttons/WhiteButton";
-import { useGoogleLogin } from "@react-oauth/google";
-import { useState } from "react";
-import { useEffect } from "react";
-import axios from "axios";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-const responseFacebook = (response) => {
-  console.log(response);
-};
+import "../Signup.scss";
+
 /**
+ * @author h4z3m
  *
- * @param {name: Name of this element after creation} props
- * @returns Login button methods for signing in with email, Google, Apple, Facebook
+ * @param {*} props
+ * @returns {JSX.Element}
  */
+
+
 export const SignupMethods = (props) => {
-  const [GoogleUser, setGoogleUser] = useState(null);
-
-  useEffect(() => {
-    if (GoogleUser) {
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${GoogleUser.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${GoogleUser.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res.data);
-          props.setGoogleProfile(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [GoogleUser]);
-
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setGoogleUser(codeResponse),
-    onError: (error) => console.log("Login Failed:", error),
+  const signupGoogle = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      if (codeResponse) {
+        axios
+          .get(
+            `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${codeResponse.access_token}`,
+            {
+              headers: {
+                Authorization: `Bearer ${codeResponse.access_token}`,
+                Accept: "application/json",
+              },
+            }
+          )
+          .then((response) => {
+            const data = {
+              email: response.data.email,
+              password: crypto.getRandomValues(new Uint8Array(64)).toString(),
+              firstname: response.data.given_name,
+              lastname: response.data.family_name ?? "",
+              picture: response.data.picture,
+            };
+            // console.log(response.data);
+            // console.log(data);
+            props.setSocialProfile(data);
+          })
+          .catch((err) => console.log(err));
+      }
+    },
+    onError: (error) => console.log("Login with Google failed:", error),
   });
+
+  const signupFacebook = (response) => {
+    if (response) {
+      // console.log(response?.name?.split(" "));
+      const [firstname, lastname] = response?.name?.split(" ");
+      const data = {
+        email: response.email,
+        password: crypto.getRandomValues(new Uint8Array(64)).toString(),
+        firstname: firstname,
+        lastname: lastname,
+        picture: response.data?.picture?.data?.url,
+      };
+      // console.log(response);
+      // console.log(data);
+      props.setSocialProfile(data);
+    }
+  };
+
   return (
     <Container
       name={props.name}
@@ -52,7 +71,7 @@ export const SignupMethods = (props) => {
       style={{ minWidth: "200px" }}
     >
       <WhiteButton
-        onClick={() => login()}
+        onClick={() => signupGoogle()}
         style={{ margin: "0", width: "100%" }}
         variant="secondary"
       >
@@ -67,12 +86,12 @@ export const SignupMethods = (props) => {
             <div id="circular-icon">
               <FacebookLogin
                 appId={`${process.env.REACT_APP_FACEBOOK_APP_ID}`}
-                autoLoad
                 fields="name,email,picture"
                 scope={"email"}
-                callback={responseFacebook}
+                callback={signupFacebook}
                 render={(renderProps) => (
                   <TiIcons.TiSocialFacebook
+                    onClick={renderProps.onClick}
                     data-testid="SignupMethods-FacebookButton"
                     id="SignupMethods-FacebookButton"
                     role="button"

@@ -23,7 +23,9 @@ export const AppEditContext = createContext({});
  * @returns {JSX.Element}
  */
 const Tickets = ({ event, setEvent }) => {
+  // console.log("event in tickets: ", event);
   const [ID, setID] = useState(0);
+  const [isFree, setIsFree] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [isEditPromo, setIsEditPromo] = useState(false);
   const [ticketName, setTicketName] = useState("");
@@ -84,7 +86,7 @@ const Tickets = ({ event, setEvent }) => {
     sales_end_date_time: endTicketDate + "T" + ticketEndTime,
   };
   const handleSubmit = () => {
-    console.log(data);
+    // console.log(data);
     setIsTicketSavedSuccessfully(true);
   };
   const handleSubmitPromoCode = () => {
@@ -99,9 +101,16 @@ const Tickets = ({ event, setEvent }) => {
     }
   };
   const handleSubmitTickets = () => {
-    if (ticketName !== "" && ticketQuantity !== "" && ticketPrice !== "") {
-      saveData();
-      setShowTicket(false);
+    if (ticketName !== "" && ticketQuantity !== "") {
+      if (freeBtn) {
+        saveData();
+        setShowTicket(false);
+      } else {
+        if (ticketPrice !== "") {
+          saveData();
+          setShowTicket(false);
+        }
+      }
     }
   };
   function saveData() {
@@ -118,8 +127,8 @@ const Tickets = ({ event, setEvent }) => {
       ticketEndTime.slice(3, 5),
       ticketEndTime.slice(6, 8)
     );
-    console.log(endTicketDate);
-    console.log(ticketEndTime);
+    // console.log(endTicketDate);
+    // console.log(ticketEndTime);
     setEvent({
       ...event,
       tickets: [
@@ -128,13 +137,14 @@ const Tickets = ({ event, setEvent }) => {
           type: "vip",
           name: ticketName,
           max_quantity: ticketQuantity,
-          price: ticketPrice,
+          price: !freeBtn ? ticketPrice :'0',
           sales_end_date_time: dateEnd.toISOString().slice(0, -5),
           sales_start_date_time: dateStart.toISOString().slice(0, -5),
         },
       ],
     });
     setSuccess(true);
+    setFreeBtn(false); setDonationBtn(false); setAddmissionBtn(true);
   }
   function savePromoCode() {
     const dateStart = new Date(promoStartDate);
@@ -156,8 +166,8 @@ const Tickets = ({ event, setEvent }) => {
         {
           name: promoCodeName,
           is_limited: isLimited,
-          limited_amount: LimitedAmount,
-          current_amount: LimitedAmount,
+          limited_amount: isLimited ? LimitedAmount :'1',
+          current_amount: isLimited ? LimitedAmount :'1',
           is_percentage: isPercentage,
           discount_amount: discountAmount,
           start_date_time: dateStart.toISOString().slice(0, -5),
@@ -166,10 +176,10 @@ const Tickets = ({ event, setEvent }) => {
       ],
     });
     setSuccess(true);
-    // alert("Saved");
+    setIsLimited(false);
   }
   function updateTicket(id) {
-    console.log(event.tickets[id].sales_end_date_time);
+    // console.log(event.tickets[id].sales_end_date_time);
     const dateStart = new Date(startTicketDate);
     dateStart.setHours(
       ticketStartTime.slice(0, 2),
@@ -255,6 +265,7 @@ const Tickets = ({ event, setEvent }) => {
     if (currentDate >= startDate) setErrorStartDate(true);
     else setErrorStartDate(false);
   };
+
   useEffect(() => {
     setTimeout(() => {
       // After 3 seconds set the show value to false
@@ -263,7 +274,16 @@ const Tickets = ({ event, setEvent }) => {
   }, [success]);
   return (
     <AppEditContext.Provider
-      value={{ isEdit, setIsEdit, ID, setID, isEditPromo, setIsEditPromo }}
+      value={{
+        isEdit,
+        setIsEdit,
+        ID,
+        setID,
+        isEditPromo,
+        setIsEditPromo,
+        isFree,
+        setIsFree,
+      }}
     >
       <div className="tickets__page-container">
         <CreatorHeader />
@@ -446,7 +466,7 @@ const Tickets = ({ event, setEvent }) => {
                   defaultValue={event.tickets[ID].price}
                 />
               )}
-              {ticketPrice === "" && (
+              {ticketPrice === "" && !freeBtn && (
                 <p className="required__price">Price is required.</p>
               )}
               {freeBtn && (
@@ -481,7 +501,7 @@ const Tickets = ({ event, setEvent }) => {
               </div>
               <div className="start_date-ticket">
                 <input
-                  id={errorStartDate ? "start_date-field" : ''}
+                  id={errorStartDate ? "start_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
                   onChange={(e) => {
@@ -513,7 +533,7 @@ const Tickets = ({ event, setEvent }) => {
               </div>
               <div className="end_date-ticket">
                 <input
-                  id={isPastDate ? "end_date-field" : ''}
+                  id={isPastDate ? "end_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
                   onChange={(e) => {
@@ -679,7 +699,7 @@ const Tickets = ({ event, setEvent }) => {
                   }}
                 />
               )}
-              {ticketPrice === "" && (
+              {ticketPrice === "" && !freeBtn && (
                 <p className="required__price">Price is required.</p>
               )}
               {freeBtn && (
@@ -717,7 +737,7 @@ const Tickets = ({ event, setEvent }) => {
                   id={errorStartDate ? "start_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
-                  defaultValue="2023-03-04"
+                  defaultValue={new Date().toISOString().slice(0, -14)}
                   onChange={(e) => {
                     setStartTicketDate(e.target.value);
                     checkTicketStart();
@@ -747,7 +767,7 @@ const Tickets = ({ event, setEvent }) => {
                   id={isPastDate ? "end_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
-                  defaultValue="2023-03-04"
+                  defaultValue={new Date().toISOString().slice(0, -14)}
                   onChange={(e) => {
                     setEndTicketDate(e.target.value);
                     checkTicketEnd();
@@ -937,7 +957,7 @@ const Tickets = ({ event, setEvent }) => {
               </div>
               <div className="start_date-ticket">
                 <input
-                  id={errorStartDate ? "promocode_start_date-field" : ''}
+                  id={errorStartDate ? "promocode_start_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
                   onChange={(e) => {
@@ -979,7 +999,7 @@ const Tickets = ({ event, setEvent }) => {
                 style={{ marginBottom: "120px" }}
               >
                 <input
-                  id={isPastDate ? "promocode_end_date-field" : ''}
+                  id={isPastDate ? "promocode_end_date-field" : ""}
                   type="date"
                   style={{ width: "166px", height: "48px", padding: "10px" }}
                   onChange={(e) => {

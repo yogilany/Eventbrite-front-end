@@ -1,14 +1,11 @@
-import React from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { logOut, selectLoading, verifyUser } from "../../../features/authSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Link, useSearchParams } from "react-router-dom";
 import Header from "../../../Components/header/Header";
-import LoginTitle from "../Login/Components/Title";
+import { logOut, selectLoading, verifyUser } from "../../../features/authSlice";
 
 /**
  * @description VerifyUser function verifies a user token by dispatching verifyUser action and sets the verification state.
@@ -27,7 +24,7 @@ const VerifyUser = () => {
   const [requestFulfilled, setRequestFulfilled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const isLoading = useSelector(selectLoading);
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
   function getCurrentDimension() {
@@ -50,7 +47,7 @@ const VerifyUser = () => {
   useEffect(() => {
     // get parameters from url
     const token = searchParams.get("token");
-    console.log("Token = ", token);
+    // console.log("Token = ", token);
     dispatch(verifyUser(token))
       .unwrap(unwrapResult)
       .then((result) => {
@@ -77,13 +74,13 @@ const VerifyUser = () => {
       <Container>
         <Col className="  justify-content-center align-items-center text-center">
           <Row style={{ fontSize: "40px" }}>
-            <p id="verification-message" data-testid="verification-message">
+            <p id="verification-message" data-testid="verification-message" className="font-bold text-6xl mt-36" style={{color: "#1e0a3c"}}>
               {verificationState}
             </p>
           </Row>
           <Row>
             <p id="spinner-message" data-testid="spinner-message">
-              {isLoading ? <Spinner size="lg" animation="border" /> : null}
+              {isLoading ? <Spinner size="lg" animation="border" className="text-orange-500" /> : null}
             </p>
           </Row>
           {requestFulfilled ? (
@@ -94,7 +91,7 @@ const VerifyUser = () => {
                 </p>
               </Row>
               <Row>
-                <Link id="login-link" data-testid="login-link" to="/login">
+                <Link id="login-link" data-testid="login-link" to="/login" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                   If you were not redirected within {secondsBeforeRedirect}{" "}
                   seconds, click here
                 </Link>

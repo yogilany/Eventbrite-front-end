@@ -35,6 +35,13 @@ import { changePassword, selectLoading } from "../../../features/authSlice";
 import * as Yup from "yup";
 import { useMemo } from "react";
 
+/**
+ * @description This is the Reset password page for the users view of the app
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {JSX.Element}
+ */
 const ResetPassword = (props) => {
   const {
     register,
@@ -65,12 +72,12 @@ const ResetPassword = (props) => {
       token: token,
       new_password: data.password,
     };
-    console.log("Data = ", _data);
+    // console.log("Data = ", _data);
     dispatch(changePassword(_data))
       .unwrap(unwrapResult)
       .then((result) => {
         setTimeout(() => {
-          console.log("Success");
+          // console.log("Success");
           navigate("/login", { replace: true });
         }, secondsBeforeRedirect * 1000);
       })

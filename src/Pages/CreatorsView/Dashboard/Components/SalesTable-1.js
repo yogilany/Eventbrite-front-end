@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Col, Row, Table } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
-const SalesTable = () => {
+const SalesTable = ({ tickets, event }) => {
   return (
     <Container fluid className="mt-5">
       <Row>
@@ -16,26 +17,24 @@ const SalesTable = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td className="blue-data">Table cell</td>
-              </tr>
-              <tr>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td className="blue-data">Table cell</td>
-              </tr>
-              <tr>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td className="blue-data">Table cell</td>
-              </tr>
+              {tickets.map((ticket) => (
+                <tr>
+                  <td className=" text-left ">{ticket.name}</td>
+                  <td className=" text-left ">{ticket.price}</td>
+                  <td className="blue-data text-left ">
+                    {ticket.max_quantity - ticket.available_quantity}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
-          
-<a href="/sales-report" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Go to all sales</a>
 
+          <a
+            href={`/sales-report/${event.id}`}
+            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          >
+            Go to all sales
+          </a>
         </Col>
       </Row>
     </Container>

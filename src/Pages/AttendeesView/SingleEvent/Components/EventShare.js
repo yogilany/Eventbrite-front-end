@@ -4,9 +4,6 @@ import * as FaIcons from "react-icons/fa";
 import * as AIicons from "react-icons/ai";
 import "../SingleEvent.scss";
 export const EventShare = (props) => {
-  const MainHeaderStyle = {
-    color: "#1e0a3c",
-  };
   return (
     <div>
       <h3 className="header-text">Share with friends</h3>

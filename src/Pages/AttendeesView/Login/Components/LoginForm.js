@@ -1,23 +1,12 @@
-import {
-  Form,
-  Container,
-  FloatingLabel,
-  Row,
-  InputGroup,
-  Spinner,
-} from "react-bootstrap";
-import TextInputStyled from "../../../../Components/TextInput/TextInput";
-import OrangeButton from "../../../../Components/Buttons/OrangeButton";
-import { useForm } from "react-hook-form";
-import LoginMethodsCSS from "./LoginMethods.module.scss";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { isValidEmail } from "../../Signup/Components/Signup-utils";
-import * as Yup from "yup";
 import { useEffect } from "react";
-import { Link } from "@mui/material";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectLoading } from "../../../../features/authSlice";
+import { Container, Form, Row } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import OrangeButton from "../../../../Components/Buttons/OrangeButton";
+import TextInputStyled from "../../../../Components/TextInput/TextInput";
+import { isValidEmail } from "../../Signup/Components/Signup-utils";
+import LoginMethodsCSS from "./LoginMethods.module.scss";
 
 export const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -26,9 +15,10 @@ export const LoginSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),
 });
 /**
+ * @author h4z3m
  *
- * @param {name: Name of this element after creation} props
- * @returns Login form containing email, password forms & log in submit button
+ * @param {*} props
+ * @returns {*}
  */
 export const LoginForm = (props) => {
   const {
@@ -46,7 +36,6 @@ export const LoginForm = (props) => {
   const onSubmit = (data) => {
     props.submitAction(data);
   };
-  const isLoading = useSelector(selectLoading);
 
   useEffect(() => {
     props.setUserHandler(getValues("email"));
@@ -127,6 +116,7 @@ export const LoginForm = (props) => {
             data-testid="login-submit-button"
             as="button"
             type="submit"
+            value=""
             value=""
             variant="flat btn-flat"
             spinner={true}

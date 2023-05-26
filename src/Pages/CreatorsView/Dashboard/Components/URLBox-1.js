@@ -5,11 +5,17 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button, InputAdornment, TextField } from "@mui/material";
 
-const URLBox = () => {
+  /**
+ * @author Yousef Gilany
+ * @description This is the component that shows the url of the event, it also contains the copy buttons.
+ * @returns {React.FC}
+ */
+const URLBox = ({ event }) => {
   const [editURL, setEditURL] = useState(false);
   const [URL, setURL] = useState(
-    "https://www.eventbrite.com/e/my-testing-event-tickets-618133232137"
+    event ? `https://www.bort2an.com/event/${event.id}` : null
   );
+
   return (
     <Container fluid className="mt-5">
       <Row>
@@ -31,12 +37,12 @@ const URLBox = () => {
                 >
                   <ContentCopyIcon />
                 </IconButton>
-                <IconButton
+                {/* <IconButton
                   aria-label="delete"
                   onClick={() => setEditURL(true)}
                 >
                   <EditIcon />
-                </IconButton>
+                </IconButton> */}
               </Col>
             </Row>
           ) : (
@@ -45,6 +51,7 @@ const URLBox = () => {
                 <TextField
                   label="Event URL"
                   id="outlined-start-adornment"
+                  data-testid="event-url"
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -67,7 +74,7 @@ const URLBox = () => {
           <hr />
         </Col>
         <Col md={4}>
-          <h3 className="heading3 ">Share on</h3>
+          {/* <h3 className="heading3 ">Share on</h3> */}
           <div></div>
         </Col>
       </Row>

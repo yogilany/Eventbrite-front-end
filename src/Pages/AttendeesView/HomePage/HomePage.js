@@ -15,13 +15,18 @@ import axios from "axios";
  * @description This is the Main page of the application that contains the Hero , Categories , Events and More Events Sections.
  * It is the first page that the user sees when he enters the application.
  * @returns {JSX.Element}
- * @todo make the page more responsive .
  */
 
 export const HomePage = () => {
+
   // console.log("USERR", window.User);
   const [location, setLocation] = useState(null);
   const [events, setEvents] = useState([]);
+  const [online, setOnline] = useState(null);
+  const [free, setFree] = useState(null);
+  const [today, setToday] = useState(null);
+  const [loading, setLoading] = useState(false);
+
 
   const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
@@ -31,6 +36,11 @@ export const HomePage = () => {
       height: window.innerHeight,
     };
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+
+  }, [])
 
   useEffect(() => {
     const updateDimension = () => {
@@ -64,12 +74,21 @@ export const HomePage = () => {
   }));
 
   const fetchEvents = () => {
-    console.log("baseee", location);
+    setLoading(true);
+    // console.log("baseee", location);
+    const date = new Date(2023, 4, 12, 5, 30);
+const formattedDate = date.toISOString();
+// console.log("formattedDate", formattedDate);
+
+
     axios
-      .get(`${process.env.REACT_APP_BASE_API}/events/search`,{ params: { city: location ? location : "Cairo" } })
+      .get(`${process.env.REACT_APP_BASE_API}/events/search`, {
+        params: { city: location ? location : "Cairo", free: free ? free : null, online: online ? online : null, start_date: today ? formattedDate : null },
+      })
       .then(function (response) {
-        console.log("response", response.data);
+        // console.log("response", response.data);
         setEvents(response.data);
+        setLoading(false);
       })
       .catch(function (error) {
         // handle error
@@ -78,47 +97,50 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
+    // console.log("free", free)
+    // console.log("online", online)
+    // console.log("today", today)
+    fetchEvents();
+  }, [free, online, today]);
 
+  useEffect(() => {
     async function fetchLocation() {
       let url = "https://ipinfo.io/json?token=89085807858d6e";
       let response = await fetch(url);
       let data = await response.json();
-      console.log("locaation", data);
+      // console.log("locaation", data);
       setLocation(data.city);
     }
 
     fetchLocation();
 
-    const testLocation = {
-      hostname: "host-156.215.249.101-static.tedata.net",
-      city: "Cairo",
-      region: "Cairo",
-      country: "EG",
-      loc: "30.0626,31.2497",
-      org: "AS8452 TE-AS",
-      timezone: "Africa/Cairo",
-    };
+    // const testLocation = {
+    //   hostname: "host-156.215.249.101-static.tedata.net",
+    //   city: "Cairo",
+    //   region: "Cairo",
+    //   country: "EG",
+    //   loc: "30.0626,31.2497",
+    //   org: "AS8452 TE-AS",
+    //   timezone: "Africa/Cairo",
+    // };
 
-    setLocation(testLocation.city);
+    // setLocation(testLocation.city);
     fetchEvents();
   }, []);
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-
-
     }
-
-   
   };
 
-  useEffect(() => {    fetchEvents();
+  useEffect(() => {
+    fetchEvents();
   }, []);
 
   // console.log(selectCurrentUser);
   return (
     <>
-      <Header screenSize={screenSize} location={location}/>
+      <Header screenSize={screenSize} location={location} />
       <Container fluid id="homePageContainer">
         <Row>
           <Col className="p-0">
@@ -143,7 +165,6 @@ export const HomePage = () => {
                       value={location}
                       onChange={(e) => {
                         setLocation(e.target.value);
-
                       }}
                       onKeyPress={handleEnter}
                       type="search"
@@ -152,7 +173,8 @@ export const HomePage = () => {
                       placeholder="Location"
                     />
                     <MdOutlineKeyboardArrowDown
-                    onClick={fetchEvents}
+                    style={{cursor:"pointer"}}
+                      onClick={fetchEvents}
                       color="#3659e3"
                       className="w-12 h-12"
                     />
@@ -186,7 +208,7 @@ export const HomePage = () => {
               </Row>
             </Container>
 
-            <Events location={location} events={events}/>
+            <Events location={location} events={events} setFree={setFree} setOnline={setOnline} setToday={setToday} loading={loading}/>
             {/* <MoreEvents /> */}
           </Col>
         </Row>

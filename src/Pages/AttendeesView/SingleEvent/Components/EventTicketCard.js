@@ -1,45 +1,25 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import { Container, Row, Col } from "react-bootstrap";
-import * as BiIcons from "react-icons/bi";
-import * as AiIcons from "react-icons/ai";
 import MainOrangeButton from "../../../../Components/Buttons/MainOrangeButton";
 import Checkout from "./Checkout";
 import { useState } from "react";
 export const EventTicketCard = (props) => {
-    const [isCheckout, setIsCheckout] = useState(true);
+  const [isCheckout, setIsCheckout] = useState(false);
 
-
-    const handleCheckout = () => {
-        setIsCheckout(true);
-    }
+  const handleCheckout = () => {
+    setIsCheckout(true);
+  };
   return (
-    <Container
-      fluid
-      style={{
-        width: "25%",
-        border: "#eeedf2 1px solid",
-        borderRadius: "1.5vmin",
-        padding: "2%",
-      }}
-    >
-      <Col>
-        <Row
-        //   style={{
-        //     border: "#3659e3 3px solid",
-        //     borderRadius: "1.5vmin",
-        //     padding: "3%",
-        //     marginBottom: "2rem",
-        //   }}
-        >
-            
+    <Container fluid {...props}>
+      <Col className="border-2 rounded-lg p-12">
+        <Row>
           <Row>
             <Col className="text-center mb-4">
-                <h5>
-                    <strong>Exhibition Ticket</strong>
-                </h5>
+              <h5>
+                <strong>Exhibition Ticket</strong>
+              </h5>
             </Col>
-          
+
             {/* <Col className="">
               <button
                 type="button"
@@ -96,11 +76,16 @@ export const EventTicketCard = (props) => {
           </Row> */}
         </Row>
         <Row>
-          <MainOrangeButton text="Reserve a spot" onClick={handleCheckout}/>
+          <MainOrangeButton text="Reserve a spot" onClick={handleCheckout} />
         </Row>
       </Col>
-{
-    isCheckout ? <Checkout setIsCheckout={setIsCheckout} img_url={props.img_url} event={props.event}/> : null
-}    </Container>
+      {isCheckout ? (
+        <Checkout
+          setIsCheckout={setIsCheckout}
+          img_url={props.img_url}
+          event={props.event}
+        />
+      ) : null}{" "}
+    </Container>
   );
 };

@@ -10,4 +10,5 @@ const FooterLink = ({Name}) => {
   );
 }
 
+
 export default FooterLink

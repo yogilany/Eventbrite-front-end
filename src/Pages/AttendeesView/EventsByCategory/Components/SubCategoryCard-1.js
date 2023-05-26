@@ -1,5 +1,13 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+
+
+/**
+ * @author Anas Sherif
+ * @param {}
+ * @description This is the SubCategoryCard component of the EventsByCategory page.
+ * @returns {JSX.Element}
+ */
 const SubCategoryCard = ({ testimage, name }) => {
   return (
     <Col

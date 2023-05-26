@@ -3,9 +3,9 @@ import TicketCard from "./TicketCard";
 import { useState } from "react";
 import axios from "axios";
 import MainOrangeButton from "../../../../Components/Buttons/MainOrangeButton";
-import { set } from "date-fns";
+import { add, set } from "date-fns";
 import { useForm } from "react-hook-form";
-import { Container, Row, Form } from "react-bootstrap";
+import { Container, Row, Form, Modal } from "react-bootstrap";
 import TextInputStyled from "../../../../Components/TextInput/TextInput";
 import LoginMethodsCSS from "../../../AttendeesView/Login/Components/LoginMethods.module.scss";
 import AttendeeData from "./AttendeeData";
@@ -13,10 +13,18 @@ import { AttachEmail } from "@mui/icons-material";
 import MainGrayButton from "src/Components/Buttons/MainGrayButton";
 import { useSelector } from "react-redux";
 import { selectUserToken } from "src/features/authSlice";
+import { Button } from "bootstrap";
 
+/**
+ * @description Checkout popup to book an event
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {JSX.Element}
+ */
 
 const Checkout = ({ setIsCheckout, img_url, event }) => {
-    const token = useSelector(selectUserToken);
+  const token = useSelector(selectUserToken);
 
   const {
     register,
@@ -33,34 +41,77 @@ const Checkout = ({ setIsCheckout, img_url, event }) => {
   const [isNoTickets, setIsNoTickets] = useState(false);
   const [attendees, setAttendees] = useState([]);
   const [isPlaceorder, setIsPlaceOrder] = useState(false);
-const [orderID, setOrderID] = useState(null)
-const [isCheckoutDone, setIsCheckoutDone] = useState(0);
+  const [orderID, setOrderID] = useState(null);
+  const [isCheckoutDone, setIsCheckoutDone] = useState(0);
 
   const [selectedTicket, setSelectedTicket] = useState([]);
   const [ticketsTypes, setTicketsTypes] = useState([]);
+  const [promocodes, setPromocodes] = useState([]);
+  const [promocode, setPromocode] = useState("");
+  const [addedPromocodes, setAddedPromocodes] = useState(null);
+
   const [totalTickets, setTotal] = useState(0);
   const [isFinalCheckout, setIsFinalCheckout] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const timerDuration = 1000;
   var count = 0;
 
   const [remainingTime, setRemainingTime] = useState(timerDuration);
 
-  const handleClose = () => {
-    setIsCheckout(false);
+  // const handleClose = () => {
+  //   setIsCheckout(false);
+  // };
+
+  const fetchPromocodes = () => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_API}/promocodes/event_id/${event.id}`)
+      .then(function (response) {
+        // console.log("promocodes", response.data);
+        setPromocodes(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        // console.log("error", error);
+      });
   };
+
   const fetchTicketsTypes = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`)
       .then(function (response) {
-        console.log("tickets", response);
-
+        // console.log("tickets", response);
         setTicketsTypes(response.data);
+        updateTicketsQuantity();
+
+
       })
       .catch(function (error) {
         // handle error
-        console.log("error", error);
+        // console.log("error", error);
       });
   };
+
+  const updateTicketsQuantity = async () => {
+    // update the quantity of tickets
+    ticketsTypes.map(async (ticket) => {
+      axios
+      .put(`${process.env.REACT_APP_BASE_API}/tickets/ticket_id/${ticket.id}/quantity/${-1}`,{quantity: -1})
+      .then(function (response) {
+        // console.log("tickets u[date", response);
+        setTicketsTypes(response.data);
+
+
+      })
+      .catch(function (error) {
+        // handle error
+        // console.log("error", error);
+      });
+    });
+  }
+
 
   const handleAddTicket = (ticket, quantity) => {
     const newTicket = {
@@ -111,10 +162,11 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
 
   useEffect(() => {
     fetchTicketsTypes();
+    fetchPromocodes();
   }, []);
 
   useEffect(() => {
-    console.log("selectedTicket", selectedTicket);
+    // console.log("selectedTicket", selectedTicket);
   }, [selectedTicket]);
 
   // Format the remaining time as mm:ss
@@ -125,87 +177,121 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
 
   const handleCheckout = () => {
     if (selectedTicket.length === 0) {
-        setIsNoTickets(true);
+      setIsNoTickets(true);
       return;
     } else {
-        setIsNoTickets(false);
+      setIsNoTickets(false);
       setIsFinalCheckout(true);
-       // Set the current time as the start time
-    const startTime = new Date().getTime();
+      // Set the current time as the start time
+      const startTime = new Date().getTime();
 
-    // Update the remaining time every second
-    const countdownInterval = setInterval(() => {
-      // Calculate the time elapsed since the start time
-      const elapsedSeconds = Math.floor(
-        (new Date().getTime() - startTime) / 1000
-      );
+      // Update the remaining time every second
+      const countdownInterval = setInterval(() => {
+        // Calculate the time elapsed since the start time
+        const elapsedSeconds = Math.floor(
+          (new Date().getTime() - startTime) / 1000
+        );
 
-      // Calculate the remaining time
-      const newRemainingTime = Math.max(timerDuration - elapsedSeconds, 0);
+        // Calculate the remaining time
+        const newRemainingTime = Math.max(timerDuration - elapsedSeconds, 0);
 
-      // Update the remaining time state
-      setRemainingTime(newRemainingTime);
+        // Update the remaining time state
+        setRemainingTime(newRemainingTime);
 
-      // Check if the timer has expired
-      if (newRemainingTime === 0) {
-        clearInterval(countdownInterval);
-        setIsTimeOut(true);
-      }
-    }, 1000);
+        // Check if the timer has expired
+        if (newRemainingTime === 0) {
+          clearInterval(countdownInterval);
+          setIsTimeOut(true);
+        }
+      }, 1000);
 
-    // Clear the countdown interval on unmount
-    return () => clearInterval(countdownInterval);
+      // Clear the countdown interval on unmount
+      return () => clearInterval(countdownInterval);
     }
   };
 
-  const handlePlaceOrder = async () => {
-    setIsPlaceOrder(true);
-    const finalOrder =   {
-        "first_name": firstName,
-        "last_name": lastName,
-        "email": email,
-        "event_id": event.id,
-        "created_date": new Date(),
-        "price": totalTickets,
-        "image_link": "https://www.example.com/image.png"
+  const handlePromocode =  () => {
+    // check if promocode is found the promocodes array 
+    // console.log("promocode", promocode)
+
+    // check if promo code is found in the added promocodes array
+    if(addedPromocodes){
+      // console.log("promocode already added");
+      return;
+    }
+
+
+    const index = promocodes.findIndex((pc) => pc.name == promocode);
+    if (index != -1) {
+      
+      // console.log("promocode found" , promocodes[index]);
+      // update the total price
+      const promocode = promocodes[index];
+      if(promocode.is_percentage){
+        const discount = totalTickets * promocode.discount / 100;
+        setTotal(totalTickets - discount);
+        setAddedPromocodes(discount);
+
+      }
+      else{
+        setTotal(totalTickets - promocode.discount_amount);
+        setAddedPromocodes(promocode);
+
+
       }
 
-      console.log("finalOrder",finalOrder, token);
 
-    try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_BASE_API}/orders/${event.id}/add_order`,
-          finalOrder,
-          {
-            headers: { "Content-Type": "application/json" ,
-            Authorization: `Bearer ${token}`}
-          }
-        );
-        console.log("Res : ", response);
+      // finalOrder.price = finalOrder.price - promocodes[index].discount;
+    }
+    else{
+      // console.log("promocode not found");
 
-        setOrderID(response.data.id);
-
-        
-
-
-
-
-
-
-      } catch (error) {
-        console.log(error);
-      }
-   
+    }
   };
 
-//   useEffect(() => { 
-//     console.log("isCheckoutDone", isCheckoutDone, "count", count);
-//     if(isCheckoutDone == count && isFinalCheckout){
-//         setIsCheckout(false);
-//     }
 
-//   }, [isCheckoutDone]);
+  const handlePlaceOrder = async () => {
+    setIsPlaceOrder(true);
+    const finalOrder = {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      event_id: event.id,
+      created_date: new Date(),
+      price: totalTickets,
+      image_link: "https://www.example.com/image.png",
+    };
 
+    // console.log("finalOrder", finalOrder, token);
+
+    
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_API}/orders/${event.id}/add_order`,
+        finalOrder,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log("Res : ", response);
+
+      setOrderID(response.data.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //   useEffect(() => {
+  //     console.log("isCheckoutDone", isCheckoutDone, "count", count);
+  //     if(isCheckoutDone == count && isFinalCheckout){
+  //         setIsCheckout(false);
+  //     }
+
+  //   }, [isCheckoutDone]);
 
   const handleCancel = () => {
     setIsCheckout(false);
@@ -213,23 +299,21 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
 
   const handleAddAttendee = (props) => {
     setAttendees([...attendees, props]);
-  }
+  };
 
   useEffect(() => {
     console.log("attendees", attendees);
   }, [attendees]);
 
-//   useEffect(() => {
-//     if(isPlaceorder){
-//         han
-        
+  //   useEffect(() => {
+  //     if(isPlaceorder){
+  //         han
 
-      
-
-//         // handleAddAttendee({...attendee, [e.target.name]: e.target.value});
-//       }  }, [isPlaceorder]);
+  //         // handleAddAttendee({...attendee, [e.target.name]: e.target.value});
+  //       }  }, [isPlaceorder]);
   return (
     <>
+    
       <div
         className="fixed inset-0 z-40"
         style={{ backgroundColor: "#39364f", opacity: "0.7" }}
@@ -245,7 +329,7 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
           <div className="relative bg-white   shadow w-full max-w-5xl max-h-3xl  ">
             {!isTimeOut ? (
               <div className="grid grid-cols-3">
-                <div className="bg-white p-4 col-span-2">
+                <div className="bg-white h-full  p-4 col-span-2">
                   <div className="flex flex-col items-center  p-2 border-b rounded-t">
                     <h3 className="text-xl font-light text-gray-900 ">
                       {!isFinalCheckout ? event.basic_info.title : "Checkout"}
@@ -285,15 +369,42 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
                     </p>
                   </div>
                   <div className="p-6 space-y-6 max-h-96 overflow-scroll">
-                    {!isFinalCheckout ? (
+                    {!isFinalCheckout ?  ticketsTypes.length == 0 ? <div class="h-96">Loading</div> : (
                       ticketsTypes.map((ticket) => (
                         <TicketCard
+                          key={ticket.id}
                           ticket={ticket}
                           handleAddTicket={handleAddTicket}
                         />
                       ))
                     ) : (
                       <div>
+                        <div className="mb-4">
+                                 <h2 className="font-bold text-2xl mb-4">
+                          Promocodes
+                        </h2>
+                        <Form.Floating
+                                    className={LoginMethodsCSS["form-floating"]}
+                                  >
+                                    <TextInputStyled
+                                    className="mb-2"
+                                      id="login-email-input"
+                                      data-testid="login-email-input"
+                                     
+                                      autoComplete="off"
+                                      name="promocode"
+                                      type="text"
+                                      value={promocode}
+                                      onChange={(e) =>
+                                        setPromocode(e.target.value)
+                                      }
+                                      isInvalid={errors?.email}
+                                      required
+                                    />
+                                    <label>Promocode</label>
+                                  </Form.Floating>
+                                  <MainOrangeButton  text="Apply" className="mt-2" onClick={handlePromocode}/>
+                                  </div>
                         <h2 className="font-bold text-2xl mb-4">
                           Contact information
                         </h2>
@@ -313,11 +424,14 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
                             //   data-testid={propdata_testid}
                           >
                             <Row className="mb-3 overflow-scroll">
+                              
                               <Form.Group
                                 className="p-0"
                                 style={{ width: "100%" }}
                               >
                                 <div className=" grid grid-cols-2 gap-2 my-2">
+                       
+
                                   <Form.Floating
                                     className={LoginMethodsCSS["form-floating"]}
                                   >
@@ -396,12 +510,12 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
                                           isPlaceorder={isPlaceorder}
                                           handleAddAttendee={handleAddAttendee}
                                           event={event}
-                                            orderID={orderID}
-                                            token={token}
-                                            setIsCheckoutDone={setIsCheckoutDone}
-                                            isCheckoutDone={isCheckoutDone}
-                                            setIsCheckout={setIsCheckout}
-                                            total={count}
+                                          orderID={orderID}
+                                          token={token}
+                                          setIsCheckoutDone={setIsCheckoutDone}
+                                          isCheckoutDone={isCheckoutDone}
+                                          setIsCheckout={setIsCheckout}
+                                          total={count}
                                         />
                                       );
                                     });
@@ -411,6 +525,7 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
                             </Row>
                           </Container>
                         </form>
+                        
                       </div>
                     )}
                   </div>
@@ -429,28 +544,32 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
                     {isFinalCheckout ? (
                       <MainGrayButton text="Cancel" onClick={handleCancel} />
                     ) : null}
-                    { isNoTickets ? <div
-                      class="flex p-2.5   mb-1 text-sm text-red-800 rounded-lg bg-red-50 "
-                      role="alert"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="flex-shrink-0 inline w-5 h-5 mr-3"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
+                    {isNoTickets ? (
+                      <div
+                        class="flex p-2.5   mb-1 text-sm text-red-800 rounded-lg bg-red-50 "
+                        role="alert"
                       >
-                        <path
-                          fill-rule="evenodd"
-                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                      <span class="sr-only">Info</span>
-                      <div>
-                        <span class="font-medium">Select a ticket first!</span> 
+                        <svg
+                          aria-hidden="true"
+                          class="flex-shrink-0 inline w-5 h-5 mr-3"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                          <span class="font-medium">
+                            Select a ticket first!
+                          </span>
+                        </div>
                       </div>
-                    </div> : null}
+                    ) : null}
                   </div>
                 </div>
                 <div className="bg-gray-100 p-0 ocl-span-1 ">
@@ -490,6 +609,17 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
                       ))}
 
                       <div>
+                    { addedPromocodes ? <div
+                          className="flex justify-between"
+                          style={{
+                            fontSize: "0.825rem",
+                            lineHeight: "22px",
+                            // fontWeight: "600",
+                          }}
+                        >
+                          <span>Discount</span>
+                          <span>${addedPromocodes.discount_amount}</span>
+                        </div> : null}
                         <div
                           className="flex justify-between"
                           style={{
@@ -561,6 +691,8 @@ const [isCheckoutDone, setIsCheckoutDone] = useState(0);
           </div>
         </div>
       </div>
+
+
     </>
   );
 };

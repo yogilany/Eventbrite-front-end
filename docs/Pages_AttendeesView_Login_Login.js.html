@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/AttendeesView/Login/Login.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/AttendeesView/Login/Login.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useEffect, useRef, useState } from "react";
+import { Container, Col, Row, Stack, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router";
+import imageLogin from "../../../assets/adelLogin.png";
+import AboutFooter from "../../../Components/AboutFooter/AboutFooter";
+import Footer from "../../../Components/footer/Footer";
+import {
+  authGoogleUser,
+  authUser,
+  checkEmailExists,
+  forgotPassword,
+  registerGoogleUser,
+  selectLoggedIn,
+} from "../../../features/authSlice";
+import { HorizontalChip } from "./Components/HorizontalChip";
+import LoginForm from "./Components/LoginForm";
+import LoginImage from "./Components/LoginImage";
+import LoginMethods from "./Components/LoginMethods";
+import { LoginTitle } from "./Components/Title";
+import "./Login.scss";
+import { unwrapResult } from "@reduxjs/toolkit";
+import FormMessage from "../../../Components/FormMessage/FormMessage";
+import { Link } from "react-router-dom";
+import { motion, useAnimation } from "framer-motion";
+import LoginForgotPasswordModal from "./Components/LoginForgotPasswordModal";
+import VerificationEmailModal from "src/Components/VerificationEmailModal.js/VerificationEmailModal";
+
+const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+/**
+ * @description This is the login page for attendees where they can log in using
+ * their email &amp; passwords.
+ * This page is redirected to by signup after a successful sign up
+ * @date 3/29/2023 - 2:46:54 AM
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {JSX.Element}
+ */
+export const Login = (props) => {
+  const userRef = useRef();
+  const errRef = useRef();
+  const [user, setUser] = useState("");
+  const [users, setUsers] = useState([]);
+  const [pwd, setPwd] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [emailInput, setEmailInput] = useState("");
+  const [emailExist, setEmailExist] = useState(true);
+  const [passwordIncorrect, setPasswordIncorrect] = useState(false);
+  const [forgotPasswordModalShow, setForgotPasswordModalShow] = useState(false);
+  const [verificationEmailModalShow, setVerificationEmailModalShow] =
+    useState(false);
+  const [SocialProfile, setSocialProfile] = useState(null);
+  const isLoggedIn = useSelector(selectLoggedIn);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const controls = useAnimation();
+
+  const forgotPasswordHandler = () => {
+    try {
+      dispatch(forgotPassword(emailInput))
+        .unwrap(unwrapResult)
+        .then((result) => {
+          // console.log("success", result);
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    try {
+      const data = {
+        username: e.email,
+        password: e.password,
+      };
+
+      // Save email for forget password modal
+      setEmailInput(e.email);
+
+      // console.log(data);
+
+      dispatch(authUser(data))
+        .unwrap(unwrapResult)
+        .then((result) => {
+          setSuccess(true);
+        })
+        .catch((err) => {
+          setSuccess(false);
+          setPasswordIncorrect(emailExist === true);
+          setErrMsg(err);
+          setTimeout(() => {
+            controls.start("start");
+          }, 500);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleSocialSubmit = (e) => {
+    if (SocialProfile) {
+      dispatch(checkEmailExists(SocialProfile.email))
+        .unwrap()
+        .then((result) => {
+          dispatch(
+            authGoogleUser({
+              email: SocialProfile.email,
+            })
+          )
+            .unwrap()
+            .then((result) => {
+              setSuccess(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setPasswordIncorrect(emailExist === true);
+              setErrMsg(err);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+            });
+        })
+        .catch((err) => {
+          //Email does not exist, create account for user
+          dispatch(
+            registerGoogleUser({
+              email: SocialProfile.email,
+              password: crypto.getRandomValues(new Uint8Array(64)).toString(),
+              firstname: SocialProfile.given_name,
+              lastname: SocialProfile.family_name ?? "",
+              picture: SocialProfile.picture,
+            })
+          )
+            .unwrap()
+            .then(() => {
+              setVerificationEmailModalShow(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setPasswordIncorrect(emailExist === true);
+              setErrMsg(err);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+              return;
+            });
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (success) {
+      navigate("/", { replace: true });
+    }
+  }, [success]);
+
+  useEffect(() => {
+    const isValid = user.match(isValidEmail);
+
+    if (!isValid) setEmailExist(false);
+
+    if (user.length > 6 &amp;&amp; isValidEmail) {
+      dispatch(checkEmailExists(user))
+        .unwrap(unwrapResult)
+        .then((result) => {
+          setEmailExist(true);
+          setPasswordIncorrect(false);
+          setTimeout(() => {
+            controls.start("start");
+          }, 500);
+        })
+        .catch(() => {
+          //Server error
+          setSuccess(false);
+          setEmailExist(false);
+          setPasswordIncorrect(false);
+        });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    handleSocialSubmit();
+    return () => {};
+  }, [SocialProfile]);
+
+  if (isLoggedIn) return &lt;Navigate to="/" />;
+
+  return (
+    &lt;Container className={props.name} fluid style={{ height: "50px" }}>
+      &lt;LoginForgotPasswordModal
+        show={forgotPasswordModalShow}
+        onHide={() => setForgotPasswordModalShow(false)}
+        email={emailInput}
+      />
+      &lt;VerificationEmailModal
+        show={verificationEmailModalShow}
+        onHide={() => setVerificationEmailModalShow(false)}
+        email={SocialProfile?.email}
+      />
+      &lt;Row>
+        &lt;Col
+          className="contact-content"
+          md={12}
+          lg={6}
+          sm={12}
+          style={{
+            display: "block",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+          id="login-column-left"
+          data-testid="login-column-left"
+        >
+          &lt;Col>
+            &lt;Row>
+              &lt;Stack dir="vertical" gap={4} className="">
+                &lt;LoginTitle className="login-title" />
+                &lt;h1
+                  data-testid="login-header"
+                  id="login-header"
+                  className="mb-5"
+                  style={{ minWidth: "200px" }}
+                >
+                  Log in
+                &lt;/h1>
+              &lt;/Stack>
+            &lt;/Row>
+            &lt;Row>
+              {!emailExist &amp;&amp; user.length > 10 &amp;&amp; !passwordIncorrect ? (
+                &lt;motion.div
+                  variants={{
+                    start: () => ({
+                      x: [-30, 30, -30, 30, 0],
+                      transition: {
+                        duration: 0.5,
+                      },
+                    }),
+                  }}
+                  animate={controls}
+                  initial={{
+                    x: "0px",
+                  }}
+                >
+                  &lt;FormMessage>
+                    &lt;p>
+                      There is no account associated with the email.{" "}
+                      &lt;Link to="/signup">Create account.&lt;/Link>{" "}
+                    &lt;/p>
+                  &lt;/FormMessage>
+                &lt;/motion.div>
+              ) : null}
+            &lt;/Row>
+            &lt;Row>
+              {passwordIncorrect &amp;&amp; emailExist ? (
+                &lt;motion.div
+                  variants={{
+                    start: () => ({
+                      x: [-30, 30, -30, 30, 0],
+                      transition: {
+                        duration: 0.5,
+                      },
+                    }),
+                  }}
+                  animate={controls}
+                  initial={{
+                    x: "0px",
+                  }}
+                >
+                  &lt;FormMessage>
+                    &lt;div>&lt;/div>
+                    &lt;p>{errMsg}&lt;/p>
+                  &lt;/FormMessage>
+                &lt;/motion.div>
+              ) : null}
+            &lt;/Row>
+            &lt;Row className="g-0">
+              &lt;LoginForm
+                style={{
+                  minWidth: "100%",
+                  width: "350px",
+                }}
+                setUserHandler={setUser}
+                submitAction={handleSubmit}
+                data_testid="login-form"
+                name="login-form-div"
+                passwordIncorrect={passwordIncorrect}
+              />
+            &lt;/Row>
+            {passwordIncorrect ? (
+              &lt;Row className="g-0">
+                &lt;Button
+                  style={{ textDecoration: "none" }}
+                  onClick={() => {
+                    setForgotPasswordModalShow(true);
+                    forgotPasswordHandler();
+                    return;
+                  }}
+                  className={`d-flex w-auto p-0 `}
+                  variant="link"
+                  data-testid="login-forgot-password"
+                >
+                  Forgot your password?
+                &lt;/Button>
+              &lt;/Row>
+            ) : null}
+            &lt;Row className="g-0">
+              &lt;HorizontalChip
+                id="login-horizontalchip"
+                data_testid="horizontal-chip"
+              />
+            &lt;/Row>
+            &lt;Row className="g-0">
+              &lt;LoginMethods
+                data_testid="login-methods"
+                name="login-methods-div"
+                setSocialProfile={setSocialProfile}
+              />
+            &lt;/Row>
+          &lt;/Col>
+        &lt;/Col>
+        &lt;Col md={0} lg={6} sm={0} className="g-0 d-none d-lg-block">
+          &lt;LoginImage
+            id="login-image"
+            data_testid="login-image"
+            img_url={imageLogin}
+            img_caption="Adel Emam"
+            img_credit="Software Course"
+            img_location="Giza, EG"
+          />
+        &lt;/Col>
+      &lt;/Row>
+      &lt;Row className="d-none d-lg-block d-md-block">
+      &lt;/Row>
+      &lt;Row>
+      &lt;AboutFooter id="login-aboutfooter" />
+
+        &lt;Footer id="login-footer" data_testid="login-footer" />
+      &lt;/Row>
+    &lt;/Container>
+  );
+};
+
+export default Login;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

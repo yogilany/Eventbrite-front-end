@@ -4,11 +4,7 @@ import EventImage from "./Components/EventImage/EventImageBox";
 import Summary from "./Components/SummaryBox/Summary";
 import Description from "./Components/Description/Description";
 import AddEvents from "./Components/AddEvents/AddEvents";
-import Sidebar from "../Sidebar/Sidebar";
-import Header from "../../../Components/header/Header";
-import CreatorHeader from "./Components/creatorHeader/CreatorHeader";
 import { createContext } from "react";
-import Headerpub from "../../Publishpage/Headerpub";
 import { Alert } from "react-bootstrap";
 import { useEffect } from "react";
 
@@ -20,26 +16,38 @@ export const AppContext = createContext({});
  * @returns {JSX.Element}
  */
 const Details = ({ event, setEvent }) => {
+
   const handleForm = (e) => {
     e.preventDefault();
   };
+  const [isLoading, setIsLoading] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [showSubmit, setShowSubmit] = useState(false);
   const [success, setSuccess] = useState(false);
   const [imageLink, setImageLink] = useState("");
-  const [summary, setSummary] = useState("");
-  const [description, setDescription] = useState("");
+  const [summary, setSummary] = useState(event ? event.summary : "");
+  const [description, setDescription] = useState(
+    event ? event.description : ""
+  );
   const [inputsChanged, setInputsChanged] = useState(false);
 
   function saveData() {
-    setEvent({
-      ...event,
+    if(imageLink !== "" && summary !== "" && description !== "")
+    {
+          setEvent({
+            ...event,
 
-      image_link: "https://www.example.com/image.png",
-      summary: summary,
-      description: description,
-    });
-    setSuccess(true);
+            image_link:
+              imageLink === "" ? "https://picsum.photos/1600/800" : imageLink,
+            summary: summary,
+            description: description,
+          });
+          setSuccess(true);
+          setIsLoading(true);
+          setTimeout(() => setIsLoading(false), 3000);
+    }
+    else
+      setSuccess(false);
   }
 
   useEffect(() => {
@@ -56,6 +64,11 @@ const Details = ({ event, setEvent }) => {
       setInputsChanged(true);
     }
   }, [imageLink, summary, description]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+
+  },[])
 
   return (
     <AppContext.Provider
@@ -76,6 +89,7 @@ const Details = ({ event, setEvent }) => {
               setDescription={setDescription}
             />
             <AddEvents />
+            {isLoading && "kkk"}
             {/* {showSubmit && (
               <div className="submit__section" data-testid="submit__section">
                 <button className="discard__btn">Discard</button>
@@ -99,6 +113,19 @@ const Details = ({ event, setEvent }) => {
             }}
           >
             Data saved successfully.
+          </Alert>
+        ) : null}
+        {!inputsChanged  ? (
+          <Alert
+            variant="danger"
+            style={{
+              width: "70%",
+              position: "fixed",
+              top: "70px",
+              zIndex: "999",
+            }}
+          >
+            Please, Enter full data to go to next step
           </Alert>
         ) : null}
 

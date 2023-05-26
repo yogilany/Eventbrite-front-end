@@ -18,11 +18,12 @@ const TicketInfo = ({ticketName,ticketDate,amount,Price,btnID,event,setEvent}) =
   const [showBtnMenu, setShowBtnMenu] = useState(false);
   const { isEdit, setIsEdit } = useContext(AppEditContext);
   const { ID, setID } = useContext(AppEditContext);
+  const { isFree, setIsFree } = useContext(AppEditContext);
   const deleteTicket = (id) => {
     const newEvent = event;
     newEvent.tickets.splice(id, 1);
-    console.log("id " + id);
-    console.log(newEvent);
+    // console.log("id " + id);
+    // console.log(newEvent);
     setEvent({...event, newEvent});
   }
   return (

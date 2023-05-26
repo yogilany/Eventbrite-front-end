@@ -11,17 +11,6 @@ import axios from "axios";
 const qs = require("qs");
 
 /**
- * User token, fetched from local storage or null
- * @date 5/4/2023 - 7:28:17 PM
- * @author h4z3m
- *
- * @type {*}
- */
-const userToken = localStorage.getItem("userToken")
-  ? localStorage.getItem("userToken")
-  : null;
-
-/**
  * Authentication state object
  * @date 5/4/2023 - 7:27:51 PM
  * @author h4z3m
@@ -33,7 +22,7 @@ const initialState = {
   userFirstName: "",
   userLastName: "",
   userAvatarURL: "",
-  userToken,
+  userToken: null,
   userID: "",
   isLoading: false,
   emailExists: false,
@@ -48,8 +37,7 @@ const initialState = {
  * @type {*}
  */
 export const authUser = createAsyncThunk(
-  "auth/login",
-  async (userData, thunkAPI) => {
+  "auth/login", async (userData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
       const response = await axios.post(
@@ -61,15 +49,25 @@ export const authUser = createAsyncThunk(
       );
 
       if (response.data?.access_token !== null) {
-        console.log("heeelo");
-        localStorage.setItem("userToken", response.data.access_token);
         return response.data;
       } else {
         throw rejectWithValue(response.data.detail);
       }
     } catch (error) {
-      console.log(error);
-      return rejectWithValue(error?.response?.data?.detail);
+      switch (error.response.status) {
+        case 400:
+          return thunkAPI.rejectWithValue("Invalid email.");
+        case 401:
+          return thunkAPI.rejectWithValue(
+            "Wrong password or email is not verified."
+          );
+        case 404:
+          return thunkAPI.rejectWithValue("Email not found.");
+        case 422:
+          return thunkAPI.rejectWithValue("Validation error.");
+        default:
+          return thunkAPI.rejectWithValue("Unknown error.");
+      }
     }
   }
 );
@@ -102,6 +100,13 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+/**
+ * @description Login Google/FB user
+ * @date 5/11/2023 - 9:36:34 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
 export const authGoogleUser = createAsyncThunk(
   "auth/login-with-google",
   async (userData, thunkAPI) => {
@@ -111,7 +116,6 @@ export const authGoogleUser = createAsyncThunk(
         username: userData.email,
         password: "aaaaaaaaaaaaa",
       };
-      console.log(x_www_form_data);
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_API}/auth/login-with-google`,
         qs.stringify(x_www_form_data),
@@ -120,7 +124,12 @@ export const authGoogleUser = createAsyncThunk(
         }
       );
       console.log("Auth google user response : ", response);
-      return response.data;
+
+      if (response.data?.access_token !== null) {
+        return response.data;
+      } else {
+        throw rejectWithValue(response.data.detail);
+      }
     } catch (error) {
       console.log(error);
       return rejectWithValue(error?.response?.data?.detail);
@@ -128,6 +137,13 @@ export const authGoogleUser = createAsyncThunk(
   }
 );
 
+/**
+ * @description Register Google/FB user
+ * @date 5/11/2023 - 9:36:10 PM
+ * @author h4z3m
+ *
+ * @type {*}
+ */
 export const registerGoogleUser = createAsyncThunk(
   "auth/signup-google",
   async (registerData, thunkAPI) => {
@@ -138,34 +154,34 @@ export const registerGoogleUser = createAsyncThunk(
 
       console.log("Register response", response);
 
-      // Login with google to obtain access token
-      const login_response = await thunkAPI.dispatch(
-        authGoogleUser({
-          email: registerData.email,
-          password: registerData.password,
-        })
-      );
+      // // Login with google to obtain access token
+      // const login_response = await thunkAPI.dispatch(
+      //   authGoogleUser({
+      //     email: registerData.email,
+      //     password: registerData.password,
+      //   })
+      // );
 
-      console.log("Login with google response: ", login_response);
+      // console.log("Login with google response: ", login_response);
 
-      // Edit user data to save avatar URL
-      const edit_response = await axios({
-        method: "PUT",
-        url: `${process.env.REACT_APP_BASE_API}/users/me/edit`,
-        headers: {
-          ContentType: "application/json",
-          Authorization: `Bearer ${login_response.payload.access_token}`,
-        },
-        params: {
-          firstname: registerData.firstname,
-          lastname: registerData.lastname,
-          avatar_url: registerData.picture,
-        },
-      });
+      // // Edit user data to save avatar URL
+      // const edit_response = await axios({
+      //   method: "PUT",
+      //   url: `${process.env.REACT_APP_BASE_API}/users/me/edit`,
+      //   headers: {
+      //     ContentType: "application/json",
+      //     Authorization: `Bearer ${login_response.payload.access_token}`,
+      //   },
+      //   params: {
+      //     firstname: registerData.firstname,
+      //     lastname: registerData.lastname,
+      //     avatar_url: registerData.picture,
+      //   },
+      // });
 
-      console.log("Edit with google response: ", edit_response);
+      // console.log("Edit with google response: ", edit_response);
 
-      return { ...registerData, ...edit_response };
+      return { ...registerData, ...response };
     } catch (error) {
       console.log(error.message);
       return thunkAPI.rejectWithValue(error.message);
@@ -274,12 +290,8 @@ export const verifyUser = createAsyncThunk(
  */
 export const getUserDetails = createAsyncThunk(
   "users/me/info",
-  async (aa, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      console.log(
-        " inside user details Token = ",
-        localStorage.getItem("userToken")
-      );
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_API}/users/me/info`,
         {
@@ -295,6 +307,7 @@ export const getUserDetails = createAsyncThunk(
     } catch (error) {
       // Unauthenticated
       console.log("Error: token = ", thunkAPI.getState().auth.userToken);
+      thunkAPI.dispatch(logOut()); // Log out user
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -357,8 +370,7 @@ export const authSlice = createSlice({
     builder
       // Authenticate user
       .addCase(authUser.rejected, (state, action) => {
-        state.userEmail = null;
-        state.userToken = null;
+        // state = initialState;
         state.isLoading = false;
       })
       .addCase(authUser.pending, (state, action) => {
@@ -373,8 +385,6 @@ export const authSlice = createSlice({
       })
       // Authenticate Google user
       .addCase(authGoogleUser.rejected, (state, action) => {
-        state.userEmail = null;
-        state.userToken = null;
         state.isLoading = false;
       })
       .addCase(authGoogleUser.pending, (state, action) => {
@@ -389,11 +399,8 @@ export const authSlice = createSlice({
       })
       // Register user
       .addCase(registerUser.rejected, (state, action) => {
-        state.userEmail = null;
-        state.userToken = null;
         state.isLoading = false;
       })
-
       .addCase(registerUser.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -403,11 +410,8 @@ export const authSlice = createSlice({
       })
       // Register Google user
       .addCase(registerGoogleUser.rejected, (state, action) => {
-        state.userEmail = null;
-        state.userToken = null;
         state.isLoading = false;
       })
-
       .addCase(registerGoogleUser.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -418,20 +422,14 @@ export const authSlice = createSlice({
       // Get user details
       .addCase(getUserDetails.rejected, (state, action) => {
         console.log("rejected action.payload = ", action.payload);
+        state = initialState;
         state.isLoading = false;
-        state.userToken = null;
-        state.userEmail = null;
-        state.userFirstName = "";
-        state.userLastName = "";
-        state.userAvatarURL = "";
-        localStorage.setItem("userToken", null);
       })
       .addCase(getUserDetails.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(getUserDetails.fulfilled, (state, action) => {
         console.log("fulfilled action.payload = ", action.payload);
-
         state.isLoading = false;
         state.userEmail = action.payload.email;
         state.userFirstName = action.payload.firstname;
@@ -465,6 +463,14 @@ export const authSlice = createSlice({
 
 export const { logOut } = authSlice.actions;
 
+/**
+ * Description placeholder
+ * @date 4/18/2023 - 4:44:32 AM
+ * @author h4z3m
+ *
+ * @param {*} state
+ * @returns {*}
+ */
 export const selectLoading = (state) => state.auth.isLoading;
 export const selectUserToken = (state) => state.auth.userToken;
 export const selectUserEmail = (state) => state.auth.userEmail;

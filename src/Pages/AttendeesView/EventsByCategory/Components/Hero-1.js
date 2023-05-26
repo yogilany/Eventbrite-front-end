@@ -3,6 +3,13 @@ import { Container, Col, Row } from "react-bootstrap";
 import MusicBack from "../../../../assets/cat1.png";
 import { Padding } from "@mui/icons-material";
 
+
+/**
+ * @author Anas Sherif
+ * @param {}
+ * @description This is the hero section of the EventsByCategory page.
+ * @returns {JSX.Element}
+ */
 const Hero = ({ category, location }) => {
   const HeroStyle = [
     { background: "#0B4F60", color: "#FFDC00", subColor: "#8FF2F7" },

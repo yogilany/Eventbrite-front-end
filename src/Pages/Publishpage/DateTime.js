@@ -1,42 +1,99 @@
 import "./Publish.css";
 import { CiCalendar, CiClock2 } from "react-icons/ci";
 import { useState } from "react";
-import { createEvent } from "src/features/eventApi";
-import { selectUserToken } from "src/features/authSlice";
-import { useSelector } from "react-redux";
+import { useCreateEventMutation } from "../../features/api/eventApi";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
 /**
  * @author Ziad Ezzat
- * @param {string} props.data_testid
+ * @param {string} props.data_testid 
+ * @description Used for testing
+ * @param {string} props.public      
+ * @description Boolean to see if event is public or private
+ * @param {string} props.event       
+ * @description Event itself
  * @description This container shows the radio button container component used in publish page showing some data related to date and time of your event.
- * @returns {JSX.Element of Date and Tome component found in publish page}
+ * @returns {JSX.Element}
  */
 const DateTime = (props) => {
   const [val, setval] = useState("now");
-  const [date, setDate] = useState("03/11/2023");
-  const [time, setTime] = useState("2:00PM");
-  const token = useSelector(selectUserToken);
+  const [createEvent] = useCreateEventMutation();
+  const event = props.event;
+  const dateandtime = event?.date_and_time?.start_date_time;
+  // const date = new Date(dateandtime);
+
+  const [dateInput, setDate] = useState(new Date().toISOString().slice(0, -14));
+  const [timeInput, setTime] = useState("12:30");
+  const publicevent = props.public;
+
   const navigate = useNavigate();
+
   const readorwrite = (event) => {
     setval(event.target.value);
   };
-  async function saveData() {
-    props.setEvent({
-      ...props.event,
-      state: {
-        is_public: props.public,
-        publish_date_time: new Date(date).toISOString().slice(0, -5),
-      },
-    });
-    const response = await createEvent(props.event, token);
-    console.log(response);
-    if (response.status === 200) {
-      navigate(`/event/${response.data.id}`, { replace: true });
+
+  const saveData = async () => {
+    try {
+      const [time, meridian] = timeInput.split(" ");
+      const [hours, minutes, seconds] = time.split(":");
+
+      const timeInMs =
+        hours * 60 * 60 * 1000 + minutes * 60 * 1000 + seconds * 1000;
+
+      console.log(dateInput);
+      console.log(timeInMs);
+
+      const publish_datetime = new Date(dateInput);
+      publish_datetime.setTime(timeInMs + publish_datetime.getTime());
+
+      const response = await createEvent({
+        ...props.event,
+        state: {
+          is_public: publicevent,
+          publish_date_time:
+            val === "now"
+              ? new Date().toISOString().slice(0, -5)
+              : publish_datetime.toISOString().slice(0, -5),
+        },
+      }).unwrap();
+      console.log("response: ", response);
+      navigate(`/event/${response.id}`, { replace: true });
+    } catch (error) {
+      console.log("Error creating event : ", error);
     }
-  }
+  };
+  // useEffect(() => {
+  //   console.log(date);
+  //   console.log(time);
+  //   props.setEvent({
+  //     ...props.event,
+  //     state: {
+  //       is_public: publicevent,
+  //       publish_date_time:
+  //         val === "now"
+  //           ? new Date().toISOString().slice(0, -5)
+  //           : new Date(
+  //               date.getDate() +
+  //                 "T" +
+  //                 time.slice(0, 2) +
+  //                 ":" +
+  //                 time.slice(3, 5) +
+  //                 ":" +
+  //                 time.slice(6, 8)
+  //             )
+  //               .toISOString()
+  //               .slice(0, -5),
+  //     },
+  //   });
+  //   return () => {};
+  // }, []);
 
   return (
-    <div class="mb-2" data-testid={props.data_testid} style={{ paddingBottom: 70 }}>
+    <div
+      class="mb-2"
+      data-testid={props.data_testid}
+      style={{ paddingBottom: 70 }}
+    >
       <h2 className="rdh">{props.title}</h2>
       <div style={{ display: "flex" }}>
         <input
@@ -48,7 +105,10 @@ const DateTime = (props) => {
           checked={val === "now"}
           style={{ cursor: "pointer" }}
         ></input>
-        <p class="mb-2" style={{ marginLeft: 20, marginTop: 15, color: "#39364f" }}>
+        <p
+          class="mb-2"
+          style={{ marginLeft: 20, marginTop: 15, color: "#39364f" }}
+        >
           {props.c1}
         </p>
       </div>
@@ -62,7 +122,10 @@ const DateTime = (props) => {
           checked={val === "sch"}
           style={{ cursor: "pointer" }}
         ></input>
-        <p class="mb-2" style={{ marginLeft: 20, marginTop: 10, color: "#39364f" }}>
+        <p
+          class="mb-2"
+          style={{ marginLeft: 20, marginTop: 10, color: "#39364f" }}
+        >
           {props.c2}
         </p>
       </div>
@@ -72,16 +135,16 @@ const DateTime = (props) => {
             <CiCalendar
               style={{ height: 50, width: 20, marginLeft: 10 }}
             ></CiCalendar>
-            <div style={{ display: "block", lineHeight: 0, marginTop: 15 }}>
+            <div style={{}}>
               <p
                 style={{ fontSize: ".8rem", marginLeft: 12, color: "#aaaaab" }}
               >
                 Start date
               </p>
               <input
-                type="text"
+                type="date"
                 id="Date_id_pub"
-                defaultValue={"03/11/2023"}
+                defaultValue={new Date().toISOString().slice(0, -14)}
                 className="dd"
                 readOnly={val === "now"}
                 onChange={(e) => {
@@ -103,17 +166,21 @@ const DateTime = (props) => {
             <CiClock2
               style={{ height: 50, width: 20, marginLeft: 10 }}
             ></CiClock2>
-            <div style={{ display: "block", lineHeight: 0, marginTop: 15 }}>
+            <div style={{ marginTop: 0 }}>
               <p
-                style={{ fontSize: ".8rem", marginLeft: 12, color: "#aaaaab" }}
+                style={{
+                  fontSize: ".8rem",
+                  marginLeft: 12,
+                  color: "#aaaaab",
+                }}
               >
                 Start time
               </p>
               <input
-                type="text"
+                type="time"
                 id="Time_id_pub"
-                defaultValue={"2:00PM"}
-                className="dd"
+                defaultValue={new Date().toISOString().slice(11, -5)}
+                className="dd  "
                 readOnly={val === "now"}
                 onChange={(e) => {
                   setTime(e.target.value);

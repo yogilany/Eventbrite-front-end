@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/CreatorsView/AddAttendees/RegInfo.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/CreatorsView/AddAttendees/RegInfo.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useEffect, useState } from "react";
+import "./RegInfo.scss";
+import { Alert, Row, Col } from "react-bootstrap";
+
+/**
+ * @author Anas Sherif
+ * @param {}
+ * @description This is the second part of add attendees page, it adds the attendees info.
+ * @returns {JSX.Element}
+ */
+
+function RegInfo({ event, setEvent }) {
+  return (
+    &lt;>
+      &lt;Row>
+        &lt;Col>
+          &lt;div className="RegInfo_Container">
+            &lt;header className="g-cell g-cell-9-9">
+              &lt;div>
+                &lt;a href="#" onclick="embeddedCheckoutBackButtonHandler()">
+                  &lt;i className="ico-omnes-arrow-left" />
+                  &lt;span className="eds-l-pad-left-2">
+                    Back to Add Attendees section
+                  &lt;/span>
+                &lt;/a>
+              &lt;/div>
+              &lt;h1 className="eds-l-mar-top-6 eds-text-hm">
+                Registration Information
+              &lt;/h1>
+              &lt;hr className="eds-l-mar-top-4" />
+            &lt;/header>
+            &lt;div className="RegInfo_Content_Container">
+              &lt;div className="eds-modal__title-container eds-modal__title-spacing">
+                &lt;h2
+                  id="eds-modal-title"
+                  className="eds-text-bl--fixed eds-text--truncate eds-modal__title eds-text-color--ui-800"
+                  data-spec="eds-modal__title"
+                >
+                  Checkout
+                &lt;/h2>
+                &lt;span
+                  className="eds-l-pad-hor-4 eds-l-mar-top-4 eds-align--center eds-text-bs--fixed eds-text-color--ui-600"
+                  data-spec="eds-modal__secondary-title"
+                >&lt;/span>
+                &lt;div className="eds-modal__title-spacing">
+                  &lt;hr
+                    className="eds-divider__hr eds-bg-color--ui-200 eds-divider--horizontal"
+                    data-spec="divider-hr"
+                    aria-hidden="true"
+                  />
+                &lt;/div>
+              &lt;/div>
+              &lt;div>
+                &lt;h3 className="eds-text-hs eds-text-color--grey-800 eds-l-mar-bot-2">
+                  &lt;span data-spec="checkout-form-basic-info-header">
+                    Contact information
+                  &lt;/span>
+                &lt;/h3>
+                &lt;div className="sub-title-section">
+                  &lt;span
+                    className="sub-title-section__required-message eds-text-color--red"
+                    data-spec="checkout-required-prompt"
+                    aria-hidden="true"
+                  >
+                    Required
+                  &lt;/span>
+                &lt;/div>
+                &lt;div
+                  className="eds-g-cell eds-l-pad-bot-2 eds-g-cell-6-12 eds-l-mar-top-2 eds-l-pad-right-2"
+                  data-spec="validation-form-field-wrapper-buyer.N-first_name"
+                >
+                  &lt;div
+                    className="eds-field-styled eds-field-styled--static eds-field-styled--error"
+                    style={{ marginBottom: 8 }}
+                    data-automation="checkout-form-N-first_name-wrapper"
+                    data-testid="input-field-wrapper"
+                    data-spec="checkout-form-N-first_name"
+                    data-heap-redact-attributes="data-val"
+                  >
+                    &lt;div className="eds-field-styled__border-simulation">
+                      &lt;div className="eds-field-styled__internal">
+                        &lt;div className="eds-field-styled__input-container">
+                          &lt;div className="eds-field-styled__label-wrapper">
+                            &lt;label
+                              className="eds-field-styled__label eds-label-primary eds-field-styled__label--required"
+                              id="buyer.N-first_name-label"
+                              htmlFor="buyer.N-first_name"
+                              data-spec="label-label"
+                            >
+                              &lt;span className="eds-label__content">
+                                First name
+                              &lt;/span>
+                              &lt;span
+                                className="eds-label__required-indicator eds-text-bs"
+                                data-spec="required-indicator"
+                              >
+                                &lt;span> *&lt;/span>
+                                &lt;span className="eds-is-hidden-accessible">
+                                  (required)
+                                &lt;/span>
+                              &lt;/span>
+                            &lt;/label>
+                          &lt;/div>
+                          &lt;input
+                            data-spec="input-field-input-element"
+                            aria-invalid="true"
+                            aria-required="true"
+                            className="eds-field-styled__input"
+                            data-automation="checkout-form-N-first_name"
+                            id="buyer.N-first_name"
+                            maxLength={50}
+                            name="buyer.N-first_name"
+                            type="text"
+                            role="textbox"
+                            meta="[object Object]"
+                            defaultValue=""
+                          />
+                        &lt;/div>
+                      &lt;/div>
+                    &lt;/div>
+                    &lt;div className="eds-field__sub">
+                      &lt;div className="eds-field__sub--left">
+                        &lt;aside
+                          className="eds-field-styled__annotation eds-text-bs eds-fx--fade-in eds-l-pad-top-1"
+                          data-automation="eds-field-annotation"
+                          role="alert"
+                        >
+                          First name is required.
+                        &lt;/aside>
+                      &lt;/div>
+                    &lt;/div>
+                  &lt;/div>
+                &lt;/div>
+                &lt;div
+                  className="eds-g-cell eds-l-pad-bot-2 eds-g-cell-6-12 eds-l-mar-top-2 eds-l-pad-left-2"
+                  data-spec="validation-form-field-wrapper-buyer.N-last_name"
+                >
+                  &lt;div
+                    className="eds-field-styled"
+                    style={{ marginBottom: 8 }}
+                    data-automation="checkout-form-N-last_name-wrapper"
+                    data-testid="input-field-wrapper"
+                    data-spec="checkout-form-N-last_name"
+                    data-heap-redact-attributes="data-val"
+                  >
+                    &lt;div className="eds-field-styled__border-simulation">
+                      &lt;div className="eds-field-styled__internal">
+                        &lt;div className="eds-field-styled__input-container">
+                          &lt;div className="eds-field-styled__label-wrapper">
+                            &lt;label
+                              className="eds-field-styled__label eds-label-primary eds-field-styled__label--required"
+                              id="buyer.N-last_name-label"
+                              htmlFor="buyer.N-last_name"
+                              data-spec="label-label"
+                            >
+                              &lt;span className="eds-label__content">
+                                Last name
+                              &lt;/span>
+                              &lt;span
+                                className="eds-label__required-indicator eds-text-bm"
+                                data-spec="required-indicator"
+                              >
+                                &lt;span> *&lt;/span>
+                                &lt;span className="eds-is-hidden-accessible">
+                                  (required)
+                                &lt;/span>
+                              &lt;/span>
+                            &lt;/label>
+                          &lt;/div>
+                          &lt;input
+                            data-spec="input-field-input-element"
+                            aria-invalid="false"
+                            aria-required="true"
+                            className="eds-field-styled__input"
+                            data-automation="checkout-form-N-last_name"
+                            id="buyer.N-last_name"
+                            maxLength={50}
+                            name="buyer.N-last_name"
+                            type="text"
+                            role="textbox"
+                            meta="[object Object]"
+                            defaultValue=""
+                          />
+                        &lt;/div>
+                      &lt;/div>
+                    &lt;/div>
+                  &lt;/div>
+                &lt;/div>
+                &lt;div
+                  className="eds-g-cell eds-l-pad-bot-2 eds-g-cell-1-1"
+                  data-spec="validation-form-field-wrapper-buyer.N-email"
+                >
+                  &lt;div
+                    className="eds-field-styled"
+                    style={{ marginBottom: 8 }}
+                    data-automation="checkout-form-N-email-wrapper"
+                    data-testid="input-field-wrapper"
+                    data-spec="checkout-form-N-email"
+                    data-heap-redact-attributes="data-val"
+                  >
+                    &lt;div className="eds-field-styled__border-simulation">
+                      &lt;div className="eds-field-styled__internal">
+                        &lt;div className="eds-field-styled__input-container">
+                          &lt;div className="eds-field-styled__label-wrapper">
+                            &lt;label
+                              className="eds-field-styled__label eds-label-primary eds-field-styled__label--required"
+                              id="buyer.N-email-label"
+                              htmlFor="buyer.N-email"
+                              data-spec="label-label"
+                            >
+                              &lt;span className="eds-label__content">
+                                Email address
+                              &lt;/span>
+                              &lt;span
+                                className="eds-label__required-indicator eds-text-bm"
+                                data-spec="required-indicator"
+                              >
+                                &lt;span> *&lt;/span>
+                                &lt;span className="eds-is-hidden-accessible">
+                                  (required)
+                                &lt;/span>
+                              &lt;/span>
+                            &lt;/label>
+                          &lt;/div>
+                          &lt;input
+                            data-spec="input-field-input-element"
+                            aria-invalid="false"
+                            aria-required="true"
+                            className="eds-field-styled__input"
+                            data-automation="checkout-form-N-email"
+                            id="buyer.N-email"
+                            maxLength={254}
+                            name="buyer.N-email"
+                            type="email"
+                            role="textbox"
+                            meta="[object Object]"
+                            defaultValue=""
+                          />
+                        &lt;/div>
+                      &lt;/div>
+                    &lt;/div>
+                  &lt;/div>
+                &lt;/div>
+              &lt;/div>
+            &lt;/div>
+          &lt;/div>
+        &lt;/Col>
+      &lt;/Row>
+    &lt;/>
+  );
+}
+
+export default RegInfo;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

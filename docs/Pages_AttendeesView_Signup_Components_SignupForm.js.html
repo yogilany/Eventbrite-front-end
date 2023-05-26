@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/AttendeesView/Signup/Components/SignupForm.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/AttendeesView/Signup/Components/SignupForm.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { yupResolver } from "@hookform/resolvers/yup";
+import { IconButton } from "@mui/material";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { motion, useAnimation } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Col,
+  Container,
+  FloatingLabel,
+  Form,
+  InputGroup,
+  Row,
+  Stack,
+} from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import * as BiIcons from "react-icons/bi";
+import * as TiIcons from "react-icons/ti";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import OrangeButton from "../../../../Components/Buttons/OrangeButton";
+import FormMessage from "../../../../Components/FormMessage/FormMessage";
+import LinearProgressWithLabel from "../../../../Components/LinearProgressWithLabel/LinearProgressWithLabel";
+import TextInputStyled from "../../../../Components/TextInput/TextInput";
+import {
+  authGoogleUser,
+  checkEmailExists,
+  registerGoogleUser,
+  registerUser,
+} from "../../../../features/authSlice";
+import HorizontalChip from "../../Login/Components/HorizontalChip";
+import "../Signup.scss";
+import { SignupSchema, getPasswordState, isValidEmail } from "./Signup-utils";
+import SignupFormCSS from "./SignupForm.module.scss";
+import "./SignupMethods";
+import SignupMethods from "./SignupMethods";
+import SignupVerifyModal from "./SignupVerifyModal";
+import VerificationEmailModal from "src/Components/VerificationEmailModal.js/VerificationEmailModal";
+/**
+ * The signup form which contains the information needed to create a new account.
+ * This form validates all inputs before submission.
+ * @date 3/29/2023 - 2:48:25 AM
+ * @author h4z3m
+ *
+ * @param {*} props
+ * @returns {*}
+ */
+
+export const SignupForm = (props) => {
+  const [showSignUpInfo, setShowSignUpInfo] = useState(false);
+  const [successful, setSuccess] = useState(false);
+  const [privacyPolicyModalShow, setPrivacyPolicyModalShow] = useState(false);
+  const [emailExists, setEmailExists] = useState(true);
+  // const [submitPosition, setSubmitPosition] = useState("");
+  // const [oldSubmitPosition, setOldSubmitPosition] = useState("");
+  const [SocialProfile, setSocialProfile] = useState(null);
+  const [verificationEmailModalShow, setVerificationEmailModalShow] =
+    useState(false);
+
+  const rowRef = useRef();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const controls = useAnimation();
+
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    watch,
+    clearErrors,
+    setFocus,
+    setError,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+    reValidateMode: "onChange",
+    resolver: yupResolver(SignupSchema),
+  });
+
+  const watchPassword = watch("password");
+  const watchEmail = watch("email");
+
+  const onSubmit = (values) => {
+    if (!showSignUpInfo) {
+      setShowSignUpInfo(true);
+      return;
+    }
+    setPrivacyPolicyModalShow(true);
+  };
+
+  const registerUserHandler = () => {
+    if (SocialProfile) {
+      // console.log("Social profile", SocialProfile);
+      dispatch(checkEmailExists(SocialProfile.email))
+        .unwrap(unwrapResult)
+        .then(() => {
+          //Email exists, auth user
+          dispatch(
+            authGoogleUser({
+              email: SocialProfile.email,
+            })
+          )
+            .unwrap()
+            .then((result) => {
+              setSuccess(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+              return;
+            });
+        })
+        .catch((err) => {
+          //Email does not exist, create account for user
+          dispatch(registerGoogleUser(SocialProfile))
+            .unwrap()
+            .then(() => {
+              setVerificationEmailModalShow(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+              return;
+            });
+        });
+    } else {
+      const data = {
+        email: getValues("email"),
+        password: getValues("password"),
+        firstname: getValues("firstName"),
+        lastname: getValues("lastName"),
+      };
+
+      dispatch(registerUser(data))
+        .unwrap()
+        .then(() => {
+          setVerificationEmailModalShow(true);
+          setSuccess(true);
+          // window.location.reload();
+        })
+        .catch(() => {
+          console.log("Error");
+          setSuccess(false);
+          setError("email");
+          setFocus("email");
+        });
+    }
+  };
+  const onError = (error) => {
+    console.log("ERROR:::", error);
+    if (emailExists) {
+      controls.start("start");
+      return;
+    }
+    if (
+      !emailExists &amp;&amp;
+      getValues("email").match(isValidEmail) &amp;&amp;
+      !showSignUpInfo
+    ) {
+      setShowSignUpInfo(true);
+      clearErrors();
+      setFocus("confirmEmail");
+      return;
+    }
+  };
+
+  useEffect(() => {
+    const isValid = getValues("email").match(isValidEmail);
+    if (!isValid) setEmailExists(false);
+    if (getValues("email").length > 0 &amp;&amp; isValid) {
+      dispatch(checkEmailExists(getValues("email")))
+        .unwrap(unwrapResult)
+        .then((result) => {
+          setEmailExists(result);
+        })
+        .catch(() => {
+          //Server error
+          setEmailExists(false);
+        });
+    }
+  }, [watchEmail, dispatch, getValues]);
+
+  useEffect(() => {
+    if (SocialProfile) registerUserHandler();
+  }, [SocialProfile]);
+
+  return (
+    &lt;>
+      &lt;SignupVerifyModal
+        show={privacyPolicyModalShow}
+        onHide={() => setPrivacyPolicyModalShow(false)}
+        onAccept={() => {
+          //Register user
+          registerUserHandler();
+        }}
+        onCancel={() => {
+          setPrivacyPolicyModalShow(false);
+        }}
+      />
+      &lt;VerificationEmailModal
+        show={verificationEmailModalShow}
+        onHide={() => {
+          setVerificationEmailModalShow(false);
+          navigate("/login");
+        }}
+        email={SocialProfile?.email}
+      />
+      &lt;Form
+        data-testid={props.data_testid}
+        onSubmit={handleSubmit(onSubmit, onError)}
+      >
+        &lt;Container>
+          &lt;Col className="g-0">
+            &lt;Row className="mb-2">
+              {emailExists ? (
+                &lt;motion.div
+                  variants={{
+                    start: () => ({
+                      x: [-30, 30, -30, 30, 0],
+                      transition: {
+                        duration: 0.5,
+                      },
+                    }),
+                  }}
+                  animate={controls}
+                  initial={{
+                    x: "0px",
+                  }}
+                >
+                  &lt;FormMessage>
+                    &lt;BiIcons.BiInfoCircle
+                      size={24}
+                      style={{
+                        transform: "rotate(180deg) scaleX(-1)",
+                        marginRight: "5px",
+                      }}
+                    />
+                    &lt;p>
+                      &lt;strong>
+                        {"There is an account associated with the email. "}{" "}
+                      &lt;/strong>
+                      &lt;Link to="/login">Log in&lt;/Link>
+                    &lt;/p>
+                  &lt;/FormMessage>
+                &lt;/motion.div>
+              ) : null}
+              &lt;InputGroup className="p-0">
+                &lt;Form.Group className="p-0" style={{ width: "100%" }}>
+                  &lt;Form.Floating className={SignupFormCSS["form-floating"]}>
+                    &lt;TextInputStyled
+                      isInvalid={errors.email}
+                      disabled={showSignUpInfo}
+                      type="email"
+                      data-testid="email-input"
+                      id="email-input"
+                      {...register("email", { required: "Field required" })}
+                    />
+                    &lt;label htmlFor="email-input">Email Address&lt;/label>
+                  &lt;/Form.Floating>
+                  {errors.email &amp;&amp; (
+                    &lt;Form.Text className="text-danger">
+                      {errors.email.message}
+                    &lt;/Form.Text>
+                  )}
+                &lt;/Form.Group>
+                &lt;IconButton
+                  style={{
+                    display: showSignUpInfo ? "inherit" : "none",
+                    position: "absolute",
+                    right: "1rem",
+                    top: "0.3rem",
+                    backgroundColor: "transparent",
+                  }}
+                  data-testid="changeemail-input"
+                  onClick={() => {
+                    setShowSignUpInfo(false);
+                    reset();
+                    setValue("password", null);
+                    setFocus("email");
+                  }}
+                  type="reset"
+                >
+                  &lt;TiIcons.TiPencil />
+                &lt;/IconButton>
+              &lt;/InputGroup>
+            &lt;/Row>
+
+            &lt;Row
+              className="mb-2"
+              style={{
+                display: showSignUpInfo ? "block" : "none",
+              }}
+            >
+              &lt;Form.Group className="p-0">
+                &lt;Form.Floating className={SignupFormCSS["form-floating"]}>
+                  &lt;TextInputStyled
+                    type="email"
+                    placeholder="name@example.com"
+                    data-testid="emailconfirm-input"
+                    id="emailConfirm"
+                    {...register("emailConfirm", { required: "Required" })}
+                    isInvalid={errors?.emailConfirm}
+                  />
+                  &lt;label htmlFor="emailconfirm-input">Confirm Email&lt;/label>
+                &lt;/Form.Floating>
+                {errors.emailConfirm &amp;&amp; (
+                  &lt;Form.Text className="text-danger">
+                    {errors.emailConfirm.message}
+                  &lt;/Form.Text>
+                )}
+              &lt;/Form.Group>
+            &lt;/Row>
+
+            &lt;Row
+              className="mb-2"
+              style={{
+                display: showSignUpInfo ? "block" : "none",
+              }}
+            >
+              &lt;Stack direction="horizontal" gap={3} className="p-0">
+                &lt;Col>
+                  &lt;Form.Floating className={SignupFormCSS["form-floating"]}>
+                    &lt;TextInputStyled
+                      type="text"
+                      placeholder="John"
+                      data-testid="firstname-input"
+                      id="firstName-input"
+                      isInvalid={errors?.firstName}
+                      {...register("firstName", {
+                        required: "First name is required",
+                      })}
+                    />
+                    &lt;label htmlFor="firstname-input">First name&lt;/label>
+                  &lt;/Form.Floating>
+                  &lt;Form.Text
+                    className="text-danger"
+                    style={{
+                      visibility: `${errors.firstName}` ? "visible" : "hidden",
+                    }}
+                  >
+                    {errors.firstName?.message}
+                  &lt;/Form.Text>
+                &lt;/Col>
+                &lt;Col>
+                  &lt;Form.Floating className={SignupFormCSS["form-floating"]}>
+                    &lt;TextInputStyled
+                      data-testid="lastname-input"
+                      type="text"
+                      placeholder="Doe"
+                      id="lastName-input"
+                      name="lastName-input"
+                      isInvalid={errors?.lastName}
+                      {...register("lastName", {
+                        required: "Last name is required",
+                      })}
+                    />
+                    &lt;label htmlFor="lastName-input">Last name&lt;/label>
+                  &lt;/Form.Floating>
+                  &lt;Form.Text
+                    className="text-danger"
+                    style={{
+                      visibility: `${errors.lastName}` ? "visible" : "hidden",
+                    }}
+                  >
+                    {errors.lastName?.message}
+                  &lt;/Form.Text>
+                &lt;/Col>
+              &lt;/Stack>
+            &lt;/Row>
+            &lt;Row
+              className="mb-2"
+              style={{
+                display: showSignUpInfo ? "block" : "none",
+              }}
+            >
+              &lt;Form.Group className="mb-3 p-0">
+                &lt;Form.Floating className={SignupFormCSS["form-floating"]}>
+                  &lt;TextInputStyled
+                    type="password"
+                    placeholder="Password"
+                    data-testid="password-input"
+                    id="password-input"
+                    name="password"
+                    isInvalid={errors?.password}
+                    {...register("password", { required: "Field required" })}
+                  />
+                  {errors.password &amp;&amp; (
+                    &lt;Form.Text className="text-danger">
+                      {errors.password.message}
+                    &lt;/Form.Text>
+                  )}
+                  &lt;label htmlFor="password-input">Password&lt;/label>
+                &lt;/Form.Floating>
+              &lt;/Form.Group>
+              &lt;LinearProgressWithLabel
+                defaultLabel="Your password must be at least 8 characters"
+                defaultColor="#1a90ff"
+                progressFunction={getPasswordState}
+                value={watchPassword}
+              />
+            &lt;/Row>
+            &lt;Row
+              ref={rowRef}
+              id={rowRef}
+              onMouseLeave={() => {
+                controls.start({ x: 0, transition: { duration: 0.3 } });
+                return;
+              }}
+            >
+              {/* &lt;motion.div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  gridTemplateRows: "1fr",
+                  gridColumnGap: "0",
+                  gridRowGap: "0"
+                }}
+                // animate={emailExists ?  () => { }:controls}
+
+                initial={{ x: 0 }}
+              >
+                &lt;div
+                  onMouseEnter={() => {
+
+                    console.log("going right")
+                    setSubmitPosition("go-right")
+                    controls.start({
+                      x: [0, 200],
+                      transition: {
+                        duration: 0.3,
+                      }
+                    })
+                  }}
+                  onMouseOut={() => {
+                    setSubmitPosition("go-right")
+                  }}
+                >
+                  &lt;OrangeButton
+                    style={{ minWidth: "200%" }}
+                    data-testid="submit-button" id="submit-button" as="button"
+                    className="mt-4 mb-4" type="submit" variant="flat btn-flat">
+                    {showSignUpInfo ? "Create account" : "Continue"}
+                  &lt;/OrangeButton>
+                &lt;/div>
+                &lt;div
+                  onMouseEnter={() => {
+
+                    console.log("going left")
+                    setSubmitPosition("go-left")
+                    controls.start({
+                      x: [0, -200],
+                      transition: {
+                        duration: 0.3,
+                      }
+                    })
+                  }}
+                  onMouseOut={() => {
+                    setSubmitPosition("go-left")
+                  }}
+
+                >
+                &lt;/div>
+              &lt;/motion.div> */}
+              &lt;OrangeButton
+                disabled={emailExists || errors.email}
+                data-testid="submit-button"
+                id="submit-button"
+                as="button"
+                className="mt-4 mb-4"
+                type="submit"
+                variant="flat btn-flat"
+                spinner
+              >
+                {showSignUpInfo ? "Create account" : "Continue"}
+              &lt;/OrangeButton>
+            &lt;/Row>
+            &lt;Row>
+              {showSignUpInfo ? null : (
+                &lt;>
+                  &lt;HorizontalChip
+                    data-testid="HorizontalChip"
+                    id="HorizontalChip"
+                  />
+                  &lt;SignupMethods setSocialProfile={setSocialProfile} />
+                &lt;/>
+              )}
+            &lt;/Row>
+            &lt;Row>
+              &lt;Link
+                data-testid="login-link"
+                id="login-link"
+                to={"/login"}
+                className={SignupFormCSS.a_link}
+              >
+                Login
+              &lt;/Link>
+            &lt;/Row>
+          &lt;/Col>
+        &lt;/Container>
+      &lt;/Form>
+    &lt;/>
+  );
+};
+export default SignupForm;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

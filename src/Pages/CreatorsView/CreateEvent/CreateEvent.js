@@ -11,7 +11,18 @@ import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
 import TicketsPage from "../../../Pages/CreatorsView/TicketsPage/TicketsPage";
 import { createContext } from "react";
 export const AppCreateEvent = createContext({});
+
+
+
+
+/**
+ * @author Yousef Gilany
+ * @description This is the page that shows the create event page process and it contains the sidebar and the tabs of the create event page
+ * @returns {React.FC}
+ */
 const CreateEvent = () => {
+  window.scrollTo(0, 0)
+
   const [eventTitle, setEventTitle] = useState("");
   const [disableDashboard, setDisableDashboard] = useState(true);
   const [event, setEvent] = useState({
@@ -26,11 +37,11 @@ const CreateEvent = () => {
     description: "",
     state: {
       is_public: null,
-      publish_date_time: "",
+      publish_date_time: new Date(),
     },
     date_and_time: {
       start_date_time: new Date(),
-      end_date_time: new Date() + 24 * 60 * 60 * 1000,
+      end_date_time: new Date(),
       is_display_start_date: null,
       is_display_end_date: null,
       time_zone: "",
@@ -53,44 +64,41 @@ const CreateEvent = () => {
   }, []);
 
   return (
-    <AppCreateEvent.Provider value = {{disableDashboard , setDisableDashboard}}>
-    <Tab.Container
-      defaultActiveKey={"first"}
-      onSelect={() => window.scrollTo(0, 0)}
-    >
-      <Container fluid className="p-0" style={{ overflow: "hidden" }}>
-        <Sidebar eventTitle={eventTitle} />
-        <Tab.Content>
-          <Tab.Pane eventKey="first">
-            <Basicinfo
-              event={event}
-              setEvent={setEvent}
-              setEventTitle={setEventTitle}
-            />
-          </Tab.Pane>
+    <AppCreateEvent.Provider value={{ disableDashboard, setDisableDashboard }}>
+      <Tab.Container
+        defaultActiveKey={"first"}
+        onSelect={() => window.scrollTo(0, 0)}
+      >
+        <Container fluid className="p-0" style={{ overflow: "hidden" }}>
+          <Sidebar eventTitle={eventTitle} inCreateEvent={true} />
+          <Tab.Content>
+            <Tab.Pane eventKey="first">
+              <Basicinfo
+                event={event}
+                setEvent={setEvent}
+                setEventTitle={setEventTitle}
+              />
+            </Tab.Pane>
 
-          <Tab.Pane eventKey="second">
-            <Details event={event} setEvent={setEvent} />
-          </Tab.Pane>
+            <Tab.Pane eventKey="second">
+              <Details event={event} setEvent={setEvent} />
+            </Tab.Pane>
 
-          <Tab.Pane eventKey="third">
-            <TicketsPage event={event} setEvent={setEvent} />
-          </Tab.Pane>
+            <Tab.Pane eventKey="third">
+              <TicketsPage event={event} setEvent={setEvent} />
+            </Tab.Pane>
 
-          <Tab.Pane eventKey="fourth">
-            <Publish event={event} setEvent={setEvent} />
-          </Tab.Pane>
+            <Tab.Pane eventKey="fourth">
+              <Publish event={event} setEvent={setEvent} />
+            </Tab.Pane>
 
-          <Tab.Pane eventKey="fifth">
-            <Dashboard />
-          </Tab.Pane>
-        </Tab.Content>
-      </Container>
+            <Tab.Pane eventKey="fifth"></Tab.Pane>
+          </Tab.Content>
+        </Container>
 
-      {/* <Headerpub data_testid="HDID" /> */}
-      <CreatorHeader />
+        <CreatorHeader />
       </Tab.Container>
-      </AppCreateEvent.Provider>
+    </AppCreateEvent.Provider>
   );
 };
 

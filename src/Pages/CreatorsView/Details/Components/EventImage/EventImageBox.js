@@ -4,13 +4,14 @@ import { CgImage } from "react-icons/cg";
 import { BsDot } from "react-icons/bs";
 import UploadButton from "../UploadButton/UploadButton";
 import { SiCanva } from "react-icons/si";
+import AdelImam from "../../../../../assets/adel-10.png";
 /**
  * @author Mahmoud Khaled
  * @param {}
  * @description This is Main Event Image section in detials Page that used to upload an image or Design canvas
  * @returns {JSX.Element}
  */
-const EventImageBox = () => {
+const EventImageBox = (props) => {
   return (
     <div className="EventImage__container" data-testid="eventImage">
       <CgImage className="photo__header" />
@@ -25,22 +26,47 @@ const EventImageBox = () => {
       </p>
       <div className="EventImage__fileType">
         {/* <div className='EventImage__fileType-body'> */}
-        <CgImage className="photo" />
-        <h5 style={{ marginBottom: "15px" , fontWeight:'500' }}>Drag and drop an Image or</h5>
-        <div className="buttons__container" data-testid="btsContainer">
-          <UploadButton />
-          <button className="canvas-btn">
-            <div className="flex flex-row ">
-              <SiCanva className="canvas__logo" />
-              <div className="ml-2">Design With Canvas</div>
-            </div>
-          </button>
-        </div>
-        {/* <button className='upload-btn'>Upload Image</button> */}
-        {/* <UploadButton />
-                <button className='canvas-btn'>Design With Canvas</button> */}
-        {/* </div> */}
+        {props.imageLink === "" && <CgImage className="photo" />}
+        {props.imageLink === "" && (
+          <h5 style={{ marginBottom: "15px" }}>Drag and drop an Image or</h5>
+        )}
+        {props.imageLink === "" && (
+          <div className="buttons__container" data-testid="btsContainer">
+            <UploadButton
+              imageLink={props.imageLink}
+              setImageLink={props.setImageLink}
+            />
+            <button className="canvas-btn">
+              <div className="flex flex-row ">
+                <SiCanva className="canvas__logo" />
+                <div className="ml-2">Design With Canvas</div>
+              </div>
+            </button>
+          </div>
+        )}
       </div>
+      {props.imageLink !== "" && (
+        <div className="uploaded__Image">
+          <img
+            alt="uploadedImage"
+            id="uploadedImage"
+            data-testid="uploadedImage"
+            src={props.imageLink}
+            className="uploaded Image"
+            style={{ width: "100%", height: "100%" }}
+          />
+        </div>
+      )}
+      {props.imageLink !== "" && (
+        <button
+          className="delete__uploaded-button"
+          onClick={() => {
+            props.setImageLink("");
+          }}
+        >
+          Delete Photo
+        </button>
+      )}
       <div className="photo__requirement" data-testid="photo__requirements">
         <p>
           <BsDot className="dot" />
@@ -55,6 +81,7 @@ const EventImageBox = () => {
           Supported image files: JPEG or PNG
         </p>
       </div>
+      {/* <img src = {props.imageLink} /> */}
     </div>
   );
 };

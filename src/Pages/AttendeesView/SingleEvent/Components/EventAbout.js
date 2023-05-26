@@ -2,14 +2,19 @@ import React from "react";
 import { Stack } from "react-bootstrap/";
 import * as MUIcons from "@mui/icons-material";
 import "../SingleEvent.scss";
-export const EventAbout = ({ summary }) => {
-  const MainHeaderStyle = {
-    color: "#1e0a3c",
-  };
-  const AboutParagraphStyle = {
-    color: "#6f7287",
-    fontSize: "16px",
-  };
+import "date-fns";
+import { intervalToDuration } from "date-fns";
+export const EventAbout = ({ description, startDate, endDate }) => {
+  const eventDuration = intervalToDuration({
+    start: new Date(startDate),
+    end: new Date(endDate),
+  });
+
+  const days = eventDuration.days;
+  const hours = eventDuration.hours;
+  const eventDurationString =
+    (days !== 0 ? `${days} days ` : "") + (hours !== 0 ? `${hours} hours` : "");
+
   return (
     <Stack gap={2} style={{ maxWidth: "50vw" }}>
       <h3 className="header-text">About this event</h3>
@@ -22,10 +27,11 @@ export const EventAbout = ({ summary }) => {
               borderRadius: "10%",
               backgroundColor: "#f8f7fa",
               padding: "0.2rem",
+              margin: " 0 0.75rem 0 0",
             }}
-            sx={{ fontSize: 26 }}
+            sx={{ fontSize: 36 }}
           />
-          <strong>1 day 12 hours</strong>
+          <strong>{eventDurationString}</strong>
         </div>
         <div>
           <MUIcons.WifiRounded
@@ -35,13 +41,14 @@ export const EventAbout = ({ summary }) => {
               borderRadius: "10%",
               backgroundColor: "#f8f7fa",
               padding: "0.2rem",
+              margin: " 0 0.75rem 0 0",
             }}
-            sx={{ fontSize: 26 }}
+            sx={{ fontSize: 36 }}
           />
-          <strong>Mobile eTicket</strong>
+          <strong>{"Mobile eTicket"}</strong>
         </div>
       </Stack>
-      <p style={AboutParagraphStyle}>{summary}</p>
+      <p className="paragraph-muted-text">{description}</p>
     </Stack>
   );
 };

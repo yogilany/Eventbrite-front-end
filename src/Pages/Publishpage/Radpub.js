@@ -3,22 +3,25 @@ import { useState } from "react";
 import DateTime from "./DateTime";
 /**
  * @author Ziad Ezzat
- * @param {string} props.data_testid
+ * @param {string} props.data_testid @description Used in unit testing
+ * @param {string} props.date        @description Show Date
+ * @param {string} props.time        @description Show time
+ * @param {string} props.classname   @description Used in styling
  * @description This container shows the radio button container component used in publish page showing if you can make your event public or private.
- * @returns {JSX.Element of Radio buttons component found in publish page}
+ * @returns {JSX.Element}
  */
 const Radpub = (props) => {
   const [val, setval] = useState("public");
   const [isPublic, setIsPublic] = useState(true);
   const [eventDate, setEventDate] = useState(props.date);
   const [eventTime, setEventTime] = useState(props.time);
-  
+
   const renderaudience = (event) => {
+    //console.log(event.target.value, "aaaaaa ", isPublic);
     setval(event.target.value);
-    if (val === "public")
-      setIsPublic(true);
-    else
-      setIsPublic(false);
+    if (val === "public") setIsPublic(false);
+    else setIsPublic(true);
+    //console.log(event.target.value, "aaaaaa ", isPublic);
   };
   return (
     <div data-testid={props.data_testid} className={props.className}>

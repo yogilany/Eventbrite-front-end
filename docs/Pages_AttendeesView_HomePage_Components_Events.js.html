@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/AttendeesView/HomePage/Components/Events.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/AttendeesView/HomePage/Components/Events.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { CategoriesTaps } from "./Categories";
+import CategoriesCards from "./CategoriesCards";
+import EventCard from "./EventCard";
+import Hr from "../../../../Components/Elements/Hr";
+import { MdCalendarMonth } from "react-icons/md";
+import { Link } from "react-router-dom";
+/**
+ * @author Yousef Gilany
+ * @description This is the Events section of the HomePage.
+ * It shows the events on a specific city depending on the user's location.
+ * It can be changed to show events on another city. It shows 8 events at a time.
+ * @returns {React.FC}
+ *
+ * @todo Get data from API and show it.
+ * @todo Styling headings
+ */
+const Events = ({
+  location,
+  events,
+  setFree,
+  setOnline,
+  setToday,
+  loading,
+}) => {
+  const [moreEvents] = useState([]);
+
+  const [category, setCategory] = useState("All");
+  const [isCategoriesShown, setIsCategoriesShown] = useState(true);
+
+  var cards = [];
+
+  for (var i = 1; i &lt;= 8; i++) {
+    cards.push(i);
+  }
+
+  useEffect(() => {
+    // console.log("events: ", events);
+  }, [events]);
+
+  return (
+    &lt;>
+      &lt;CategoriesTaps
+        categorySelector={setCategory}
+        location={location}
+        id="categoriesTaps"
+        setFree={setFree}
+        setOnline={setOnline}
+        setToday={setToday}
+      />
+      {/* {isCategoriesShown ? (
+      ): null} */}
+      &lt;CategoriesCards location={location} id="categoriesCards" />
+
+      {events.length != 0 ? (
+        &lt;Container className=" pl-5 pr-5 mb-5" id="eventsByLocationSection">
+          &lt;h3 className="heading3">Events in {location}&lt;/h3>
+
+          {loading ? (
+            &lt;div class="flex items-center justify-center rounded-lg mb-36">
+              &lt;div role="status">
+                &lt;svg
+                  aria-hidden="true"
+                  class="w-12 h-12 mr-2 text-gray-200 animate-spin  fill-blue-600"
+                  viewBox="0 0 100 101"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  &lt;path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor"
+                  />
+                  &lt;path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill"
+                  />
+                &lt;/svg>
+                &lt;span class="sr-only">Loading...&lt;/span>
+              &lt;/div>
+            &lt;/div>
+          ) : (
+            &lt;Row className="justify-content-md-right">
+              {events
+                ? events.slice(0, 12).map((event, index) => (
+                    &lt;EventCard
+                      key={index}
+                      eventTitle={event.basic_info.title}
+                      eventDate={event.date_and_time.start_date_time}
+                      // eventTime={event.eventTime}
+                      eventLocation={event.location.city}
+                      eventPrice={event.price}
+                      eventOrganizer={event.basic_info.organizer}
+                      organizerFollowers={event.organizerFollowers}
+                      eventCover={event.image_link}
+                      eventID={event.id}
+                    />
+                  ))
+                : "Loading..."}
+            &lt;/Row>
+          )}
+          &lt;Link to="/browse-events">
+            &lt;button
+              className="darkOutlineBtn font-semibold "
+              id="seeMoreEventsBtn"
+            >
+              See More
+            &lt;/button>
+          &lt;/Link>
+        &lt;/Container>
+      ) : (
+        &lt;Container className="pt-5">
+          &lt;Row className="justify-content-md-center">
+            &lt;Col md={12} className="flex flex-col items-center pb-20">
+              &lt;MdCalendarMonth size={50} color="#39364f" />
+              &lt;h3 className="heading3 mb-0">No events in your location&lt;/h3>
+              &lt;h6 className="heading6">Try another location&lt;/h6>
+            &lt;/Col>
+          &lt;/Row>
+        &lt;/Container>
+      )}
+      {/* {events.length != 0 ? (
+        &lt;>
+          &lt;Hr />
+          &lt;Container className=" pl-5 pr-5 mb-5 mt-5" id="moreEventsSection">
+            &lt;Row>
+              &lt;Col>
+                &lt;h3 className="heading3">More Events&lt;/h3>
+              &lt;/Col>
+            &lt;/Row>
+
+            &lt;Row className="justify-content-md-right">
+              {moreEvents
+                ? moreEvents.map((event2, index) => (
+                    &lt;EventCard
+                      key={index}
+                      eventTitle={event2.eventName}
+                      eventDate={event2.eventDate}
+                      eventTime={event2.eventTime}
+                      eventLocation={event2.eventLocation}
+                      eventPrice={event2.eventPrice}
+                      eventOrganizer={event2.eventOrganizer}
+                      organizerFollowers={event2.organizerFollowers}
+                    />
+                  ))
+                : "Loading..."}
+            &lt;/Row>
+            &lt;Row className="justify-content-md-center">
+              &lt;Col md={4}>
+                &lt;Link to="/all-events">
+                  &lt;button className="darkOutlineBtn" id="seeMoreEventsBtn">
+                    See More
+                  &lt;/button>
+                &lt;/Link>
+              &lt;/Col>
+            &lt;/Row>
+          &lt;/Container>
+        &lt;/>
+      ) : null} */}
+    &lt;/>
+  );
+};
+
+export default Events;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

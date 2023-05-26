@@ -6,13 +6,20 @@ import FollowImage from "../../../assets/follow1.jpeg";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import Header from "../../../Components/header/Header";
 import { useState } from "react";
+
+/**
+ * @author Mahmoud Khalid>
+ * @description This is the page where you can see only the events created by organizers you follow.
+ * @returns {React.FC}
+ */
+
 const FollowingOrgEvents = () => {
   const [counter, setCounter] = useState(1);
   return (
     <div className="following__container">
       <Header MenuShow={false} />
       <div className="following__container-heading">
-        <a href="#" className="back-btn">
+        <a href="google.com" className="back-btn">
           <IoMdArrowRoundBack />
         </a>
         <h1>Events from Organizers you follow</h1>

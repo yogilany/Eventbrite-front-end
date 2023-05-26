@@ -11,7 +11,6 @@ import {
   checkEmailExists,
   forgotPassword,
   registerGoogleUser,
-  registerUser,
   selectLoggedIn,
 } from "../../../features/authSlice";
 import { HorizontalChip } from "./Components/HorizontalChip";
@@ -25,15 +24,12 @@ import FormMessage from "../../../Components/FormMessage/FormMessage";
 import { Link } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import LoginForgotPasswordModal from "./Components/LoginForgotPasswordModal";
-/**
- *
- * @param {name: Name of this element after creation} props
- * @returns Login page
- */
+import VerificationEmailModal from "src/Components/VerificationEmailModal.js/VerificationEmailModal";
+
 const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
 /**
- * This is the login page for attendees where they can log in using
+ * @description This is the login page for attendees where they can log in using
  * their email & passwords.
  * This page is redirected to by signup after a successful sign up
  * @date 3/29/2023 - 2:46:54 AM
@@ -54,7 +50,9 @@ export const Login = (props) => {
   const [emailExist, setEmailExist] = useState(true);
   const [passwordIncorrect, setPasswordIncorrect] = useState(false);
   const [forgotPasswordModalShow, setForgotPasswordModalShow] = useState(false);
-  const [GoogleProfile, setGoogleProfile] = useState(null);
+  const [verificationEmailModalShow, setVerificationEmailModalShow] =
+    useState(false);
+  const [SocialProfile, setSocialProfile] = useState(null);
   const isLoggedIn = useSelector(selectLoggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -65,7 +63,7 @@ export const Login = (props) => {
       dispatch(forgotPassword(emailInput))
         .unwrap(unwrapResult)
         .then((result) => {
-          console.log("success", result);
+          // console.log("success", result);
         })
         .catch((err) => {
           console.log("error", err);
@@ -85,7 +83,7 @@ export const Login = (props) => {
       // Save email for forget password modal
       setEmailInput(e.email);
 
-      console.log(data);
+      // console.log(data);
 
       dispatch(authUser(data))
         .unwrap(unwrapResult)
@@ -104,6 +102,57 @@ export const Login = (props) => {
       console.log(err);
     }
   };
+  const handleSocialSubmit = (e) => {
+    if (SocialProfile) {
+      dispatch(checkEmailExists(SocialProfile.email))
+        .unwrap()
+        .then((result) => {
+          dispatch(
+            authGoogleUser({
+              email: SocialProfile.email,
+            })
+          )
+            .unwrap()
+            .then((result) => {
+              setSuccess(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setPasswordIncorrect(emailExist === true);
+              setErrMsg(err);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+            });
+        })
+        .catch((err) => {
+          //Email does not exist, create account for user
+          dispatch(
+            registerGoogleUser({
+              email: SocialProfile.email,
+              password: crypto.getRandomValues(new Uint8Array(64)).toString(),
+              firstname: SocialProfile.given_name,
+              lastname: SocialProfile.family_name ?? "",
+              picture: SocialProfile.picture,
+            })
+          )
+            .unwrap()
+            .then(() => {
+              setVerificationEmailModalShow(true);
+            })
+            .catch((err) => {
+              setSuccess(false);
+              setPasswordIncorrect(emailExist === true);
+              setErrMsg(err);
+              setTimeout(() => {
+                controls.start("start");
+              }, 500);
+              return;
+            });
+        });
+    }
+  };
+
   useEffect(() => {
     if (success) {
       navigate("/", { replace: true });
@@ -135,59 +184,9 @@ export const Login = (props) => {
   }, [user]);
 
   useEffect(() => {
-    console.log(GoogleProfile);
-    if (GoogleProfile) {
-      if (!GoogleProfile.email_verified) {
-        setSuccess(false);
-        setPasswordIncorrect(emailExist === true);
-        setErrMsg("Google email is not verified");
-        setTimeout(() => {
-          controls.start("start");
-        }, 500);
-      } else {
-        const email_exists = dispatch(checkEmailExists(user));
-        if (!email_exists) {
-          //Email does not exist, create account for user
-          dispatch(
-            registerGoogleUser({
-              email: GoogleProfile.email,
-              password: crypto.getRandomValues(new Uint8Array(64)).toString(),
-              firstname: GoogleProfile.given_name,
-              lastname: GoogleProfile.family_name ?? "",
-              picture: GoogleProfile.picture,
-            })
-          ).catch((err) => {
-            setSuccess(false);
-            setPasswordIncorrect(emailExist === true);
-            setErrMsg(err);
-            setTimeout(() => {
-              controls.start("start");
-            }, 500);
-            return;
-          });
-        }
-
-        dispatch(
-          authGoogleUser({
-            email: GoogleProfile.email,
-          })
-        )
-          .then((result) => {
-            setSuccess(true);
-          })
-          .catch((err) => {
-            setSuccess(false);
-            setPasswordIncorrect(emailExist === true);
-            setErrMsg(err);
-            setTimeout(() => {
-              controls.start("start");
-            }, 500);
-          });
-      }
-    }
-
+    handleSocialSubmit();
     return () => {};
-  }, [GoogleProfile]);
+  }, [SocialProfile]);
 
   if (isLoggedIn) return <Navigate to="/" />;
 
@@ -197,6 +196,11 @@ export const Login = (props) => {
         show={forgotPasswordModalShow}
         onHide={() => setForgotPasswordModalShow(false)}
         email={emailInput}
+      />
+      <VerificationEmailModal
+        show={verificationEmailModalShow}
+        onHide={() => setVerificationEmailModalShow(false)}
+        email={SocialProfile?.email}
       />
       <Row>
         <Col
@@ -269,7 +273,7 @@ export const Login = (props) => {
                 >
                   <FormMessage>
                     <div></div>
-                    <p>{"Password is incorrect."}</p>
+                    <p>{errMsg}</p>
                   </FormMessage>
                 </motion.div>
               ) : null}
@@ -314,7 +318,7 @@ export const Login = (props) => {
               <LoginMethods
                 data_testid="login-methods"
                 name="login-methods-div"
-                setGoogleProfile={setGoogleProfile}
+                setSocialProfile={setSocialProfile}
               />
             </Row>
           </Col>
@@ -324,16 +328,17 @@ export const Login = (props) => {
             id="login-image"
             data_testid="login-image"
             img_url={imageLogin}
-            img_caption="Winston Baker"
-            img_credit="Confluence Summit"
-            img_location="San Francisco, CA"
+            img_caption="Adel Emam"
+            img_credit="Software Course"
+            img_location="Giza, EG"
           />
         </Col>
       </Row>
       <Row className="d-none d-lg-block d-md-block">
-        <AboutFooter id="login-aboutfooter" />
       </Row>
       <Row>
+      <AboutFooter id="login-aboutfooter" />
+
         <Footer id="login-footer" data_testid="login-footer" />
       </Row>
     </Container>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/Publishpage/DateTime.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/Publishpage/DateTime.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import "./Publish.css";
+import { CiCalendar, CiClock2 } from "react-icons/ci";
+import { useState } from "react";
+import { useCreateEventMutation } from "../../features/api/eventApi";
+import { useNavigate } from "react-router";
+import { useEffect } from "react";
+/**
+ * @author Ziad Ezzat
+ * @param {string} props.data_testid 
+ * @description Used for testing
+ * @param {string} props.public      
+ * @description Boolean to see if event is public or private
+ * @param {string} props.event       
+ * @description Event itself
+ * @description This container shows the radio button container component used in publish page showing some data related to date and time of your event.
+ * @returns {JSX.Element}
+ */
+const DateTime = (props) => {
+  const [val, setval] = useState("now");
+  const [createEvent] = useCreateEventMutation();
+  const event = props.event;
+  const dateandtime = event?.date_and_time?.start_date_time;
+  // const date = new Date(dateandtime);
+
+  const [dateInput, setDate] = useState(new Date().toISOString().slice(0, -14));
+  const [timeInput, setTime] = useState("12:30");
+  const publicevent = props.public;
+
+  const navigate = useNavigate();
+
+  const readorwrite = (event) => {
+    setval(event.target.value);
+  };
+
+  const saveData = async () => {
+    try {
+      const [time, meridian] = timeInput.split(" ");
+      const [hours, minutes, seconds] = time.split(":");
+
+      const timeInMs =
+        hours * 60 * 60 * 1000 + minutes * 60 * 1000 + seconds * 1000;
+
+      console.log(dateInput);
+      console.log(timeInMs);
+
+      const publish_datetime = new Date(dateInput);
+      publish_datetime.setTime(timeInMs + publish_datetime.getTime());
+
+      const response = await createEvent({
+        ...props.event,
+        state: {
+          is_public: publicevent,
+          publish_date_time:
+            val === "now"
+              ? new Date().toISOString().slice(0, -5)
+              : publish_datetime.toISOString().slice(0, -5),
+        },
+      }).unwrap();
+      console.log("response: ", response);
+      navigate(`/event/${response.id}`, { replace: true });
+    } catch (error) {
+      console.log("Error creating event : ", error);
+    }
+  };
+  // useEffect(() => {
+  //   console.log(date);
+  //   console.log(time);
+  //   props.setEvent({
+  //     ...props.event,
+  //     state: {
+  //       is_public: publicevent,
+  //       publish_date_time:
+  //         val === "now"
+  //           ? new Date().toISOString().slice(0, -5)
+  //           : new Date(
+  //               date.getDate() +
+  //                 "T" +
+  //                 time.slice(0, 2) +
+  //                 ":" +
+  //                 time.slice(3, 5) +
+  //                 ":" +
+  //                 time.slice(6, 8)
+  //             )
+  //               .toISOString()
+  //               .slice(0, -5),
+  //     },
+  //   });
+  //   return () => {};
+  // }, []);
+
+  return (
+    &lt;div
+      class="mb-2"
+      data-testid={props.data_testid}
+      style={{ paddingBottom: 70 }}
+    >
+      &lt;h2 className="rdh">{props.title}&lt;/h2>
+      &lt;div style={{ display: "flex" }}>
+        &lt;input
+          type="radio"
+          id="publish_now"
+          value="now"
+          name="nowlater"
+          onChange={readorwrite}
+          checked={val === "now"}
+          style={{ cursor: "pointer" }}
+        >&lt;/input>
+        &lt;p
+          class="mb-2"
+          style={{ marginLeft: 20, marginTop: 15, color: "#39364f" }}
+        >
+          {props.c1}
+        &lt;/p>
+      &lt;/div>
+      &lt;div style={{ display: "flex", lineHeight: 0, marginBottom: 10 }}>
+        &lt;input
+          type="radio"
+          id="publish_sch"
+          value="sch"
+          name="nowlater"
+          onChange={readorwrite}
+          checked={val === "sch"}
+          style={{ cursor: "pointer" }}
+        >&lt;/input>
+        &lt;p
+          class="mb-2"
+          style={{ marginLeft: 20, marginTop: 10, color: "#39364f" }}
+        >
+          {props.c2}
+        &lt;/p>
+      &lt;/div>
+      &lt;div style={{ display: "flex" }}>
+        &lt;div style={{ backgroundColor: "#f2f2f5", width: 240, height: 50 }}>
+          &lt;div style={{ display: "flex" }}>
+            &lt;CiCalendar
+              style={{ height: 50, width: 20, marginLeft: 10 }}
+            >&lt;/CiCalendar>
+            &lt;div style={{}}>
+              &lt;p
+                style={{ fontSize: ".8rem", marginLeft: 12, color: "#aaaaab" }}
+              >
+                Start date
+              &lt;/p>
+              &lt;input
+                type="date"
+                id="Date_id_pub"
+                defaultValue={new Date().toISOString().slice(0, -14)}
+                className="dd"
+                readOnly={val === "now"}
+                onChange={(e) => {
+                  setDate(e.target.value);
+                }}
+              />
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+        &lt;div
+          style={{
+            marginLeft: 10,
+            backgroundColor: "#f2f2f5",
+            width: 240,
+            height: 50,
+          }}
+        >
+          &lt;div style={{ display: "flex" }}>
+            &lt;CiClock2
+              style={{ height: 50, width: 20, marginLeft: 10 }}
+            >&lt;/CiClock2>
+            &lt;div style={{ marginTop: 0 }}>
+              &lt;p
+                style={{
+                  fontSize: ".8rem",
+                  marginLeft: 12,
+                  color: "#aaaaab",
+                }}
+              >
+                Start time
+              &lt;/p>
+              &lt;input
+                type="time"
+                id="Time_id_pub"
+                defaultValue={new Date().toISOString().slice(11, -5)}
+                className="dd  "
+                readOnly={val === "now"}
+                onChange={(e) => {
+                  setTime(e.target.value);
+                }}
+              />
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+      &lt;div>
+        &lt;p style={{ fontSize: ".875rem", lineHeight: "1.25rem" }}>
+          Time zone is same as your event's
+        &lt;/p>
+      &lt;/div>
+      {val === "sch" &amp;&amp; (
+        &lt;div className="ft">
+          &lt;button id="sch_butt" className="ftbtn" onClick={saveData}>
+            Schedule
+          &lt;/button>
+        &lt;/div>
+      )}
+      {val === "now" &amp;&amp; (
+        &lt;div className="ft">
+          &lt;button id="pub_button" className="ftbtn" onClick={saveData}>
+            Publish
+          &lt;/button>
+        &lt;/div>
+      )}
+    &lt;/div>
+  );
+};
+
+export default DateTime;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

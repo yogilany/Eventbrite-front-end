@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Pages/CreatorsView/ManageEvents/ManageEvents.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Pages/CreatorsView/ManageEvents/ManageEvents.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import OnlyLinksSideBar from "../Sidebar/OnlyLinksSidebar";
+import MainOrangeButton from "src/Components/Buttons/MainOrangeButton";
+import axios from "axios";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUserToken } from "src/features/authSlice";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import TableRow from "./Components/TableRow";
+import { set } from "date-fns";
+import MainGrayButton from "src/Components/Buttons/MainGrayButton";
+import { CSVLink } from "react-csv";
+import { wait } from "@testing-library/user-event/dist/utils";
+import { useGetCreatedEventsQuery } from "src/features/api/userApi";
+import CreatorHeader from "../Details/Components/creatorHeader/CreatorHeader";
+
+const options = {
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  hour12: true,
+  timeZoneName: "short",
+};
+const formatter = new Intl.DateTimeFormat("en-US", options);
+
+/**
+ * @author Yousef Gilany
+ * @description This is the page that shows the manage event page process and it contains the sidebar and the tabs of the create event page. You can also export the events to a CSV file, and you can filter the events by upcoming and past events.
+ * @returns {React.FC}
+ */
+const ManageEvents = () => {
+  const token = useSelector(selectUserToken);
+  const Navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const { data: myEvents } = useGetCreatedEventsQuery();
+  const [filter, setFilter] = useState("all");
+  const [events, setEvents] = useState(null);
+  const [filteredEvents, setFilteredEvents] = useState(null);
+  const [allData, setAllData] = useState([]);
+  const [csvExport, setCsvExport] = useState(false);
+  const [totalTickets, setTotalTickets] = useState(0);
+  const [SoldTickets, setSoldTickets] = useState(0);
+  const [gross, setGross] = useState(0);
+
+  const handleCSV = () => {
+    filteredEvents.map((event) => {
+      axios
+        .get(`${process.env.REACT_APP_BASE_API}/tickets/event_id/${event.id}`, {
+          headers: {
+            ContentType: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(function (response) {
+          // loop on the max quantity attribute of each ticket in the array and add it to the totalTickets
+          setTotalTickets(0);
+          setSoldTickets(0);
+          setGross(0);
+          response.data.map((ticket) => {
+            setTotalTickets(totalTickets + ticket.max_quantity);
+            setSoldTickets(
+              SoldTickets + (ticket.max_quantity - ticket.available_quantity)
+            );
+            setGross(
+              gross +
+                (ticket.max_quantity - ticket.available_quantity) * ticket.price
+            );
+          });
+
+          const newReportRow = {
+            event: event.basic_info.title,
+            date: formatter.format(
+              new Date(event.date_and_time.start_date_time)
+            ),
+            status:
+              new Date(event.date_and_time.start_date_time).getTime() >
+              new Date().getTime()
+                ? "Upcoming"
+                : "On Sale",
+            SoldTickets: SoldTickets,
+            AvailableTickets: totalTickets - SoldTickets,
+          };
+
+          // add newReportRow to allData if the event property in the object is not already in the array
+          const index = allData.findIndex(
+            (row) => row.event === newReportRow.event
+          );
+          if (index === -1) {
+            // console.log("allDataallData", allData);
+            setAllData([...allData, newReportRow]);
+          }
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        });
+    });
+  };
+
+  const fetchMyevents = () => {
+    setLoading(true);
+    axios
+      .get(`${process.env.REACT_APP_BASE_API}/users/me/created/events`, {
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(function (response) {
+        // console.log("my events", response.data);
+        setEvents(response.data);
+        setFilteredEvents(response.data);
+        setLoading(false);
+
+        // setCategories(response.data);
+        // setIsLoading(false);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchMyevents();
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    if (filter === "all") {
+      setFilteredEvents(events);
+    } else if (filter === "upcoming") {
+      const upcoming = events.filter((event) => {
+        return new Date(event.date_and_time.start_date_time) > new Date();
+      });
+      setFilteredEvents(upcoming);
+    } else if (filter === "past") {
+      const past = events.filter((event) => {
+        return new Date(event.date_and_time.start_date_time) &lt; new Date();
+      });
+      setFilteredEvents(past);
+    }
+    setLoading(false);
+  }, [filter]);
+
+  const headers = [
+    { label: "Event", key: "event" },
+    { label: "Date", key: "date" },
+    { label: "Status", key: "status" },
+    { label: "Sold Tickets", key: "SoldTickets" },
+    { label: "Available Tickets", key: "AvailableTickets" },
+  ];
+
+  const csvReport = {
+    data: allData,
+    headers: headers,
+    filename: "My_Events.csv",
+  };
+
+  useEffect(() => {
+    // console.log("allData", allData);
+  }, [allData]);
+
+  return (
+    &lt;>
+      &lt;CreatorHeader data_testid="HDID" />
+      {/* &lt;OnlyLinksSideBar /> */}
+
+      &lt;Container fluid className="mt-5 pl-24">
+        &lt;Row>
+          &lt;Col md={12} className="px-24 ">
+            &lt;h1
+              className="mt-5 mb-4 font-black text-6xl"
+              style={{ color: "#1e0a3c" }}
+            >
+              Events
+            &lt;/h1>
+            &lt;div className="flex flex-row justify-between">
+              &lt;select
+                onChange={(e) => setFilter(e.target.value)}
+                id="countries"
+                class="mb-4 w-48 bg-blue-700 border border-gray-300 text-white text-xs font-semibold rounded-3xl focus:ring-blue-500 focus:border-blue-500 block  p-3 "
+              >
+                &lt;option value="all" selected>
+                  All Events
+                &lt;/option>
+                &lt;option value="upcoming">Upcoming&lt;/option>
+                &lt;option value="past">Past&lt;/option>
+              &lt;/select>
+              &lt;MainOrangeButton
+                onClick={() => Navigate("/create-event")}
+                text="Create Event"
+              />
+            &lt;/div>
+
+            &lt;div class="relative overflow-x-auto">
+              {loading || !filteredEvents ? (
+                &lt;div class="flex items-center justify-center w-full h-56 border border-gray-200 rounded-lg bg-gray-50 ">
+                  &lt;div role="status">
+                    &lt;svg
+                      aria-hidden="true"
+                      class="w-8 h-8 mr-2 text-gray-200 animate-spin  fill-blue-600"
+                      viewBox="0 0 100 101"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      &lt;path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="currentColor"
+                      />
+                      &lt;path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentFill"
+                      />
+                    &lt;/svg>
+                    &lt;span class="sr-only">Loading...&lt;/span>
+                  &lt;/div>
+                &lt;/div>
+              ) : events.length == 0 ? (
+                &lt;div className="bg-gray-200 p-12 rounded">
+                  &lt;h1 className="text-xl ">
+                    You have not created any events yet
+                  &lt;/h1>
+                &lt;/div>
+              ) : (
+                &lt;>
+                  &lt;table class="mt-8 mb-8 w-full text-sm text-left text-gray-500 ">
+                    &lt;thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                      &lt;tr>
+                        &lt;th scope="col" class="px-6 py-3">
+                          Event
+                        &lt;/th>
+                        &lt;th scope="col" class="px-6 py-3">
+                          Sold
+                        &lt;/th>
+                        &lt;th scope="col" class="px-6 py-3">
+                          Gross
+                        &lt;/th>
+                        &lt;th scope="col" class="px-6 py-3">
+                          Status
+                        &lt;/th>
+                        &lt;th scope="col" class="px-6 py-3">&lt;/th>
+                      &lt;/tr>
+                    &lt;/thead>
+                    &lt;tbody>
+                      {filteredEvents.map((event) => {
+                        return (
+                          &lt;TableRow
+                            event={event}
+                            setAllData={setAllData}
+                            allData={allData}
+                            csvExport={csvExport}
+                            fetch={fetchMyevents}
+                          />
+                        );
+                      })}
+                    &lt;/tbody>
+                  &lt;/table>
+                  &lt;CSVLink {...csvReport}>
+                    {" "}
+                    &lt;MainGrayButton
+                      onClick={() => {
+                        handleCSV();
+                        // setCsvExport(true);
+                        // // after 3 seconds set the state back to false
+                        // setTimeout(() => {
+                        //     setCsvExport(false);
+                        // }, 3000);
+                      }}
+                      text="Export to CSV"
+                    />
+                  &lt;/CSVLink>
+                &lt;/>
+              )}
+            &lt;/div>
+          &lt;/Col>
+        &lt;/Row>
+      &lt;/Container>
+    &lt;/>
+  );
+};
+
+export default ManageEvents;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddAttendees">AddAttendees</a></li><li><a href="global.html#AddAttendeesList">AddAttendeesList</a></li><li><a href="global.html#AddFAQ">AddFAQ</a></li><li><a href="global.html#AddSection">AddSection</a></li><li><a href="global.html#AllEvents">AllEvents</a></li><li><a href="global.html#AttendeeData">AttendeeData</a></li><li><a href="global.html#Basicinfo">Basicinfo</a></li><li><a href="global.html#BlueButton">BlueButton</a></li><li><a href="global.html#CategoriesCards">CategoriesCards</a></li><li><a href="global.html#CategoriesTaps">CategoriesTaps</a></li><li><a href="global.html#Checkout">Checkout</a></li><li><a href="global.html#Containerpub">Containerpub</a></li><li><a href="global.html#CreateEvent">CreateEvent</a></li><li><a href="global.html#CreatorHeader">CreatorHeader</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#DateTime">DateTime</a></li><li><a href="global.html#Description">Description</a></li><li><a href="global.html#Details">Details</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#EventCard">EventCard</a></li><li><a href="global.html#EventHorizontal">EventHorizontal</a></li><li><a href="global.html#EventImageBox">EventImageBox</a></li><li><a href="global.html#Events">Events</a></li><li><a href="global.html#EventsByCategory">EventsByCategory</a></li><li><a href="global.html#FollComp">FollComp</a></li><li><a href="global.html#FollowingOrgEvents">FollowingOrgEvents</a></li><li><a href="global.html#Headerpub">Headerpub</a></li><li><a href="global.html#Hero">Hero</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HorizontalChip">HorizontalChip</a></li><li><a href="global.html#LikeComp">LikeComp</a></li><li><a href="global.html#Likes">Likes</a></li><li><a href="global.html#LinearProgressWithLabel">LinearProgressWithLabel</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LoginForgotPasswordModal">LoginForgotPasswordModal</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginImage">LoginImage</a></li><li><a href="global.html#LoginMethods">LoginMethods</a></li><li><a href="global.html#LoginTitle">LoginTitle</a></li><li><a href="global.html#ManageEvent">ManageEvent</a></li><li><a href="global.html#ManageEvents">ManageEvents</a></li><li><a href="global.html#OnlyLinksSideBar">OnlyLinksSideBar</a></li><li><a href="global.html#OrangeButton">OrangeButton</a></li><li><a href="global.html#OrderComp">OrderComp</a></li><li><a href="global.html#Organizer">Organizer</a></li><li><a href="global.html#Profile">Profile</a></li><li><a href="global.html#PromoCodesInfo">PromoCodesInfo</a></li><li><a href="global.html#Publish">Publish</a></li><li><a href="global.html#Radpub">Radpub</a></li><li><a href="global.html#RegInfo">RegInfo</a></li><li><a href="global.html#ResetPassword">ResetPassword</a></li><li><a href="global.html#RowInput">RowInput</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#SearchPage">SearchPage</a></li><li><a href="global.html#Sidebar">Sidebar</a></li><li><a href="global.html#Signup">Signup</a></li><li><a href="global.html#SignupForm">SignupForm</a></li><li><a href="global.html#SignupMethods">SignupMethods</a></li><li><a href="global.html#SingleEvent">SingleEvent</a></li><li><a href="global.html#SubCategoryCard">SubCategoryCard</a></li><li><a href="global.html#Summary">Summary</a></li><li><a href="global.html#TicketInfo">TicketInfo</a></li><li><a href="global.html#Tickets">Tickets</a></li><li><a href="global.html#Tile">Tile</a></li><li><a href="global.html#Tipsbox">Tipsbox</a></li><li><a href="global.html#URLBox">URLBox</a></li><li><a href="global.html#VerifyUser">VerifyUser</a></li><li><a href="global.html#WhiteButton">WhiteButton</a></li><li><a href="global.html#authGoogleUser">authGoogleUser</a></li><li><a href="global.html#authSlice">authSlice</a></li><li><a href="global.html#authUser">authUser</a></li><li><a href="global.html#changePassword">changePassword</a></li><li><a href="global.html#checkEmailExists">checkEmailExists</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#forgotPassword">forgotPassword</a></li><li><a href="global.html#getPasswordState">getPasswordState</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#isValidEmail">isValidEmail</a></li><li><a href="global.html#persistor">persistor</a></li><li><a href="global.html#qs">qs</a></li><li><a href="global.html#registerGoogleUser">registerGoogleUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#verifyUser">verifyUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 14 2023 12:08:43 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

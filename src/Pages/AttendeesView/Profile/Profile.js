@@ -10,28 +10,29 @@ import { AiOutlineRight } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import {
-  getUserDetails,
-  logOut,
   selectUserAvatarURL,
-  selectUserEmail,
   selectUserFirstName,
   selectUserLastName,
-  selectUserToken,
-} from "../../../features/authSlice";
+} from "src/features/authSlice";
 import {
-  getLikedEvents,
-  getfollwingpeople,
-} from "../../../features/userprofSlice";
-import { useDispatch } from "react-redux";
+  useFetchLikedEventsNoValidationQuery,
+  useFetchLikedEventsQuery,
+  useGetFollowingUsersNoValidationQuery,
+  useGetFollowingUsersQuery,
+  useGetordersQuery,
+} from "src/features/api/userApi";
 import eventphoto from "../../../assets/adelEv1.png";
-import { RxDotFilled } from "react-icons/rx";
+import { Col, Container, Row } from "react-bootstrap";
+
 /**
  * @author Ziad Ezzat
  * @param {}
  * @description This is container of Profile Page which shows profile of user showing some data like name ,orders,likes and following Pges.
- * @returns {JSX.Element of Profile Page}
+ * @returns {React.FC}
  */
 const Profile = () => {
+  window.scrollTo(0, 0)
+
   const dummtdata = [
     {
       id: 1,
@@ -56,50 +57,32 @@ const Profile = () => {
       is_online: true,
     },
   ];
-  const dispatch = useDispatch();
   const UserAvatar = useSelector(selectUserAvatarURL);
   const userFirstName = useSelector(selectUserFirstName);
   const userLastName = useSelector(selectUserLastName);
   const [userFullName, setUserFullName] = useState(
     userFirstName + " " + userLastName
   );
-  const [LikedEvents, setLikedEvents] = useState([]);
-  const [followedpeople, setfollowedpeople] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const token = useSelector(selectUserToken);
   const [imgSrc, setImgSrc] = useState(UserAvatar);
+  const { data: likedEvents, refetch: refetchLikedEvents } =
+    useFetchLikedEventsNoValidationQuery();
+  const { data: followingUsers, refetch: refetchFollowingUsers } =
+    useGetFollowingUsersNoValidationQuery();
   const handleImgError = () => {
     setImgSrc(emptyprofile);
   };
-  useEffect(() => {
-    const getlikes = async () => {
-      try {
-        const response = await getLikedEvents(token);
-        setLikedEvents(response);
-      } catch (error) {
-        setError(error);
-        setIsLoading(false);
-      }
-    };
-    getlikes();
-  }, []);
-  useEffect(() => {
-    const getfoll = async () => {
-      try {
-        const response = await getfollwingpeople(token);
-        setfollowedpeople(response);
-      } catch (error) {
-        setError(error);
-        setIsLoading(false);
-      }
-    };
-    getfoll();
-  }, []);
+  const { data: Orders } = useGetordersQuery(undefined, {
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
+  const refetch = () => {
+    refetchFollowingUsers();
+    refetchLikedEvents();
+  };
 
-  console.log("data is", LikedEvents);
-  const LikedEventscount = LikedEvents.length;
-  const follwedpeoplecount = followedpeople.length;
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <div>
       <Header />
@@ -137,36 +120,48 @@ const Profile = () => {
                     }}
                   />
                 </div>
-                <div style={{ display: "flex" }}>
+                <div style={{ display: "flex", marginLeft: 15 }}>
                   <a
                     href="#"
-                    style={{ marginLeft: 15, color: "grey", fontSize: 15 }}
+                    style={{ color: "grey", fontSize: 15, display: "flex" }}
                   >
-                    1 order
-                  </a>
-                  <a
-                    href="#"
-                    style={{
-                      marginLeft: 8,
-                      color: "grey",
-                      width: 15,
-                      fontWeight: 600,
-                    }}
-                  >
-                    .
-                  </a>
-                  <div style={{ display: "flex" }}>
-                    <a href="#" style={{ color: "grey", fontSize: 15 }}>
-                      {LikedEventscount}
-                    </a>
+                    {Orders?.length}
                     <p
                       style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
                     >
-                      Likes
+                      Orders
                     </p>
+                  </a>
+                  <a
+                    href="google.com"
+                    style={{
+                      marginLeft: 8,
+                      color: "grey",
+                      width: 15,
+                      fontWeight: 600,
+                    }}
+                  >
+                    .
+                  </a>
+                  <div style={{ display: "flex" }}>
+                    <a
+                      href="/Likes"
+                      style={{ color: "grey", fontSize: 15, display: "flex" }}
+                    >
+                      {likedEvents?.length}
+                      <p
+                        style={{
+                          color: "grey",
+                          fontSize: 15,
+                          marginLeft: "13%",
+                        }}
+                      >
+                        Likes
+                      </p>
+                    </a>
                   </div>
                   <a
-                    href="#"
+                    href="google.com"
                     style={{
                       marginLeft: 8,
                       color: "grey",
@@ -178,7 +173,7 @@ const Profile = () => {
                   </a>
                   <div style={{ display: "flex" }}>
                     <a href="#" style={{ color: "grey", fontSize: 15 }}>
-                      {follwedpeoplecount}
+                      {followingUsers?.length}
                     </a>
                     <p
                       style={{ color: "grey", fontSize: 15, marginLeft: "13%" }}
@@ -193,7 +188,13 @@ const Profile = () => {
           <div className="compon">
             <h5>Orders</h5>
             <div className="orderecss">
-              <OrderComp data_testid="Order-Form-id" />
+              {Orders?.map((order) => (
+                <OrderComp
+                  data_testid="Order-Form-id"
+                  id={order.event_id}
+                  order={order}
+                />
+              ))}
             </div>
             <button id="btn_prof_id" className="btn_prof">
               {" "}
@@ -201,7 +202,7 @@ const Profile = () => {
             </button>
             <hr className="zzz"></hr>
             <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+              <a href="google.com" className="intersts_prof">
                 Interests
               </a>
               <AiOutlineRight
@@ -211,7 +212,7 @@ const Profile = () => {
             </div>
             <hr className="zzz"></hr>
             <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+              <a href="google.com" className="intersts_prof">
                 Collections
               </a>
               <AiOutlineRight
@@ -221,7 +222,7 @@ const Profile = () => {
             </div>
             <hr className="zzz"></hr>
             <div style={{ display: "flex" }}>
-              <a href="#" className="intersts_prof">
+              <a href="google.com" className="intersts_prof">
                 Likes
               </a>
               <AiOutlineRight
@@ -230,8 +231,10 @@ const Profile = () => {
               />
             </div>
             <div className="likeblk_prof">
-              {LikedEvents.map((event) => (
+              {likedEvents?.map((event) => (
                 <LikeComp
+                  key={event.id}
+                  event={event}
                   id={event.id}
                   title={event.title}
                   start_date_time={event.start_date_time}
@@ -245,9 +248,11 @@ const Profile = () => {
             </div>
             <hr className="zzz"></hr>
             <div className="follblk_prof">
-              <div style={{ display: "flex", marginTop: 25 }}>
+              <div
+                style={{ display: "flex", marginTop: 25, paddingBottom: 20 }}
+              >
                 <p className="intersts_prof">Following</p>
-                <a href="#" className="events_prof">
+                <a href="/following" className="events_prof">
                   See events
                 </a>
                 <AiOutlineRight
@@ -255,18 +260,25 @@ const Profile = () => {
                   className="arr_prof"
                 />
               </div>
-              <div className="follblk_prof">
-                {followedpeople.map((person) => (
-                  <FollComp
-                    email={person.email}
-                    firstname={person.firstname}
-                    lastname={person.lastname}
-                    avatar={person.avatar}
-                  />
-                ))}
-                {/* <FollComp text="GoMyCode" data_testid="Follow-Form-id" />
-                <FollComp text="Ezz event riders" /> */}
-              </div>
+              {/* <div className="follblk_prof"> */}
+              <Container>
+                <Row>
+                  {followingUsers?.map((person) => (
+                    <Col md={6}>
+                      <FollComp
+                        key={person.id}
+                        id={person.id}
+                        email={person.email}
+                        firstname={person.firstname}
+                        lastname={person.lastname}
+                        avatar_url={person.avatar_url}
+                        className="mr-5"
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              </Container>
+              {/* </div> */}
             </div>
           </div>
         </div>

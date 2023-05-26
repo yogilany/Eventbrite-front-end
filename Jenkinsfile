@@ -1,20 +1,19 @@
 pipeline {
-     agent any
-     stages {
-           stage('Fetch code') {
+    agent any
+    stages {
+        stage('Test') {
             steps {
-                git branch: 'dev',
-                credentialsId: 'backend',
-                url: 'https://github.com/yogilany/Eventbrite-front-end.git'
+                echo "This step tests the project"
             }
         }
-        stage("Build") {
+        }
+        stage('Deploy') {
             steps {
                 sh "sudo npm install"
                 sh "sudo npm run build"
             }
-        }
-        stage("Deploy") {
+        }        :
+        stage('Report') {
             steps {
                 sh "sudo rm -rf /var/www/jenkins-react-app"
                 sh "sudo cp -r ${WORKSPACE}/build/ /var/www/jenkins-react-app/"
